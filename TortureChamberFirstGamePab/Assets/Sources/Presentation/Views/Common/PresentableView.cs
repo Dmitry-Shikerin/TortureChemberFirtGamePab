@@ -1,16 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Sources.ControllersInterfaces;
+using JetBrains.Annotations;
 using UnityEngine;
 
-//TODO в правильной ли он папке?
-//TODO сделать класс абстрактным?
+//TODO какой это слой?
 public class PresentableView<T> : MonoBehaviour where T : IPresenter
 {
-    protected T Presenter {get; private set;}
+    protected T Presenter { get; private set; }
 
-    //TODO можно ли сделать их виртуальными?
     public void OnEnable() => 
         Presenter?.Enable();
 
@@ -24,9 +22,9 @@ public class PresentableView<T> : MonoBehaviour where T : IPresenter
         Show();
     }
 
-    private void Show() => 
-        gameObject.SetActive(true);
-
     private void Hide() => 
         gameObject.SetActive(false);
+
+    private void Show() => 
+        gameObject.SetActive(true);
 }
