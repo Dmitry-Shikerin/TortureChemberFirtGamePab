@@ -18,7 +18,7 @@ namespace Sources.Infrastructure.StateMachines.Transitions
 
         protected override bool CanTransit()
         {
-            throw new System.NotImplementedException();
+            return _condition.Invoke();
         }
     }
 }

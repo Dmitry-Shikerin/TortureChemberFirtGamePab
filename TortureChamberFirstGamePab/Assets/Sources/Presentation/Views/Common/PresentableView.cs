@@ -5,10 +5,12 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 //TODO какой это слой?
+//TODO сделать его абстрактным?
 public class PresentableView<T> : MonoBehaviour where T : IPresenter
 {
     protected T Presenter { get; private set; }
 
+    //TODO можно ли их сделать виртуальными?
     public void OnEnable() => 
         Presenter?.Enable();
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CursorVisible>k__BackingField: 1
   <MovementSpeed>k__BackingField: 1
-  <RunSpeed>k__BackingField: 2
+  <RunSpeed>k__BackingField: 0.5
   <AngularSpeed>k__BackingField: 350
   <Gravity>k__BackingField: 2
