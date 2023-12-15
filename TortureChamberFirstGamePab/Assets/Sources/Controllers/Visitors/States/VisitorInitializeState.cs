@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using JetBrains.Annotations;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.Utils.Repositoryes;
 using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 
 namespace Sources.Controllers.Visitors.States

@@ -20,6 +20,11 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
         
         public IPlayerCameraView Create(PlayerCameraView playerCameraView, PlayerCamera playerCamera)
         {
+            if (playerCameraView == null) 
+                throw new ArgumentNullException(nameof(playerCameraView));
+            if (playerCamera == null)
+                throw new ArgumentNullException(nameof(playerCamera));
+            
             PlayerCameraPresenter playerCameraPresenter =
                 _playerCameraPresenterFactory.Create(playerCamera, playerCameraView);
             playerCameraView.Construct(playerCameraPresenter);

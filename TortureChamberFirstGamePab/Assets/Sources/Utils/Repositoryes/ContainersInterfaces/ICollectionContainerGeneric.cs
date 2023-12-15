@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sources.InfrastructureInterfaces.Repositoryes.Containers
+namespace Sources.Utils.Repositoryes.ContainersInterfaces
 {
     public interface ICollectionContainerGeneric<T> : ICollectionContainer
     {

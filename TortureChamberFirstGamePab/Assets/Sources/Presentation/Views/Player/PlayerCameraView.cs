@@ -10,7 +10,7 @@ namespace MyProject.Sources.Presentation.Views
         private Transform _targetTransform;
 
         //TODO могули обобщить? тут нужен fixedUpdate
-        public void Update()
+        public void LateUpdate()
         {
             Presenter?.Update();
         }

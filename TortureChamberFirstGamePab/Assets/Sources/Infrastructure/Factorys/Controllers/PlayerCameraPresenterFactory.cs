@@ -17,6 +17,11 @@ namespace MyProject.Sources.Infrastructure.Factorys.Controllers
 
         public PlayerCameraPresenter Create(PlayerCamera playerCamera, IPlayerCameraView playerCameraView)
         {
+            if (playerCamera == null) 
+                throw new ArgumentNullException(nameof(playerCamera));
+            if (playerCameraView == null) 
+                throw new ArgumentNullException(nameof(playerCameraView));
+            
             return new PlayerCameraPresenter
             (
                 playerCamera,

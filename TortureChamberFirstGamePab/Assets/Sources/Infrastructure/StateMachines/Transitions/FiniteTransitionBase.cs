@@ -16,9 +16,7 @@ namespace Sources.Infrastructure.StateMachines.Transitions
             _condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        protected override bool CanTransit()
-        {
-            return _condition.Invoke();
-        }
+        protected override bool CanTransit() => 
+            _condition.Invoke();
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sources.Infrastructure.Repositories.Containers;
-using Sources.InfrastructureInterfaces.Repositoryes;
-using Sources.InfrastructureInterfaces.Repositoryes.Containers;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
+using Sources.Utils.Repositoryes.Containers;
+using Sources.Utils.Repositoryes.ContainersInterfaces;
 
-namespace Sources.Infrastructure.Services
+namespace Sources.Utils.Repositoryes
 {
     //TODO как это обобщить?
     //TODO нормально ли получилось?

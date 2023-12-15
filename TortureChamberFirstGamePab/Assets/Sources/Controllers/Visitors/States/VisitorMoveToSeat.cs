@@ -5,10 +5,10 @@ using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.Utils.Repositoryes;
 using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,6 +33,7 @@ namespace Sources.Controllers.Visitors.States
                                    throw new ArgumentNullException(nameof(collectionRepository));
         }
         
+        //TODO как прокинуть канцелатион токен
         public override void Enter()
         {
             Debug.Log("Посетитель в Состоянии Движения");

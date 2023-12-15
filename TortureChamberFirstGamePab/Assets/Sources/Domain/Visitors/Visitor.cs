@@ -24,5 +24,10 @@ namespace Sources.Domain.Visitors
         {
             TargetPosition = targetPosition;
         }
+
+        public void SetCanSeat(bool canSeat)
+        {
+            CanSeat = canSeat;
+        }
     }
 }

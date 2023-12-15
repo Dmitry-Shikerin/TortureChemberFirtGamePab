@@ -7,10 +7,8 @@ namespace Sources.Infrastructure.StateMachines
     {
         private FiniteState _current;
 
-        public void Start(FiniteState startState)
-        {
+        public void Start(FiniteState startState) => 
             MoveNextState(startState);
-        }
 
         public void Update()
         {

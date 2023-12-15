@@ -26,7 +26,8 @@ namespace MyProject.Sources.Infrastructure.Factorys.Controllers
                                throw new ArgumentNullException(nameof(playerAnimation));
         }
 
-        public PlayerMovementPresenter Create(PlayerMovement playerMovement, IPlayerMovementView playerMovementView)
+        public PlayerMovementPresenter Create(PlayerMovement playerMovement, 
+            IPlayerMovementView playerMovementView)
         {
             if (playerMovement == null) 
                 throw new ArgumentNullException(nameof(playerMovement));

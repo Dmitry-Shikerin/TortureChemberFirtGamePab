@@ -10,12 +10,15 @@ using MyProject.Sources.Presentation.Animations;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Animations;
 using Sources.Domain.Visitors;
+using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factorys;
 using Sources.Infrastructure.Factorys.Controllers;
+using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.Infrastructure.Factorys.Views;
-using Sources.Infrastructure.Services;
 using Sources.Presentation.Animations;
+using Sources.Presentation.UI;
 using Sources.Presentation.Views;
+using Sources.Utils.Repositoryes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -42,15 +45,25 @@ namespace Sources.App.Botstrap
             VisitorPointRepositoryFactory visitorPointRepositoryFactory =
                 new VisitorPointRepositoryFactory(rootGamePoints);
             CollectionRepository collectionRepository = visitorPointRepositoryFactory.Create();
+            
+            //ItemRepository
+            ItemRepository<IItem> itemRepository = new ItemRepository<IItem>();
+            
+            //ItemFactory
+            ItemsFactory itemsFactory = new ItemsFactory(itemRepository);
+            itemsFactory.Create();
 
             //Visitor
             Visitor visitor = new Visitor();
             VisitorAnimation visitorAnimation = _visitorView.gameObject.GetComponent<VisitorAnimation>();
+            VisitorImageUIView visitorImageUIView =
+                _visitorView.gameObject.GetComponentInChildren<VisitorImageUIView>();
             VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
                 collectionRepository);
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
                 visitorPresenterFactory);
-            visitorViewFactory.Create(_visitorView, visitorAnimation, visitor);
+            visitorViewFactory.Create(_visitorView, visitorAnimation, visitor,
+                itemRepository, visitorImageUIView);
 
 
             //PlayerCamera

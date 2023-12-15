@@ -1,9 +1,9 @@
 ﻿using System;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.Utils.Repositoryes;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -31,6 +31,7 @@ namespace Sources.Controllers.Visitors.States
             Debug.Log("Посетитель в состоянии сидя");
             _visitorView.SeatDown(_visitor.SeatPoint.Position, _visitor.SeatPoint.Rotation);
             _visitorAnimation.PlaySeatIdle();
+            _visitor.SetCanSeat(true);
         }
 
         public override void Exit()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Sources.Infrastructure.Services;
+using Sources.Utils.Repositoryes;
 using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 
 namespace Sources.Infrastructure.Factorys
