@@ -9,7 +9,8 @@ namespace Sources.Infrastructure.Services
 {
     //TODO как это обобщить?
     //TODO нормально ли получилось?
-    public class CollectionRepozitory
+    //TODO похоже на сервис локатор
+    public class CollectionRepository
     {
         private Dictionary<Type, ICollectionContainer> _repositoryes = 
             new Dictionary<Type, ICollectionContainer>();
@@ -31,7 +32,8 @@ namespace Sources.Infrastructure.Services
             if (_repositoryes.ContainsKey(typeof(T)))
                 throw new InvalidOperationException();
 
-            CollectionContainerGeneric<T> containerGenericCollection = new CollectionContainerGeneric<T>();
+            CollectionContainerGeneric<T> containerGenericCollection = 
+                new CollectionContainerGeneric<T>();
             containerGenericCollection.Set(objects);
             
             _repositoryes[typeof(T)] = containerGenericCollection;

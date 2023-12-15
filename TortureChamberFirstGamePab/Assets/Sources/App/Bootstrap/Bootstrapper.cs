@@ -41,13 +41,13 @@ namespace Sources.App.Botstrap
             //VisitorPointRepository
             VisitorPointRepositoryFactory visitorPointRepositoryFactory =
                 new VisitorPointRepositoryFactory(rootGamePoints);
-            CollectionRepozitory collectionRepozitory = visitorPointRepositoryFactory.Create();
+            CollectionRepository collectionRepository = visitorPointRepositoryFactory.Create();
 
             //Visitor
             Visitor visitor = new Visitor();
             VisitorAnimation visitorAnimation = _visitorView.gameObject.GetComponent<VisitorAnimation>();
             VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
-                collectionRepozitory);
+                collectionRepository);
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
                 visitorPresenterFactory);
             visitorViewFactory.Create(_visitorView, visitorAnimation, visitor);

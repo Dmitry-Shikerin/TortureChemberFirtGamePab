@@ -16,7 +16,7 @@ namespace Sources.Infrastructure.Factorys
             _rootGamePoints = rootGamePoints ? rootGamePoints : 
                 throw new ArgumentNullException(nameof(rootGamePoints));
         }
-        public CollectionRepozitory Create()
+        public CollectionRepository Create()
         {
             VisitorPoints visitorPoint = _rootGamePoints.GetComponentInChildren<VisitorPoints>();
             // //TODO плохое название? и плохой каст?
@@ -33,11 +33,11 @@ namespace Sources.Infrastructure.Factorys
                 GetComponentsInChildren<OutDoorPoint>().ToList();
             
             //TODO надеюсь заработает
-            CollectionRepozitory collectionRepozitory = new CollectionRepozitory();
-            collectionRepozitory.Add<SeatPoint>(seatPoints);
-            collectionRepozitory.Add<OutDoorPoint>(outDoorPoints);
+            CollectionRepository collectionRepository = new CollectionRepository();
+            collectionRepository.Add<SeatPoint>(seatPoints);
+            collectionRepository.Add<OutDoorPoint>(outDoorPoints);
 
-            return collectionRepozitory;
+            return collectionRepository;
         } 
     }
 }

@@ -12,10 +12,8 @@ namespace Sources.Presentation.Animations
         
         private Animator _animator;
 
-        private void Awake()
-        {
+        private void Awake() => 
             _animator = GetComponent<Animator>();
-        }
 
         public void PlayIdle()
         {

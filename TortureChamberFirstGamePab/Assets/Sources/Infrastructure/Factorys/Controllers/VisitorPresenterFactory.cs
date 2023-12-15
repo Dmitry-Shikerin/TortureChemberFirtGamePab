@@ -14,25 +14,25 @@ namespace Sources.Infrastructure.Factorys.Controllers
 {
     public class VisitorPresenterFactory
     {
-        private readonly CollectionRepozitory _collectionRepozitory;
+        private readonly CollectionRepository _collectionRepository;
 
-        public VisitorPresenterFactory(CollectionRepozitory collectionRepozitory)
+        public VisitorPresenterFactory(CollectionRepository collectionRepository)
         {
-            _collectionRepozitory = collectionRepozitory ?? 
-                                   throw new ArgumentNullException(nameof(collectionRepozitory));
+            _collectionRepository = collectionRepository ?? 
+                                   throw new ArgumentNullException(nameof(collectionRepository));
         }
         
         public VisitorPresenter Create(IVisitorView visitorView, 
             IVisitorAnimation visitorAnimation, Visitor visitor)
         {
             VisitorInitializeState initializeState = new VisitorInitializeState(
-                visitorView, visitor, visitorAnimation, _collectionRepozitory);
+                visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorIdleState idleState = new VisitorIdleState(
-                visitorView,  visitor, visitorAnimation,_collectionRepozitory);
+                visitorView,  visitor, visitorAnimation,_collectionRepository);
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(
-                visitorView, visitor, visitorAnimation, _collectionRepozitory);
+                visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorSeatState visitorSeatState = new VisitorSeatState(
-                visitorView, visitor, visitorAnimation, _collectionRepozitory);
+                visitorView, visitor, visitorAnimation, _collectionRepository);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);
