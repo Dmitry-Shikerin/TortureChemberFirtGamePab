@@ -1,0 +1,35 @@
+﻿using System;
+using JetBrains.Annotations;
+using MyProject.Sources.Controllers;
+using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Domain.Players.PlayerCameras;
+using Sources.Infrastructure.Services;
+
+namespace MyProject.Sources.Infrastructure.Factorys.Controllers
+{
+    public class PlayerCameraPresenterFactory
+    {
+        private readonly InputService _inputService;
+
+        public PlayerCameraPresenterFactory(InputService inputService)
+        {
+            _inputService = inputService ??
+                            throw new ArgumentNullException(nameof(inputService));
+        }
+
+        public PlayerCameraPresenter Create(PlayerCamera playerCamera, IPlayerCameraView playerCameraView)
+        {
+            if (playerCamera == null) 
+                throw new ArgumentNullException(nameof(playerCamera));
+            if (playerCameraView == null) 
+                throw new ArgumentNullException(nameof(playerCameraView));
+            
+            return new PlayerCameraPresenter
+            (
+                playerCamera,
+                playerCameraView,
+                _inputService
+            );
+        }
+    }
+}

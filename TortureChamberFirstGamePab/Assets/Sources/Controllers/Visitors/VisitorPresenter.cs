@@ -20,8 +20,10 @@ namespace Sources.Controllers
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
         } 
     
-        public void Start() => 
+        public void Start()
+        {
             Start(_firstState);
+        }
 
         public void Enable()
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using JetBrains.Annotations;
+using Sources.Domain.Items;
 using Sources.Domain.Visitors;
+using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Animations;
@@ -12,22 +14,18 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
-        private readonly IVisitorView _visitorView;
-        private readonly Visitor _visitor;
-        private readonly IVisitorAnimation _visitorAnimation;
-        private readonly CollectionRepository _collectionRepository;
+        private readonly ItemRepository<IItem> _itemRepository;
+
+        //TODO хочется убрать отсюда этот класс
+        //TODO сделать интерфей
         private readonly VisitorImageUIView _visitorImageUIView;
 
         public VisitorWaitingForOrderState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation , CollectionRepository collectionRepository,
-            VisitorImageUIView visitorImageUIView)
+            VisitorImageUIView visitorImageUIView, ItemRepository<IItem> itemRepository)
         {
-            _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
-            _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
-            _visitorAnimation = visitorAnimation ??
-                                throw new ArgumentNullException(nameof(visitorAnimation));
-            _collectionRepository = collectionRepository ?? 
-                                    throw new ArgumentNullException(nameof(collectionRepository));
+            _itemRepository = itemRepository ?? 
+                              throw new ArgumentNullException(nameof(itemRepository));
             _visitorImageUIView = visitorImageUIView ? visitorImageUIView : 
                 throw new ArgumentNullException(nameof(visitorImageUIView));
         }
@@ -35,6 +33,11 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             Debug.Log("Посетитель в состоянии ожидания заказа");
+            // Beer beer = _itemRepository.Get<Beer>();
+            //
+            // _visitorImageUIView.OrderImage.SetSprite(beer.Icon);
+            // _visitorImageUIView.OrderImage.Show();
+            // _visitorImageUIView.BackGroundImage.Show();
         }
 
         public override void Exit()

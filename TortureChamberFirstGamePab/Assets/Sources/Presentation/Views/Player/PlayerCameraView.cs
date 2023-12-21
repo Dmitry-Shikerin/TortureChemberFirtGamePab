@@ -9,14 +9,13 @@ namespace MyProject.Sources.Presentation.Views
     {
         private Transform _targetTransform;
 
-        //TODO могули обобщить? тут нужен fixedUpdate
         public void LateUpdate()
         {
             Presenter?.Update();
         }
 
-        //TODO нужен ли этот метода в интерфейсе? или это как констракт?
-        public void SetTransform(Transform targetTransform)
+        //TODO по хорошему запрашивать игрока и сменить название
+        public void SetTargetTransform(Transform targetTransform)
         {
             _targetTransform = targetTransform ? targetTransform :
                 throw new ArgumentNullException(nameof(targetTransform));

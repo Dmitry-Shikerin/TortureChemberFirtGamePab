@@ -33,7 +33,6 @@ namespace Sources.Controllers.Visitors.States
                                    throw new ArgumentNullException(nameof(collectionRepository));
         }
         
-        //TODO как прокинуть канцелатион токен
         public override void Enter()
         {
             Debug.Log("Посетитель в Состоянии Движения");

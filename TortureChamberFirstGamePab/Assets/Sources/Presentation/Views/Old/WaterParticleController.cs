@@ -14,7 +14,6 @@ public class WaterParticleController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift))
             PlayParticle();
         
-        //TODO правильно ли тут все?
         if(Input.GetKeyUp(KeyCode.LeftShift) && _waterParticle.activeSelf == true)
             await StopPlayParticleAsync();
     }

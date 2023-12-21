@@ -1,0 +1,29 @@
+﻿using MyProject.Sources.Controllers;
+using MyProject.Sources.Presentation.Views;
+using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Domain.Players;
+using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.PresentationInterfaces.UI;
+
+namespace MyProject.Sources.Infrastructure.Factorys.Controllers
+{
+    public class PlayerInventoryPresenterFactory
+    {
+        public PlayerInventoryPresenter Create
+        (
+            IPlayerInventoryView playerInventoryView,
+            ITextUI textUI,
+            PlayerInventory playerInventory,
+            ItemViewFactory itemViewFactory
+        )
+        {
+            return new PlayerInventoryPresenter
+            (
+                playerInventoryView,
+                textUI,
+                playerInventory,
+                itemViewFactory
+            );
+        }
+    }
+}

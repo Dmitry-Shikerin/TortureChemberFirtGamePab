@@ -8,7 +8,7 @@ namespace MyProject.Sources.Infrastructure.Services
     public class OverlapService
     {
         private readonly LinecastService _linecastService;
-
+        
         public OverlapService(LinecastService linecastService)
         {
             _linecastService = linecastService ??
@@ -21,7 +21,7 @@ namespace MyProject.Sources.Infrastructure.Services
         {
             int collidersCount = Overlap(position, radius, colliders, searchLayerMask);
 
-            //TODO немного смущает эта запись
+            //TODO  сделать поле и волвращать его
             if (collidersCount == 0)
                 return new List<T>();
 

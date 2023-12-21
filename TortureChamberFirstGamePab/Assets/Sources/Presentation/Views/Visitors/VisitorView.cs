@@ -8,9 +8,6 @@ namespace Sources.Presentation.Views
 {
     public class VisitorView : PresentableView<VisitorPresenter>, IVisitorView
     {
-        //TODO потом удалить
-        [SerializeField] private SeatPoint _seatPoint;
-        
         public NavMeshAgent NavMeshAgent { get; private set; }
 
         public Vector3 Position => transform.position;
@@ -21,17 +18,16 @@ namespace Sources.Presentation.Views
                             throw new NullReferenceException(nameof(NavMeshAgent));
         }
 
-        //TODO здесь ли запускатьстейт машину?
-        public void Start()
-        {
-            Presenter?.Start();
-        }
-
         public void Update()
         {
             Presenter?.Update();
         }
-        
+
+        protected override void OnConstructed()
+        {
+            Presenter?.Start();
+        }
+
         public void SetDestination(Vector3 destination)
         {
             NavMeshAgent.destination = destination;

@@ -14,8 +14,7 @@ namespace MyProject.Sources.Presentation.Views
             _characterController = GetComponent<CharacterController>() ??
                                    throw new NullReferenceException(nameof(_characterController));
         }
-
-        //TODO могу ли я обобщить Update?
+        
         private void Update() =>
             Presenter?.Update();
 

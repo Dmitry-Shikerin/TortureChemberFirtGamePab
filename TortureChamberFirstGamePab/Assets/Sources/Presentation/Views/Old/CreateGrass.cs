@@ -10,7 +10,6 @@ public class CreateGrass : MonoBehaviour
     [SerializeField] private int _grassSize = 20;
     void Start()
     {
-        //TODO ужасное условие!!! переделать
         for (int i = -_grassSize; i <= 20; i++)
         {
             for (int j = -_grassSize; j <= _grassSize; j++)
@@ -21,10 +20,5 @@ public class CreateGrass : MonoBehaviour
                 grass.transform.localScale = new Vector3(1, Random.Range(0.8f, 1.2f), 1);
             }
         }
-    }
-
-    void Update()
-    {
-        
     }
 }
