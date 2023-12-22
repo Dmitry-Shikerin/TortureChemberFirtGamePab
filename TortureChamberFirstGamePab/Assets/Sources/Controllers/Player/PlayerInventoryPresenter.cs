@@ -1,12 +1,10 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Domain.Items;
 using Sources.Domain.Players;
 using Sources.DomainInterfaces.Items;
-using Sources.Infrastructure.Factories.Views.Items;
 using Sources.Infrastructure.Factories.Views.Items.Common;
-using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
@@ -14,7 +12,7 @@ using UnityEngine;
 
 namespace MyProject.Sources.Controllers
 {
-    public class PlayerInventoryPresenter : PresenterBase
+    public class  PlayerInventoryPresenter : PresenterBase
     {
         private readonly IPlayerInventoryView _playerInventoryView;
         private readonly ITextUI _textUI;
@@ -39,14 +37,16 @@ namespace MyProject.Sources.Controllers
             try
             {
                 //TODO как мне сконтачить мой ийтем и айтем вью
-                // if (item == null)
-                //     return;
+                if (item == null)
+                    return;
 
                 _playerInventory.Add(item);
-
                 Debug.Log(_playerInventory.Items.Count);
+                Debug.Log(item.GetType().Name);
                 IItemView itemView = _itemViewFactory.Create(item);
-                itemView.SetParent(_playerInventoryView.FirstSlot);
+                item.SetItemView(itemView);
+
+                SetInventoryViewPosition();
             }
             catch (InventoryFullException exception)
             {
@@ -54,19 +54,43 @@ namespace MyProject.Sources.Controllers
             }
         }
 
-        public void RemoveItem()
+        public IItem Get(IItem item)
         {
             try
             {
+                IItem targetItem = null;
+                
+                for (int i = 0; i < _playerInventory.Items.Count; i++)
+                {
+                    if (_playerInventory.Items[i].GetType() == item.GetType())
+                    {
+                        targetItem = _playerInventory.Items[i];
+                        targetItem.ItemView.Destroy();
+                        _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
+                        _playerInventory.RemoveItem(targetItem);
+                    }
+                }
+                return targetItem;
             }
-            catch (Exception e)
+            catch (NullItemException exception)
             {
+                return null;
             }
         }
 
-        public void SetInventoryViewPosition()
+        private void SetInventoryViewPosition()
         {
-            // if(_playerInventory.Items.Count == 1)
+            for (int i = 0; i < _playerInventory.Items.Count; i++)
+            {
+                IItem item = _playerInventory.Items[i];
+                    
+                if (_playerInventory.Items[i] == item)
+                {
+                    item.ItemView.SetPosition(_playerInventoryView.PlayerInventorySlots[i].transform);
+                    item.ItemView.SetParent(_playerInventoryView.PlayerInventorySlots[i].transform);
+                    _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(item.Icon);
+                }
+            }
         }
 
         public void AddItemView()

@@ -2,5 +2,6 @@
 {
     public interface ITavernFudPickUpPointView
     {
+        float FillingRate { get; }
     }
 }

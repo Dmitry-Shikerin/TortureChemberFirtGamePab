@@ -14,6 +14,7 @@ using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
@@ -30,6 +31,7 @@ using Sources.Presentation.UI;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns.Foods;
+using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
@@ -52,7 +54,6 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public async UniTask<IScene> Create(object payload)
         {
-            VisitorView visitorView = Object.FindObjectOfType<VisitorView>();
             PlayerMovementView playerMovementView =
                  Object.FindObjectOfType<PlayerMovementView>();
             PlayerCameraView playerCameraView =
@@ -63,9 +64,6 @@ namespace Sources.Infrastructure.Factories.Scenes
             BeerPickUpPointView beerPickUpPointView = 
                 Object.FindObjectOfType<BeerPickUpPointView>();
             
-            //FindServise
-            FindService findService = new FindService();
-
             //RootGamePoints
             RootGamePoints rootGamePoints = Object.FindObjectOfType<RootGamePoints>();
 
@@ -86,6 +84,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             {
                 new Beer(beerConfig),
             };
+            itemRepository.AddCollection(items);
 
             //ItemsView
             // BeerView beerView = Resources.Load<BeerView>();
@@ -111,16 +110,8 @@ namespace Sources.Infrastructure.Factories.Scenes
             ItemViewFactory itemViewFactory = new ItemViewFactory(prefabFactory);
 
             //Visitor
-            Visitor visitor = new Visitor();
-            VisitorAnimation visitorAnimation = visitorView.gameObject.GetComponent<VisitorAnimation>();
-            VisitorImageUIView visitorImageUIView =
-                visitorView.gameObject.GetComponentInChildren<VisitorImageUIView>();
-            VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
-                collectionRepository);
-            VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
-                visitorPresenterFactory);
-            visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
-                itemRepository, visitorImageUIView);
+            VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository);
+            visitorBuilder.Create();
 
             //PlayerCamera
             PlayerCamera playerCamera = new PlayerCamera();
@@ -164,9 +155,7 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new TavernBeerPickUpPointViewFactory(tavernPickUpPointPresenterFactory);
             tavernBeerPickUpPointViewFactory.Create(beerPickUpPointView, imageUI);
             
-            //TODO как сюда засунуть презенторы?
-            //TODO создать сервис который при создании презентера будет добавлять его к ксебе?
-            //TODO а потом форичем прогинять апдейты презенторов?
+            //TODO сделать упдейт сервис и запрашивать его в презентер
             return new GamePlayScene
             (
                 inputService

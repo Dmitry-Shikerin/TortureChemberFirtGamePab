@@ -4,6 +4,8 @@ namespace Sources.PresentationInterfaces.Views
 {
     public interface IItemView
     {
-        public void SetParent(Transform parentTransform);
+        void SetPosition(Transform parentTransform);
+        void SetParent(Transform parentTransform);
+        void Destroy();
     }
 }

@@ -11,29 +11,19 @@ namespace Sources.Presentation.UI
 
         public float FillAmount => _image.fillAmount;
         
-        public void SetSprite(Sprite sprite)
-        {
+        public void SetSprite(Sprite sprite) => 
             _image.sprite = sprite;
-        }
 
-        public void SetFillAmount(float filling)
-        {
+        public void SetFillAmount(float filling) => 
             _image.fillAmount = filling;
-        }
 
-        public void SetColor(Color color)
-        {
+        public void SetColor(Color color) => 
             _image.color = color;
-        }
 
-        public void Hide()
-        {
+        public void Hide() => 
             SetColor(Color.clear);
-        }
 
-        public void Show()
-        {
+        public void Show() => 
             SetColor(Color.white);
-        }
     }
 }

@@ -3,12 +3,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Items
 {
-    public class BeerView : MonoBehaviour, IItemView
+    public class BeerView : FoodView
     {
-        public void SetParent(Transform parentTransform)
-        {
-            transform.position = parentTransform.position;
-            transform.parent = parentTransform;
-        }
     }
 }

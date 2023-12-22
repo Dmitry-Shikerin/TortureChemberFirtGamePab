@@ -10,18 +10,17 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Taverns
 {
-    public class TavernFudPickUpPointViewView<TItem> : 
+    public class TavernFudPickUpPointView<TItem> : 
         PresentableView<TavernFudPickUpPointPresenter>,
         ITavernFudPickUpPointView,
         ITakeble
     where TItem : IItem
     {
-        public UniTask<IItem> TakeItemAsync(CancellationToken cancellationToken)
+        [field: SerializeField] public float FillingRate { get; private set; } = 0.1f;
+        
+        public UniTask<IItem> TakeItem(CancellationToken cancellationToken)
         {
-            return Presenter.Take<TItem>(cancellationToken);
+            return Presenter.TakeItemAsync<TItem>(cancellationToken);
         }
-
-        // public IItemView TakeItemView() => 
-        //     Presenter.TakeItemView();
     }
 }

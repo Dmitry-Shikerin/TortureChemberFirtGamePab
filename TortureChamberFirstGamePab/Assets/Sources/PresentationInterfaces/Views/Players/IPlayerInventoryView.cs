@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Sources.Presentation.Views.Player.Inventory;
+using UnityEngine;
 
 namespace MyProject.Sources.PresentationInterfaces.Views
 {
     public interface IPlayerInventoryView
     {
-        Transform FirstSlot { get; }
-        Transform SecondSlot { get; }
-        Transform ThirdSlot { get; }
-
-        void Add();
+        IReadOnlyList<PlayerInventorySlotView> PlayerInventorySlots { get; }
     }
 }

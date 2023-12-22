@@ -35,7 +35,7 @@ namespace Sources.Controllers.Visitors.States
         
         public override void Enter()
         {
-            Debug.Log("Посетитель в Состоянии Движения");
+            // Debug.Log("Посетитель в Состоянии Движения");
             Moving();
         }
 

@@ -6,12 +6,13 @@ namespace Sources.DomainInterfaces.Items
 {
     public interface IItem
     {
-        // IItemView ItemView { get; }
+        IItemView ItemView { get; }
         Sprite Icon { get; }
         string Title { get; }
         int Price { get; }
         float WaitingTime { get; }
 
+        void SetItemView(IItemView itemView);
         IItem Clone();
     }
 }

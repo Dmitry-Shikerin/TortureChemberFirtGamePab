@@ -7,8 +7,6 @@ namespace Sources.Presentation.Views.Taverns
 {
     public interface ITakeble
     {
-        // IItem TakeItem();
-        UniTask<IItem> TakeItemAsync(CancellationToken cancellationToken);
-        // IItemView TakeItemView();
+        UniTask<IItem> TakeItem(CancellationToken cancellationToken);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Sources.Presentation.Views.Taverns.Foods
 {
-    public class BeerPickUpPointView : TavernFudPickUpPointViewView<Beer>
+    public class BeerPickUpPointView : TavernFudPickUpPointView<Beer>
     {
     }
 }

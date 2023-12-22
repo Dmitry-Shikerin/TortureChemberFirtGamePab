@@ -20,12 +20,18 @@ namespace Sources.Domain.Items
             WaitingTime = itemConfig.Price;
         }
 
-        // public IItemView ItemView { get; }
+        //TODO покашто здесь
+        public IItemView ItemView { get; private set; }
         public Sprite Icon { get; }
         public string Title { get; }
         public int Price { get; }
         public float WaitingTime { get; }
 
+        public void SetItemView(IItemView itemView)
+        {
+            ItemView = itemView;
+        }
+        
         public IItem Clone()
         {
             return new Beer(_itemConfig);

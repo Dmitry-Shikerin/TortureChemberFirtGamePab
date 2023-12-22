@@ -7,6 +7,7 @@ using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Presentation.Animations;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views;
+using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
 
@@ -24,7 +25,8 @@ namespace Sources.Infrastructure.Factorys.Views
 
         public IVisitorView Create(VisitorView visitorView,
             VisitorAnimation visitorAnimation, Visitor visitor,
-            ItemRepository<IItem> itemRepository, VisitorImageUIView visitorImageUIView)
+            ItemRepository<IItem> itemRepository, VisitorImageUIView visitorImageUIView,
+            VisitorInventory visitorInventory)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -36,7 +38,8 @@ namespace Sources.Infrastructure.Factorys.Views
                 throw new ArgumentNullException(nameof(itemRepository));
             
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
-                visitorView, visitorAnimation, visitor, itemRepository, visitorImageUIView);
+                visitorView, visitorAnimation, visitor, itemRepository, visitorImageUIView,
+                visitorInventory);
             
             visitorView.Construct(visitorPresenter);
 

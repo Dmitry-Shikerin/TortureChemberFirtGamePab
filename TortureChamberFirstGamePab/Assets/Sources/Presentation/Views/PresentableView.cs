@@ -8,8 +8,6 @@ public class PresentableView<T> : MonoBehaviour where T : IPresenter
 {
     protected T Presenter { get; private set; }
 
-    //TODO можно ли их сделать виртуальными?
-    //TODO сделать шаблонный метод
     public void OnEnable()
     {
         Presenter?.Enable();

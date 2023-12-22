@@ -26,7 +26,8 @@ namespace Sources.Infrastructure.Factorys.Controllers
         
         public VisitorPresenter Create(IVisitorView visitorView,
             IVisitorAnimation visitorAnimation, Visitor visitor,
-            ItemRepository<IItem> itemRepository, [NotNull] VisitorImageUIView visitorImageUIView)
+            ItemRepository<IItem> itemRepository, VisitorImageUIView visitorImageUIView,
+            VisitorInventory visitorInventory)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -48,8 +49,9 @@ namespace Sources.Infrastructure.Factorys.Controllers
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
-                new VisitorWaitingForOrderState(visitorView, visitor, visitorAnimation,
-                    _collectionRepository, visitorImageUIView, itemRepository);
+                new VisitorWaitingForOrderState(visitorInventory, visitorImageUIView, itemRepository);
+            VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
+                visitorView, visitor, visitorAnimation, _collectionRepository, visitorInventory);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);
@@ -63,6 +65,10 @@ namespace Sources.Infrastructure.Factorys.Controllers
             FiniteTransitionBase toWaitingForOrderTransition = new FiniteTransitionBase(
                 visitorWaitingForOrderState, () => visitor.CanSeat);
             visitorSeatState.AddTransition(toWaitingForOrderTransition);
+
+            FiniteTransitionBase toEatFoodTransition = new FiniteTransitionBase(
+                visitorEatFoodState, () => visitorInventory.Item != null);
+            visitorWaitingForOrderState.AddTransition(toEatFoodTransition);
             
             // FiniteTransitionBase toIdleTransition = new FiniteTransitionBase(
             //     idleState, () => visitor.IsIdle);

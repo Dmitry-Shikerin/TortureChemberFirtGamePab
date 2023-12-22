@@ -10,22 +10,18 @@ namespace Sources.Infrastructure.Factories.Views.Items.Common
 {
     public class ItemViewFactory
     {
-        private Dictionary<Type, IItemViewFactory> _factories = new Dictionary<Type, IItemViewFactory>();
-
+        private readonly FoodViewFactory _foodViewFactory;
+        
         public ItemViewFactory(IPrefabFactory prefabFactory)
         {
-            _factories[typeof(Beer)] = new BeerViewFactory(prefabFactory);
+            _foodViewFactory = new FoodViewFactory(prefabFactory);
         }
 
-        //TODO для удобства запрашиваю тип модели лиюо сделать тишку у класса которыый запрашиваает фабрику
         public IItemView Create(IItem type)
         {
-            if (_factories.ContainsKey(type.GetType()) == false)
-                throw new AggregateException(nameof(Type));
-            
-            IItemView item = _factories[type.GetType()].Create();
+            IItemView itemView = _foodViewFactory.Create(type);            
 
-            return item;
+            return itemView;
         }
     }
 }

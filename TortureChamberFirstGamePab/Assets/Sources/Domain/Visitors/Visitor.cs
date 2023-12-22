@@ -1,3 +1,4 @@
+using Sources.DomainInterfaces.Items;
 using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace Sources.Domain.Visitors
         public IVisitorPoint SeatPoint { get; private set; }
         public bool IsIdle { get; private set; }
         public bool CanSeat { get; private set; }
-
+        
+        
+        
         public void SetIdle(bool isIdle)
         {
             IsIdle = isIdle;

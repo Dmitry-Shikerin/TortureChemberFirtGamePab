@@ -14,16 +14,19 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
+        private readonly VisitorInventory _visitorInventory;
         private readonly ItemRepository<IItem> _itemRepository;
 
         //TODO хочется убрать отсюда этот класс
         //TODO сделать интерфей
         private readonly VisitorImageUIView _visitorImageUIView;
 
-        public VisitorWaitingForOrderState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation , CollectionRepository collectionRepository,
-            VisitorImageUIView visitorImageUIView, ItemRepository<IItem> itemRepository)
+        public VisitorWaitingForOrderState(VisitorInventory visitorInventory,
+            VisitorImageUIView visitorImageUIView, 
+            ItemRepository<IItem> itemRepository)
         {
+            _visitorInventory = visitorInventory ??
+                                throw new ArgumentNullException(nameof(visitorInventory));
             _itemRepository = itemRepository ?? 
                               throw new ArgumentNullException(nameof(itemRepository));
             _visitorImageUIView = visitorImageUIView ? visitorImageUIView : 
@@ -32,12 +35,14 @@ namespace Sources.Controllers.Visitors.States
         
         public override void Enter()
         {
-            Debug.Log("Посетитель в состоянии ожидания заказа");
-            // Beer beer = _itemRepository.Get<Beer>();
-            //
-            // _visitorImageUIView.OrderImage.SetSprite(beer.Icon);
-            // _visitorImageUIView.OrderImage.Show();
-            // _visitorImageUIView.BackGroundImage.Show();
+            // Debug.Log("Посетитель в состоянии ожидания заказа");
+            Beer beer = _itemRepository.Get<Beer>();
+            
+            _visitorImageUIView.OrderImage.SetSprite(beer.Icon);
+            _visitorImageUIView.OrderImage.Show();
+            _visitorImageUIView.BackGroundImage.Show();
+            
+            _visitorInventory.SetTargetItem(beer);
         }
 
         public override void Exit()

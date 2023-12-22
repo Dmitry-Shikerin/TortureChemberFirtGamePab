@@ -27,9 +27,26 @@ namespace Sources.Domain.Players
             _items.Add(item);
         }
 
-        public void Remove(IItem item)
+        public IItem Get(IItem @object)
         {
+            //TODO исправить
+            foreach (IItem item in _items)
+            {
+                if (item.GetType() == @object.GetType())
+                {
+                    return item;
+                }
+            }
+
+            throw new NullItemException("В инвентаре нет необходимого предмета" ,nameof(PlayerInventory));
+        }
+
+        public void RemoveItem(IItem item)
+        {
+            if (_items.Contains(item) == false)
+                throw new NullItemException("В инвентаре нет необходимого предмета", nameof(PlayerInventory));
             
+            _items.Remove(item);
         }
     }
 }

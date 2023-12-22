@@ -25,9 +25,9 @@ namespace Sources.Infrastructure.Factorys.Domains.Items
         {
             if (_items.ContainsKey(typeof(T)) == false)
                 throw new InvalidOperationException(nameof(T));
-
+        
             IItem item = _items[typeof(T)].Clone();
-
+        
             if (item is not T concrete)
                 throw new InvalidCastException("Error cast");
                 

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
-    //TODO в инпут сервис запрашивать модель в каторую мы хотим поместить данные?
     public class InputService : IInputService
     {
         public event Action<Vector2> MovementAxisChanged;

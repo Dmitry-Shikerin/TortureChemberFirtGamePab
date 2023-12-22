@@ -20,6 +20,7 @@ namespace Sources.Controllers.Taverns
         private readonly ItemsFactory _itemsFactory;
         private readonly IImageUI _imageUI;
 
+        //TODO сделать модель для таверны
         public TavernFudPickUpPointPresenter(ITavernFudPickUpPointView tavernFudPickUpPointView, 
             ItemsFactory itemsFactory, IImageUI imageUI)
         {
@@ -30,7 +31,7 @@ namespace Sources.Controllers.Taverns
             _imageUI = imageUI ?? throw new ArgumentNullException(nameof(imageUI));
         }
         
-        public async UniTask<IItem> Take<TItem>(CancellationToken cancellationToken) where TItem : IItem
+        public async UniTask<IItem> TakeItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
         {
             try
             {
@@ -39,7 +40,8 @@ namespace Sources.Controllers.Taverns
                 while (_imageUI.FillAmount > 0.01)
                 {
                     float fill = Mathf.MoveTowards(
-                        _imageUI.FillAmount, 0, 0.1f * Time.deltaTime);
+                        _imageUI.FillAmount, 0, 
+                        _tavernFudPickUpPointView.FillingRate * Time.deltaTime);
                     _imageUI.SetFillAmount(fill);
 
                     await UniTask.Yield(cancellationToken);
@@ -55,13 +57,5 @@ namespace Sources.Controllers.Taverns
                 return default;
             }
         }
-        
-        
-        
-        
-        // public TItem Take<TItem>() where TItem : IItem
-        // {
-        //     return _itemsFactory.Create<TItem>();
-        // }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3283947612013165553}
   - component: {fileID: 8896104978122318491}
   - component: {fileID: 3161273027924666728}
-  - component: {fileID: 747410413369404005}
+  - component: {fileID: -1422652379277725551}
   m_Layer: 0
   m_Name: BeerView
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43736748484804654, guid: bbe72f7b45e24a94e8bd83fccbe18710, type: 2}
---- !u!114 &747410413369404005
+--- !u!114 &-1422652379277725551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

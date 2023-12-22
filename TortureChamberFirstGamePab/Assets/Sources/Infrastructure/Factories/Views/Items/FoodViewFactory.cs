@@ -13,24 +13,25 @@ using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Items
 {
-    public class BeerViewFactory : IItemViewFactory
+    public class FoodViewFactory : IItemViewFactory
     {
         private const string ItemViewPath = "Prefabs/ItemViews/";
         
         private readonly IPrefabFactory _prefabFactory;
         
-        public BeerViewFactory(IPrefabFactory prefabFactory)
+        public FoodViewFactory(IPrefabFactory prefabFactory)
         {
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
         }
         
-        public IItemView Create()
+        //TODO не  инстанциирует объект
+        public IItemView Create(IItem item) 
         {
-            string fullPath = ItemViewPath + nameof(BeerView);
+            string fullPath = ItemViewPath + item.GetType().Name + "View";
             
-            BeerView item = _prefabFactory.Create<BeerView>(fullPath);
+            FoodView itemView = _prefabFactory.Create<FoodView>(fullPath);
 
-            return item;
+            return itemView;
         }
     }
 }

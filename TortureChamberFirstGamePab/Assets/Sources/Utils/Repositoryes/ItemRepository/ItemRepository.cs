@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sources.Utils.Repositoryes.Containers;
-using Sources.Utils.Repositoryes.ContainersInterfaces;
 
 namespace Sources.Utils.Repositoryes
 {
@@ -61,6 +59,19 @@ namespace Sources.Utils.Repositoryes
                 throw new InvalidOperationException();
 
             _repositoryes[typeof(T2)] = @object;
+        }
+
+        public void AddCollection(IEnumerable<T1> items)
+        {
+            foreach (T1 item in items)
+            {
+                Type type = item.GetType();
+
+                if (_repositoryes.ContainsKey(type))
+                    throw new InvalidOperationException();
+
+                _repositoryes[type] = item;
+            }
         }
     }
 }
