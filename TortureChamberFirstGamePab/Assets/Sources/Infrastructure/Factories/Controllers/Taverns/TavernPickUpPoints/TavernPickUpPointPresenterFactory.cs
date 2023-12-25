@@ -21,6 +21,11 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoint
             ITavernFudPickUpPointView tavernFudPickUpPointView,
             IImageUI imageUI)
         {
+            if (tavernFudPickUpPointView == null) 
+                throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
+            if (imageUI == null) 
+                throw new ArgumentNullException(nameof(imageUI));
+            
             return new TavernFudPickUpPointPresenter(
                 tavernFudPickUpPointView, _itemsFactory, imageUI);
         }

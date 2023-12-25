@@ -9,11 +9,20 @@ namespace Sources.Infrastructure.Services
         public event Action<float> RunAxisChanged;
         public event Action<bool, bool> RotationChanged;
 
+        //TODO Может быть сделать для инпута вьюшку и подписаться на updateService?
         public void Update(float deltaTime)
         {
             UpdateMovementAxis();
             UpdateRunAxis();
+        }
+
+        public void UpdateLate(float deltaTime)
+        {
             UpdateRotation();
+        }
+
+        public void UpdateFixed(float fixedDeltaTime)
+        {
         }
 
         private void UpdateMovementAxis()

@@ -1,11 +1,13 @@
-﻿using Sources.PresentationInterfaces.UI;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Sources.Controllers.UI;
+using Sources.PresentationInterfaces.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sources.Presentation.UI
 {
-    //TODO не придумал как засунуть инфу в презентер этой вьюшки
-    public class ImageUI : MonoBehaviour, IImageUI
+    public class ImageUI : PresentableView<ImageUIPresenter>, IImageUI
     {
         [SerializeField] private Image _image;
 
@@ -16,6 +18,12 @@ namespace Sources.Presentation.UI
 
         public void SetFillAmount(float filling) => 
             _image.fillAmount = filling;
+
+        public async UniTask FillMoveTowardsAsync(float fillingRate, CancellationToken cancellationToken)
+        {
+            await Presenter.FillMoveTowardsAsync(fillingRate, cancellationToken);
+        }
+
 
         public void SetColor(Color color) => 
             _image.color = color;

@@ -9,16 +9,11 @@ namespace MyProject.Sources.Presentation.Views
     {
         private Transform _targetTransform;
 
-        public void LateUpdate()
+        public void SetTargetTransform(PlayerMovementView playerMovementView)
         {
-            Presenter?.Update();
-        }
-
-        //TODO по хорошему запрашивать игрока и сменить название
-        public void SetTargetTransform(Transform targetTransform)
-        {
-            _targetTransform = targetTransform ? targetTransform :
-                throw new ArgumentNullException(nameof(targetTransform));
+            _targetTransform = playerMovementView.transform
+                ? playerMovementView.transform
+                : throw new ArgumentNullException(nameof(playerMovementView));
         }
 
         public void Follow()

@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Sources.Controllers;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factorys.Controllers;
@@ -18,9 +19,14 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
                 throw new ArgumentNullException(nameof(visitorInventoryPresenterFactory));
         }
 
-        public IVisitorInventoryView Create(VisitorInventoryView visitorInventoryView, 
+        public IVisitorInventoryView Create(VisitorInventoryView visitorInventoryView,
             VisitorInventory visitorInventory)
         {
+            if (visitorInventoryView == null) 
+                throw new ArgumentNullException(nameof(visitorInventoryView));
+            if (visitorInventory == null) 
+                throw new ArgumentNullException(nameof(visitorInventory));
+            
             VisitorInventoryPresenter visitorInventoryPresenter = 
                 _visitorInventoryPresenterFactory.Create(visitorInventoryView, visitorInventory);
             

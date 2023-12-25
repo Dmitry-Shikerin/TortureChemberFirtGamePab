@@ -6,5 +6,6 @@ namespace Sources.PresentationInterfaces.Views.Interactions.Get
     {
         IItem GetTargetItem();
         void Add(IItem item);
+        IItem GetItem();
     }
 }

@@ -15,9 +15,6 @@ namespace MyProject.Sources.Presentation.Views
                                    throw new NullReferenceException(nameof(_characterController));
         }
         
-        private void Update() =>
-            Presenter?.Update();
-
         public void Move(Vector3 direction) => 
             _characterController.Move(direction);
 

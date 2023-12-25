@@ -11,7 +11,7 @@ namespace Sources.Domain.Visitors
         public void SetItem(IItem item)
         {
             Item = item;
-            Debug.Log(Item.GetType().Name);
+            // Debug.Log(Item.GetType().Name);
         }
         
         public void SetTargetItem(IItem targetItem)

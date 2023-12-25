@@ -18,7 +18,6 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
-            //TODO не забыть добавить префааб
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>("Views/Bootstrap/CurtainView")) ??
                 throw new NullReferenceException(nameof(CurtainView));

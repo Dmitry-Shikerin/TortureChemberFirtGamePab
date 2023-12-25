@@ -37755,14 +37755,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 599863128746004299, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 599863128746004299, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 646758432093362509, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.4194016
@@ -37806,54 +37798,6 @@ PrefabInstance:
     - target: {fileID: 1855269453540808151, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126680221337028005, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3126680221337028005, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 4721841145099140653, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4721841145099140653, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862002419563241868, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5862002419563241868, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6368023070346410826, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6368023070346410826, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236263121431827699, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8236263121431827699, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9143271814756238025, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9143271814756238025, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

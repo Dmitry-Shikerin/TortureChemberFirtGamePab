@@ -5,6 +5,7 @@ using Sources.Controllers;
 using Sources.Controllers.Visitors.States;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.StateMachines.Transitions;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Animations;
@@ -26,8 +27,8 @@ namespace Sources.Infrastructure.Factorys.Controllers
         
         public VisitorPresenter Create(IVisitorView visitorView,
             IVisitorAnimation visitorAnimation, Visitor visitor,
-            ItemRepository<IItem> itemRepository, VisitorImageUIView visitorImageUIView,
-            VisitorInventory visitorInventory)
+            ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
+            VisitorInventory visitorInventory, ImageUIFactory imageUIFactory)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -37,9 +38,16 @@ namespace Sources.Infrastructure.Factorys.Controllers
                 throw new ArgumentNullException(nameof(visitor));
             if (itemRepository == null) 
                 throw new ArgumentNullException(nameof(itemRepository));
-            if (visitorImageUIView == null) 
-                throw new ArgumentNullException(nameof(visitorImageUIView));
+            if (visitorImageUI == null) 
+                throw new ArgumentNullException(nameof(visitorImageUI));
+            if (visitorInventory == null)
+                throw new ArgumentNullException(nameof(visitorInventory));
+            if (imageUIFactory == null) 
+                throw new ArgumentNullException(nameof(imageUIFactory));
 
+            imageUIFactory.Create(visitorImageUI.OrderImage);
+            imageUIFactory.Create(visitorImageUI.BackGroundImage);
+            
             VisitorInitializeState initializeState = new VisitorInitializeState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorIdleState idleState = new VisitorIdleState(
@@ -49,9 +57,10 @@ namespace Sources.Infrastructure.Factorys.Controllers
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
-                new VisitorWaitingForOrderState(visitorInventory, visitorImageUIView, itemRepository);
+                new VisitorWaitingForOrderState(visitorInventory, visitorImageUI, itemRepository);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
-                visitorView, visitor, visitorAnimation, _collectionRepository, visitorInventory);
+                visitorView, visitor, visitorAnimation, _collectionRepository,
+                visitorInventory, visitorImageUI);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);

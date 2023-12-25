@@ -32,8 +32,5 @@ namespace Sources.Presentation.Views.Visitors
             transform.position = position;
             transform.rotation = look;
         }
-
-        //TODO это должно быть в отдельной вью
-        //TODO использовать инвентерь игрока сделать отдельныю модель для него
     }
 }

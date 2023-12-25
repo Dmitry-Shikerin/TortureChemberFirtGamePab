@@ -18,9 +18,9 @@ namespace Sources.Presentation.Views.Taverns
     {
         [field: SerializeField] public float FillingRate { get; private set; } = 0.1f;
         
-        public UniTask<IItem> TakeItem(CancellationToken cancellationToken)
+        public async UniTask<IItem> TakeItem(CancellationToken cancellationToken)
         {
-            return Presenter.TakeItemAsync<TItem>(cancellationToken);
+            return await Presenter.TakeItemAsync<TItem>(cancellationToken);
         }
     }
 }

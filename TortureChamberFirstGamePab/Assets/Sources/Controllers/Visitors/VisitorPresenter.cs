@@ -33,11 +33,5 @@ namespace Sources.Controllers
         public void Disable()
         {
         }
-    
-        //TODO здесь методы связи модели и вьюшки
-        public bool TryGet(IItem item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

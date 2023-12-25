@@ -29,6 +29,8 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
                 throw new ArgumentNullException(nameof(playerMovement));
             if (playerMovementView == null) 
                 throw new ArgumentNullException(nameof(playerMovementView));
+            if (playerAnimation == null) 
+                throw new ArgumentNullException(nameof(playerAnimation));
 
             PlayerMovementPresenter playerMovementPresenter =
                 _playerMovementPresenterFactory.Create(playerMovement,

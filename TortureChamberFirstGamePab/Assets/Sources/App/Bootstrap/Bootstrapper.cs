@@ -2,7 +2,7 @@ using Sources.App.Core;
 using Sources.Infrastructure.Factories.App;
 using UnityEngine;
 
-namespace Sources.App.Botstrap
+namespace Sources.App.Bootstrap
 {
     public class Bootstrapper : MonoBehaviour
     {

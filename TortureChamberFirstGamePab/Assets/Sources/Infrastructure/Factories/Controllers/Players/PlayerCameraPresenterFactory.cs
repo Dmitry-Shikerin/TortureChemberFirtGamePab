@@ -4,17 +4,21 @@ using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Services;
+using Sources.InfrastructureInterfaces.Factories.Services;
 
 namespace MyProject.Sources.Infrastructure.Factorys.Controllers
 {
     public class PlayerCameraPresenterFactory
     {
         private readonly InputService _inputService;
+        private readonly UpdateService _updateService;
 
-        public PlayerCameraPresenterFactory(InputService inputService)
+        public PlayerCameraPresenterFactory(InputService inputService, [NotNull] UpdateService updateService)
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
+            _updateService = updateService ?? 
+                             throw new ArgumentNullException(nameof(updateService));
         }
 
         public PlayerCameraPresenter Create(PlayerCamera playerCamera, IPlayerCameraView playerCameraView)
@@ -28,7 +32,8 @@ namespace MyProject.Sources.Infrastructure.Factorys.Controllers
             (
                 playerCamera,
                 playerCameraView,
-                _inputService
+                _inputService,
+                _updateService
             );
         }
     }

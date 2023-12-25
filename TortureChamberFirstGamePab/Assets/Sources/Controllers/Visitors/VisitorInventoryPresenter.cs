@@ -33,5 +33,10 @@ namespace Sources.Controllers
         {
             _visitorInventory.SetItem(item);
         }
+
+        public IItem GetItem()
+        {
+            return _visitorInventory.Item;
+        }
     }
 }

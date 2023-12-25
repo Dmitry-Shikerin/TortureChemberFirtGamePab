@@ -4,11 +4,8 @@ using Sources.Domain.Items;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.StateMachines.States;
-using Sources.Presentation.UI;
-using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -16,37 +13,35 @@ namespace Sources.Controllers.Visitors.States
     {
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemRepository<IItem> _itemRepository;
-
-        //TODO хочется убрать отсюда этот класс
-        //TODO сделать интерфей
-        private readonly VisitorImageUIView _visitorImageUIView;
+        private readonly IVisitorImageUI _visitorImageUI;
 
         public VisitorWaitingForOrderState(VisitorInventory visitorInventory,
-            VisitorImageUIView visitorImageUIView, 
+            IVisitorImageUI visitorImageUI,
             ItemRepository<IItem> itemRepository)
         {
             _visitorInventory = visitorInventory ??
                                 throw new ArgumentNullException(nameof(visitorInventory));
-            _itemRepository = itemRepository ?? 
+            _itemRepository = itemRepository ??
                               throw new ArgumentNullException(nameof(itemRepository));
-            _visitorImageUIView = visitorImageUIView ? visitorImageUIView : 
-                throw new ArgumentNullException(nameof(visitorImageUIView));
+            _visitorImageUI = visitorImageUI ??
+                              throw new ArgumentNullException(nameof(visitorImageUI));
         }
-        
+
         public override void Enter()
         {
             // Debug.Log("Посетитель в состоянии ожидания заказа");
             Beer beer = _itemRepository.Get<Beer>();
-            
-            _visitorImageUIView.OrderImage.SetSprite(beer.Icon);
-            _visitorImageUIView.OrderImage.Show();
-            _visitorImageUIView.BackGroundImage.Show();
-            
+
+            _visitorImageUI.OrderImage.SetSprite(beer.Icon);
+            _visitorImageUI.OrderImage.Show();
+            _visitorImageUI.BackGroundImage.Show();
+
             _visitorInventory.SetTargetItem(beer);
         }
 
         public override void Exit()
         {
+            _visitorInventory.SetTargetItem(null);
         }
     }
 }

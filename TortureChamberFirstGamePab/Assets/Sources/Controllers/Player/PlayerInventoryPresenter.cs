@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.PresentationInterfaces.Views;
-using Sources.Domain.Items;
 using Sources.Domain.Players;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.Presentation.UI;
+using Sources.Presentation.Views.Items;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MyProject.Sources.Controllers
 {
-    public class  PlayerInventoryPresenter : PresenterBase
+    public class PlayerInventoryPresenter : PresenterBase
     {
         private readonly IPlayerInventoryView _playerInventoryView;
         private readonly ITextUI _textUI;
@@ -32,11 +36,15 @@ namespace MyProject.Sources.Controllers
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
         }
 
+        public bool TryGet()
+        {
+            return _playerInventory.CanGet;
+        }
+
         public void AddItem(IItem item)
         {
             try
             {
-                //TODO как мне сконтачить мой ийтем и айтем вью
                 if (item == null)
                     return;
 
@@ -46,7 +54,7 @@ namespace MyProject.Sources.Controllers
                 IItemView itemView = _itemViewFactory.Create(item);
                 item.SetItemView(itemView);
 
-                SetInventoryViewPosition();
+                SetInventoryViewPosition(item);
             }
             catch (InventoryFullException exception)
             {
@@ -54,47 +62,100 @@ namespace MyProject.Sources.Controllers
             }
         }
 
-        public IItem Get(IItem item)
+        //TODO посмотреть плагины AI
+        public async UniTask<IItem> Get(IItem item, CancellationToken cancellationToken)
         {
+            IImageUI backGroundImage = null;
+
             try
             {
-                IItem targetItem = null;
-                
+                _playerInventory.LockGiveAbility();
+
+
                 for (int i = 0; i < _playerInventory.Items.Count; i++)
                 {
                     if (_playerInventory.Items[i].GetType() == item.GetType())
                     {
-                        targetItem = _playerInventory.Items[i];
-                        targetItem.ItemView.Destroy();
+                        backGroundImage = _playerInventoryView.PlayerInventorySlots[i].BackgroundImage;
+                        await backGroundImage.FillMoveTowardsAsync(_playerInventoryView.FillingRate, cancellationToken);
                         _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
+                        _playerInventoryView.PlayerInventorySlots[i].Image.Hide();
+                        backGroundImage.SetFillAmount(1);
+                        IItem targetItem = _playerInventory.Items[i];
+                        targetItem.ItemView.Destroy();
                         _playerInventory.RemoveItem(targetItem);
+
+                        UpdateViewPosition();
+                        RemoveImage();
+                        
+                        return targetItem;
                     }
                 }
-                return targetItem;
+
+                return null;
             }
-            catch (NullItemException exception)
+            catch (NullItemException)
             {
+                _playerInventory.SetGiveAbility();
+                return null;
+            }
+            catch (OperationCanceledException)
+            {
+                _playerInventory.SetGiveAbility();
+                backGroundImage?.SetFillAmount(1);
                 return null;
             }
         }
 
-        private void SetInventoryViewPosition()
+        private void UpdateViewPosition()
         {
             for (int i = 0; i < _playerInventory.Items.Count; i++)
             {
+                //TODO исправить здесь логику
+                //TODO плохая логика
                 IItem item = _playerInventory.Items[i];
-                    
-                if (_playerInventory.Items[i] == item)
+                Transform slotTransform = _playerInventoryView.PlayerInventorySlots[i].transform;
+                ImageUI imageUI = _playerInventoryView.PlayerInventorySlots[i].Image;
+
+                item.ItemView.SetPosition(slotTransform);
+                item.ItemView.SetParent(slotTransform);
+                imageUI.Show();
+                imageUI.SetSprite(item.Icon);
+            }
+        }
+
+        private void RemoveImage()
+        {
+            for (int i = 0; i < _playerInventoryView.PlayerInventorySlots.Count; i++)
+            {
+                //TODO плохая логика
+                if (_playerInventoryView.PlayerInventorySlots[i]
+                        .GetComponentInChildren<FoodView>() == null)
                 {
-                    item.ItemView.SetPosition(_playerInventoryView.PlayerInventorySlots[i].transform);
-                    item.ItemView.SetParent(_playerInventoryView.PlayerInventorySlots[i].transform);
-                    _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(item.Icon);
+                    _playerInventoryView.PlayerInventorySlots[i].Image.Hide();
+                    _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
                 }
             }
         }
 
-        public void AddItemView()
+        private void SetInventoryViewPosition(IItem targetItem)
         {
+            for (int i = 0; i < _playerInventory.Items.Count; i++)
+            {
+                //TODO исправить здесь логику
+                //TODO плохая логика
+                IItem item = _playerInventory.Items[i];
+                Transform slotTransform = _playerInventoryView.PlayerInventorySlots[i].transform;
+                ImageUI imageUI = _playerInventoryView.PlayerInventorySlots[i].Image;
+
+                if (item == targetItem)
+                {
+                    item.ItemView.SetPosition(slotTransform);
+                    item.ItemView.SetParent(slotTransform);
+                    imageUI.Show();
+                    imageUI.SetSprite(item.Icon);
+                }
+            }
         }
     }
 }

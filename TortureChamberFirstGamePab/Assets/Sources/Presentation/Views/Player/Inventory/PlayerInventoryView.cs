@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.DomainInterfaces.Items;
@@ -14,55 +14,41 @@ namespace Sources.Presentation.Views.Player
 {
     public class PlayerInventoryView : PresentableView<PlayerInventoryPresenter>, IPlayerInventoryView
     {
-        [SerializeField] private PlayerInventorySlotView _firstSlotView;
-        [SerializeField] private PlayerInventorySlotView _secondSlotView;
-        [SerializeField] private PlayerInventorySlotView _thirdSlotView;
+        [field : SerializeField] public PlayerInventorySlotView FirstSlotView { get; private set; }
+        [field : SerializeField] public PlayerInventorySlotView SecondSlotView { get; private set; }
+        [field : SerializeField] public PlayerInventorySlotView ThirdSlotView { get; private set; }
 
-        private CancellationTokenSource _cancellationTokenSource;
-        private List<PlayerInventorySlotView> _playerInventorySlots;
+        [field: SerializeField] public float FillingRate { get; private set; } = 0.2f;
+
+        private Dictionary<object, CancellationTokenSource> _cancellationTokenSources;
         
+        private List<PlayerInventorySlotView> _playerInventorySlots;
+
+        public bool TryGet()
+        {
+            return Presenter.TryGet();
+        }
+
         public IReadOnlyList<PlayerInventorySlotView> PlayerInventorySlots => _playerInventorySlots;
 
         private void Awake()
         {
             _playerInventorySlots = new List<PlayerInventorySlotView>(3);
-            _playerInventorySlots.Add(_firstSlotView);
-            _playerInventorySlots.Add(_secondSlotView);
-            _playerInventorySlots.Add(_thirdSlotView);
+            _playerInventorySlots.Add(FirstSlotView);
+            _playerInventorySlots.Add(SecondSlotView);
+            _playerInventorySlots.Add(ThirdSlotView);
+
+            _cancellationTokenSources = new Dictionary<object, CancellationTokenSource>();
         }
+        
+        //TODO сделать булку для посетителя
 
-        private async void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.TryGetComponent<ITakeble>(out ITakeble takeble))
-            {
-                _cancellationTokenSource = new CancellationTokenSource();
+        public void AddItem(IItem item) => 
+            Presenter.AddItem(item);
 
-                IItem item = await takeble.TakeItem(_cancellationTokenSource.Token);
-                Presenter.AddItem(item);
-            }
-            
-            if (other.gameObject.TryGetComponent<IGettable>(out IGettable gettable))
-            {
-                _cancellationTokenSource = new CancellationTokenSource();
-
-                // IItem item = await takeble.TakeItem(_cancellationTokenSource.Token);
-                // Presenter.AddItem(item);
-                IItem targetItem = gettable.GetTargetItem();
-                
-                if(gettable.GetTargetItem() == null)
-                    return;
-
-                IItem item = Presenter.Get(targetItem);
-                gettable.Add(item);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.TryGetComponent<ITakeble>(out ITakeble takeble))
-            {
-                _cancellationTokenSource.Cancel();
-            }
-        }
+        public async UniTask<IItem> GetItem(IItem targetItem, CancellationToken cancellationToken) => 
+             await Presenter.Get(targetItem, cancellationToken);
+        // public async UniTask<IItem> GetItem(IItem targetItem, CancellationToken cancellationToken) => 
+        //     await Presenter.Get(targetItem, cancellationToken);
     }
 }

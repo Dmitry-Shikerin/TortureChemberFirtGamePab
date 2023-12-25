@@ -18,6 +18,7 @@ namespace Sources.Presentation.Views.Items
 
         public void Destroy()
         {
+            //TODO добавить логику добавления в пул
             Destroy(gameObject);
         }
     }

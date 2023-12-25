@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.UI
 {
-    public class TextUI : PresentableView<TextUIPresenter>, ITextUI
+    public class TextUI : MonoBehaviour, ITextUI
     {
         [SerializeField] private TextMeshProUGUI _text;
         

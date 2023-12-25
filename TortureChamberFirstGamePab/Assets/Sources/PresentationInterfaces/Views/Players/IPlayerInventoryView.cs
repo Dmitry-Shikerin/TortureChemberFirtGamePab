@@ -6,6 +6,10 @@ namespace MyProject.Sources.PresentationInterfaces.Views
 {
     public interface IPlayerInventoryView
     {
+        float FillingRate { get; }
+
+        public bool TryGet();
+        
         IReadOnlyList<PlayerInventorySlotView> PlayerInventorySlots { get; }
     }
 }

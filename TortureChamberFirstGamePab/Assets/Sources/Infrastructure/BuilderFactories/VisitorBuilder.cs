@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Infrastructure.Factorys.Views;
@@ -26,8 +27,11 @@ namespace Sources.Infrastructure.BuilderFactories
             _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
         }
         
-        public void Create()
+        public void Create(ImageUIFactory imageUIFactory)
         {
+            if (imageUIFactory == null) 
+                throw new ArgumentNullException(nameof(imageUIFactory));
+            
             VisitorInventoryView visitorInventoryView = Object.FindObjectOfType<VisitorInventoryView>();
             VisitorInventory visitorInventory = new VisitorInventory();
             VisitorInventoryPresenterFactory visitorInventoryPresenterFactory = 
@@ -39,14 +43,14 @@ namespace Sources.Infrastructure.BuilderFactories
             VisitorView visitorView = Object.FindObjectOfType<VisitorView>();
             Visitor visitor = new Visitor();
             VisitorAnimation visitorAnimation = visitorView.gameObject.GetComponent<VisitorAnimation>();
-            VisitorImageUIView visitorImageUIView =
-                visitorView.gameObject.GetComponentInChildren<VisitorImageUIView>();
+            VisitorImageUI visitorImageUI =
+                visitorView.gameObject.GetComponentInChildren<VisitorImageUI>();
             VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
                 _collectionRepository);
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
                 visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
-                _itemRepository, visitorImageUIView, visitorInventory);
+                _itemRepository, visitorImageUI, visitorInventory, imageUIFactory);
 
         }
     }

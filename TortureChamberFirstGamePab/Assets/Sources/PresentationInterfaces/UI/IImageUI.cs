@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Sources.PresentationInterfaces.UI
 {
@@ -8,6 +10,7 @@ namespace Sources.PresentationInterfaces.UI
         
         void SetSprite(Sprite sprite);
         void SetFillAmount(float filling);
+        UniTask FillMoveTowardsAsync(float fillingRate, CancellationToken cancellationToken);
         void SetColor(Color color);
         void Hide();
         void Show();

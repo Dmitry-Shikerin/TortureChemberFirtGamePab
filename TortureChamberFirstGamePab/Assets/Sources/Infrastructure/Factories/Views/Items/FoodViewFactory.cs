@@ -24,7 +24,6 @@ namespace Sources.Infrastructure.Factories.Views.Items
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
         }
         
-        //TODO не  инстанциирует объект
         public IItemView Create(IItem item) 
         {
             string fullPath = ItemViewPath + item.GetType().Name + "View";

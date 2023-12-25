@@ -17,28 +17,26 @@ namespace Sources.Domain.Players
         {
         }
 
+        public bool CanGet { get; private set; } = true;
+
         public IReadOnlyList<IItem> Items => _items;
 
+        public void SetGiveAbility()
+        {
+            CanGet = true;
+        }
+
+        public void LockGiveAbility()
+        {
+            CanGet = false;
+        }
+        
         public void Add(IItem item)
         {
             if (_items.Count == MaxCapacity)
                 throw new InventoryFullException("Инвентарь заполнен", nameof(PlayerInventory));
             
             _items.Add(item);
-        }
-
-        public IItem Get(IItem @object)
-        {
-            //TODO исправить
-            foreach (IItem item in _items)
-            {
-                if (item.GetType() == @object.GetType())
-                {
-                    return item;
-                }
-            }
-
-            throw new NullItemException("В инвентаре нет необходимого предмета" ,nameof(PlayerInventory));
         }
 
         public void RemoveItem(IItem item)

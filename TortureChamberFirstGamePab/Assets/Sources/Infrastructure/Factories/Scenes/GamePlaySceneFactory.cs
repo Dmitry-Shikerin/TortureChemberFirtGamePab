@@ -16,14 +16,17 @@ using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
+using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
+using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factorys;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.Infrastructure.Factorys.Views;
 using Sources.Infrastructure.Services;
+using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.SceneService;
 using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.Animations;
@@ -100,39 +103,50 @@ namespace Sources.Infrastructure.Factories.Scenes
 
             ItemsFactory itemsFactory = new ItemsFactory(items);
 
+            //UpdateServise
+            UpdateService updateService = new UpdateService();
+            
             //InputService
             InputService inputService = new InputService();
 
             //PrefabFactory
             PrefabFactory prefabFactory = new PrefabFactory();
             
+            //CameraDirectionService
+            CameraDirectionService cameraDirectionService = new CameraDirectionService(playerCameraView);
+            
             //ItemViewFactory
             ItemViewFactory itemViewFactory = new ItemViewFactory(prefabFactory);
 
+            //ImageUiFactories
+            ImageUIPresenterFactory imageUIPresenterFactory = new ImageUIPresenterFactory();
+            ImageUIFactory imageUIFactory = new ImageUIFactory(imageUIPresenterFactory); 
+            
             //Visitor
             VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository);
-            visitorBuilder.Create();
+            visitorBuilder.Create(imageUIFactory);
 
             //PlayerCamera
             PlayerCamera playerCamera = new PlayerCamera();
             playerCamera.SetStartAngleY(playerCameraView.transform.position.y);
             PlayerCameraPresenterFactory playerCameraPresenterFactory =
-                new PlayerCameraPresenterFactory(inputService);
+                new PlayerCameraPresenterFactory(inputService, updateService);
             PlayerCameraViewFactory playerCameraViewFactory =
                 new PlayerCameraViewFactory(playerCameraPresenterFactory);
             playerCameraViewFactory.Create(playerCameraView, playerCamera);
 
             //PlayerMovement
-            playerCameraView.SetTargetTransform(playerMovementView.transform);
+            playerCameraView.SetTargetTransform(playerMovementView);
             PlayerAnimation playerAnimation =
                 playerMovementView.GetComponent<PlayerAnimation>() ??
                 throw new NullReferenceException(nameof(PlayerAnimation));
             PlayerMovementCharacteristic playerMovementCharacteristic =
                 Resources.Load<PlayerMovementCharacteristic>(PlayerMovementCharacteristicsPath);
             PlayerMovement playerMovement = new PlayerMovement(
-                playerMovementCharacteristic, playerCameraView.transform);
+                playerMovementCharacteristic);
             PlayerMovementPresenterFactory playerMovementPresenterFactory =
-                new PlayerMovementPresenterFactory(inputService);
+                new PlayerMovementPresenterFactory(inputService, updateService,
+                    cameraDirectionService);
             PlayerMovementViewFactory playerMovementViewFactory =
                 new PlayerMovementViewFactory(playerMovementPresenterFactory);
             playerMovementViewFactory.Create(playerMovement, playerMovementView, playerAnimation);
@@ -145,7 +159,7 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new PlayerInventoryViewFactory(playerInventoryPresenterFactory);
             TextUI textUI = hud.GetComponentInChildren<TextUI>();
             playerInventoryViewFactory.Create(playerInventoryView, textUI, playerInventory,
-            itemViewFactory);
+            itemViewFactory, imageUIFactory);
             
             //BeerPickUpPoint
             ImageUI imageUI = beerPickUpPointView.gameObject.GetComponentInChildren<ImageUI>();
@@ -153,12 +167,12 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new TavernPickUpPointPresenterFactory(itemsFactory);
             TavernBeerPickUpPointViewFactory tavernBeerPickUpPointViewFactory =
                 new TavernBeerPickUpPointViewFactory(tavernPickUpPointPresenterFactory);
-            tavernBeerPickUpPointViewFactory.Create(beerPickUpPointView, imageUI);
+            tavernBeerPickUpPointViewFactory.Create(beerPickUpPointView, imageUI, imageUIFactory);
             
-            //TODO сделать упдейт сервис и запрашивать его в презентер
             return new GamePlayScene
             (
-                inputService
+                inputService,
+                updateService
             );
         }
     }

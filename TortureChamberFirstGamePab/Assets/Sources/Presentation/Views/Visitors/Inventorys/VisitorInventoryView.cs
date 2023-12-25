@@ -17,5 +17,10 @@ namespace Sources.Presentation.Views.Visitors.Inventorys
         {
             Presenter.Add(item);
         }
+
+        public IItem GetItem()
+        {
+            return Presenter.GetItem();
+        }
     }
 }

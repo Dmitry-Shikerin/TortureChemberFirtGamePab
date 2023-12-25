@@ -7,55 +7,35 @@ namespace MyProject.Sources.Domain.PlayerMovement
 {
     public class PlayerMovement
     {
-        private readonly Transform _cameraPosition;
         private readonly PlayerMovementCharacteristic _characteristic;
 
         public PlayerMovement
         (
-            PlayerMovementCharacteristic playerMovementCharacteristic,
-            Transform cameraPosition //TODO перенести в сервис камеры
+            PlayerMovementCharacteristic playerMovementCharacteristic
         )
         {
             _characteristic = playerMovementCharacteristic
                 ? playerMovementCharacteristic
                 : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
-            _cameraPosition = cameraPosition ? cameraPosition : 
-                throw new ArgumentNullException(nameof(cameraPosition));
         }
 
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
         {
             float speed = runInput == 0 ? _characteristic.RunSpeed : _characteristic.MovementSpeed;
             Vector3 direction = speed * Time.deltaTime * cameraDirection;
-            direction.y = cameraDirection.y;
-
-            return direction;
-        }
-
-        public Vector3 GetCameraDirection(Vector2 moveInput)
-        {
-            Vector3 direction = _cameraPosition.TransformDirection(
-                moveInput.x, 0, moveInput.y).normalized; //TODO это тоже сервис камеры
-
             direction.y -= _characteristic.Gravity * Time.deltaTime;
 
             return direction;
         }
 
-        public bool IsIdle(Vector2 moveInput)
-        {
-            return moveInput.x == 0.0f && moveInput.y == 0.0f;
-        }
+        public bool IsIdle(Vector2 moveInput) => 
+            moveInput.x == 0.0f && moveInput.y == 0.0f;
 
-        public Quaternion GetDirectionRotation(Vector3 direction)
-        {
-            return Quaternion.LookRotation(direction).normalized;
-        }
+        public Quaternion GetDirectionRotation(Vector3 direction) => 
+            Quaternion.LookRotation(direction).normalized;
 
-        public float GetSpeedRotation()
-        {
-            return _characteristic.AngularSpeed * Time.deltaTime;
-        }
+        public float GetSpeedRotation() => 
+            _characteristic.AngularSpeed * Time.deltaTime;
 
         public float GetMaxSpeed(Vector2 moveInput, float runInput)
         {
