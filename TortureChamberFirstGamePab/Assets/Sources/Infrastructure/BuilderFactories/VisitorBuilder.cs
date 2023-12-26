@@ -6,6 +6,7 @@ using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Infrastructure.Factorys.Views;
+using Sources.Infrastructure.Services;
 using Sources.Presentation.Animations;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Visitors;
@@ -19,12 +20,16 @@ namespace Sources.Infrastructure.BuilderFactories
     {
         private readonly CollectionRepository _collectionRepository;
         private readonly ItemRepository<IItem> _itemRepository;
+        private readonly ProductShuffleService _productShuffleService;
 
-        public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository)
+        public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository,
+            ProductShuffleService productShuffleService)
         {
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
             _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
+            _productShuffleService = productShuffleService ??
+                                     throw new ArgumentNullException(nameof(productShuffleService));
         }
         
         public void Create(ImageUIFactory imageUIFactory)
@@ -46,7 +51,7 @@ namespace Sources.Infrastructure.BuilderFactories
             VisitorImageUI visitorImageUI =
                 visitorView.gameObject.GetComponentInChildren<VisitorImageUI>();
             VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
-                _collectionRepository);
+                _collectionRepository, _productShuffleService);
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
                 visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,

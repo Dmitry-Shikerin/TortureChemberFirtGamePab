@@ -10,7 +10,11 @@ namespace Sources.Domain.Visitors
         public IVisitorPoint SeatPoint { get; private set; }
         public bool IsIdle { get; private set; }
         public bool CanSeat { get; private set; }
-        
+        public bool IsUnhappy { get; private set; }
+
+        public void SetUnHappy(bool isUnhappy) => 
+            IsUnhappy = isUnhappy;
+
         public void SetIdle(bool isIdle) => 
             IsIdle = isIdle;
 

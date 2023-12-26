@@ -9,6 +9,7 @@ namespace Sources.Presentation.Animations
         private readonly int IsIdle = Animator.StringToHash(nameof(IsIdle));
         private readonly int IsWalk = Animator.StringToHash(nameof(IsWalk));
         private readonly int IsSeatedIdle = Animator.StringToHash(nameof(IsSeatedIdle));
+        private readonly int IsStandUp = Animator.StringToHash(nameof(IsStandUp));
         
         private Animator _animator;
 
@@ -19,6 +20,8 @@ namespace Sources.Presentation.Animations
         {
             StopPlayWalk();
             StopPlaySeatIdle();
+            StopPlayStandUp();
+            
             _animator.SetBool(IsIdle, true);
         }
 
@@ -34,6 +37,8 @@ namespace Sources.Presentation.Animations
         {
             StopPlayIdle();
             StopPlaySeatIdle();
+            StopPlayStandUp();
+            
             _animator.SetBool(IsWalk, true);
         }
 
@@ -49,6 +54,8 @@ namespace Sources.Presentation.Animations
         {
             StopPlayIdle();
             StopPlayWalk();
+            StopPlayStandUp();
+            
             _animator.SetBool(IsSeatedIdle, true);
         }
 
@@ -58,6 +65,23 @@ namespace Sources.Presentation.Animations
                 return;
             
             _animator.SetBool(IsSeatedIdle, false);
+        }
+
+        public void PlayStandUp()
+        {
+            StopPlayIdle();
+            StopPlayWalk();
+            StopPlaySeatIdle();
+            
+            _animator.SetBool(IsStandUp, true);
+        }
+
+        private void StopPlayStandUp()
+        {
+            if(_animator.GetBool(IsStandUp) == false)
+                return;
+            
+            _animator.SetBool(IsStandUp, false);
         }
     }
 }

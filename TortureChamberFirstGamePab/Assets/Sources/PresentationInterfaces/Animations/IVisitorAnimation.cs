@@ -5,6 +5,6 @@
         void PlayIdle();
         void PlayWalk(); 
         void PlaySeatIdle();
-
+        void PlayStandUp();
     }
 }

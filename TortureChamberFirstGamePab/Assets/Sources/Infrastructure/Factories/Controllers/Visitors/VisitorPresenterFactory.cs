@@ -6,6 +6,7 @@ using Sources.Controllers.Visitors.States;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.Transitions;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Animations;
@@ -18,11 +19,14 @@ namespace Sources.Infrastructure.Factorys.Controllers
     public class VisitorPresenterFactory
     {
         private readonly CollectionRepository _collectionRepository;
+        private readonly ProductShuffleService _productShuffleService;
 
-        public VisitorPresenterFactory(CollectionRepository collectionRepository)
+        public VisitorPresenterFactory(CollectionRepository collectionRepository,
+            ProductShuffleService productShuffleService)
         {
             _collectionRepository = collectionRepository ?? 
-                                   throw new ArgumentNullException(nameof(collectionRepository));
+                                    throw new ArgumentNullException(nameof(collectionRepository));
+            _productShuffleService = productShuffleService ?? throw new ArgumentNullException(nameof(productShuffleService));
         }
         
         public VisitorPresenter Create(IVisitorView visitorView,
@@ -57,10 +61,19 @@ namespace Sources.Infrastructure.Factorys.Controllers
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
-                new VisitorWaitingForOrderState(visitorInventory, visitorImageUI, itemRepository);
+                new VisitorWaitingForOrderState(visitor,
+                    visitorInventory, visitorImageUI, itemRepository,
+                    _productShuffleService);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUI);
+            VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
+                visitorView, visitor, visitorAnimation, _collectionRepository,
+                visitorInventory, visitorImageUI);
+            VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
+                new VisitorNotSatisfiedWithOrderState(visitorView, visitor,
+                    visitorAnimation, _collectionRepository,
+                    visitorInventory, visitorImageUI);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);
@@ -78,7 +91,19 @@ namespace Sources.Infrastructure.Factorys.Controllers
             FiniteTransitionBase toEatFoodTransition = new FiniteTransitionBase(
                 visitorEatFoodState, () => visitorInventory.Item != null);
             visitorWaitingForOrderState.AddTransition(toEatFoodTransition);
-            
+
+            FiniteTransitionBase toMoveExitState = new FiniteTransitionBase(
+                visitorMoveToExitState, () => visitor.CanSeat == false);
+            visitorEatFoodState.AddTransition(toMoveExitState);
+
+            FiniteTransitionBase toNotSatisfiedWithOrderState = new FiniteTransitionBase(
+                visitorNotSatisfiedWithOrderState, () => visitor.IsUnhappy);
+            visitorWaitingForOrderState.AddTransition(toNotSatisfiedWithOrderState);
+
+            FiniteTransitionBase fromNotSatisfiedWithOrderToMoveExitState =
+                new FiniteTransitionBase(visitorMoveToExitState, () =>
+                    visitorInventory.Item == null);
+            visitorNotSatisfiedWithOrderState.AddTransition(fromNotSatisfiedWithOrderToMoveExitState);
             // FiniteTransitionBase toIdleTransition = new FiniteTransitionBase(
             //     idleState, () => visitor.IsIdle);
             // moveToSeatState.AddTransition(toIdleTransition);

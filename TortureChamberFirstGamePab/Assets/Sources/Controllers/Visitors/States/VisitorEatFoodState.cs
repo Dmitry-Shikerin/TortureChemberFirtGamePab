@@ -23,7 +23,7 @@ namespace Sources.Controllers.Visitors.States
 
         public VisitorEatFoodState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
-            VisitorInventory visitorInventory, [NotNull] VisitorImageUI visitorImageUI)
+            VisitorInventory visitorInventory, VisitorImageUI visitorImageUI)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -40,14 +40,6 @@ namespace Sources.Controllers.Visitors.States
             Debug.Log("Посетитель в состоянии поедания еды");
             
             Eat();
-            
-            // _visitorInventory.SetTargetItem(null);s
-
-
-            // _visitorAnimation.PlayIdle();
-            // SeatPoint seatPoint = _visitorPointService.Get<SeatPoint>();
-            // _visitor.SetTargetPosition(seatPoint.transform.position);
-            // _visitor.SetIdle(false);
         }
 
         public override void Exit()
@@ -57,8 +49,9 @@ namespace Sources.Controllers.Visitors.States
         private async void Eat()
         {
             //TODO убрать магические числа
-            await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(0.05f, new CancellationTokenSource().Token);
+            await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(0.2f, new CancellationTokenSource().Token);
             _visitorImageUI.BackGroundImage.SetFillAmount(1);
+            _visitor.SetCanSeat(false);
         }
     }
 }

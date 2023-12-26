@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Domain.PlayerMovement;
 using MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics;
@@ -48,6 +49,10 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         private const string PlayerMovementCharacteristicsPath = "Configs/PlayerMovementCharacteristics";
         private const string BeerItemConfigPath = "Configs/Items/BeerItemConfig";
+        private const string BreadItemConfigPath = "Configs/Items/BreadItemConfig";
+        private const string MeatItemConfigPath = "Configs/Items/MeatItemConfig";
+        private const string SoupItemConfigPath = "Configs/Items/SoupItemConfig";
+        private const string WineItemConfigPath = "Configs/Items/WineItemConfig";
 
         public GamePlaySceneFactory(SceneService sceneService)
         {
@@ -83,9 +88,18 @@ namespace Sources.Infrastructure.Factories.Scenes
 
             //Items
             ItemConfig beerConfig = Resources.Load<ItemConfig>(BeerItemConfigPath);
+            ItemConfig breadConfig = Resources.Load<ItemConfig>(BreadItemConfigPath);
+            ItemConfig meatConfig = Resources.Load<ItemConfig>(MeatItemConfigPath);
+            ItemConfig soupConfig = Resources.Load<ItemConfig>(SoupItemConfigPath);
+            ItemConfig wineConfig = Resources.Load<ItemConfig>(WineItemConfigPath);
+            
             IItem[] items = new IItem[]
             {
                 new Beer(beerConfig),
+                new Bread(breadConfig),
+                new Meat(meatConfig),
+                new Soup(soupConfig),
+                new Wine(wineConfig)
             };
             itemRepository.AddCollection(items);
 
@@ -96,12 +110,15 @@ namespace Sources.Infrastructure.Factories.Scenes
             };
 
             //ItemFactory
-            foreach (IItem item in items)
-            {
-                itemRepository.Add(item);
-            }
+            // foreach (IItem item in items)
+            // {
+            //     itemRepository.Add(item);
+            // }
 
             ItemsFactory itemsFactory = new ItemsFactory(items);
+            
+            //ShuffleService
+            ProductShuffleService productShuffleService = new ProductShuffleService(items.ToList());
 
             //UpdateServise
             UpdateService updateService = new UpdateService();
@@ -123,7 +140,8 @@ namespace Sources.Infrastructure.Factories.Scenes
             ImageUIFactory imageUIFactory = new ImageUIFactory(imageUIPresenterFactory); 
             
             //Visitor
-            VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository);
+            VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository,
+                productShuffleService);
             visitorBuilder.Create(imageUIFactory);
 
             //PlayerCamera

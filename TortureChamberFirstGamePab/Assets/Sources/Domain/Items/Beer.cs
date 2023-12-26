@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Sources.Domain.Items
 {
+    //TODO както убрать дубляж айтемов
     public class Beer : IItem
     {
         private readonly ItemConfig _itemConfig;
