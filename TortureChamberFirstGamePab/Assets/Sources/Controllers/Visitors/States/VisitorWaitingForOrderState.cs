@@ -2,6 +2,7 @@
 using System.Threading;
 using JetBrains.Annotations;
 using Sources.Domain.Items;
+using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Services;
@@ -17,6 +18,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemRepository<IItem> _itemRepository;
         private readonly ProductShuffleService _productShuffleService;
+        private readonly TavernMood _tavernMood;
         private readonly IVisitorImageUI _visitorImageUI;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -24,7 +26,8 @@ namespace Sources.Controllers.Visitors.States
         public VisitorWaitingForOrderState(Visitor visitor,
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
-            ItemRepository<IItem> itemRepository, ProductShuffleService productShuffleService)
+            ItemRepository<IItem> itemRepository, ProductShuffleService productShuffleService,
+            TavernMood tavernMood)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ??
@@ -33,6 +36,7 @@ namespace Sources.Controllers.Visitors.States
                               throw new ArgumentNullException(nameof(itemRepository));
             _productShuffleService = productShuffleService ?? 
                                      throw new ArgumentNullException(nameof(productShuffleService));
+            _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _visitorImageUI = visitorImageUI ??
                               throw new ArgumentNullException(nameof(visitorImageUI));
         }
@@ -47,8 +51,8 @@ namespace Sources.Controllers.Visitors.States
                 IItem item = _productShuffleService.GetRandomItem();
 
                 _visitorImageUI.OrderImage.SetSprite(item.Icon);
-                _visitorImageUI.OrderImage.Show();
-                _visitorImageUI.BackGroundImage.Show();
+                _visitorImageUI.OrderImage.ShowImage();
+                _visitorImageUI.BackGroundImage.ShowImage();
 
                 _visitorInventory.SetTargetItem(item);
 
@@ -77,6 +81,7 @@ namespace Sources.Controllers.Visitors.States
         {
             await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(0.05f, _cancellationTokenSource.Token);
             _visitor.SetUnHappy(true);
+            _tavernMood.RemoveTavernMood();
         }
     }
 }

@@ -4,14 +4,17 @@ using Sources.DomainInterfaces.Items;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
 using Sources.Utils.Repositoryes;
+using UnityEngine;
 
 namespace Sources.Domain.Players
 {
     public class PlayerInventory
     {
         public const int MaxCapacity = 3;
+
+        private int _inventoryCapacity = 1;
         
-        private List<IItem> _items = new List<IItem>(MaxCapacity);
+        private List<IItem> _items = new List<IItem>();
         
         public PlayerInventory()
         {
@@ -33,10 +36,20 @@ namespace Sources.Domain.Players
         
         public void Add(IItem item)
         {
-            if (_items.Count == MaxCapacity)
+            if (_items.Count >= _inventoryCapacity)
                 throw new InventoryFullException("Инвентарь заполнен", nameof(PlayerInventory));
             
             _items.Add(item);
+        }
+
+        public void AddInventoryCapacity()
+        {
+            if(_inventoryCapacity >= MaxCapacity)
+                throw new InventoryFullException(
+                    "Достигнут максимальный лимит увеличения инвентаря", nameof(PlayerInventory));
+                
+            _inventoryCapacity++;
+            Debug.Log(_inventoryCapacity);
         }
 
         public void RemoveItem(IItem item)

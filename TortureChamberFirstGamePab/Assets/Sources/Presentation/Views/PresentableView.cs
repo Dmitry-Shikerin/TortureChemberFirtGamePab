@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class PresentableView<T> : MonoBehaviour where T : IPresenter
@@ -40,9 +37,9 @@ public class PresentableView<T> : MonoBehaviour where T : IPresenter
     {
     }
 
-    private void Hide() => 
+    public void Hide() => 
         gameObject.SetActive(false);
 
-    private void Show() => 
+    public void Show() => 
         gameObject.SetActive(true);
 }

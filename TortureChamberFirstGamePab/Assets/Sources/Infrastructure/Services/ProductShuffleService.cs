@@ -19,22 +19,21 @@ namespace Sources.Infrastructure.Services
             _items = new List<IItem>(items);
         }
 
+        //TODO возможно тут возвращать Type и у посетителя тоже запрашивать тип
         public IItem GetRandomItem()
         {
             Shuffle();
 
             return _items.First();
         }
-        
-        public void Shuffle()
+
+        private void Shuffle()
         {
             for (int i = _items.Count - 1; i >= 0; i--)
             {
+                //TODO посмотреть про исправление этой записи
                 int randomItem = Random.Range(0 ,_items.Count);
-                IItem shuffledElement = _items[randomItem];
-
-                _items[randomItem] = _items[i];
-                _items[i] = shuffledElement;
+                (_items[randomItem], _items[i]) = (_items[i], _items[randomItem]);
             }
         }
     }

@@ -1,9 +1,10 @@
 ﻿using System;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
+using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 
 namespace Sources.Utils.ObservablePropertyes
 {
-    public class ObservableProperty<T> : IObservableProperty
+    public class ObservableProperty<T> : IObservableProperty<T>
     {
         private T _value;
         
@@ -15,6 +16,8 @@ namespace Sources.Utils.ObservablePropertyes
         public event Action Changed;
 
         public string StringValue => Value.ToString();
+
+        public T GetValue => Value;
 
         public T Value
         {

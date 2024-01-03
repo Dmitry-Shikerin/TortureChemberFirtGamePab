@@ -1,6 +1,7 @@
 using System;
 using Sources.Controllers;
 using Sources.DomainInterfaces.Items;
+using Sources.Presentation.Views.ObjectPolls;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
 using UnityEngine;
@@ -18,6 +19,18 @@ namespace Sources.Presentation.Views.Visitors
             NavMeshAgent = GetComponent<NavMeshAgent>() ??
                            throw new NullReferenceException(nameof(NavMeshAgent));
 
+        public void Destroy()
+        {
+            if (TryGetComponent(out PoolableObject poolableObject) == false)
+            {
+                Destroy(gameObject);
+
+                return;
+            }
+
+            poolableObject.ReturnTooPool();
+        }
+        
         public void Update() =>
             Presenter?.Update();
 

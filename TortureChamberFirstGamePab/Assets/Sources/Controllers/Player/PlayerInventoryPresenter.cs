@@ -79,7 +79,7 @@ namespace MyProject.Sources.Controllers
                         backGroundImage = _playerInventoryView.PlayerInventorySlots[i].BackgroundImage;
                         await backGroundImage.FillMoveTowardsAsync(_playerInventoryView.FillingRate, cancellationToken);
                         _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
-                        _playerInventoryView.PlayerInventorySlots[i].Image.Hide();
+                        _playerInventoryView.PlayerInventorySlots[i].Image.HideImage();
                         backGroundImage.SetFillAmount(1);
                         IItem targetItem = _playerInventory.Items[i];
                         targetItem.ItemView.Destroy();
@@ -119,7 +119,7 @@ namespace MyProject.Sources.Controllers
 
                 item.ItemView.SetPosition(slotTransform);
                 item.ItemView.SetParent(slotTransform);
-                imageUI.Show();
+                imageUI.ShowImage();
                 imageUI.SetSprite(item.Icon);
             }
         }
@@ -132,7 +132,7 @@ namespace MyProject.Sources.Controllers
                 if (_playerInventoryView.PlayerInventorySlots[i]
                         .GetComponentInChildren<FoodView>() == null)
                 {
-                    _playerInventoryView.PlayerInventorySlots[i].Image.Hide();
+                    _playerInventoryView.PlayerInventorySlots[i].Image.HideImage();
                     _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
                 }
             }
@@ -152,7 +152,7 @@ namespace MyProject.Sources.Controllers
                 {
                     item.ItemView.SetPosition(slotTransform);
                     item.ItemView.SetParent(slotTransform);
-                    imageUI.Show();
+                    imageUI.ShowImage();
                     imageUI.SetSprite(item.Icon);
                 }
             }

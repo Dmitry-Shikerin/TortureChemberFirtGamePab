@@ -1,7 +1,9 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
+using Sources.Domain.Items.ItemConfigs;
 using Sources.Infrastructure.Factorys.Domains.Items;
+using Sources.Presentation.UI.PickUpPointUIs;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
 
@@ -19,15 +21,15 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoint
         
         public TavernFudPickUpPointPresenter Create(
             ITavernFudPickUpPointView tavernFudPickUpPointView,
-            IImageUI imageUI)
+            PickUpPointUI pickUpPointUI, ItemConfig itemConfig)
         {
             if (tavernFudPickUpPointView == null) 
                 throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
-            if (imageUI == null) 
-                throw new ArgumentNullException(nameof(imageUI));
+            if (pickUpPointUI == null) 
+                throw new ArgumentNullException(nameof(pickUpPointUI));
             
             return new TavernFudPickUpPointPresenter(
-                tavernFudPickUpPointView, _itemsFactory, imageUI);
+                tavernFudPickUpPointView, _itemsFactory, pickUpPointUI, itemConfig);
         }
     }
 }

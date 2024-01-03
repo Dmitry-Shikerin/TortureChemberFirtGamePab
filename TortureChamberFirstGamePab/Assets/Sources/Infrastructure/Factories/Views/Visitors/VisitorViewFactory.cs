@@ -1,8 +1,10 @@
 using System;
 using JetBrains.Annotations;
 using Sources.Controllers;
+using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Presentation.Animations;
@@ -27,7 +29,8 @@ namespace Sources.Infrastructure.Factorys.Views
         public IVisitorView Create(VisitorView visitorView,
             VisitorAnimation visitorAnimation, Visitor visitor,
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
-            VisitorInventory visitorInventory, ImageUIFactory imageUIFactory)
+            VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
+            ItemViewFactory itemViewFactory, TavernMood tavernMood)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -43,10 +46,14 @@ namespace Sources.Infrastructure.Factorys.Views
                 throw new ArgumentNullException(nameof(visitorInventory));
             if (imageUIFactory == null) 
                 throw new ArgumentNullException(nameof(imageUIFactory));
+            if (itemViewFactory == null) 
+                throw new ArgumentNullException(nameof(itemViewFactory));
+            if (tavernMood == null)
+                throw new ArgumentNullException(nameof(tavernMood));
 
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
                 visitorView, visitorAnimation, visitor, itemRepository, visitorImageUI,
-                visitorInventory, imageUIFactory);
+                visitorInventory, imageUIFactory, itemViewFactory, tavernMood);
             
             visitorView.Construct(visitorPresenter);
 

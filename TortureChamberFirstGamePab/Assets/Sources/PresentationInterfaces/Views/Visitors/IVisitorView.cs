@@ -10,5 +10,6 @@ namespace Sources.PresentationInterfaces.Views
         
         void SetDestination(Vector3 destination);
         void SeatDown(Vector3 position, Quaternion look);
+        void Destroy();
     }
 }

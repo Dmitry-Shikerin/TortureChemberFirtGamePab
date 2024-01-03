@@ -12,7 +12,7 @@ namespace Sources.PresentationInterfaces.UI
         void SetFillAmount(float filling);
         UniTask FillMoveTowardsAsync(float fillingRate, CancellationToken cancellationToken);
         void SetColor(Color color);
-        void Hide();
-        void Show();
+        void HideImage();
+        void ShowImage();
     }
 }

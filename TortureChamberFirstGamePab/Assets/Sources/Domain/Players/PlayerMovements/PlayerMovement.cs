@@ -9,6 +9,8 @@ namespace MyProject.Sources.Domain.PlayerMovement
     {
         private readonly PlayerMovementCharacteristic _characteristic;
 
+        private float _movementSpeed;
+        
         public PlayerMovement
         (
             PlayerMovementCharacteristic playerMovementCharacteristic
@@ -17,11 +19,22 @@ namespace MyProject.Sources.Domain.PlayerMovement
             _characteristic = playerMovementCharacteristic
                 ? playerMovementCharacteristic
                 : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
+
+            _movementSpeed = _characteristic.MovementSpeed;
+        }
+
+        public void AddMovementSpeed()
+        {
+            if (_movementSpeed >= 1.9f)
+                throw new InvalidOperationException("Достигнут лимит улучшения скорости");
+                
+            _movementSpeed += 0.3f;
+            Debug.Log(_movementSpeed);
         }
 
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
         {
-            float speed = runInput == 0 ? _characteristic.RunSpeed : _characteristic.MovementSpeed;
+            float speed = runInput == 0 ? _characteristic.RunSpeed : _movementSpeed;
             Vector3 direction = speed * Time.deltaTime * cameraDirection;
             direction.y -= _characteristic.Gravity * Time.deltaTime;
 

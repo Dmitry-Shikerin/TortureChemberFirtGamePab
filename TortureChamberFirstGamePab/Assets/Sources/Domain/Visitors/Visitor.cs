@@ -7,7 +7,7 @@ namespace Sources.Domain.Visitors
     public class Visitor
     {
         public Vector3 TargetPosition { get; private set; }
-        public IVisitorPoint SeatPoint { get; private set; }
+        public SeatPoint SeatPoint { get; private set; }
         public bool IsIdle { get; private set; }
         public bool CanSeat { get; private set; }
         public bool IsUnhappy { get; private set; }
@@ -18,7 +18,7 @@ namespace Sources.Domain.Visitors
         public void SetIdle(bool isIdle) => 
             IsIdle = isIdle;
 
-        public void SetSeatPoint(IVisitorPoint seatPoint) => 
+        public void SetSeatPoint(SeatPoint seatPoint) => 
             SeatPoint = seatPoint;
 
         public void SetTargetPosition(Vector3 targetPosition) => 

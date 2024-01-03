@@ -28,10 +28,10 @@ namespace Sources.Presentation.UI
         public void SetColor(Color color) => 
             _image.color = color;
 
-        public void Hide() => 
+        public void HideImage() => 
             SetColor(Color.clear);
 
-        public void Show() => 
+        public void ShowImage() => 
             SetColor(Color.white);
     }
 }
