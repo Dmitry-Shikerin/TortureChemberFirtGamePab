@@ -18,11 +18,13 @@ using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
+using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.Infrastructure.Factories.Views.Items.Garbeges;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -34,6 +36,7 @@ using Sources.Infrastructure.Services.SceneService;
 using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.PickUpPointUIs;
+using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.Foods;
@@ -184,6 +187,13 @@ namespace Sources.Infrastructure.Factories.Scenes
             
             //VisitorSpawnService
             // VisitorSpawnService visitorSpawnService = new VisitorSpawnService(updateService ,gamePlay ,visitorBuilder);
+            
+            //TODO покашто так проверить
+            //GarbadgeView
+            GarbageView garbageView = Object.FindObjectOfType<GarbageView>();
+            GarbagePresenterFactory garbagePresenterFactory = new GarbagePresenterFactory();
+            GarbageViewFactory garbageViewFactory = new GarbageViewFactory(garbagePresenterFactory);
+            garbageViewFactory.Create(garbageView, imageUIFactory);
 
             //PlayerCamera
             PlayerCamera playerCamera = new PlayerCamera();
