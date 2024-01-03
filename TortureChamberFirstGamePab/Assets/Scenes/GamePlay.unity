@@ -22642,7 +22642,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1286143908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38980,6 +38980,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 410569840}
     m_Modifications:
+    - target: {fileID: 4126518723731813865, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
+      propertyPath: <FillingRate>k__BackingField
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5079347826013105631, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.067947
@@ -39133,6 +39137,10 @@ PrefabInstance:
     - target: {fileID: 450658953766400187, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964559089615445339, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
+      propertyPath: <FillingRate>k__BackingField
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8143213714720810889, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
       propertyPath: m_Name
@@ -39432,6 +39440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinePickUpPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 5963787657564636407, guid: e2090158fd23bf64397707407f47b231, type: 3}
+      propertyPath: <FillingRate>k__BackingField
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7619218049112520690, guid: e2090158fd23bf64397707407f47b231, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.334947
@@ -39648,6 +39660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeerPickUpPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 7311022476617166488, guid: 344cad7f7a7d19347a6bab91ce8aceca, type: 3}
+      propertyPath: <FillingRate>k__BackingField
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -39845,6 +39861,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 410569840}
     m_Modifications:
+    - target: {fileID: 1151540355252877796, guid: a65b063c475ad5246b6283d23981202a, type: 3}
+      propertyPath: <FillingRate>k__BackingField
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1640781206977154555, guid: a65b063c475ad5246b6283d23981202a, type: 3}
       propertyPath: m_Name
       value: BreadPickUpPoint

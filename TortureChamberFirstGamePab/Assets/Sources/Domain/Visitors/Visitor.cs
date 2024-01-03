@@ -11,7 +11,13 @@ namespace Sources.Domain.Visitors
         public bool IsIdle { get; private set; }
         public bool CanSeat { get; private set; }
         public bool IsUnhappy { get; private set; }
+        public bool CanEat { get; private set; }
 
+        public void SetCanEat(bool canEat)
+        {
+            CanEat = canEat;
+        }
+        
         public void SetUnHappy(bool isUnhappy) => 
             IsUnhappy = isUnhappy;
 

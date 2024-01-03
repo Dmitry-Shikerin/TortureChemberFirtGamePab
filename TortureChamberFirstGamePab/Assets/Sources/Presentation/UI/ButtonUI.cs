@@ -10,9 +10,14 @@ namespace Sources.Presentation.UI
         [SerializeField] private Button _button;
         
         //TODO вылетают эксепшены
-        private void Start()
+        protected override void OnAfterEnable()
         {
             _button.onClick.AddListener(Presenter.AddListener);
         }
+
+        // private void Start()
+        // {
+        //     _button.onClick.AddListener(Presenter.AddListener);
+        // }
     }
 }
