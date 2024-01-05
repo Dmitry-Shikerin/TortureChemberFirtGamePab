@@ -1,11 +1,10 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.Old
 {
-    public class CoinAnimationView : MonoBehaviour
+    public class CoinAnimation : MonoBehaviour
     {
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private AnimationCurve _animationCurve;
@@ -24,11 +23,13 @@ namespace Sources.Presentation.Views.Old
         {
             _totalTime = _animationCurve.keys[_animationCurve.keys.Length - 1].time;
             _canMove = false;
+            
+            Collect();
         }
 
         private void OnEnable()
         {
-            Collect();
+            // Collect();
         }
 
         private void OnDisable()

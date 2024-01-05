@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7550478431268832183}
   - component: {fileID: 3475705249268996425}
   - component: {fileID: 8883176562810805344}
-  - component: {fileID: 3436327048125671953}
+  - component: {fileID: 5639179539299226333}
+  - component: {fileID: 8421252867804403789}
+  - component: {fileID: 619142073644234334}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -85,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3436327048125671953
+--- !u!114 &5639179539299226333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,64 +96,94 @@ MonoBehaviour:
   m_GameObject: {fileID: 438909783633916181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80e65e91c2ea23047b9b0947f6e586b8, type: 3}
+  m_Script: {fileID: 11500000, guid: e64505f7dc594c56b2a249d69776d392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 0}
-  _animationCurve:
+  <AnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0077409446
-      value: 0.5010239
-      inSlope: 5.7763004
-      outSlope: 5.7763004
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.047440678
+      value: 0.96094227
+      inSlope: 1.4342854
+      outSlope: 1.4342854
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.031513453
-      value: 3.5129745
-      inSlope: 6.5896034
-      outSlope: 6.5896034
+      time: 0.9979248
+      value: 0.011791229
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 1
-      outWeight: 0.6872036
-    - serializedVersion: 3
-      time: 0.20396698
-      value: 1.5125713
-      inSlope: -2.9101694
-      outSlope: -2.9101694
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.8583013
-      outWeight: 0.6989615
-    - serializedVersion: 3
-      time: 0.26539648
-      value: 1.0448148
-      inSlope: -1.0111015
-      outSlope: -1.0111015
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.74504375
-    - serializedVersion: 3
-      time: 0.3867681
-      value: 0.99728286
-      inSlope: -0.39162335
-      outSlope: -0.39162335
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _rotationSpeed: 0.3
-  _movementSpeed: 15
-  _offsetYFinishPoint: 1
+  <MovementSpeed>k__BackingField: 15
+  <OffsetYFinishPoint>k__BackingField: 1
+--- !u!135 &8421252867804403789
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438909783633916181}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6857672
+  m_Center: {x: 0.006458111, y: 0, z: -0.00000008940697}
+--- !u!54 &619142073644234334
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438909783633916181}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &8469347369862930817
 PrefabInstance:
   m_ObjectHideFlags: 0

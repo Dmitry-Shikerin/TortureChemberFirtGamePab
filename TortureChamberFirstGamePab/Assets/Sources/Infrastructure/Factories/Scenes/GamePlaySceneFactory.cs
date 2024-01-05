@@ -19,12 +19,14 @@ using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
+using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
+using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
 using Sources.Infrastructure.Factories.Views.Points;
@@ -41,6 +43,7 @@ using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.PickUpPointUIs;
+using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns;
@@ -187,6 +190,13 @@ namespace Sources.Infrastructure.Factories.Scenes
             //TextUIFactories
             TextUIPresenterFactory textUIPresenterFactory = new TextUIPresenterFactory();
             TextUIFactory textUIFactory = new TextUIFactory(textUIPresenterFactory);
+            
+            //CoinAnimationFactories
+            CoinAnimationView coinAnimationView = Object.FindObjectOfType<CoinAnimationView>();
+            CoinAnimationPresenterFactory coinAnimationPresenterFactory = new CoinAnimationPresenterFactory();
+            CoinAnimationViewFactory coinAnimationViewFactory = 
+                new CoinAnimationViewFactory(coinAnimationPresenterFactory);
+            coinAnimationViewFactory.Create(coinAnimationView);
             
             //TavernMood
             TavernMood tavernMood = new TavernMood();
