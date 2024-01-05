@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using MyProject.Sources.Controllers.UI;
 using MyProject.Sources.Domain.PlayerMovement;
 using MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics;
 using MyProject.Sources.Infrastructure.Factorys.Controllers;
@@ -38,6 +39,7 @@ using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.SceneService;
 using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.UI;
+using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.PickUpPointUIs;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
@@ -47,6 +49,7 @@ using Sources.Presentation.Views.Taverns.UpgradePoints;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
+using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -91,6 +94,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                 Object.FindObjectOfType<WinePickUpPointView>();
             TavernUpgradePointButtons tavernUpgradePointButtons =
                 Object.FindObjectOfType<TavernUpgradePointButtons>(true);
+            
+            HudTextUIContainer hudTextUIContainer = hud.GetComponent<HudTextUIContainer>();
             
             //RootGamePoints
             RootGamePoints rootGamePoints = Object.FindObjectOfType<RootGamePoints>();
@@ -179,6 +184,9 @@ namespace Sources.Infrastructure.Factories.Scenes
             ButtonUIPresenterFactory buttonUIPresenterFactory = new ButtonUIPresenterFactory();
             ButtonUIFactory buttonUIFactory = new ButtonUIFactory(buttonUIPresenterFactory);
             
+            //TextUIFactories
+            TextUIPresenterFactory textUIPresenterFactory = new TextUIPresenterFactory();
+            TextUIFactory textUIFactory = new TextUIFactory(textUIPresenterFactory);
             
             //TavernMood
             TavernMood tavernMood = new TavernMood();
@@ -214,6 +222,17 @@ namespace Sources.Infrastructure.Factories.Scenes
             //VisitorSpawnService
             // VisitorSpawnService visitorSpawnService = new VisitorSpawnService(updateService ,gamePlay ,visitorBuilder);
 
+            //PLayerWallet
+            PlayerWalletView playerWalletView = playerMovementView.GetComponent<PlayerWalletView>();
+            PlayerWallet playerWallet = new PlayerWallet();
+            PlayerWalletPresenterFactory playerWalletPresenterFactory = new PlayerWalletPresenterFactory();
+            PlayerWalletViewFactory playerWalletViewFactory =
+                new PlayerWalletViewFactory(playerWalletPresenterFactory);
+            playerWalletViewFactory.Create(playerWalletView, playerWallet);
+
+
+            textUIFactory.Create(hudTextUIContainer.PlayerWalletText, playerWallet.Coins);
+            
             //PlayerCamera
             PlayerCamera playerCamera = new PlayerCamera();
             playerCamera.SetStartAngleY(playerCameraView.transform.position.y);
@@ -245,8 +264,13 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new PlayerInventoryPresenterFactory();
             PlayerInventoryViewFactory playerInventoryViewFactory =
                 new PlayerInventoryViewFactory(playerInventoryPresenterFactory);
-            TextUI textUI = hud.GetComponentInChildren<TextUI>();
-            playerInventoryViewFactory.Create(playerInventoryView, textUI, playerInventory,
+
+            //TODO как исправить заглушку в виде проперти?
+            textUIFactory.Create(hudTextUIContainer.SystemErrorsText,
+                new ObservableProperty<string>());
+            
+            playerInventoryViewFactory.Create(playerInventoryView, 
+                hudTextUIContainer.SystemErrorsText, playerInventory,
             itemViewFactory, imageUIFactory);
             
             //TavernUpgradePointButtons
