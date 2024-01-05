@@ -4,6 +4,7 @@ using Sources.Controllers;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factorys.Controllers;
@@ -30,7 +31,7 @@ namespace Sources.Infrastructure.Factorys.Views
             VisitorAnimation visitorAnimation, Visitor visitor,
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood)
+            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -53,7 +54,7 @@ namespace Sources.Infrastructure.Factorys.Views
 
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
                 visitorView, visitorAnimation, visitor, itemRepository, visitorImageUI,
-                visitorInventory, imageUIFactory, itemViewFactory, tavernMood);
+                visitorInventory, imageUIFactory, itemViewFactory, tavernMood, garbageBuilder);
             
             visitorView.Construct(visitorPresenter);
 

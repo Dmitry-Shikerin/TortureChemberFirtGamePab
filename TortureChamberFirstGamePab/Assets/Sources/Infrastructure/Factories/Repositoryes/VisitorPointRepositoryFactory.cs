@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Utils.Repositoryes;
 using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 
@@ -25,14 +26,14 @@ namespace Sources.Infrastructure.Factorys
             if (visitorPoints.Count == 0)
                 throw new ArgumentOutOfRangeException(nameof(visitorPoints));
             
-            List<SeatPoint> seatPoints = visitorPoint.
-                GetComponentsInChildren<SeatPoint>().ToList();
+            List<SeatPointView> seatPoints = visitorPoint.
+                GetComponentsInChildren<SeatPointView>().ToList();
             
             List<OutDoorPoint> outDoorPoints = visitorPoint.
                 GetComponentsInChildren<OutDoorPoint>().ToList();
             
             CollectionRepository collectionRepository = new CollectionRepository();
-            collectionRepository.Add<SeatPoint>(seatPoints);
+            collectionRepository.Add<SeatPointView>(seatPoints);
             collectionRepository.Add<OutDoorPoint>(outDoorPoints);
 
             return collectionRepository;

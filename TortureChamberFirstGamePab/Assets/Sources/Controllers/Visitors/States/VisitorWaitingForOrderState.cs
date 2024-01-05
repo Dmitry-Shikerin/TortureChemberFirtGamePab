@@ -84,6 +84,7 @@ namespace Sources.Controllers.Visitors.States
                     0.02f, _cancellationTokenSource.Token);
                 _visitor.SetUnHappy(true);
                 _tavernMood.RemoveTavernMood();
+                _visitor.SeatPointView.SetIsOccupied(false);
             }
             catch (OperationCanceledException e)
             {

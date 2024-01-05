@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Items.Garbages;
 using Sources.Presentation.UI.PickUpPointUIs;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Garbages;
 
@@ -23,20 +24,28 @@ namespace Sources.Controllers.Items
             _garbage = garbage ?? throw new ArgumentNullException(nameof(garbage));
         }
 
+        public IEatPointView EatPointView => _garbage.EatPointView;
+
         public async void CleanUp(CancellationToken cancellationToken)
         {
             try
             {
                 await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(_garbageView.FillingRate, cancellationToken);
                 _garbageView.Destroy();
+                _garbage.EatPointView.SetIsClean(false);
             }
             catch (OperationCanceledException exception)
             {
                 //TODO чтото обработать
                 Console.WriteLine(exception);
-                throw;
+                _pickUpPointUI.BackgroundImage.SetFillAmount(1);
             }
             
+        }
+
+        public void SetEatPointView(IEatPointView eatPointView)
+        {
+            _garbage.SetEatPointView(eatPointView);
         }
     }
 }

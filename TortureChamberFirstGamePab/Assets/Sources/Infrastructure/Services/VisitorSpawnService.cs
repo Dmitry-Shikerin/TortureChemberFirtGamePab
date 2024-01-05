@@ -53,7 +53,7 @@ namespace Sources.Infrastructure.Services
 
         private void VisitorSpawn()
         {
-            IVisitorView visitorView = _objectPool.Get<VisitorView>() ?? _visitorBuilder.Create();
+            IVisitorView visitorView = _objectPool.Get<VisitorView>() ?? _visitorBuilder.Create(_objectPool);
         }
     }
 }

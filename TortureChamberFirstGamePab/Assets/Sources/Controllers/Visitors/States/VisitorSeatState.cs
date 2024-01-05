@@ -29,7 +29,7 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             // Debug.Log("Посетитель в состоянии сидя");
-            _visitorView.SeatDown(_visitor.SeatPoint.Position, _visitor.SeatPoint.Rotation);
+            _visitorView.SeatDown(_visitor.SeatPointView.Position, _visitor.SeatPointView.Rotation);
             _visitorAnimation.PlaySeatIdle();
             _visitor.SetCanSeat(true);
         }

@@ -9,6 +9,7 @@ using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Infrastructure.Factorys.Views;
 using Sources.Infrastructure.Services;
+using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Presentation.Animations;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.ObjectPolls;
@@ -29,10 +30,11 @@ namespace Sources.Infrastructure.BuilderFactories
         private readonly ItemViewFactory _itemViewFactory;
         private readonly ImageUIFactory _imageUIFactory;
         private readonly TavernMood _tavernMood;
+        private readonly GarbageBuilder _garbageBuilder;
 
         public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository,
-            ProductShuffleService productShuffleService, [NotNull] ItemViewFactory itemViewFactory,
-            [NotNull] ImageUIFactory imageUIFactory, [NotNull] TavernMood tavernMood)
+            ProductShuffleService productShuffleService, ItemViewFactory itemViewFactory,
+            ImageUIFactory imageUIFactory, TavernMood tavernMood, [NotNull] GarbageBuilder garbageBuilder)
         {
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -42,9 +44,10 @@ namespace Sources.Infrastructure.BuilderFactories
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
+            _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
         }
         
-        public IVisitorView Create()
+        public IVisitorView Create(IObjectPool objectPool)
         {
             // if (imageUIFactory == null) 
             //     throw new ArgumentNullException(nameof(imageUIFactory));
@@ -61,7 +64,7 @@ namespace Sources.Infrastructure.BuilderFactories
             
             //Todo заменить на инстантиэйт
             VisitorView visitorView = Object.FindObjectOfType<VisitorView>();
-            visitorView.AddComponent<PoolableObject>();
+            visitorView.AddComponent<PoolableObject>().SetPool(objectPool);
             
             Visitor visitor = new Visitor();
             VisitorAnimation visitorAnimation = visitorView.gameObject.GetComponent<VisitorAnimation>();
@@ -73,7 +76,7 @@ namespace Sources.Infrastructure.BuilderFactories
                 visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
                 _itemRepository, visitorImageUI, visitorInventory, _imageUIFactory,
-                _itemViewFactory, _tavernMood);
+                _itemViewFactory, _tavernMood, _garbageBuilder);
 
             return visitorView;
         }

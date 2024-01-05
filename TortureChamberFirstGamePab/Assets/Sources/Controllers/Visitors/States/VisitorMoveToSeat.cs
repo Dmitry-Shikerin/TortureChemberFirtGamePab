@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.States;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
@@ -52,11 +53,11 @@ namespace Sources.Controllers.Visitors.States
         
         private async UniTask Move()
         {
-            IVisitorPoint seatPoint = _collectionRepository.Get<SeatPoint>().FirstOrDefault();
-            
-            _visitorView.SetDestination(seatPoint.Position);
+            // IVisitorPoint seatPoint = _collectionRepository.Get<SeatPointView>().FirstOrDefault();
+            //
+            _visitorView.SetDestination(_visitor.SeatPointView.Position);
 
-            while (Vector3.Distance(_visitorView.Position, seatPoint.Position) > 
+            while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) > 
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
                 await UniTask.Yield();

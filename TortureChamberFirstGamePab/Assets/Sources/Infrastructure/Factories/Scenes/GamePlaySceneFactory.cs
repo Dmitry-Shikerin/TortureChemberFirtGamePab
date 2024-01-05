@@ -19,12 +19,14 @@ using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
+using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
+using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -32,6 +34,7 @@ using Sources.Infrastructure.Factorys;
 using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
+using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.SceneService;
 using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.UI;
@@ -41,6 +44,8 @@ using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.Foods;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
+using Sources.Presentation.Views.Visitors;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
@@ -101,11 +106,20 @@ namespace Sources.Infrastructure.Factories.Scenes
             //ItemViewrepository
             // ItemRepository<IItemView> itemViewRepository = new ItemRepository<IItemView>();
 
+            //EatPointFactories
+            EatPointPresenterFactory eatPointPresenterFactory = new EatPointPresenterFactory();
+            EatPointViewFactory eatPointViewFactory = new EatPointViewFactory(eatPointPresenterFactory);
+            
             //SeatPoints
-            List<SeatPoint> seatPoints = new List<SeatPoint>();
-            foreach (SeatPoint seatPoint in rootGamePoints.GetComponentsInChildren<SeatPoint>())
+            SeatPointPresenterFactory seatPointPresenterFactory = new SeatPointPresenterFactory();
+            SeatPointViewFactory seatPointViewFactory = new SeatPointViewFactory(seatPointPresenterFactory);
+            
+            List<SeatPointView> seatPoints = new List<SeatPointView>();
+            foreach (SeatPointView seatPointView in rootGamePoints.GetComponentsInChildren<SeatPointView>())
             {
-                seatPoints.Add(seatPoint);
+                seatPointViewFactory.Create(seatPointView);
+                eatPointViewFactory.Create(seatPointView.EatPointView);
+                seatPoints.Add(seatPointView);
             }
             
             //Items
@@ -180,20 +194,25 @@ namespace Sources.Infrastructure.Factories.Scenes
             GamePlayService gamePlayService = new GamePlayService(gamePlay, seatPoints.Count);
             gamePlayService.Start();
             
+            //TODO покашто так проверить
+            //GarbadgeView
+            // GarbageView garbageView = Object.FindObjectOfType<GarbageView>();
+            GarbagePresenterFactory garbagePresenterFactory = new GarbagePresenterFactory();
+            GarbageViewFactory garbageViewFactory = new GarbageViewFactory(garbagePresenterFactory);
+            // garbageViewFactory.Create(garbageView, imageUIFactory);
+            
+            //GarbageBuilder
+            GarbageBuilder garbageBuilder = new GarbageBuilder(prefabFactory, garbageViewFactory, imageUIFactory);
+            
             //Visitor
+            //TODO потом удалить этот пул
+            ObjectPool<VisitorView> objectPool = new ObjectPool<VisitorView>();
             VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository,
-                productShuffleService, itemViewFactory, imageUIFactory, tavernMood);
-            visitorBuilder.Create();
+                productShuffleService, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder);
+            visitorBuilder.Create(objectPool);
             
             //VisitorSpawnService
             // VisitorSpawnService visitorSpawnService = new VisitorSpawnService(updateService ,gamePlay ,visitorBuilder);
-            
-            //TODO покашто так проверить
-            //GarbadgeView
-            GarbageView garbageView = Object.FindObjectOfType<GarbageView>();
-            GarbagePresenterFactory garbagePresenterFactory = new GarbagePresenterFactory();
-            GarbageViewFactory garbageViewFactory = new GarbageViewFactory(garbagePresenterFactory);
-            garbageViewFactory.Create(garbageView, imageUIFactory);
 
             //PlayerCamera
             PlayerCamera playerCamera = new PlayerCamera();

@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Domain.PlayerMovement;
 using MyProject.Sources.Presentation.Animations;

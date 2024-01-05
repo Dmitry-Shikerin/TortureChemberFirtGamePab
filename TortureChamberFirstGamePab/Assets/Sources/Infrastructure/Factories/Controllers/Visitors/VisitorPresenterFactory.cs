@@ -6,6 +6,7 @@ using Sources.Controllers.Visitors.States;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
@@ -35,7 +36,7 @@ namespace Sources.Infrastructure.Factorys.Controllers
             IVisitorAnimation visitorAnimation, Visitor visitor,
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood)
+            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -73,7 +74,7 @@ namespace Sources.Infrastructure.Factorys.Controllers
                     _productShuffleService, tavernMood);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
-                visitorInventory, visitorImageUI, itemViewFactory, tavernMood);
+                visitorInventory, visitorImageUI, itemViewFactory, tavernMood, garbageBuilder);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUI);
@@ -88,7 +89,7 @@ namespace Sources.Infrastructure.Factorys.Controllers
 
             FiniteTransitionBase toSeatIdleTransition = new FiniteTransitionBase(
                 visitorSeatState, () => Vector3.Distance(visitorView.Position,
-                    visitor.SeatPoint.Position) <= visitorView.NavMeshAgent.stoppingDistance);
+                    visitor.SeatPointView.Position) <= visitorView.NavMeshAgent.stoppingDistance);
             moveToSeatState.AddTransition(toSeatIdleTransition);
 
             FiniteTransitionBase toWaitingForOrderTransition = new FiniteTransitionBase(

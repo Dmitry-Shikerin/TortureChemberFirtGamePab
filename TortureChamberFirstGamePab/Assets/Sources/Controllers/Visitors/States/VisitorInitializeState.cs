@@ -5,6 +5,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.States;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
@@ -32,13 +33,18 @@ namespace Sources.Controllers.Visitors.States
         
         public override void Enter()
         {
-            List<SeatPoint> seatPoints = _collectionRepository.Get<SeatPoint>();
+            List<SeatPointView> seatPoints = _collectionRepository.Get<SeatPointView>();
             //TODO заменить эту запись
-            SeatPoint seatPoint = seatPoints.FirstOrDefault() ?? 
-                                  throw new NullReferenceException(nameof(seatPoints));
+            // SeatPointView seatPointView = seatPoints.FirstOrDefault(seatPoint => seatPoint.IsOccupied == false);
+            // var seatPointViews = seatPoints.Select(seatPoint => seatPoint.IsOccupied == false).FirstOrDefault();
+                                  // throw new NullReferenceException(nameof(seatPointView));
+            var seatPointView = seatPoints.Where(
+                    seatPointView => seatPointView.IsOccupied == false)
+                .Select(seatPointView => seatPointView).FirstOrDefault();
             
-            _visitor.SetTargetPosition(seatPoint.Position);
-            _visitor.SetSeatPoint(seatPoint);
+            _visitor.SetTargetPosition(seatPointView.Position);
+            _visitor.SetSeatPoint(seatPointView);
+            seatPointView.SetIsOccupied(true);
         }
 
         public override void Exit()
