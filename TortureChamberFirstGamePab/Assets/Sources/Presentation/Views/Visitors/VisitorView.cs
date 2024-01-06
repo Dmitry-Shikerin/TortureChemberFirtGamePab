@@ -29,6 +29,7 @@ namespace Sources.Presentation.Views.Visitors
             }
 
             poolableObject.ReturnTooPool();
+            Hide();
         }
         
         public void Update() =>

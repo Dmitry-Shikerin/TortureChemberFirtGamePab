@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
@@ -9,7 +8,6 @@ using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Factorys.Controllers;
 using Sources.Infrastructure.Factorys.Views;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Presentation.Animations;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.ObjectPolls;
@@ -31,10 +29,12 @@ namespace Sources.Infrastructure.BuilderFactories
         private readonly ImageUIFactory _imageUIFactory;
         private readonly TavernMood _tavernMood;
         private readonly GarbageBuilder _garbageBuilder;
+        private readonly CoinBuilder _coinBuilder;
 
         public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository,
             ProductShuffleService productShuffleService, ItemViewFactory itemViewFactory,
-            ImageUIFactory imageUIFactory, TavernMood tavernMood, [NotNull] GarbageBuilder garbageBuilder)
+            ImageUIFactory imageUIFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
+            CoinBuilder coinBuilder)
         {
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -45,15 +45,11 @@ namespace Sources.Infrastructure.BuilderFactories
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
+            _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
         }
         
         public IVisitorView Create(IObjectPool objectPool)
         {
-            // if (imageUIFactory == null) 
-            //     throw new ArgumentNullException(nameof(imageUIFactory));
-            // if (tavernMood == null) 
-            //     throw new ArgumentNullException(nameof(tavernMood));
-
             VisitorInventoryView visitorInventoryView = Object.FindObjectOfType<VisitorInventoryView>();
             VisitorInventory visitorInventory = new VisitorInventory();
             VisitorInventoryPresenterFactory visitorInventoryPresenterFactory = 
@@ -76,7 +72,7 @@ namespace Sources.Infrastructure.BuilderFactories
                 visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
                 _itemRepository, visitorImageUI, visitorInventory, _imageUIFactory,
-                _itemViewFactory, _tavernMood, _garbageBuilder);
+                _itemViewFactory, _tavernMood, _garbageBuilder, _coinBuilder);
 
             return visitorView;
         }

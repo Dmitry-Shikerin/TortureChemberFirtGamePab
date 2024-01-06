@@ -31,7 +31,8 @@ namespace Sources.Infrastructure.Factorys.Views
             VisitorAnimation visitorAnimation, Visitor visitor,
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder)
+            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
+            CoinBuilder coinBuilder)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -54,7 +55,8 @@ namespace Sources.Infrastructure.Factorys.Views
 
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
                 visitorView, visitorAnimation, visitor, itemRepository, visitorImageUI,
-                visitorInventory, imageUIFactory, itemViewFactory, tavernMood, garbageBuilder);
+                visitorInventory, imageUIFactory, itemViewFactory, tavernMood, garbageBuilder,
+                coinBuilder);
             
             visitorView.Construct(visitorPresenter);
 

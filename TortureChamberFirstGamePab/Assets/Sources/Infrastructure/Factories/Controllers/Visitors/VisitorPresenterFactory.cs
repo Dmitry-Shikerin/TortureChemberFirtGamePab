@@ -36,7 +36,8 @@ namespace Sources.Infrastructure.Factorys.Controllers
             IVisitorAnimation visitorAnimation, Visitor visitor,
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder)
+            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
+            CoinBuilder coinBuilder)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -74,7 +75,8 @@ namespace Sources.Infrastructure.Factorys.Controllers
                     _productShuffleService, tavernMood);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
-                visitorInventory, visitorImageUI, itemViewFactory, tavernMood, garbageBuilder);
+                visitorInventory, visitorImageUI, itemViewFactory, tavernMood, garbageBuilder,
+                coinBuilder);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUI);

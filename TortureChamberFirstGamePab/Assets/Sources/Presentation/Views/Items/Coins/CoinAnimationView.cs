@@ -1,16 +1,16 @@
 ﻿using MyProject.Sources.Presentation.Views;
 using Sources.Controllers.Items.Coins;
+using Sources.Presentation.Views.ObjectPolls;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Sources.Presentation.Views.Items.Coins
 {
     public class CoinAnimationView : PresentableView<CoinAnimationPresenter>, ICoinAnimationView
     {
-        [SerializeField] private Transform _playerTransform;
-        [field: SerializeField] public AnimationCurve AnimationCurve { get; private set; }
         [SerializeField] private float _rotationSpeed;
+        
+        [field: SerializeField] public AnimationCurve AnimationCurve { get; private set; }
         [field: SerializeField] public float MovementSpeed { get; private set; }
         [field: SerializeField] public float OffsetYFinishPoint { get; private set; }
 
@@ -22,9 +22,20 @@ namespace Sources.Presentation.Views.Items.Coins
         {
             _totalTime = AnimationCurve.keys[AnimationCurve.keys.Length - 1].time;
 
-            // Presenter.SetCanMove(true);
-            
-            // Presenter.Collect();
+        }
+
+        public void Destroy()
+        {
+            //TODO выключать обьект когда он вернулся в пул
+            if (TryGetComponent(out PoolableObject poolableObject) == false)
+            {
+                Destroy(gameObject);
+
+                return;
+            }
+
+            poolableObject.ReturnTooPool();
+            Hide();
         }
 
         public void SetCanMove(bool canMove)
@@ -46,6 +57,5 @@ namespace Sources.Presentation.Views.Items.Coins
         {
             transform.Rotate(0, _rotationSpeed, 0);
         }
-
     }
 }

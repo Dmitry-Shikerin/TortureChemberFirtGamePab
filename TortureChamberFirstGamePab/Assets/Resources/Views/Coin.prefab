@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64505f7dc594c56b2a249d69776d392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
+  _rotationSpeed: 0.3
   <AnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
@@ -133,7 +133,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _rotationSpeed: 0.3
   <MovementSpeed>k__BackingField: 15
   <OffsetYFinishPoint>k__BackingField: 1
 --- !u!135 &8421252867804403789

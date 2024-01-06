@@ -33,6 +33,7 @@ namespace Sources.Presentation.Views.Items.Garbages
             }
 
             poolableObject.ReturnTooPool();
+            Hide();
         }
 
         public void CleanUp(CancellationToken cancellationToken)

@@ -192,11 +192,11 @@ namespace Sources.Infrastructure.Factories.Scenes
             TextUIFactory textUIFactory = new TextUIFactory(textUIPresenterFactory);
             
             //CoinAnimationFactories
-            CoinAnimationView coinAnimationView = Object.FindObjectOfType<CoinAnimationView>();
+            // CoinAnimationView coinAnimationView = Object.FindObjectOfType<CoinAnimationView>();
             CoinAnimationPresenterFactory coinAnimationPresenterFactory = new CoinAnimationPresenterFactory();
             CoinAnimationViewFactory coinAnimationViewFactory = 
                 new CoinAnimationViewFactory(coinAnimationPresenterFactory);
-            coinAnimationViewFactory.Create(coinAnimationView);
+            CoinBuilder coinBuilder = new CoinBuilder(prefabFactory, coinAnimationViewFactory);
             
             //TavernMood
             TavernMood tavernMood = new TavernMood();
@@ -226,7 +226,8 @@ namespace Sources.Infrastructure.Factories.Scenes
             //TODO потом удалить этот пул
             ObjectPool<VisitorView> objectPool = new ObjectPool<VisitorView>();
             VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository,
-                productShuffleService, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder);
+                productShuffleService, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder,
+                coinBuilder);
             visitorBuilder.Create(objectPool);
             
             //VisitorSpawnService

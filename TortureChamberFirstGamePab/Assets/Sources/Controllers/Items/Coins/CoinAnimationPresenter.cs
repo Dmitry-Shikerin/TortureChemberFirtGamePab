@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Items.Coins;
-using Sources.Presentation.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
 
@@ -39,22 +37,14 @@ namespace Sources.Controllers.Items.Coins
         {
             
         }
-        
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _coinAnimation.SetCanMove(true);
-                _cancellationTokenSource.Cancel();
-            }
-        }
 
         public void SetPlayerWalletView(PlayerWalletView playerWalletView)
         {
             _coinAnimation.SetPlayerWalletView(playerWalletView);
         }
 
-        public async void Collect()
+        //TODO попробовать сделать через UniRx
+        private async void Collect()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -62,12 +52,21 @@ namespace Sources.Controllers.Items.Coins
             {
                 await RotateCoinAsync();
                 await MoveToPlayer();
+                await AddCoins();
+                _coinAnimationView.Destroy();
             }
             catch (OperationCanceledException e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        //TODO заменить магическое число
+        private async UniTask AddCoins()
+        {
+            _coinAnimation.PlayerWalletView.Add(10);
+            await UniTask.Yield();
         }
 
         private async UniTask RotateCoinAsync()

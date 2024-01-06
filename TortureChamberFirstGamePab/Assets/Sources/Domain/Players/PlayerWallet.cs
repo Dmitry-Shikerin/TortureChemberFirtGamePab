@@ -1,6 +1,7 @@
 ﻿using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
+using UnityEngine;
 
 namespace Sources.Domain.Players
 {
@@ -18,11 +19,13 @@ namespace Sources.Domain.Players
         public void Add(int quantity)
         {
             _coins.Value += quantity;
+            Debug.Log(_coins.Value);
         }
 
         public void Remove(int quantity)
         {
             _coins.Value -= quantity;
+            Debug.Log(_coins.Value);
         }
     }
 }

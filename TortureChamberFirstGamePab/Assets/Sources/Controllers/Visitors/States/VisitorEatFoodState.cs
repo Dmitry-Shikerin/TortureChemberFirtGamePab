@@ -11,6 +11,7 @@ using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Garbages;
+using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
 
@@ -26,13 +27,14 @@ namespace Sources.Controllers.Visitors.States
         private readonly ItemViewFactory _itemViewFactory;
         private readonly TavernMood _tavernMood;
         private readonly GarbageBuilder _garbageBuilder;
+        private readonly CoinBuilder _coinBuilder;
         private readonly VisitorImageUI _visitorImageUI;
 
         public VisitorEatFoodState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
             VisitorInventory visitorInventory, VisitorImageUI visitorImageUI,
             ItemViewFactory itemViewFactory, TavernMood tavernMood,
-            [NotNull] GarbageBuilder garbageBuilder)
+            GarbageBuilder garbageBuilder, CoinBuilder coinBuilder)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -44,6 +46,7 @@ namespace Sources.Controllers.Visitors.States
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
+            _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
             _visitorImageUI = visitorImageUI ? visitorImageUI : 
                 throw new ArgumentNullException(nameof(visitorImageUI));
         }
@@ -64,6 +67,7 @@ namespace Sources.Controllers.Visitors.States
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
             _visitor.SeatPointView.EatPointView.SetIsClean(true);
+            _coinBuilder.Create().SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
         }
 
         private async void Eat(IItemView itemView)
