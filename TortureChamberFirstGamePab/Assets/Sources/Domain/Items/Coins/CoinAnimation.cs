@@ -5,7 +5,7 @@ namespace Sources.Domain.Items.Coins
 {
     public class CoinAnimation
     {
-        public PlayerWalletView PlayerWalletView { get; private set; }
+        public IPlayerWalletView PlayerWalletView { get; private set; }
         public bool CanMove { get; private set; }
 
         public void SetCanMove(bool canMove)
@@ -13,7 +13,7 @@ namespace Sources.Domain.Items.Coins
             CanMove = canMove;
         }
 
-        public void SetPlayerWalletView(PlayerWalletView playerWalletView)
+        public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
         {
             PlayerWalletView = playerWalletView;
         }

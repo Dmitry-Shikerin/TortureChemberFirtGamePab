@@ -48,7 +48,7 @@ namespace Sources.Presentation.Views.Items.Coins
             transform.position = position;
         }
 
-        public void SetPlayerWalletView(PlayerWalletView playerWalletView)
+        public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
         {
             Presenter.SetPlayerWalletView(playerWalletView);
         }

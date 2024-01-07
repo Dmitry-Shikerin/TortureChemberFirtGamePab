@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Players;
+using Sources.PresentationInterfaces.Views.Items.Coins;
 
 namespace MyProject.Sources.Controllers
 {
@@ -26,6 +27,12 @@ namespace MyProject.Sources.Controllers
         public void Remove(int quantity)
         {
             _playerWallet.Remove(quantity);
+        }
+
+        public void AddCions(ICoinAnimationView coinAnimationView)
+        {
+            coinAnimationView.SetPlayerWalletView(_playerWalletView);
+            coinAnimationView.SetCanMove(true);
         }
     }
 }

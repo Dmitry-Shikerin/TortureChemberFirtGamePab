@@ -8,13 +8,14 @@ using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Items;
+using Sources.Presentation.Views.Taverns;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
-using Unity.VisualScripting;
 using UnityEngine;
+using IGettable = Sources.PresentationInterfaces.Views.Interactions.Get.IGettable;
 
-namespace MyProject.Sources.Controllers
+namespace Sources.Controllers.Player
 {
     public class PlayerInventoryPresenter : PresenterBase
     {
@@ -22,6 +23,8 @@ namespace MyProject.Sources.Controllers
         private readonly ITextUI _textUI;
         private readonly PlayerInventory _playerInventory;
         private readonly ItemViewFactory _itemViewFactory;
+
+        private CancellationTokenSource _cancellationTokenSource;
 
 
         public PlayerInventoryPresenter(IPlayerInventoryView playerInventoryView,
@@ -41,7 +44,15 @@ namespace MyProject.Sources.Controllers
             return _playerInventory.CanGet;
         }
 
-        public void AddItem(IItem item)
+        public async void AddItem(ITakeble takeble)
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            IItem item = await takeble.TakeItem(_cancellationTokenSource.Token);
+            Add(item);
+        }
+
+        private void Add(IItem item)
         {
             try
             {
@@ -62,6 +73,25 @@ namespace MyProject.Sources.Controllers
             }
         }
 
+        public async void GetItem(IGettable gettable)
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
+            IItem targetItem = gettable.GetTargetItem();
+            
+            if (targetItem == null)
+                return;
+            
+            if (gettable.GetItem() != null)
+                return;
+            
+            if(_playerInventoryView.TryGet() == false)
+                return;
+            
+            IItem item = await Get(targetItem, _cancellationTokenSource.Token);
+            gettable.Add(item);
+        }
+        
         //TODO посмотреть плагины AI
         public async UniTask<IItem> Get(IItem item, CancellationToken cancellationToken)
         {
@@ -105,6 +135,11 @@ namespace MyProject.Sources.Controllers
                 backGroundImage?.SetFillAmount(1);
                 return null;
             }
+        }
+
+        public void Cancel()
+        {
+            _cancellationTokenSource.Cancel();
         }
 
         private void UpdateViewPosition()

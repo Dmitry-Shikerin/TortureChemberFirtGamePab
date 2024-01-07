@@ -98,8 +98,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3376357321342363675}
-  - component: {fileID: 5312304855429999793}
-  - component: {fileID: 3533087779633122519}
+  - component: {fileID: 3491010296031882368}
+  - component: {fileID: 5487837081477109851}
   m_Layer: 0
   m_Name: GarbageTrigger
   m_TagString: Untagged
@@ -122,7 +122,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8638442048948779960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5312304855429999793
+--- !u!114 &3491010296031882368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ddcf39a5d48d3a3cbeb12f0349942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &3533087779633122519
+--- !u!135 &5487837081477109851
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

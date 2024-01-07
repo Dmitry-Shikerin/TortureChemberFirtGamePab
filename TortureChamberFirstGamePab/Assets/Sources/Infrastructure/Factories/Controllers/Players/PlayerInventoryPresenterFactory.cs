@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using MyProject.Sources.Controllers;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.PresentationInterfaces.UI;

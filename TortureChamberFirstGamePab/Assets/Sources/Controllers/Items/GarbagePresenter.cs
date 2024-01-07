@@ -16,6 +16,8 @@ namespace Sources.Controllers.Items
         private readonly IGarbageView _garbageView;
         private readonly Garbage _garbage;
 
+        private CancellationTokenSource _cancellationTokenSource;
+
         public GarbagePresenter(PickUpPointUI pickUpPointUI, IGarbageView garbageView, Garbage garbage)
         {
             _pickUpPointUI = pickUpPointUI ?
@@ -26,11 +28,14 @@ namespace Sources.Controllers.Items
 
         public IEatPointView EatPointView => _garbage.EatPointView;
 
-        public async void CleanUp(CancellationToken cancellationToken)
+        public async void CleanUp()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
             try
             {
-                await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(_garbageView.FillingRate, cancellationToken);
+                await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(
+                    _garbageView.FillingRate, _cancellationTokenSource.Token);
                 _garbageView.Destroy();
                 _garbage.EatPointView.SetIsClean(false);
             }
@@ -41,6 +46,11 @@ namespace Sources.Controllers.Items
                 _pickUpPointUI.BackgroundImage.SetFillAmount(1);
             }
             
+        }
+
+        public void Cancel()
+        {
+            _cancellationTokenSource.Cancel();
         }
 
         public void SetEatPointView(IEatPointView eatPointView)

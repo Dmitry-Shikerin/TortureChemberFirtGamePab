@@ -4,6 +4,7 @@ using MyProject.Sources.Controllers;
 using MyProject.Sources.Infrastructure.Factorys.Controllers;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Views.Items.Common;

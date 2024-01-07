@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using MyProject.Sources.Presentation.Views.Triggers.Items;
+using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Items;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
@@ -10,7 +13,38 @@ namespace Sources.Presentation.Views.Items.Garbages
     public class GarbageView : PresentableView<GarbagePresenter>, IGarbageView
     {
         [field: SerializeField] public float FillingRate { get; private set; } = 0.2f;
+
+        private GarbageTrigger _garbageTrigger;
+        
         public IEatPointView EatPointView => Presenter.EatPointView;
+
+        private void Awake()
+        {
+            _garbageTrigger = GetComponentInChildren<GarbageTrigger>() ??
+                              throw new NullReferenceException(nameof(GarbageTrigger));
+        }
+
+        protected override void OnAfterEnable()
+        {
+            _garbageTrigger.Entered += OnEntered;
+            _garbageTrigger.Exited += OnExited;
+        }
+
+        protected override void OnAfterDisable()
+        {
+            _garbageTrigger.Entered -= OnEntered;
+            _garbageTrigger.Exited -= OnExited;
+        }
+
+        private void OnEntered(IPlayerMovementView playerMovementView)
+        {
+            Presenter.CleanUp();
+        }
+
+        private void OnExited(IPlayerMovementView playerMovementView)
+        {
+            Presenter.Cancel();
+        }
 
         public void SetEatPointView(IEatPointView eatPointView)
         {
@@ -24,7 +58,7 @@ namespace Sources.Presentation.Views.Items.Garbages
 
         public void Destroy()
         {
-            //TODO выключать обьект когда он вернулся в пул
+            //TODO перенести логику в презентер
             if (TryGetComponent(out PoolableObject poolableObject) == false)
             {
                 Destroy(gameObject);
@@ -36,9 +70,9 @@ namespace Sources.Presentation.Views.Items.Garbages
             Hide();
         }
 
-        public void CleanUp(CancellationToken cancellationToken)
-        {
-            Presenter.CleanUp(cancellationToken);
-        }
+        // public void CleanUp(CancellationToken cancellationToken)
+        // {
+        //     Presenter.CleanUp(cancellationToken);
+        // }
     }
 }

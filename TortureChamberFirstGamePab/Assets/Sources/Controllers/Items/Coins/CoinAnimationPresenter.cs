@@ -38,7 +38,7 @@ namespace Sources.Controllers.Items.Coins
             
         }
 
-        public void SetPlayerWalletView(PlayerWalletView playerWalletView)
+        public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
         {
             _coinAnimation.SetPlayerWalletView(playerWalletView);
         }
@@ -82,18 +82,18 @@ namespace Sources.Controllers.Items.Coins
         private async UniTask MoveToPlayer()
         {
             while (Vector3.Distance(_coinAnimationView.Position, new Vector3(
-                       _coinAnimation.PlayerWalletView.transform.position.x,
-                       _coinAnimation.PlayerWalletView.transform.position.y + _coinAnimationView.OffsetYFinishPoint,
-                       _coinAnimation.PlayerWalletView.transform.position.z)) > 0.04f)
+                       _coinAnimation.PlayerWalletView.Position.x,
+                       _coinAnimation.PlayerWalletView.Position.y + _coinAnimationView.OffsetYFinishPoint,
+                       _coinAnimation.PlayerWalletView.Position.z)) > 0.04f)
             {
                 //TODO возможно переместить в модель
                 _currentTime += Time.deltaTime;
 
                 _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
-                    new Vector3(_coinAnimation.PlayerWalletView.transform.position.x,
-                        _coinAnimation.PlayerWalletView.transform.position.y +
+                    new Vector3(_coinAnimation.PlayerWalletView.Position.x,
+                        _coinAnimation.PlayerWalletView.Position.y +
                         _coinAnimationView.AnimationCurve.Evaluate(_currentTime),
-                        _coinAnimation.PlayerWalletView.transform.position.z), 
+                        _coinAnimation.PlayerWalletView.Position.z), 
                     _coinAnimationView.MovementSpeed * Time.deltaTime));
 
                 await UniTask.Yield();

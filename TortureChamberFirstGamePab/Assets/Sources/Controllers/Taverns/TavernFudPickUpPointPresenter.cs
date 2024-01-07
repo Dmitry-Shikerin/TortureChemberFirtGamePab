@@ -46,7 +46,7 @@ namespace Sources.Controllers.Taverns
             }
             catch (OperationCanceledException)
             {
-                _pickUpPointUI.BackgroundImage.SetFillAmount(0);
+                _pickUpPointUI.BackgroundImage.SetFillAmount(1);
                 
                 return default;
             }
