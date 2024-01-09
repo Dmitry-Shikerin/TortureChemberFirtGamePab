@@ -19,9 +19,10 @@ namespace Sources.Infrastructure.Factories.Controllers.Points
 
         public bool IsOccupied => _seatPoint.IsOccupied;
 
-        public void SetIsOccupied(bool isOccupied)
-        {
-            _seatPoint.SetIsOccupied(isOccupied);
-        }
+        public void Occupy() => 
+            _seatPoint.Occupy();
+
+        public void UnOccupy() => 
+            _seatPoint.UnOccupy();
     }
 }

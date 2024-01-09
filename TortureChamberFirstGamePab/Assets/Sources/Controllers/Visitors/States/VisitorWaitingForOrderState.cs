@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
-using JetBrains.Annotations;
-using Sources.Domain.Items;
+using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
@@ -15,14 +14,14 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
+        private const float FillingRate = 0.02f; 
+        
         private readonly Visitor _visitor;
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemRepository<IItem> _itemRepository;
         private readonly ProductShuffleService _productShuffleService;
         private readonly TavernMood _tavernMood;
         private readonly IVisitorImageUI _visitorImageUI;
-
-        // private bool _isCanceled;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -47,14 +46,14 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _cancellationTokenSource = new CancellationTokenSource();
-            // Debug.Log("Посетитель в состоянии ожидания заказа");
-            // Beer beer = _itemRepository.Get<Beer>();
+            
             IItem item = _productShuffleService.GetRandomItem();
 
+            // Debug.Log($"Посетитель заказал {item}");
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();
             _visitorImageUI.BackGroundImage.ShowImage();
+            _visitorImageUI.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
 
             _visitorInventory.SetTargetItem(item);
 
@@ -63,12 +62,8 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Update()
         {
-            if (_visitorInventory.Item != null)
-            {
+            if (_visitorInventory.Item != null) 
                 _cancellationTokenSource.Cancel();
-                //TODO не забыть поправить булку
-                // _isCanceled = true;
-            }
         }
 
         public override void Exit()
@@ -80,18 +75,18 @@ namespace Sources.Controllers.Visitors.States
         {
             try
             {
+                _visitorImageUI.BackGroundImage.ShowImage();
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    0.02f, _cancellationTokenSource.Token);
-                _visitor.SetUnHappy(true);
+                    FillingRate, _cancellationTokenSource.Token);
+                _visitor.SetUnHappy();
                 _tavernMood.RemoveTavernMood();
-                _visitor.SeatPointView.SetIsOccupied(false);
+                _visitor.SeatPointView.UnOccupy();
             }
             catch (OperationCanceledException e)
             {
-                //TODO чтото обработать
                 Debug.Log("получил пролдукт");
                 _visitorInventory.SetTargetItem(null);
-                _visitor.SetCanEat(true);
+                _visitor.Eat();
             }
         }
     }

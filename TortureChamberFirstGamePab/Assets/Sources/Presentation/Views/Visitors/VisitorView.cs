@@ -38,6 +38,23 @@ namespace Sources.Presentation.Views.Visitors
         protected override void OnConstructed() =>
             Presenter?.Start();
 
+        public void SetPosition(Vector3 position)
+        {
+            transform.position = position;
+        }
+
+        //TODO работает не так как я ожидал
+        public void StopMove()
+        {
+            NavMeshAgent.isStopped = true;
+            // NavMeshAgent.Stop();
+        }
+
+        public void Move()
+        {
+            NavMeshAgent.isStopped = false;
+        }
+        
         public void SetDestination(Vector3 destination) =>
             NavMeshAgent.destination = destination;
 

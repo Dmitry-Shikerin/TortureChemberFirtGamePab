@@ -31,7 +31,7 @@ namespace Sources.Controllers.Visitors.States
             // Debug.Log("Посетитель в состоянии сидя");
             _visitorView.SeatDown(_visitor.SeatPointView.Position, _visitor.SeatPointView.Rotation);
             _visitorAnimation.PlaySeatIdle();
-            _visitor.SetCanSeat(true);
+            _visitor.SetSeat();
         }
 
         public override void Exit()

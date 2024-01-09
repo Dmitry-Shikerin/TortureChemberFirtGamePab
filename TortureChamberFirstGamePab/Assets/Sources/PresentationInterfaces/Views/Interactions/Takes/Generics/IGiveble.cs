@@ -5,8 +5,8 @@ using Sources.PresentationInterfaces.Views;
 
 namespace Sources.Presentation.Views.Taverns
 {
-    public interface ITakeble
+    public interface IGiveble
     {
-        UniTask<IItem> TakeItem(CancellationToken cancellationToken);
+        UniTask<IItem> GiveItemAsync(CancellationToken cancellationToken);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using JetBrains.Annotations;
+using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.BuilderFactories;
@@ -8,7 +8,6 @@ using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Garbages;
 using Sources.PresentationInterfaces.Views.Items.Coins;
@@ -29,6 +28,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly GarbageBuilder _garbageBuilder;
         private readonly CoinBuilder _coinBuilder;
         private readonly VisitorImageUI _visitorImageUI;
+
+        private const float FillingRate = 0.2f;
 
         public VisitorEatFoodState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
@@ -53,7 +54,6 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            Debug.Log("Посетитель в состоянии поедания еды");
             IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
             itemView.SetPosition(_visitor.SeatPointView.EatPointView.transform);
             Debug.Log(itemView);
@@ -62,21 +62,23 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Exit()
         {
-            _visitor.SeatPointView.SetIsOccupied(false);
+            _visitor.SeatPointView.UnOccupy();
+            _visitor.FinishEating();
             IGarbageView garbageView = _garbageBuilder.Create();
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
-            _visitor.SeatPointView.EatPointView.SetIsClean(true);
-            _coinBuilder.Create().SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
+            _visitor.SeatPointView.EatPointView.GetDirty();
+            ICoinAnimationView coinAnimationView = _coinBuilder.Create();
+            coinAnimationView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
+            coinAnimationView.SetCoinAmount(_visitorInventory.Item.Price);
         }
 
         private async void Eat(IItemView itemView)
         {
-            //TODO убрать магические числа
             await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                0.2f, new CancellationTokenSource().Token);
-            _visitorImageUI.BackGroundImage.SetFillAmount(1);
-            _visitor.SetCanSeat(false);
+                FillingRate, new CancellationTokenSource().Token);
+            _visitorImageUI.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
+            _visitor.SetUnSeat();
             itemView.Destroy();
             _tavernMood.AddTavernMood();
         }

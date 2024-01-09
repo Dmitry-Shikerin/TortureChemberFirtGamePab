@@ -9,7 +9,6 @@ namespace MyProject.Sources.Domain.PlayerMovement
     {
         private readonly PlayerMovementCharacteristic _characteristic;
 
-        private float _movementSpeed;
         
         public PlayerMovement
         (
@@ -20,21 +19,23 @@ namespace MyProject.Sources.Domain.PlayerMovement
                 ? playerMovementCharacteristic
                 : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
 
-            _movementSpeed = _characteristic.MovementSpeed;
+            MovementSpeed = _characteristic.MovementSpeed;
         }
+        public float MovementSpeed { get; private set; }
 
+        //TODO заменить магические числа
         public void AddMovementSpeed()
         {
-            if (_movementSpeed >= 1.9f)
+            if (MovementSpeed >= 1.9f)
                 throw new InvalidOperationException("Достигнут лимит улучшения скорости");
                 
-            _movementSpeed += 0.3f;
-            Debug.Log(_movementSpeed);
+            MovementSpeed += 0.3f;
+            Debug.Log(MovementSpeed);
         }
 
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
         {
-            float speed = runInput == 0 ? _characteristic.RunSpeed : _movementSpeed;
+            float speed = runInput == 0 ? _characteristic.RunSpeed : MovementSpeed;
             Vector3 direction = speed * Time.deltaTime * cameraDirection;
             direction.y -= _characteristic.Gravity * Time.deltaTime;
 

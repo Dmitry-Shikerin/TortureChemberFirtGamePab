@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Sources.Domain.Exceptions.Serializefields;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.Bootstrap
@@ -8,6 +9,15 @@ namespace Sources.Presentation.Views.Bootstrap
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _duration = 1;
+
+        private void OnValidate()
+        {
+            if (_canvasGroup == null)
+                throw new NullReferenceException(nameof(CanvasGroup));
+
+            if (_duration != 1f)
+                throw new SerializeFieldNumberChangedException("Поле изменено", nameof(_duration));
+        }
 
         private void Awake()
         {

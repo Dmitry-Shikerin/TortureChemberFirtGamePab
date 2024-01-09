@@ -8,13 +8,12 @@ namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
     {
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
-    
-        //TODO это должно быть в модели
         public bool IsClear => Presenter.IsClear;
+        
+        public void GetDirty() => 
+            Presenter.GetDirty();
 
-        public void SetIsClean(bool isClean)
-        {
-            Presenter.SetIsClean(isClean);
-        }
+        public void Clean() => 
+            Presenter.Clean();
     }
 }

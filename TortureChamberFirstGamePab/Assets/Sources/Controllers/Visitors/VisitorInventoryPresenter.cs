@@ -24,19 +24,10 @@ namespace Sources.Controllers
                                 throw new ArgumentNullException(nameof(visitorInventory));
         }
 
-        public IItem GetTargetItem()
-        {
-            return _visitorInventory.TargetItem;
-        }
-
-        public void Add(IItem item)
-        {
-            _visitorInventory.SetItem(item);
-        }
-
-        public IItem GetItem()
-        {
-            return _visitorInventory.Item;
-        }
+        public IItem TargetItem => _visitorInventory.TargetItem;
+        public IItem Item => _visitorInventory.Item;
+        
+        public void TakeItem(IItem item) => 
+            _visitorInventory.TakeItem(item);
     }
 }

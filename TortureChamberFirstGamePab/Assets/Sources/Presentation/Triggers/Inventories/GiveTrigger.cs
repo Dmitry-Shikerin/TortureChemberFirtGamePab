@@ -2,7 +2,7 @@
 
 namespace Sources.Presentation.Views.Player.Triggers
 {
-    public class TakebleTrigger : TriggerBase<ITakeble>
+    public class GiveTrigger : TriggerBase<IGiveble>
     {
     }
 }

@@ -4,12 +4,13 @@ namespace Sources.Domain
 {
     public class EatPoint
     {
-        public bool IsClear { get; private set; }
+        public bool IsClear { get; private set; } = true;
 
-        public void SetIsClear(bool isClear)
-        {
-            Debug.Log($"Чистота места {isClear}");
-            IsClear = isClear;
-        }
+        public void Clean() => 
+            IsClear = true;
+
+        //TODO название с гет?
+        public void GetDirty() => 
+            IsClear = false;
     }
 }

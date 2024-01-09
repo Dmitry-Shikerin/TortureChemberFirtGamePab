@@ -45,14 +45,18 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Exit()
         {
+            //TODO сделать сброс всех булок
         }
         
         private async void Moving()
         {
-            _visitor.SetIdle(false);
+            _visitor.SetMove();
             _visitorAnimation.PlayStandUp();
             _visitorAnimation.PlayWalk();
             await Move();
+            //TODO возможно убрать
+            _visitor.SetIdle();
+            _visitorView.StopMove();
         }
 
         private async UniTask Move()
@@ -66,6 +70,8 @@ namespace Sources.Controllers.Visitors.States
             {
                 await UniTask.Yield();
             }
+            
+            // _visitorView.SetPosition(outDoorPoint.Position);
         }
     }
     

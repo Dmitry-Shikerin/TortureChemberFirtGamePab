@@ -13,14 +13,15 @@ namespace Sources.Presentation.Views.Taverns
     public class TavernFudPickUpPointView<TItem> : 
         PresentableView<TavernFudPickUpPointPresenter>,
         ITavernFudPickUpPointView,
-        ITakeble
+        IGiveble
     where TItem : IItem
     {
         [field: SerializeField] public float FillingRate { get; private set; } = 0.1f;
         
-        public async UniTask<IItem> TakeItem(CancellationToken cancellationToken)
+        //TODO какие методы нужно называвть с приставкий асинк?
+        public async UniTask<IItem> GiveItemAsync(CancellationToken cancellationToken)
         {
-            return await Presenter.TakeItemAsync<TItem>(cancellationToken);
+            return await Presenter.GiveItemAsync<TItem>(cancellationToken);
         }
     }
 }

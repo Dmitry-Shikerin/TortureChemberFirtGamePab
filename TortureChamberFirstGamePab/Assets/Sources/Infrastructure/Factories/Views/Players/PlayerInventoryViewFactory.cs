@@ -41,7 +41,6 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
             if (imageUIFactory == null) 
                 throw new ArgumentNullException(nameof(imageUIFactory));
             
-            //TODO П = переиспользование!!!!
             imageUIFactory.Create(playerInventoryView.FirstSlotView.BackgroundImage);
             imageUIFactory.Create(playerInventoryView.FirstSlotView.Image);
             imageUIFactory.Create(playerInventoryView.SecondSlotView.BackgroundImage);

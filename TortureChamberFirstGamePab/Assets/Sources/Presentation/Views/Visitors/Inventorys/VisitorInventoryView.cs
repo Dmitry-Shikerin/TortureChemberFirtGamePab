@@ -6,21 +6,12 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Visitors.Inventorys
 {
-    public class VisitorInventoryView : PresentableView<VisitorInventoryPresenter>,IVisitorInventoryView, IGettable
+    public class VisitorInventoryView : PresentableView<VisitorInventoryPresenter>,IVisitorInventoryView, ITakeble
     {
-        public IItem GetTargetItem()
-        {
-            return Presenter.GetTargetItem();
-        }
+        public IItem TargetItem => Presenter.TargetItem;
+        public IItem Item => Presenter.Item;
 
-        public void Add(IItem item)
-        {
-            Presenter.Add(item);
-        }
-
-        public IItem GetItem()
-        {
-            return Presenter.GetItem();
-        }
+        public void TakeItem(IItem item) => 
+            Presenter.TakeItem(item);
     }
 }

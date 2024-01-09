@@ -1,29 +1,26 @@
 ﻿using System;
-using Sources.PresentationInterfaces.Triggers;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.Taverns
 {
-    //TODO какое обобщение у тишки?
-    //TODO возможно интерфейс не нужен
-    public class TriggerBase<T> : MonoBehaviour, ITrigger
+    public class TriggerBase<T> : MonoBehaviour
     {
         public Action<T> Entered;
         public Action<T> Exited;
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out T @object))
+            if (other.gameObject.TryGetComponent(out T component))
             {
-                Entered?.Invoke(@object);
+                Entered?.Invoke(component);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out T @object))
+            if (other.gameObject.TryGetComponent(out T component))
             {
-                Exited?.Invoke(@object);
+                Exited?.Invoke(component);
             }
         }
     }

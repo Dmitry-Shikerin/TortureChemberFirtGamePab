@@ -1,10 +1,11 @@
 ﻿using System;
 using MyProject.Sources.Controllers;
+using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.Presentation.Views.Triggers.Wallet;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
 
-namespace MyProject.Sources.Presentation.Views
+namespace Sources.Presentation.Views.Player
 {
     public class PlayerWalletView : PresentableView<PlayerWalletPresenter>, IPlayerWalletView
     {
@@ -37,7 +38,6 @@ namespace MyProject.Sources.Presentation.Views
 
         private void OnExit(ICoinAnimationView coinAnimationView)
         {
-            
         }
 
         public void Add(int quantity)

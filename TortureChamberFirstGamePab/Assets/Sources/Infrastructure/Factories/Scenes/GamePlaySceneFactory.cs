@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.Controllers.UI;
 using MyProject.Sources.Domain.PlayerMovement;
 using MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics;
 using MyProject.Sources.Infrastructure.Factorys.Controllers;
@@ -17,6 +16,7 @@ using Sources.Domain.Items.ItemConfigs;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns;
+using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
@@ -37,19 +37,16 @@ using Sources.Infrastructure.Factorys;
 using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
-using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.SceneService;
+using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.InfrastructureInterfaces.Factorys.Scenes;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.PickUpPointUIs;
-using Sources.Presentation.Views.Items.Coins;
-using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.Foods;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
-using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.ObservablePropertyes;
@@ -212,26 +209,25 @@ namespace Sources.Infrastructure.Factories.Scenes
             GamePlayService gamePlayService = new GamePlayService(gamePlay, seatPoints.Count);
             gamePlayService.Start();
             
-            //TODO покашто так проверить
             //GarbadgeView
-            // GarbageView garbageView = Object.FindObjectOfType<GarbageView>();
             GarbagePresenterFactory garbagePresenterFactory = new GarbagePresenterFactory();
             GarbageViewFactory garbageViewFactory = new GarbageViewFactory(garbagePresenterFactory);
-            // garbageViewFactory.Create(garbageView, imageUIFactory);
             
             //GarbageBuilder
             GarbageBuilder garbageBuilder = new GarbageBuilder(prefabFactory, garbageViewFactory, imageUIFactory);
             
+            //VisitorCounter
+            VisitorCounter visitorCounter = new VisitorCounter();
+            
             //Visitor
-            //TODO потом удалить этот пул
-            ObjectPool<VisitorView> objectPool = new ObjectPool<VisitorView>();
             VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository,
                 productShuffleService, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder,
-                coinBuilder);
-            visitorBuilder.Create(objectPool);
-            
+                coinBuilder, prefabFactory, visitorCounter);
+            // visitorBuilder.Create(objectPool);
+
             //VisitorSpawnService
-            // VisitorSpawnService visitorSpawnService = new VisitorSpawnService(updateService ,gamePlay ,visitorBuilder);
+            VisitorSpawnService visitorSpawnService = new VisitorSpawnService(
+                gamePlay, visitorBuilder, visitorCounter);
 
             //PLayerWallet
             PlayerWalletView playerWalletView = playerMovementView.GetComponent<PlayerWalletView>();
@@ -277,6 +273,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new PlayerInventoryViewFactory(playerInventoryPresenterFactory);
 
             //TODO как исправить заглушку в виде проперти?
+            //TODO если через интефей вьюшку можно брать дополнительную вьюку
+            //TODO нужен посредник для вьюки чтобы добавить его в презентер
             textUIFactory.Create(hudTextUIContainer.SystemErrorsText,
                 new ObservableProperty<string>());
             
@@ -284,11 +282,37 @@ namespace Sources.Infrastructure.Factories.Scenes
                 hudTextUIContainer.SystemErrorsText, playerInventory,
             itemViewFactory, imageUIFactory);
             
-            //TavernUpgradePointButtons
-            buttonUIFactory.Create(tavernUpgradePointButtons.CharismaButtonUI, tavernMood.AddAmountMood);
-            buttonUIFactory.Create(tavernUpgradePointButtons.InventoryButtonUI, playerInventory.AddInventoryCapacity);
-            buttonUIFactory.Create(tavernUpgradePointButtons.MovementButtonUI, playerMovement.AddMovementSpeed);
 
+            //UpgradeServices
+            //TODO потом сделать по человечески
+            TavernUpgradePointTextUIs tavernUpgradePointTextUIs =
+                tavernUpgradePointButtons.GetComponent<TavernUpgradePointTextUIs>();
+
+            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerCharismaLevelUpgradeTextUI,
+                new ObservableProperty<int>());
+            PlayerCharismaUpgradeService playerCharismaUpgradeService =
+                new PlayerCharismaUpgradeService(tavernMood, 
+                    tavernUpgradePointTextUIs.PlayerCharismaLevelUpgradeTextUI);
+            
+            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerMovementSpeedLevelUpgradeTextUI,
+                new ObservableProperty<int>());
+            PlayerMovementUpgradeService playerMovementUpgradeService = 
+                new PlayerMovementUpgradeService(playerMovement, 
+                    tavernUpgradePointTextUIs.PlayerMovementSpeedLevelUpgradeTextUI);
+
+            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerInventoryLevelUpgradeTextUI,
+                new ObservableProperty<int>());
+            PlayerInventoryUpgradeService playerInventoryUpgradeService =
+                new PlayerInventoryUpgradeService(playerInventory,
+                    tavernUpgradePointTextUIs.PlayerInventoryLevelUpgradeTextUI);
+            
+            //TavernUpgradePointButtons
+            buttonUIFactory.Create(tavernUpgradePointButtons.CharismaButtonUI, 
+                playerCharismaUpgradeService.Upgrade);
+            buttonUIFactory.Create(tavernUpgradePointButtons.InventoryButtonUI, 
+                playerInventoryUpgradeService.Upgrade);
+            buttonUIFactory.Create(tavernUpgradePointButtons.MovementButtonUI, 
+                playerMovementUpgradeService.Upgrade);
             
             //PickUpPointsFactories
             TavernPickUpPointPresenterFactory tavernPickUpPointPresenterFactory =
@@ -325,7 +349,8 @@ namespace Sources.Infrastructure.Factories.Scenes
             return new GamePlayScene
             (
                 inputService,
-                updateService
+                updateService,
+                visitorSpawnService
             );
         }
     }

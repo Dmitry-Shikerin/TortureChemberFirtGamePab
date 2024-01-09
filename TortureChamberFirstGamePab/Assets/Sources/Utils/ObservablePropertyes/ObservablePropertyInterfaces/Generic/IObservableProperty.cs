@@ -2,7 +2,6 @@
 {
     public interface IObservableProperty<T> : IObservableProperty
     {
-        //TODO потом исправить
         public T GetValue { get; }
     }
 }

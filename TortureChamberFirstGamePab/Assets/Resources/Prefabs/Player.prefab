@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 8932751236759734846}
   - component: {fileID: 4446338719708239570}
   m_Layer: 0
-  m_Name: TakebleTrigger
+  m_Name: GiveTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &800647253114456024
 GameObject:
@@ -373,8 +373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c112822feab4e73888388fbce5e5925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 7745991726865402545}
-  <BackgroundImage>k__BackingField: {fileID: 4207197822580685470}
+  <Image>k__BackingField: {fileID: 0}
+  <BackgroundImage>k__BackingField: {fileID: 0}
 --- !u!1 &1119403599201799641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,8 +1513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c112822feab4e73888388fbce5e5925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 913282627801144517}
-  <BackgroundImage>k__BackingField: {fileID: 1519903473140310155}
+  <Image>k__BackingField: {fileID: 0}
+  <BackgroundImage>k__BackingField: {fileID: 0}
 --- !u!1 &3010852175782047078
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7301340921184898208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3388,7 +3388,7 @@ GameObject:
   - component: {fileID: 1857523423440970256}
   - component: {fileID: 974445905736722410}
   m_Layer: 0
-  m_Name: GettableTrigger
+  m_Name: TakeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3440,7 +3440,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.44
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5031571652668043236
 GameObject:
@@ -3979,8 +3979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c112822feab4e73888388fbce5e5925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Image>k__BackingField: {fileID: 108201908158731084}
-  <BackgroundImage>k__BackingField: {fileID: 3306496986315580757}
+  <Image>k__BackingField: {fileID: 0}
+  <BackgroundImage>k__BackingField: {fileID: 0}
 --- !u!1 &6315192182290095019
 GameObject:
   m_ObjectHideFlags: 0

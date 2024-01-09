@@ -7,7 +7,8 @@ namespace Sources.PresentationInterfaces.Views.Points
         public EatPointView EatPointView { get; }
         public bool IsOccupied { get; }
 
-        public void SetIsOccupied(bool isOccupied);
+        void Occupy();
+        void UnOccupy();
     }
     
 }

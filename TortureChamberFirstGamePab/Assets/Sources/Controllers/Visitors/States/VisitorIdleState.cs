@@ -34,7 +34,7 @@ namespace Sources.Controllers.Visitors.States
             _visitorAnimation.PlayIdle();
             // SeatPoint seatPoint = _visitorPointService.Get<SeatPoint>();
             // _visitor.SetTargetPosition(seatPoint.transform.position);
-            _visitor.SetIdle(false);
+            _visitor.SetMove();
         }
         
         public override void Exit()

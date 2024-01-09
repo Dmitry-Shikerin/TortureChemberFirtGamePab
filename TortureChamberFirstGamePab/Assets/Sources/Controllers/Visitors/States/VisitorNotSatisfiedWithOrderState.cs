@@ -36,20 +36,11 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             Debug.Log("Посетитель в состоянии недоволен заказом");
-            _visitor.SetUnHappy(false);
+            _visitor.SetUnHappy();
         }
 
         public override void Exit()
         {
         }
-
-        private async void Eat()
-        {
-            // //TODO убрать магические числа
-            // await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(0.2f, new CancellationTokenSource().Token);
-            // _visitorImageUI.BackGroundImage.SetFillAmount(1);
-            // _visitor.SetCanSeat(false);
-        }
-
     }
 }

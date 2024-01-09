@@ -19,7 +19,6 @@ namespace Sources.Controllers.Taverns
         private readonly PickUpPointUI _pickUpPointUI;
         private readonly ItemConfig _itemConfig;
 
-        //TODO сделать модель для таверны, зачем?
         public TavernFudPickUpPointPresenter(ITavernFudPickUpPointView tavernFudPickUpPointView, 
             ItemsFactory itemsFactory, PickUpPointUI pickUpPointUI, ItemConfig itemConfig)
         {
@@ -35,8 +34,7 @@ namespace Sources.Controllers.Taverns
             _pickUpPointUI.Image.SetSprite(_itemConfig.Icon);
         }
         
-        //TODO посмотреть инфу про онВалидейт
-        public async UniTask<IItem> TakeItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
+        public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
         {
             try
             {

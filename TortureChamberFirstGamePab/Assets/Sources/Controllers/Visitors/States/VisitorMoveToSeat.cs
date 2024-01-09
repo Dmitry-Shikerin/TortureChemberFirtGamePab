@@ -48,7 +48,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitorAnimation.PlayWalk();
             await Move();
-            _visitor.SetIdle(true);
+            _visitor.SetIdle();
         }
         
         private async UniTask Move()

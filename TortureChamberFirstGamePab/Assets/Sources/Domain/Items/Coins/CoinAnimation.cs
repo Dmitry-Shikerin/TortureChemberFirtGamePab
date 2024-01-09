@@ -7,6 +7,12 @@ namespace Sources.Domain.Items.Coins
     {
         public IPlayerWalletView PlayerWalletView { get; private set; }
         public bool CanMove { get; private set; }
+        public int CoinAmount { get; private set; }
+
+        public void SetCoinAmount(int amount)
+        {
+            CoinAmount = amount;
+        }
 
         public void SetCanMove(bool canMove)
         {

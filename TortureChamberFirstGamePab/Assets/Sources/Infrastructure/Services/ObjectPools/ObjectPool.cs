@@ -21,7 +21,6 @@ namespace Sources.Infrastructure.Services.ObjectPools
         
         public TType Get<TType>() where TType : MonoBehaviour
         {
-            //TODO нужно ли здесь кидать эксепшены?
             if (_objects.Count == 0)
                 return null;
 
@@ -39,6 +38,7 @@ namespace Sources.Infrastructure.Services.ObjectPools
                 return;
             
             poolableObject.transform.SetParent(_parent);
+            Debug.Log($"Дабавлен в паренты {_parent}");
             _objects.Enqueue(@object);
             ObjectCountChanged?.Invoke(_objects.Count);
         }

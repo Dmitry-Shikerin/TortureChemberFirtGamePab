@@ -19,11 +19,10 @@ namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
                        throw new NullReferenceException(nameof(EatPointView));
         }
 
-        public void SetIsOccupied(bool isOccupied)
-        {
-            Presenter.SetIsOccupied(isOccupied);
-        }
-        //TODO этот класс должен хранить состояния
-        //TODO Могу ли я через эту вьюшку спрашивать состояние из ее модели?
+        public void Occupy() => 
+            Presenter.Occupy();
+
+        public void UnOccupy() => 
+            Presenter.UnOccupy();
     }
 }

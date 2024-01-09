@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
+using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
@@ -38,12 +39,16 @@ namespace Sources.Controllers.Items.Coins
             
         }
 
+        public void SetCoinAmount(int amount)
+        {
+            _coinAnimation.SetCoinAmount(amount);
+        }
+
         public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
         {
             _coinAnimation.SetPlayerWalletView(playerWalletView);
         }
 
-        //TODO попробовать сделать через UniRx
         private async void Collect()
         {
             _cancellationTokenSource = new CancellationTokenSource();
@@ -62,10 +67,9 @@ namespace Sources.Controllers.Items.Coins
             }
         }
 
-        //TODO заменить магическое число
         private async UniTask AddCoins()
         {
-            _coinAnimation.PlayerWalletView.Add(10);
+            _coinAnimation.PlayerWalletView.Add(_coinAnimation.CoinAmount);
             await UniTask.Yield();
         }
 
@@ -78,15 +82,13 @@ namespace Sources.Controllers.Items.Coins
             }
         }
 
-        //TODO заменить магическое числло
         private async UniTask MoveToPlayer()
         {
             while (Vector3.Distance(_coinAnimationView.Position, new Vector3(
                        _coinAnimation.PlayerWalletView.Position.x,
                        _coinAnimation.PlayerWalletView.Position.y + _coinAnimationView.OffsetYFinishPoint,
-                       _coinAnimation.PlayerWalletView.Position.z)) > 0.04f)
+                       _coinAnimation.PlayerWalletView.Position.z)) > Constant.Epsilon)
             {
-                //TODO возможно переместить в модель
                 _currentTime += Time.deltaTime;
 
                 _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,

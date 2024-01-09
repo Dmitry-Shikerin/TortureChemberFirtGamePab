@@ -8,7 +8,7 @@ namespace Sources.Domain.Visitors
         public IItem Item { get; private set; }
         public IItem TargetItem { get; private set; }
 
-        public void SetItem(IItem item)
+        public void TakeItem(IItem item)
         {
             Item = item;
             // Debug.Log(Item.GetType().Name);

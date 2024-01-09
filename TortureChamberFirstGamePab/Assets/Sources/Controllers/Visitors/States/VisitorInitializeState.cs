@@ -34,17 +34,11 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             List<SeatPointView> seatPoints = _collectionRepository.Get<SeatPointView>();
-            //TODO заменить эту запись
-            // SeatPointView seatPointView = seatPoints.FirstOrDefault(seatPoint => seatPoint.IsOccupied == false);
-            // var seatPointViews = seatPoints.Select(seatPoint => seatPoint.IsOccupied == false).FirstOrDefault();
-                                  // throw new NullReferenceException(nameof(seatPointView));
-            var seatPointView = seatPoints.Where(
-                    seatPointView => seatPointView.IsOccupied == false)
-                .Select(seatPointView => seatPointView).FirstOrDefault();
+            var seatPointView = seatPoints.FirstOrDefault(seatPointView => seatPointView.IsOccupied == false);
             
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);
-            seatPointView.SetIsOccupied(true);
+            seatPointView.Occupy();
         }
 
         public override void Exit()

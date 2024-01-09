@@ -37,7 +37,7 @@ namespace Sources.Infrastructure.Factorys.Controllers
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
             ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder)
+            CoinBuilder coinBuilder, VisitorCounter visitorCounter)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -57,6 +57,8 @@ namespace Sources.Infrastructure.Factorys.Controllers
                 throw new ArgumentNullException(nameof(itemViewFactory));
             if (tavernMood == null) 
                 throw new ArgumentNullException(nameof(tavernMood));
+            if (visitorCounter == null) 
+                throw new ArgumentNullException(nameof(visitorCounter));
 
             imageUIFactory.Create(visitorImageUI.OrderImage);
             imageUIFactory.Create(visitorImageUI.BackGroundImage);
@@ -84,6 +86,10 @@ namespace Sources.Infrastructure.Factorys.Controllers
                 new VisitorNotSatisfiedWithOrderState(visitorView, visitor,
                     visitorAnimation, _collectionRepository,
                     visitorInventory, visitorImageUI);
+            VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(
+                visitorView, visitor,
+                visitorAnimation, _collectionRepository,
+                visitorInventory, visitorImageUI, visitorCounter);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);
@@ -114,6 +120,10 @@ namespace Sources.Infrastructure.Factorys.Controllers
                 new FiniteTransitionBase(visitorMoveToExitState, () =>
                     visitorInventory.Item == null);
             visitorNotSatisfiedWithOrderState.AddTransition(fromNotSatisfiedWithOrderToMoveExitState);
+
+            FiniteTransitionBase toReturnToPoolState = new FiniteTransitionBase(
+                visitorReturnToPoolState, () => visitor.IsIdle);
+            visitorMoveToExitState.AddTransition(toReturnToPoolState);
             // FiniteTransitionBase toIdleTransition = new FiniteTransitionBase(
             //     idleState, () => visitor.IsIdle);
             // moveToSeatState.AddTransition(toIdleTransition);

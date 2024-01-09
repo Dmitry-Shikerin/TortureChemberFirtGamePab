@@ -10,6 +10,7 @@ namespace Sources.PresentationInterfaces.Views.Items.Coins
         Vector3 Position { get; }
         public AnimationCurve AnimationCurve { get; }
 
+        void SetCoinAmount(int amount);
         public void SetCanMove(bool canMove);
         public void Destroy();
         void SetPlayerWalletView(IPlayerWalletView playerWalletView);

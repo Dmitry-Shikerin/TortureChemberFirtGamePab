@@ -9,13 +9,13 @@ namespace Sources.Presentation.UI
     {
         [SerializeField] private Button _button;
         
-        //TODO вылетают эксепшены
+        //TODO вылетают ошибки компиляции если обьект включен
         protected override void OnAfterEnable()
         {
             _button.onClick.AddListener(Presenter.AddListener);
         }
 
-        // private void Start()
+        // public void Start()
         // {
         //     _button.onClick.AddListener(Presenter.AddListener);
         // }

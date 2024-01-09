@@ -26,12 +26,9 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         public IGarbageView Create(GarbageView garbageView, ImageUIFactory imageUIFactory)
         {
             Garbage garbage = new Garbage();
-            //TODO вьюшку сделать через инстантиэйт
-            
             PickUpPointUI pickUpPointUI = garbageView.GetComponentInChildren<PickUpPointUI>();
             imageUIFactory.Create(pickUpPointUI.Image);
             imageUIFactory.Create(pickUpPointUI.BackgroundImage);
-            
             
             GarbagePresenter garbagePresenter = _garbagePresenterFactory.Create(
                 pickUpPointUI, garbageView, garbage);

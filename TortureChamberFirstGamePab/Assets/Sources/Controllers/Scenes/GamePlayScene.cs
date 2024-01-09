@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using JetBrains.Annotations;
 using Sources.ControllersInterfaces;
 using Sources.Infrastructure.Services;
@@ -11,16 +12,18 @@ namespace Sources.Controllers.Scenes
     {
         private readonly IInputService _inputService;
         private readonly IUpdateService _updateService;
+        private readonly VisitorSpawnService _visitorSpawnService;
 
+        private CancellationTokenSource _cancellationTokenSource;
+        
         public GamePlayScene
-        (
-            IInputService inputService,
-            IUpdateService updateService
-        )
+        (IInputService inputService,
+            IUpdateService updateService, [NotNull] VisitorSpawnService visitorSpawnService)
         {
             _inputService = inputService ?? 
                             throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
+            _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
         }
 
         public void Update(float deltaTime)
@@ -43,10 +46,13 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+            _visitorSpawnService.SpawnVisitorAsync(_cancellationTokenSource.Token);
         }
 
         public void Exit()
         {
+            _cancellationTokenSource.Cancel();
         }
     }
 }

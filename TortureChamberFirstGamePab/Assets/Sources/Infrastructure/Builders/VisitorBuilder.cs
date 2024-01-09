@@ -1,7 +1,9 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
@@ -22,6 +24,8 @@ namespace Sources.Infrastructure.BuilderFactories
 {
     public class VisitorBuilder
     {
+        private const string VisitorPrefabPath = "Prefabs/Visitor";
+        
         private readonly CollectionRepository _collectionRepository;
         private readonly ItemRepository<IItem> _itemRepository;
         private readonly ProductShuffleService _productShuffleService;
@@ -30,11 +34,13 @@ namespace Sources.Infrastructure.BuilderFactories
         private readonly TavernMood _tavernMood;
         private readonly GarbageBuilder _garbageBuilder;
         private readonly CoinBuilder _coinBuilder;
+        private readonly PrefabFactory _prefabFactory;
+        private readonly VisitorCounter _visitorCounter;
 
         public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository,
             ProductShuffleService productShuffleService, ItemViewFactory itemViewFactory,
             ImageUIFactory imageUIFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder)
+            CoinBuilder coinBuilder, PrefabFactory prefabFactory, VisitorCounter visitorCounter)
         {
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -46,21 +52,22 @@ namespace Sources.Infrastructure.BuilderFactories
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
             _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
+            _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
+            _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
         }
         
         public IVisitorView Create(IObjectPool objectPool)
         {
-            VisitorInventoryView visitorInventoryView = Object.FindObjectOfType<VisitorInventoryView>();
+            VisitorView visitorView = _prefabFactory.Create<VisitorView>(VisitorPrefabPath);
+            visitorView.AddComponent<PoolableObject>().SetPool(objectPool);
+            
+            VisitorInventoryView visitorInventoryView = visitorView.GetComponentInChildren<VisitorInventoryView>();
             VisitorInventory visitorInventory = new VisitorInventory();
             VisitorInventoryPresenterFactory visitorInventoryPresenterFactory = 
                 new VisitorInventoryPresenterFactory();
             VisitorInventoryViewFactory visitorInventoryViewFactory = 
                 new VisitorInventoryViewFactory(visitorInventoryPresenterFactory);
             visitorInventoryViewFactory.Create(visitorInventoryView, visitorInventory);
-            
-            //Todo заменить на инстантиэйт
-            VisitorView visitorView = Object.FindObjectOfType<VisitorView>();
-            visitorView.AddComponent<PoolableObject>().SetPool(objectPool);
             
             Visitor visitor = new Visitor();
             VisitorAnimation visitorAnimation = visitorView.gameObject.GetComponent<VisitorAnimation>();
@@ -72,7 +79,7 @@ namespace Sources.Infrastructure.BuilderFactories
                 visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
                 _itemRepository, visitorImageUI, visitorInventory, _imageUIFactory,
-                _itemViewFactory, _tavernMood, _garbageBuilder, _coinBuilder);
+                _itemViewFactory, _tavernMood, _garbageBuilder, _coinBuilder, _visitorCounter);
 
             return visitorView;
         }

@@ -8,15 +8,19 @@ namespace Sources.Domain.Taverns
 {
     public class TavernMood
     {
-        //TODO убрать магические числа
-        private ObservableProperty<float> _tavernMoodValue = new ObservableProperty<float>(0.5f);
+        private const float StartTavernMoodValue = 0.5f;
+        private const float MaximumUpgradeAmount = 0.25f;
+        public const float AddedUpgradeAmount = 0.05f;
+        
+        private ObservableProperty<float> _tavernMoodValue = 
+            new ObservableProperty<float>(StartTavernMoodValue);
 
-        private float _addedAmountMood ;
+        public float AddedAmountMood { get; private set; }
         private float _removedAmountMood ;
 
         public TavernMood()
         {
-            _addedAmountMood = 0.1f;
+            AddedAmountMood = 0.1f;
             _removedAmountMood = 0.1f;
         }
         
@@ -24,7 +28,7 @@ namespace Sources.Domain.Taverns
 
         public void AddTavernMood()
         {
-            _tavernMoodValue.Value += _addedAmountMood;
+            _tavernMoodValue.Value += AddedAmountMood;
         }
         
         public void RemoveTavernMood()
@@ -34,16 +38,11 @@ namespace Sources.Domain.Taverns
 
         public void AddAmountMood()
         {
-            if (_addedAmountMood >= 0.25f)
+            if (AddedAmountMood >= MaximumUpgradeAmount)
                 throw new InvalidOperationException("Максимальное количество улучшения");
             
-            _addedAmountMood += 0.05f;
-            Debug.Log(_addedAmountMood);
-        }
-        
-        public void GetTavernMoodValue()
-        {
-            
+            AddedAmountMood += AddedUpgradeAmount;
+            Debug.Log(AddedAmountMood);
         }
     }
 }

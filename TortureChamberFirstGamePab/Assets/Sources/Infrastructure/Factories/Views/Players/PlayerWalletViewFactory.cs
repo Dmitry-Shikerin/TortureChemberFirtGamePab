@@ -4,6 +4,7 @@ using MyProject.Sources.Controllers;
 using MyProject.Sources.Infrastructure.Factorys.Controllers;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Players;
+using Sources.Presentation.Views.Player;
 
 namespace MyProject.Sources.Infrastructure.Factorys.Views
 {

@@ -3,11 +3,14 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Sources.Domain.GamePlays;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
     public class GamePlayService
     {
+        private const int Delay = 2;
+        
         private readonly GamePlay _gamePlay;
 
         private readonly int _maximumSetPointsCapacity;
@@ -32,11 +35,11 @@ namespace Sources.Infrastructure.Services
             
             while (visitorsCount <= _maximumSetPointsCapacity)
             {
-                await Task.Delay(TimeSpan.FromMinutes(2));
-
+                //TODO сюда ттоже нужен канцелейшн токен
+                await Task.Delay(TimeSpan.FromMinutes(Delay));
+                Debug.Log("увеличино максимальное количество посетителей");
                 visitorsCount++;
                 _gamePlay.AddMaximumVisitorsCapacity();
-                //todo заменить магическое число
             }
         }
     }

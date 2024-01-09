@@ -6,20 +6,14 @@ namespace Sources.Presentation.Views.Items
 {
     public class FoodView : MonoBehaviour, IItemView
     {
-        public void SetParent(Transform parentTransform)
-        {
+        public void SetParent(Transform parentTransform) => 
             transform.SetParent(parentTransform);
-        }
 
-        public void SetPosition(Transform parentTransform)
-        {
+        public void SetPosition(Transform parentTransform) => 
             transform.position = parentTransform.position;
-        }
 
-        public void Destroy()
-        {
+        public void Destroy() =>
             //TODO добавить логику добавления в пул
             Destroy(gameObject);
-        }
     }
 }

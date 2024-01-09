@@ -26,7 +26,6 @@ namespace Sources.Presentation.Views.Items.Coins
 
         public void Destroy()
         {
-            //TODO выключать обьект когда он вернулся в пул
             if (TryGetComponent(out PoolableObject poolableObject) == false)
             {
                 Destroy(gameObject);
@@ -36,6 +35,11 @@ namespace Sources.Presentation.Views.Items.Coins
 
             poolableObject.ReturnTooPool();
             Hide();
+        }
+
+        public void SetCoinAmount(int amount)
+        {
+            Presenter.SetCoinAmount(amount);
         }
 
         public void SetCanMove(bool canMove)

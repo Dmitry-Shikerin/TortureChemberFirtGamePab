@@ -37,12 +37,10 @@ namespace Sources.Controllers.Items
                 await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(
                     _garbageView.FillingRate, _cancellationTokenSource.Token);
                 _garbageView.Destroy();
-                _garbage.EatPointView.SetIsClean(false);
+                _garbage.EatPointView.Clean();
             }
             catch (OperationCanceledException exception)
             {
-                //TODO чтото обработать
-                Console.WriteLine(exception);
                 _pickUpPointUI.BackgroundImage.SetFillAmount(1);
             }
             

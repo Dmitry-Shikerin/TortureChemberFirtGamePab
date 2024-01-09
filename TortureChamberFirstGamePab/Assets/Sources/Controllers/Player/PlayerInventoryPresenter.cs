@@ -13,7 +13,6 @@ using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
 using UnityEngine;
-using IGettable = Sources.PresentationInterfaces.Views.Interactions.Get.IGettable;
 
 namespace Sources.Controllers.Player
 {
@@ -25,7 +24,6 @@ namespace Sources.Controllers.Player
         private readonly ItemViewFactory _itemViewFactory;
 
         private CancellationTokenSource _cancellationTokenSource;
-
 
         public PlayerInventoryPresenter(IPlayerInventoryView playerInventoryView,
             ITextUI textUI, PlayerInventory playerInventory,
@@ -39,16 +37,18 @@ namespace Sources.Controllers.Player
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
         }
 
+        public int MaxCapacity => _playerInventory.MaxCapacity;
+
         public bool TryGet()
         {
             return _playerInventory.CanGet;
         }
 
-        public async void AddItem(ITakeble takeble)
+        public async void AddItem(IGiveble giveble)
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            IItem item = await takeble.TakeItem(_cancellationTokenSource.Token);
+            IItem item = await giveble.GiveItemAsync(_cancellationTokenSource.Token);
             Add(item);
         }
 
@@ -60,8 +60,6 @@ namespace Sources.Controllers.Player
                     return;
 
                 _playerInventory.Add(item);
-                Debug.Log(_playerInventory.Items.Count);
-                Debug.Log(item.GetType().Name);
                 IItemView itemView = _itemViewFactory.Create(item);
                 item.SetItemView(itemView);
 
@@ -73,26 +71,25 @@ namespace Sources.Controllers.Player
             }
         }
 
-        public async void GetItem(IGettable gettable)
+        public async void GetItem(PresentationInterfaces.Views.Interactions.Get.ITakeble takeble)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             
-            IItem targetItem = gettable.GetTargetItem();
+            IItem targetItem = takeble.TargetItem;
             
             if (targetItem == null)
                 return;
             
-            if (gettable.GetItem() != null)
+            if (takeble.Item != null)
                 return;
             
-            if(_playerInventoryView.TryGet() == false)
+            if(_playerInventory.CanGet == false)
                 return;
             
             IItem item = await Get(targetItem, _cancellationTokenSource.Token);
-            gettable.Add(item);
+            takeble.TakeItem(item);
         }
         
-        //TODO посмотреть плагины AI
         public async UniTask<IItem> Get(IItem item, CancellationToken cancellationToken)
         {
             IImageUI backGroundImage = null;
@@ -117,6 +114,7 @@ namespace Sources.Controllers.Player
 
                         UpdateViewPosition();
                         RemoveImage();
+                        _playerInventory.SetGiveAbility();
                         
                         return targetItem;
                     }
@@ -146,8 +144,6 @@ namespace Sources.Controllers.Player
         {
             for (int i = 0; i < _playerInventory.Items.Count; i++)
             {
-                //TODO исправить здесь логику
-                //TODO плохая логика
                 IItem item = _playerInventory.Items[i];
                 Transform slotTransform = _playerInventoryView.PlayerInventorySlots[i].transform;
                 ImageUI imageUI = _playerInventoryView.PlayerInventorySlots[i].Image;
@@ -163,7 +159,6 @@ namespace Sources.Controllers.Player
         {
             for (int i = 0; i < _playerInventoryView.PlayerInventorySlots.Count; i++)
             {
-                //TODO плохая логика
                 if (_playerInventoryView.PlayerInventorySlots[i]
                         .GetComponentInChildren<FoodView>() == null)
                 {
@@ -177,8 +172,6 @@ namespace Sources.Controllers.Player
         {
             for (int i = 0; i < _playerInventory.Items.Count; i++)
             {
-                //TODO исправить здесь логику
-                //TODO плохая логика
                 IItem item = _playerInventory.Items[i];
                 Transform slotTransform = _playerInventoryView.PlayerInventorySlots[i].transform;
                 ImageUI imageUI = _playerInventoryView.PlayerInventorySlots[i].Image;

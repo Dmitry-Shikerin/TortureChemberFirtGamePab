@@ -10,9 +10,7 @@ namespace Sources.Domain.Players
 {
     public class PlayerInventory
     {
-        public const int MaxCapacity = 3;
-
-        private int _inventoryCapacity = 1;
+        public int InventoryCapacity { get; private set; } = 1;
         
         private List<IItem> _items = new List<IItem>();
         
@@ -20,6 +18,7 @@ namespace Sources.Domain.Players
         {
         }
 
+        public int MaxCapacity { get; } = 3;
         public bool CanGet { get; private set; } = true;
 
         public IReadOnlyList<IItem> Items => _items;
@@ -36,7 +35,7 @@ namespace Sources.Domain.Players
         
         public void Add(IItem item)
         {
-            if (_items.Count >= _inventoryCapacity)
+            if (_items.Count >= InventoryCapacity)
                 throw new InventoryFullException("Инвентарь заполнен", nameof(PlayerInventory));
             
             _items.Add(item);
@@ -44,12 +43,12 @@ namespace Sources.Domain.Players
 
         public void AddInventoryCapacity()
         {
-            if(_inventoryCapacity >= MaxCapacity)
+            if(InventoryCapacity >= MaxCapacity)
                 throw new InventoryFullException(
                     "Достигнут максимальный лимит увеличения инвентаря", nameof(PlayerInventory));
                 
-            _inventoryCapacity++;
-            Debug.Log(_inventoryCapacity);
+            InventoryCapacity++;
+            Debug.Log(InventoryCapacity);
         }
 
         public void RemoveItem(IItem item)

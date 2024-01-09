@@ -18,10 +18,11 @@ namespace Sources.Controllers.Points
         }
 
         public bool IsClear => _eatPoint.IsClear;
+        
+        public void Clean() => 
+            _eatPoint.Clean();
 
-        public void SetIsClean(bool isClean)
-        {
-            _eatPoint.SetIsClear(isClean);
-        }
+        public void GetDirty() => 
+            _eatPoint.GetDirty();
     }
 }

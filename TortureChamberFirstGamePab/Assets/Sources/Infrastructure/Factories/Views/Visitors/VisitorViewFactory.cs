@@ -8,6 +8,7 @@ using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factorys.Controllers;
+using Sources.Infrastructure.Services;
 using Sources.Presentation.Animations;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views;
@@ -32,7 +33,7 @@ namespace Sources.Infrastructure.Factorys.Views
             ItemRepository<IItem> itemRepository, VisitorImageUI visitorImageUI,
             VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
             ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder)
+            CoinBuilder coinBuilder, VisitorCounter visitorCounter)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
@@ -52,11 +53,13 @@ namespace Sources.Infrastructure.Factorys.Views
                 throw new ArgumentNullException(nameof(itemViewFactory));
             if (tavernMood == null)
                 throw new ArgumentNullException(nameof(tavernMood));
+            if (visitorCounter == null) 
+                throw new ArgumentNullException(nameof(visitorCounter));
 
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
                 visitorView, visitorAnimation, visitor, itemRepository, visitorImageUI,
                 visitorInventory, imageUIFactory, itemViewFactory, tavernMood, garbageBuilder,
-                coinBuilder);
+                coinBuilder, visitorCounter);
             
             visitorView.Construct(visitorPresenter);
 
