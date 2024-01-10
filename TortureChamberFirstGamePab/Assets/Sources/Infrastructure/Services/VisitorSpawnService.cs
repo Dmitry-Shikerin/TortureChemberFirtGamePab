@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.BuilderFactories;
@@ -40,7 +39,7 @@ namespace Sources.Infrastructure.Services
                 {
                     Spawn();
                     //TODO как сюда засунуть токен?
-                    await UniTask.Delay(TimeSpan.FromSeconds(5));
+                    await UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cancellationToken);
                 }
 
                 await UniTask.Yield(cancellationToken);

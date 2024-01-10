@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -26,9 +27,9 @@ namespace Sources.Infrastructure.BuilderFactories
     {
         private const string VisitorPrefabPath = "Prefabs/Visitor";
         
-        private readonly CollectionRepository _collectionRepository;
+        
         private readonly ItemRepository<IItem> _itemRepository;
-        private readonly ProductShuffleService _productShuffleService;
+        private readonly VisitorPresenterFactory _visitorPresenterFactory;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly ImageUIFactory _imageUIFactory;
         private readonly TavernMood _tavernMood;
@@ -37,16 +38,13 @@ namespace Sources.Infrastructure.BuilderFactories
         private readonly PrefabFactory _prefabFactory;
         private readonly VisitorCounter _visitorCounter;
 
-        public VisitorBuilder(CollectionRepository collectionRepository, ItemRepository<IItem> itemRepository,
-            ProductShuffleService productShuffleService, ItemViewFactory itemViewFactory,
+        public VisitorBuilder(ItemRepository<IItem> itemRepository,
+            VisitorPresenterFactory visitorPresenterFactory, ItemViewFactory itemViewFactory,
             ImageUIFactory imageUIFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
             CoinBuilder coinBuilder, PrefabFactory prefabFactory, VisitorCounter visitorCounter)
         {
-            _collectionRepository = collectionRepository ?? 
-                                    throw new ArgumentNullException(nameof(collectionRepository));
             _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
-            _productShuffleService = productShuffleService ??
-                                     throw new ArgumentNullException(nameof(productShuffleService));
+            _visitorPresenterFactory = visitorPresenterFactory ?? throw new ArgumentNullException(nameof(visitorPresenterFactory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
@@ -61,22 +59,20 @@ namespace Sources.Infrastructure.BuilderFactories
             VisitorView visitorView = _prefabFactory.Create<VisitorView>(VisitorPrefabPath);
             visitorView.AddComponent<PoolableObject>().SetPool(objectPool);
             
+            //TODO сделать чтобы к вьюшке заново сосдавались заново
+            //TODO получить в виситор вью все остальныые вьюшки в зависимость через сериалайзфилд
             VisitorInventoryView visitorInventoryView = visitorView.GetComponentInChildren<VisitorInventoryView>();
             VisitorInventory visitorInventory = new VisitorInventory();
-            VisitorInventoryPresenterFactory visitorInventoryPresenterFactory = 
-                new VisitorInventoryPresenterFactory();
-            VisitorInventoryViewFactory visitorInventoryViewFactory = 
-                new VisitorInventoryViewFactory(visitorInventoryPresenterFactory);
+            VisitorInventoryViewFactory visitorInventoryViewFactory = new VisitorInventoryViewFactory();
             visitorInventoryViewFactory.Create(visitorInventoryView, visitorInventory);
             
             Visitor visitor = new Visitor();
-            VisitorAnimation visitorAnimation = visitorView.gameObject.GetComponent<VisitorAnimation>();
+            VisitorAnimation visitorAnimation = visitorView.GetComponent<VisitorAnimation>();
             VisitorImageUI visitorImageUI =
-                visitorView.gameObject.GetComponentInChildren<VisitorImageUI>();
-            VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
-                _collectionRepository, _productShuffleService);
+                visitorView.GetComponentInChildren<VisitorImageUI>();
+            
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
-                visitorPresenterFactory);
+                _visitorPresenterFactory);
             visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
                 _itemRepository, visitorImageUI, visitorInventory, _imageUIFactory,
                 _itemViewFactory, _tavernMood, _garbageBuilder, _coinBuilder, _visitorCounter);

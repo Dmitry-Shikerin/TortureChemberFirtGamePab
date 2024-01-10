@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services.UpgradeServices
 {
+    //TODO сделать этот сервис с дженериком и принимать тишку модели
     public class PlayerCharismaUpgradeService
     {
         private readonly TavernMood _tavernMood;

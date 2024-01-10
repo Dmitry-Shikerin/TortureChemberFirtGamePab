@@ -23,8 +23,10 @@ namespace Sources.Presentation.Views.Taverns.UpgradePoints
             _trigger.Exited -= OnExit;
         }
 
-        private void OnEnter(IPlayerMovementView playerMovementView) => 
+        private void OnEnter(IPlayerMovementView playerMovementView)
+        {
             _tavernUpgradePointView.Show();
+        }
 
         private void OnExit(IPlayerMovementView playerMovementView) => 
             _tavernUpgradePointView.Hide();

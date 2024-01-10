@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -14,6 +15,8 @@ namespace Sources.Infrastructure.Services
         private readonly GamePlay _gamePlay;
 
         private readonly int _maximumSetPointsCapacity;
+
+        private CancellationTokenSource _cancellationTokenSource;
 
         public GamePlayService(GamePlay gamePlay, int maximumSetPointsCapacity)
         {
@@ -31,16 +34,23 @@ namespace Sources.Infrastructure.Services
 
         private async UniTask IncreaseDifficulty()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
             int visitorsCount = 0;
             
             while (visitorsCount <= _maximumSetPointsCapacity)
             {
-                //TODO сюда ттоже нужен канцелейшн токен
-                await Task.Delay(TimeSpan.FromMinutes(Delay));
+                await UniTask.Delay(TimeSpan.FromMinutes(Delay), cancellationToken: _cancellationTokenSource.Token);
                 Debug.Log("увеличино максимальное количество посетителей");
                 visitorsCount++;
                 _gamePlay.AddMaximumVisitorsCapacity();
             }
+        }
+
+        //TODO прокинуць этот метод
+        public void Exit()
+        {
+            _cancellationTokenSource.Cancel();
         }
     }
 }

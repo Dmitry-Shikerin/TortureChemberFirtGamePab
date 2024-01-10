@@ -36,6 +36,7 @@ namespace Sources.Domain.Taverns
             _tavernMoodValue.Value -= _removedAmountMood;
         }
 
+        //TODO вынести это в отдельный обьект и обобщить для всех апгрейдов
         public void AddAmountMood()
         {
             if (AddedAmountMood >= MaximumUpgradeAmount)

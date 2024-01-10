@@ -18,10 +18,7 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorEatFoodState : FiniteState
     {
-        private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
-        private readonly IVisitorAnimation _visitorAnimation;
-        private readonly CollectionRepository _collectionRepository;
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly TavernMood _tavernMood;
@@ -31,18 +28,12 @@ namespace Sources.Controllers.Visitors.States
 
         private const float FillingRate = 0.2f;
 
-        public VisitorEatFoodState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
+        public VisitorEatFoodState(Visitor visitor,
             VisitorInventory visitorInventory, VisitorImageUI visitorImageUI,
             ItemViewFactory itemViewFactory, TavernMood tavernMood,
             GarbageBuilder garbageBuilder, CoinBuilder coinBuilder)
         {
-            _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
-            _visitorAnimation = visitorAnimation ??
-                                throw new ArgumentNullException(nameof(visitorAnimation));
-            _collectionRepository = collectionRepository ??
-                                    throw new ArgumentNullException(nameof(collectionRepository));
             _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));

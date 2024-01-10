@@ -18,7 +18,6 @@ namespace Sources.Controllers.Visitors.States
         
         private readonly Visitor _visitor;
         private readonly VisitorInventory _visitorInventory;
-        private readonly ItemRepository<IItem> _itemRepository;
         private readonly ProductShuffleService _productShuffleService;
         private readonly TavernMood _tavernMood;
         private readonly IVisitorImageUI _visitorImageUI;
@@ -28,14 +27,12 @@ namespace Sources.Controllers.Visitors.States
         public VisitorWaitingForOrderState(Visitor visitor,
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
-            ItemRepository<IItem> itemRepository, ProductShuffleService productShuffleService,
+            ProductShuffleService productShuffleService,
             TavernMood tavernMood)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ??
                                 throw new ArgumentNullException(nameof(visitorInventory));
-            _itemRepository = itemRepository ??
-                              throw new ArgumentNullException(nameof(itemRepository));
             _productShuffleService = productShuffleService ??
                                      throw new ArgumentNullException(nameof(productShuffleService));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));

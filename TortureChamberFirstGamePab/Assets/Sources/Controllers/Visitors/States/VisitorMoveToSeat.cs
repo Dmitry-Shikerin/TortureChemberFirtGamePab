@@ -21,7 +21,6 @@ namespace Sources.Controllers.Visitors.States
         private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
-        private readonly CollectionRepository _collectionRepository;
 
         public VisitorMoveToSeat(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation ,CollectionRepository collectionRepository)
@@ -30,8 +29,6 @@ namespace Sources.Controllers.Visitors.States
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorAnimation = visitorAnimation ?? 
                                 throw new ArgumentNullException(nameof(visitorAnimation));
-            _collectionRepository = collectionRepository ?? 
-                                   throw new ArgumentNullException(nameof(collectionRepository));
         }
         
         public override void Enter()

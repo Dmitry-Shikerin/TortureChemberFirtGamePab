@@ -16,7 +16,7 @@ namespace Sources.Controllers.UI
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        public void AddListener()
+        public void OnClick()
         {
             _action.Invoke();
         }

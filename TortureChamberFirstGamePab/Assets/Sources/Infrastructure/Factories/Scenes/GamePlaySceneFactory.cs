@@ -25,6 +25,7 @@ using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
+using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Common;
@@ -220,8 +221,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             VisitorCounter visitorCounter = new VisitorCounter();
             
             //Visitor
-            VisitorBuilder visitorBuilder = new VisitorBuilder(collectionRepository, itemRepository,
-                productShuffleService, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder,
+            VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
+                collectionRepository, productShuffleService);
+            VisitorBuilder visitorBuilder = new VisitorBuilder(itemRepository,
+                visitorPresenterFactory, itemViewFactory, imageUIFactory, tavernMood, garbageBuilder,
                 coinBuilder, prefabFactory, visitorCounter);
             // visitorBuilder.Create(objectPool);
 

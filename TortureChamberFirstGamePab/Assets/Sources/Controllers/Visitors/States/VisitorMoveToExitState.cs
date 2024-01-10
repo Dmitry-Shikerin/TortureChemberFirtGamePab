@@ -19,8 +19,6 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly CollectionRepository _collectionRepository;
-        private readonly VisitorInventory _visitorInventory;
-        private readonly VisitorImageUI _visitorImageUI;
 
         public VisitorMoveToExitState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
@@ -32,8 +30,6 @@ namespace Sources.Controllers.Visitors.States
                                 throw new ArgumentNullException(nameof(visitorAnimation));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
-            _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
-            _visitorImageUI = visitorImageUI ? visitorImageUI : throw new ArgumentNullException(nameof(visitorImageUI));
         }
 
         public override void Enter()
@@ -56,6 +52,7 @@ namespace Sources.Controllers.Visitors.States
             await Move();
             //TODO возможно убрать
             _visitor.SetIdle();
+            Debug.Log("Move ended");
             _visitorView.StopMove();
         }
 

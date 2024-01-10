@@ -18,12 +18,8 @@ namespace Sources.Controllers.Visitors.States
     {
         private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
-        private readonly IVisitorAnimation _visitorAnimation;
-        private readonly CollectionRepository _collectionRepository;
-        private readonly VisitorInventory _visitorInventory;
         private readonly VisitorCounter _visitorCounter;
         private readonly IObjectPool _objectPool;
-        private readonly VisitorImageUI _visitorImageUI;
 
         public VisitorReturnToPoolState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
@@ -33,14 +29,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
-            _visitorAnimation = visitorAnimation ??
-                                throw new ArgumentNullException(nameof(visitorAnimation));
-            _collectionRepository = collectionRepository ??
-                                    throw new ArgumentNullException(nameof(collectionRepository));
-            _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
             _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
-            _visitorImageUI = visitorImageUI ? visitorImageUI :
-                throw new ArgumentNullException(nameof(visitorImageUI));
         }
 
         public override void Enter()

@@ -28,12 +28,14 @@ namespace Sources.Infrastructure.Services.ObjectPools
                 return null;
 
             @object.transform.SetParent(null);
+            Debug.Log("Get from pool");
             ObjectCountChanged?.Invoke(_objects.Count);
             return @object;
         }
 
         public void Return(PoolableObject poolableObject)
         {
+            Debug.Log($"PoolableObject : {poolableObject.GetComponent<T>()}");
             if(poolableObject.TryGetComponent(out T @object) == false)
                 return;
             

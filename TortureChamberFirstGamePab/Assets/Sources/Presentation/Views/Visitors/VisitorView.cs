@@ -43,11 +43,9 @@ namespace Sources.Presentation.Views.Visitors
             transform.position = position;
         }
 
-        //TODO работает не так как я ожидал
         public void StopMove()
         {
             NavMeshAgent.isStopped = true;
-            // NavMeshAgent.Stop();
         }
 
         public void Move()

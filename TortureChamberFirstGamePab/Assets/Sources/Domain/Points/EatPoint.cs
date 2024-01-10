@@ -9,8 +9,7 @@ namespace Sources.Domain
         public void Clean() => 
             IsClear = true;
 
-        //TODO название с гет?
-        public void GetDirty() => 
+        public void SetDirty() => 
             IsClear = false;
     }
 }

@@ -37,14 +37,13 @@ namespace Sources.Infrastructure.Factories.Scenes
             HudButtonUIContainer hudButtonUIContainer = hud.GetComponent<HudButtonUIContainer>();
 
             // buttonUIFactory.Create(hudButtonUIContainer.ContinueGameButton, ChangeScene);
-            buttonUIFactory.Create(hudButtonUIContainer.NewGameButton, ChangeScene); 
+            buttonUIFactory.Create(hudButtonUIContainer.NewGameButton, MoveToGamePlayScene); 
             // buttonUIFactory.Create(hudButtonUIContainer.OptionsButton,);
 
             return new MainMenuScene();
         }
 
-        //TODO не придумал как сделать по другому
-        private async void ChangeScene() => 
+        private async void MoveToGamePlayScene() => 
             await _sceneService.ChangeSceneAsync("GamePlay");
     }
 }

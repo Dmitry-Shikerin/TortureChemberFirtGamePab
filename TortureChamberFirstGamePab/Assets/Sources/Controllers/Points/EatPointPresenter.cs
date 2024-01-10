@@ -23,6 +23,6 @@ namespace Sources.Controllers.Points
             _eatPoint.Clean();
 
         public void GetDirty() => 
-            _eatPoint.GetDirty();
+            _eatPoint.SetDirty();
     }
 }

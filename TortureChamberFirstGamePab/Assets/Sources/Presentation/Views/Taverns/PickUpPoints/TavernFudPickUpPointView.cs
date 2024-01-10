@@ -18,7 +18,7 @@ namespace Sources.Presentation.Views.Taverns
     {
         [field: SerializeField] public float FillingRate { get; private set; } = 0.1f;
         
-        //TODO какие методы нужно называвть с приставкий асинк?
+        //TODO какие методы нужно называвть с приставкий асинк? все у которых есть приставка асинк.
         public async UniTask<IItem> GiveItemAsync(CancellationToken cancellationToken)
         {
             return await Presenter.GiveItemAsync<TItem>(cancellationToken);

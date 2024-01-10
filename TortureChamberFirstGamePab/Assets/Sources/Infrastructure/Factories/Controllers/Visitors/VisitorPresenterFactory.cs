@@ -1,6 +1,4 @@
 using System;
-using JetBrains.Annotations;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers;
 using Sources.Controllers.Visitors.States;
 using Sources.Domain.Taverns;
@@ -17,7 +15,7 @@ using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
 
-namespace Sources.Infrastructure.Factorys.Controllers
+namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorPresenterFactory
     {
@@ -66,26 +64,24 @@ namespace Sources.Infrastructure.Factorys.Controllers
             VisitorInitializeState initializeState = new VisitorInitializeState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorIdleState idleState = new VisitorIdleState(
-                visitorView,  visitor, visitorAnimation,_collectionRepository);
+                visitor, visitorAnimation);
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
                 new VisitorWaitingForOrderState(visitor,
-                    visitorInventory, visitorImageUI, itemRepository,
+                    visitorInventory, visitorImageUI,
                     _productShuffleService, tavernMood);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
-                visitorView, visitor, visitorAnimation, _collectionRepository,
+                visitor,
                 visitorInventory, visitorImageUI, itemViewFactory, tavernMood, garbageBuilder,
                 coinBuilder);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUI);
             VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
-                new VisitorNotSatisfiedWithOrderState(visitorView, visitor,
-                    visitorAnimation, _collectionRepository,
-                    visitorInventory, visitorImageUI);
+                new VisitorNotSatisfiedWithOrderState(visitor);
             VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(
                 visitorView, visitor,
                 visitorAnimation, _collectionRepository,
