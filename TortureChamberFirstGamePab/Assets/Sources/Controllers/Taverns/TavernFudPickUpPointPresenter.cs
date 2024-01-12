@@ -39,7 +39,8 @@ namespace Sources.Controllers.Taverns
             try
             {
                 await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(_tavernFudPickUpPointView.FillingRate, cancellationToken);
-
+                _pickUpPointUI.BackgroundImage.SetFillAmount(1);
+                
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)

@@ -67,7 +67,7 @@ namespace Sources.Presentation.Views.Player
             Presenter.Cancel();
 
         private void OnTakebleEnter(ITakeble takeble) => 
-            Presenter.GetItem(takeble);
+            Presenter.GiveItem(takeble);
 
         private void OnTakebleExit(ITakeble takeble) => 
             Presenter.Cancel();

@@ -29,11 +29,17 @@ namespace Sources.Domain.Players
         public bool CanGet { get; private set; } = true;
         public IReadOnlyList<IItem> Items => _items;
 
-        public void SetGiveAbility() => 
+        public void SetGiveAbility()
+        {
+            Debug.Log("UnLock inventory");
             CanGet = true;
+        }
 
-        public void LockGiveAbility() => 
+        public void LockGiveAbility()
+        {
+            Debug.Log("Lock inventory");
             CanGet = false;
+        }
 
         public void Add(IItem item)
         {

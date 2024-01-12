@@ -70,6 +70,7 @@ namespace Sources.Controllers.Items.Coins
         private async UniTask AddCoins()
         {
             _coinAnimation.PlayerWalletView.Add(_coinAnimation.CoinAmount);
+            // _coinAnimation.SetPlayerWalletView(null);
             await UniTask.Yield();
         }
 
@@ -84,13 +85,22 @@ namespace Sources.Controllers.Items.Coins
 
         private async UniTask MoveToPlayer()
         {
-            while (Vector3.Distance(_coinAnimationView.Position, new Vector3(
-                       _coinAnimation.PlayerWalletView.Position.x,
-                       _coinAnimation.PlayerWalletView.Position.y + _coinAnimationView.OffsetYFinishPoint,
-                       _coinAnimation.PlayerWalletView.Position.z)) > Constant.Epsilon)
+            // while (Vector3.Distance(_coinAnimationView.Position, new Vector3(
+            //            _coinAnimation.PlayerWalletView.Position.x,
+            //            _coinAnimation.PlayerWalletView.Position.y + _coinAnimationView.OffsetYFinishPoint,
+            //            _coinAnimation.PlayerWalletView.Position.z)) > Constant.Epsilon)
+            //TODO заменить магическое число
+            while (Vector3.Distance(_coinAnimationView.Position, 
+                       _coinAnimation.PlayerWalletView.Position) > 1)
             {
                 _currentTime += Time.deltaTime;
 
+                // _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
+                //     new Vector3(_coinAnimation.PlayerWalletView.Position.x,
+                //         _coinAnimation.PlayerWalletView.Position.y +
+                //         _coinAnimationView.AnimationCurve.Evaluate(_currentTime),
+                //         _coinAnimation.PlayerWalletView.Position.z), 
+                //     _coinAnimationView.MovementSpeed * Time.deltaTime));
                 _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
                     new Vector3(_coinAnimation.PlayerWalletView.Position.x,
                         _coinAnimation.PlayerWalletView.Position.y +

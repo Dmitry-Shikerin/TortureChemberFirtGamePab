@@ -33,6 +33,7 @@ namespace Sources.Presentation.Views.Items.Coins
                 return;
             }
 
+            Debug.Log("Coin Destroed");
             poolableObject.ReturnTooPool();
             Hide();
         }

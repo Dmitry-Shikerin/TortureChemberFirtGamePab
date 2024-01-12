@@ -30,18 +30,17 @@ namespace Sources.Infrastructure.BuilderFactories
             _objectPool = new ObjectPool<GarbageView>();
         }
         
+        //TODO это не билдер
         public IGarbageView Create()
         {
-            if (_objectPool.Count > 0)
-            {
-                return _objectPool.Get<GarbageView>();
-            }
-
-            GarbageView garbageView = _prefabFactory.Create<GarbageView>(GarbagePrefabPath);
-            
-            garbageView.AddComponent<PoolableObject>().SetPool(_objectPool);
+            GarbageView garbageView = _objectPool.Get<GarbageView>() ??
+                                      _prefabFactory.Create<GarbageView>(GarbagePrefabPath)
+                                          .AddComponent<PoolableObject>()
+                                          .SetPool(_objectPool)
+                                          .GetComponent<GarbageView>();
 
             _garbageViewFactory.Create(garbageView, _imageUIFactory);
+            garbageView.Show();
 
             return garbageView;
         }

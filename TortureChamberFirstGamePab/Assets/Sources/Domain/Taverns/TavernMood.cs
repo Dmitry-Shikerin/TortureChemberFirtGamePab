@@ -10,15 +10,17 @@ namespace Sources.Domain.Taverns
 {
     public class TavernMood
     {
-        private readonly IUpgradeble _upgradeble;
         private const float StartTavernMoodValue = 0.5f;
+        private const float RemovedAmountMood = 0.5f;
         
+        private readonly IUpgradeble _upgradeble;
         private ObservableProperty<float> _tavernMoodValue = 
             new ObservableProperty<float>(StartTavernMoodValue);
 
-        private float _removedAmountMood ;
-
-        public TavernMood(IUpgradeble upgradeble) => _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+        public TavernMood(IUpgradeble upgradeble)
+        {
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+        }
 
         public IObservableProperty<float> TavernMoodValue => _tavernMoodValue;
 
@@ -26,6 +28,6 @@ namespace Sources.Domain.Taverns
             _tavernMoodValue.Value += _upgradeble.AddedAmountUpgrade;
 
         public void RemoveTavernMood() => 
-            _tavernMoodValue.Value -= _removedAmountMood;
+            _tavernMoodValue.Value -= RemovedAmountMood;
     }
 }

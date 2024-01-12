@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.States;
 using Sources.Presentation.UI;
@@ -19,6 +20,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly CollectionRepository _collectionRepository;
+        private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         public VisitorMoveToExitState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
@@ -30,10 +32,14 @@ namespace Sources.Controllers.Visitors.States
                                 throw new ArgumentNullException(nameof(visitorAnimation));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
+            _visitorImageUIContainer = visitorImageUIContainer ? visitorImageUIContainer : 
+                throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
 
         public override void Enter()
         {
+            _visitorImageUIContainer.BackGroundImage.HideImage();
+            _visitorImageUIContainer.OrderImage.HideImage();
             // Debug.Log("Посетитель в состоянии движения к выходу");
             Moving();
         }

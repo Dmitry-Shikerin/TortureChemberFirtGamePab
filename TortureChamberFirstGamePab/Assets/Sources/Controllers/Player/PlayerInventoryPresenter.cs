@@ -11,6 +11,7 @@ using Sources.Presentation.Views.Items;
 using Sources.Presentation.Views.Taverns;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Interactions.Get;
 using Sources.Utils.Exceptions;
 using UnityEngine;
 
@@ -85,11 +86,19 @@ namespace Sources.Controllers.Player
             }
             catch (InventoryFullException exception)
             {
+                //TODO жесткий дубляж исправить
+                RemoveItem(0);
+                _playerInventory.Add(item);
+                IItemView itemView = _itemViewFactory.Create(item);
+                item.SetItemView(itemView);
+                
+                SetInventoryViewPosition(item);
+
                 _textUI.SetText(exception.Message);
             }
         }
 
-        public async void GetItem(PresentationInterfaces.Views.Interactions.Get.ITakeble takeble)
+        public async void GiveItem(ITakeble takeble)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             
@@ -104,11 +113,11 @@ namespace Sources.Controllers.Player
             if(_playerInventory.CanGet == false)
                 return;
             
-            IItem item = await Get(targetItem, _cancellationTokenSource.Token);
+            IItem item = await Give(targetItem, _cancellationTokenSource.Token);
             takeble.TakeItem(item);
         }
         
-        public async UniTask<IItem> Get(IItem item, CancellationToken cancellationToken)
+        public async UniTask<IItem> Give(IItem item, CancellationToken cancellationToken)
         {
             IImageUI backGroundImage = null;
 
@@ -138,6 +147,7 @@ namespace Sources.Controllers.Player
                     }
                 }
 
+                _playerInventory.SetGiveAbility();
                 return null;
             }
             catch (NullItemException)
@@ -151,6 +161,24 @@ namespace Sources.Controllers.Player
                 backGroundImage?.SetFillAmount(1);
                 return null;
             }
+        }
+
+        private void RemoveItem(int index)
+        {
+            IImageUI backGroundImage = _playerInventoryView.PlayerInventorySlots[index].BackgroundImage;
+            // await backGroundImage.FillMoveTowardsAsync(_playerInventoryView.FillingRate, cancellationToken);
+            backGroundImage.SetFillAmount(0);
+            _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
+            _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
+            backGroundImage.SetFillAmount(1);
+            IItem targetItem = _playerInventory.Items[index];
+            targetItem.ItemView.Destroy();
+            _playerInventory.RemoveItem(targetItem);
+
+            UpdateViewPosition();
+            RemoveImage();
+            _playerInventory.SetGiveAbility();
+
         }
 
         public void Cancel()

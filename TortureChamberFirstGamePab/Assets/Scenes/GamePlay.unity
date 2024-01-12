@@ -37731,6 +37731,10 @@ PrefabInstance:
       propertyPath: <BackgroundImage>k__BackingField
       value: 
       objectReference: {fileID: 1966802420}
+    - target: {fileID: 7507862256849174200, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.957
+      objectReference: {fileID: 0}
     - target: {fileID: 7618744919282900202, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.614
