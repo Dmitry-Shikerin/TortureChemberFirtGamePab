@@ -24,9 +24,6 @@ namespace Sources.Infrastructure.Factories.Scenes
         
         public async UniTask<IScene> Create(object payload)
         {
-            //TODO перекинуть все контейнеры в паку ЮАЙ
-            Debug.Log("Сцена создана");
-            //TODO потом убрать тру
             HUD hud = Object.FindObjectOfType<HUD>(true);
             
             //ButtonFactories

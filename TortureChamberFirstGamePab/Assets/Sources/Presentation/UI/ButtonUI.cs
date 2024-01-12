@@ -9,20 +9,10 @@ namespace Sources.Presentation.UI
     {
         [SerializeField] private Button _button;
         
-        //TODO включать обьект когда сосдался презентер
-        protected override void OnAfterEnable()
-        {
+        protected override void OnAfterEnable() => 
             _button.onClick.AddListener(Presenter.OnClick);
-        }
 
-        protected override void OnAfterDisable()
-        {
+        protected override void OnAfterDisable() => 
             _button.onClick.RemoveListener(Presenter.OnClick);
-        }
-
-        // public void Start()
-        // {
-        //     _button.onClick.AddListener(Presenter.AddListener);
-        // }
     }
 }

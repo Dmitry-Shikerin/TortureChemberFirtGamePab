@@ -25,10 +25,7 @@ namespace Sources.Controllers.Visitors.States
         
         public override void Enter()
         {
-            Debug.Log("Посетитель в состоянии покоя");
             _visitorAnimation.PlayIdle();
-            // SeatPoint seatPoint = _visitorPointService.Get<SeatPoint>();
-            // _visitor.SetTargetPosition(seatPoint.transform.position);
             _visitor.SetMove();
         }
         

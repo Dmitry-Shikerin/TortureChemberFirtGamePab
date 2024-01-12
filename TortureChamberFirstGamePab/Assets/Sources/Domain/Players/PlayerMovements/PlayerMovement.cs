@@ -1,38 +1,30 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics;
+using Sources.DomainInterfaces.Upgrades;
 using UnityEngine;
 
 namespace MyProject.Sources.Domain.PlayerMovement
 {
     public class PlayerMovement
     {
+        private readonly IUpgradeble _upgradeble;
         private readonly PlayerMovementCharacteristic _characteristic;
-
         
         public PlayerMovement
         (
-            PlayerMovementCharacteristic playerMovementCharacteristic
+            PlayerMovementCharacteristic playerMovementCharacteristic,
+            IUpgradeble upgradeble
         )
         {
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
             _characteristic = playerMovementCharacteristic
                 ? playerMovementCharacteristic
                 : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
 
-            MovementSpeed = _characteristic.MovementSpeed;
+            MovementSpeed = _upgradeble.AddedAmountUpgrade;
         }
         public float MovementSpeed { get; private set; }
-
-        //TODO заменить магические числа
-        public void AddMovementSpeed()
-        {
-            if (MovementSpeed >= 1.9f)
-                throw new InvalidOperationException("Достигнут лимит улучшения скорости");
-                
-            MovementSpeed += 0.3f;
-            Debug.Log(MovementSpeed);
-        }
-
+        
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
         {
             float speed = runInput == 0 ? _characteristic.RunSpeed : MovementSpeed;

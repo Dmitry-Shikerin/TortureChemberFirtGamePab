@@ -23,7 +23,7 @@ namespace Sources.Controllers.Visitors.States
 
         public VisitorReturnToPoolState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
-            VisitorInventory visitorInventory, VisitorImageUI visitorImageUI,
+            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
             VisitorCounter visitorCounter
             )
         {
@@ -44,7 +44,6 @@ namespace Sources.Controllers.Visitors.States
             _visitorCounter.RemoveActiveVisitor();
             
             _visitorView.Destroy();
-            //TODO не добавляются в паренты к своему пулу
         }
 
         public override void Exit()

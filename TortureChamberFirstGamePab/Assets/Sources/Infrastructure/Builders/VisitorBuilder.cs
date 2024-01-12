@@ -25,7 +25,6 @@ namespace Sources.Infrastructure.BuilderFactories
 {
     public class VisitorBuilder
     {
-        private const string VisitorPrefabPath = "Prefabs/Visitor";
         
         
         private readonly ItemRepository<IItem> _itemRepository;
@@ -54,27 +53,12 @@ namespace Sources.Infrastructure.BuilderFactories
             _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
         }
         
-        public IVisitorView Create(IObjectPool objectPool)
+        public IVisitorView Create(VisitorView visitorView)
         {
-            VisitorView visitorView = _prefabFactory.Create<VisitorView>(VisitorPrefabPath);
-            visitorView.AddComponent<PoolableObject>().SetPool(objectPool);
-            
-            //TODO сделать чтобы к вьюшке заново сосдавались заново
-            //TODO получить в виситор вью все остальныые вьюшки в зависимость через сериалайзфилд
-            VisitorInventoryView visitorInventoryView = visitorView.GetComponentInChildren<VisitorInventoryView>();
-            VisitorInventory visitorInventory = new VisitorInventory();
-            VisitorInventoryViewFactory visitorInventoryViewFactory = new VisitorInventoryViewFactory();
-            visitorInventoryViewFactory.Create(visitorInventoryView, visitorInventory);
-            
-            Visitor visitor = new Visitor();
-            VisitorAnimation visitorAnimation = visitorView.GetComponent<VisitorAnimation>();
-            VisitorImageUI visitorImageUI =
-                visitorView.GetComponentInChildren<VisitorImageUI>();
-            
             VisitorViewFactory visitorViewFactory = new VisitorViewFactory(
                 _visitorPresenterFactory);
-            visitorViewFactory.Create(visitorView, visitorAnimation, visitor,
-                _itemRepository, visitorImageUI, visitorInventory, _imageUIFactory,
+            visitorViewFactory.Create(visitorView,
+                _itemRepository, _imageUIFactory,
                 _itemViewFactory, _tavernMood, _garbageBuilder, _coinBuilder, _visitorCounter);
 
             return visitorView;

@@ -1,7 +1,10 @@
 using System;
 using Sources.Controllers;
 using Sources.DomainInterfaces.Items;
+using Sources.Presentation.Animations;
+using Sources.Presentation.UI;
 using Sources.Presentation.Views.ObjectPolls;
+using Sources.Presentation.Views.Visitors.Inventorys;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
 using UnityEngine;
@@ -11,6 +14,10 @@ namespace Sources.Presentation.Views.Visitors
 {
     public class VisitorView : PresentableView<VisitorPresenter>, IVisitorView
     {
+        [field: SerializeField] public VisitorAnimation Animation { get; private set; }
+        [field: SerializeField] public VisitorImageUIContainer ImageUIContainer { get; private set; }
+        [field: SerializeField] public VisitorInventoryView Inventory { get; private set; }
+
         public NavMeshAgent NavMeshAgent { get; private set; }
 
         public Vector3 Position => transform.position;
@@ -31,7 +38,7 @@ namespace Sources.Presentation.Views.Visitors
             poolableObject.ReturnTooPool();
             Hide();
         }
-        
+
         public void Update() =>
             Presenter?.Update();
 
@@ -52,7 +59,7 @@ namespace Sources.Presentation.Views.Visitors
         {
             NavMeshAgent.isStopped = false;
         }
-        
+
         public void SetDestination(Vector3 destination) =>
             NavMeshAgent.destination = destination;
 

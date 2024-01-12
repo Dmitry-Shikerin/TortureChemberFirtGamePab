@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using Sources.Domain.Taverns;
+using Sources.Domain.Players;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.PresentationInterfaces.UI;
 using UnityEngine;
@@ -11,26 +9,41 @@ namespace Sources.Infrastructure.Services.UpgradeServices
     public class PlayerUpgradeService
     {
         private readonly IUpgradeble _upgradeble;
-        private readonly ITextUI _textUI;
-        // private readonly IEnumerable<int> _levelThresholds;
+        private readonly ITextUI _levelUpgradeTextUI;
+        private readonly ITextUI _priceNextLvlUpgradeTextUI;
+        private readonly PlayerWallet _playerWallet;
 
-        //TODO возможно брать модели под интерфейсом
-        public PlayerUpgradeService(IUpgradeble upgradeble, ITextUI textUI)
+        //TODO не знал как сделать по другому
+        public PlayerUpgradeService(IUpgradeble upgradeble, ITextUI levelUpgradeTextUI,
+             ITextUI priceNextLvlUpgradeTextUI, PlayerWallet playerWallet)
         {
             _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
-            _textUI = textUI ?? throw new ArgumentNullException(nameof(textUI));
-            // _levelThresholds = levelThresholds ?? throw new ArgumentNullException(nameof(levelThresholds));
+            _levelUpgradeTextUI = levelUpgradeTextUI ?? throw new ArgumentNullException(nameof(levelUpgradeTextUI));
+            _priceNextLvlUpgradeTextUI = priceNextLvlUpgradeTextUI ?? 
+                                         throw new ArgumentNullException(nameof(priceNextLvlUpgradeTextUI));
+            _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
+        }
+
+        public void Start()
+        {
+            UpdatePricePerUpgrade();
         }
         
+        //TODO порефакторить
         public void Upgrade()
         {
             try
             {
-                //TODO улучшает больше чем нужно
-                _upgradeble.Upgrade();
-                ChangeUpgradeLevelMessage();
+                if (UpgradeAvailability())
+                {
+                    _upgradeble.Upgrade();
+                    _playerWallet.Remove(_upgradeble.MoneyPerUpgrades[_upgradeble.CurrentLevelUpgrade.GetValue]);
+                    _levelUpgradeTextUI.SetText($"{_upgradeble.CurrentLevelUpgrade.StringValue} уровень");
+                    UpdatePricePerUpgrade();
+                }
+                
+                UpdatePricePerUpgrade();
             }
-            //TODO сделать кастомный эксепшн
             catch (InvalidOperationException exception)
             {
                 //TODO сделать кнопку не активной
@@ -38,27 +51,22 @@ namespace Sources.Infrastructure.Services.UpgradeServices
             }
         }
 
-        //TODO как сделать это более гибко?
-        private void ChangeUpgradeLevelMessage()
+        private bool UpgradeAvailability()
         {
-            // if(_tavernMood.AddedAmountMood > 0.1f && _tavernMood.AddedAmountMood < 0.16f)
-            //     _textUI.SetText("1й уровень");
-            // if(_tavernMood.AddedAmountMood > 0.19f && _tavernMood.AddedAmountMood < 0.24f)
-            //     _textUI.SetText("2й уровень");
-            // if(_tavernMood.AddedAmountMood > 0.24f && _tavernMood.AddedAmountMood < 0.26f)
-            //     _textUI.SetText("3й уровень");
-
-            int currentLevel = 0;
-            
-            foreach (int levelThreshold in _upgradeble.LevelThresholds)
+            //TODO порефакторить
+            if (_playerWallet.Coins.GetValue < _upgradeble.MoneyPerUpgrades[_upgradeble.CurrentLevelUpgrade.GetValue])
             {
-                currentLevel++;
-
-                if (_upgradeble.AddedAmountUpgrade > levelThreshold)
-                {
-                    _textUI.SetText($"{currentLevel} уровень");
-                }
+                Debug.Log("Улучшение недоступно");
+                return false;
             }
+
+            return true;
+        }
+
+        private void UpdatePricePerUpgrade()
+        {
+            _priceNextLvlUpgradeTextUI.SetText($"Цена следующего улучшения " +
+                                               $"{_upgradeble.MoneyPerUpgrades[_upgradeble.CurrentLevelUpgrade.GetValue]}");
         }
     }
 }

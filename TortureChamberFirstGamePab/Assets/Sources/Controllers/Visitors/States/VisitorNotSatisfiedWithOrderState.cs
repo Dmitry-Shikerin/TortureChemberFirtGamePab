@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Threading;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.States;
-using Sources.Presentation.UI;
-using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States

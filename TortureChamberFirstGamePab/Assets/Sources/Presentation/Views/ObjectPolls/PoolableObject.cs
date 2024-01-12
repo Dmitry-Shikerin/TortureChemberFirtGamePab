@@ -7,8 +7,12 @@ namespace Sources.Presentation.Views.ObjectPolls
     {
         private IObjectPool _pool;
         
-        public void SetPool(IObjectPool pool) => 
+        public PoolableObject SetPool(IObjectPool pool)
+        { 
             _pool = pool;
+
+            return this;
+        }
 
         public void ReturnTooPool() => 
             _pool.Return(this);

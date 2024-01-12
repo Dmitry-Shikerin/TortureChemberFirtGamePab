@@ -13,7 +13,6 @@ namespace Sources.Presentation.Views.Items
             transform.position = parentTransform.position;
 
         public void Destroy() =>
-            //TODO добавить логику добавления в пул
             Destroy(gameObject);
     }
 }

@@ -47,10 +47,7 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        //TODO прокинуць этот метод
-        public void Exit()
-        {
+        public void Exit() => 
             _cancellationTokenSource.Cancel();
-        }
     }
 }

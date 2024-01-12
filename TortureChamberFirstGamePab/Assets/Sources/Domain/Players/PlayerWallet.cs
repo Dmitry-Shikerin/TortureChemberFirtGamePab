@@ -1,4 +1,5 @@
-﻿using Sources.Utils.ObservablePropertyes;
+﻿using System;
+using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 using UnityEngine;
@@ -14,16 +15,17 @@ namespace Sources.Domain.Players
             _coins = new ObservableProperty<int>();
         }
 
-        public IObservableProperty Coins => _coins;
+        public IObservableProperty<int> Coins => _coins;
 
-        public void Add(int quantity)
-        {
+        public void Add(int quantity) => 
             _coins.Value += quantity;
-            Debug.Log(_coins.Value);
-        }
 
         public void Remove(int quantity)
         {
+            //TODO заменить
+            if (_coins.Value - quantity < 0)
+                throw new InvalidOperationException("в кошельке недостаточно денег");
+            
             _coins.Value -= quantity;
             Debug.Log(_coins.Value);
         }

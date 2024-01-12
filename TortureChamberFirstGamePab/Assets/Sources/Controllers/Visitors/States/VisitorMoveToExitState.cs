@@ -22,7 +22,7 @@ namespace Sources.Controllers.Visitors.States
 
         public VisitorMoveToExitState(IVisitorView visitorView, Visitor visitor,
             IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
-            VisitorInventory visitorInventory, VisitorImageUI visitorImageUI)
+            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -34,14 +34,12 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            Debug.Log("Посетитель в состоянии движения к выходу");
-            
+            // Debug.Log("Посетитель в состоянии движения к выходу");
             Moving();
         }
 
         public override void Exit()
         {
-            //TODO сделать сброс всех булок
         }
         
         private async void Moving()
@@ -50,9 +48,7 @@ namespace Sources.Controllers.Visitors.States
             _visitorAnimation.PlayStandUp();
             _visitorAnimation.PlayWalk();
             await Move();
-            //TODO возможно убрать
             _visitor.SetIdle();
-            Debug.Log("Move ended");
             _visitorView.StopMove();
         }
 
@@ -67,10 +63,6 @@ namespace Sources.Controllers.Visitors.States
             {
                 await UniTask.Yield();
             }
-            
-            // _visitorView.SetPosition(outDoorPoint.Position);
         }
     }
-    
-
 }

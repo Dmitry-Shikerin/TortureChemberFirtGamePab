@@ -14,8 +14,8 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
-        private const float FillingRate = 0.02f; 
-        
+        private const float FillingRate = 0.02f;
+
         private readonly Visitor _visitor;
         private readonly VisitorInventory _visitorInventory;
         private readonly ProductShuffleService _productShuffleService;
@@ -43,7 +43,7 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             IItem item = _productShuffleService.GetRandomItem();
 
             // Debug.Log($"Посетитель заказал {item}");
@@ -59,7 +59,7 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Update()
         {
-            if (_visitorInventory.Item != null) 
+            if (_visitorInventory.Item != null)
                 _cancellationTokenSource.Cancel();
         }
 
@@ -76,7 +76,7 @@ namespace Sources.Controllers.Visitors.States
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
                     FillingRate, _cancellationTokenSource.Token);
                 _visitor.SetUnHappy();
-                _tavernMood.RemoveTavernMood();
+                Debug.Log("Посетитель недоволен отсутствием заказа");
                 _visitor.SeatPointView.UnOccupy();
             }
             catch (OperationCanceledException e)

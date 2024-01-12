@@ -39,6 +39,24 @@ namespace Sources.Controllers.Player
 
         public int MaxCapacity => _playerInventory.MaxCapacity;
 
+        public override void Enable()
+        {
+            _playerInventory.CurrentLevelUpgrade.Changed += ShowAwaielableSlot;
+        }
+
+        private void ShowAwaielableSlot()
+        {
+            int index = _playerInventory.InventoryCapacity - 1;
+            Debug.Log("Show slot");
+            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+        }
+
+        public override void Disable()
+        {
+            _playerInventory.CurrentLevelUpgrade.Changed -= ShowAwaielableSlot;
+        }
+
         public bool TryGet()
         {
             return _playerInventory.CanGet;
@@ -185,5 +203,6 @@ namespace Sources.Controllers.Player
                 }
             }
         }
+
     }
 }

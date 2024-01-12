@@ -3988,6 +3988,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e30c34bcd4c0c0428c74aa096cc3ca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Animation>k__BackingField: {fileID: 3186360409670489868}
+  <ImageUIContainer>k__BackingField: {fileID: 6933405853692619213}
+  <Inventory>k__BackingField: {fileID: 7256315606118165018}
 --- !u!114 &3186360409670489868
 MonoBehaviour:
   m_ObjectHideFlags: 0

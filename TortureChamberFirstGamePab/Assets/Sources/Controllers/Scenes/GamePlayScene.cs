@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using JetBrains.Annotations;
 using Sources.ControllersInterfaces;
 using Sources.Infrastructure.Services;
+using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.InfrastructureInterfaces.Factories.Services;
-using UnityEngine;
+using Sources.Presentation.Views.Taverns.UpgradePoints;
 
 namespace Sources.Controllers.Scenes
 {
@@ -13,17 +15,29 @@ namespace Sources.Controllers.Scenes
         private readonly IInputService _inputService;
         private readonly IUpdateService _updateService;
         private readonly VisitorSpawnService _visitorSpawnService;
+        private readonly TavernUpgradePointService _tavernUpgradePointService;
+        private readonly GamePlayService _gamePlayService;
+        private readonly IEnumerable<PlayerUpgradeService> _playerUpgradeServices;
 
         private CancellationTokenSource _cancellationTokenSource;
-        
+
         public GamePlayScene
-        (IInputService inputService,
-            IUpdateService updateService, [NotNull] VisitorSpawnService visitorSpawnService)
+        (
+            IInputService inputService,
+            IUpdateService updateService,
+            VisitorSpawnService visitorSpawnService,
+            TavernUpgradePointService tavernUpgradePointService, 
+            GamePlayService gamePlayService,
+            IEnumerable<PlayerUpgradeService> playerUpgradeServices)
         {
-            _inputService = inputService ?? 
+            _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
             _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
+            _tavernUpgradePointService = tavernUpgradePointService ??
+                                         throw new ArgumentNullException(nameof(tavernUpgradePointService));
+            _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            _playerUpgradeServices = playerUpgradeServices ?? throw new ArgumentNullException(nameof(playerUpgradeServices));
         }
 
         public void Update(float deltaTime)
@@ -46,13 +60,21 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            _visitorSpawnService.SpawnVisitorAsync(_cancellationTokenSource.Token);
+            //TODO по другому не придумал
+            foreach (PlayerUpgradeService playerUpgradeService in _playerUpgradeServices)
+            {
+                playerUpgradeService.Start();
+            }
+            _visitorSpawnService.SpawnVisitorAsync();
+            _tavernUpgradePointService.OnEnable();
+            _gamePlayService.Start();
         }
 
         public void Exit()
         {
-            _cancellationTokenSource.Cancel();
+            _visitorSpawnService.Cancel();
+            _tavernUpgradePointService.OnDisable();
+            _gamePlayService.Exit();
         }
     }
 }

@@ -24,12 +24,12 @@ namespace Sources.Controllers.Visitors.States
         private readonly TavernMood _tavernMood;
         private readonly GarbageBuilder _garbageBuilder;
         private readonly CoinBuilder _coinBuilder;
-        private readonly VisitorImageUI _visitorImageUI;
+        private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         private const float FillingRate = 0.2f;
 
         public VisitorEatFoodState(Visitor visitor,
-            VisitorInventory visitorInventory, VisitorImageUI visitorImageUI,
+            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
             ItemViewFactory itemViewFactory, TavernMood tavernMood,
             GarbageBuilder garbageBuilder, CoinBuilder coinBuilder)
         {
@@ -39,15 +39,14 @@ namespace Sources.Controllers.Visitors.States
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
             _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
-            _visitorImageUI = visitorImageUI ? visitorImageUI : 
-                throw new ArgumentNullException(nameof(visitorImageUI));
+            _visitorImageUIContainer = visitorImageUIContainer ? visitorImageUIContainer : 
+                throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
 
         public override void Enter()
         {
             IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
             itemView.SetPosition(_visitor.SeatPointView.EatPointView.transform);
-            Debug.Log(itemView);
             Eat(itemView);
         }
 
@@ -66,9 +65,9 @@ namespace Sources.Controllers.Visitors.States
 
         private async void Eat(IItemView itemView)
         {
-            await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
+            await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
                 FillingRate, new CancellationTokenSource().Token);
-            _visitorImageUI.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
+            _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
             _visitor.SetUnSeat();
             itemView.Destroy();
             _tavernMood.AddTavernMood();
