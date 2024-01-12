@@ -7,6 +7,7 @@ using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Exceptions;
 using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
+using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
 
@@ -25,19 +26,19 @@ namespace Sources.Domain.Players
 
         public int MaxCapacity => (int)_upgradeble.MaximumUpgradeAmount;
         public int InventoryCapacity => (int)_upgradeble.CurrentAmountUpgrade;
-        public IObservableProperty CurrentLevelUpgrade => _upgradeble.CurrentLevelUpgrade;
+        public IObservableProperty<int> CurrentLevelUpgrade => _upgradeble.CurrentLevelUpgrade;
         public bool CanGet { get; private set; } = true;
         public IReadOnlyList<IItem> Items => _items;
 
         public void SetGiveAbility()
         {
-            Debug.Log("UnLock inventory");
+            // Debug.Log("UnLock inventory");
             CanGet = true;
         }
 
         public void LockGiveAbility()
         {
-            Debug.Log("Lock inventory");
+            // Debug.Log("Lock inventory");
             CanGet = false;
         }
 

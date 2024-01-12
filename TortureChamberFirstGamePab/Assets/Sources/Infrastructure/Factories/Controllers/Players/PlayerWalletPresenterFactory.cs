@@ -1,5 +1,6 @@
 ﻿using MyProject.Sources.Controllers;
 using MyProject.Sources.Presentation.Views;
+using Sources.Controllers.Player;
 using Sources.Domain.Players;
 
 namespace MyProject.Sources.Infrastructure.Factorys.Controllers

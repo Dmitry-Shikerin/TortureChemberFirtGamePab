@@ -1,12 +1,11 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Services;
 using Sources.InfrastructureInterfaces.Factories.Services;
 
-namespace MyProject.Sources.Controllers
+namespace Sources.Controllers.Player
 {
     public class PlayerCameraPresenter : PresenterBase
     {

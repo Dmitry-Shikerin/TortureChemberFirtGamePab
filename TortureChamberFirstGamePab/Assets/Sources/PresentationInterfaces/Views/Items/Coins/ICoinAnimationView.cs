@@ -11,7 +11,7 @@ namespace Sources.PresentationInterfaces.Views.Items.Coins
         public AnimationCurve AnimationCurve { get; }
 
         void SetCoinAmount(int amount);
-        public void SetCanMove(bool canMove);
+        public void SetCanMove();
         public void Destroy();
         void SetPlayerWalletView(IPlayerWalletView playerWalletView);
         void Rotate();

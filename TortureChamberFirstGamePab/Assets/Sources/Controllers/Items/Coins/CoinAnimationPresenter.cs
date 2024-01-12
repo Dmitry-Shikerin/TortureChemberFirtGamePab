@@ -3,7 +3,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
-using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
@@ -12,6 +11,8 @@ namespace Sources.Controllers.Items.Coins
 {
     public class CoinAnimationPresenter : PresenterBase
     {
+        private const float TargetDistance = 1f;
+        
         private readonly ICoinAnimationView _coinAnimationView;
         private readonly CoinAnimation _coinAnimation;
 
@@ -25,39 +26,31 @@ namespace Sources.Controllers.Items.Coins
         private CancellationTokenSource _cancellationTokenSource;
 
         private float _currentTime;
-        private float _totalTime;
         
-        public override void Enable()
-        {
-            _totalTime = _coinAnimationView.AnimationCurve.
-                keys[_coinAnimationView.AnimationCurve.keys.Length - 1].time;
-            
-            Collect();
-        }
-        public override void Disable()
-        {
-            
-        }
+        public override void Enable() => 
+            CollectAsync();
 
-        public void SetCoinAmount(int amount)
-        {
+        public override void Disable() => 
+            _cancellationTokenSource.Cancel();
+
+        public void SetCoinAmount(int amount) => 
             _coinAnimation.SetCoinAmount(amount);
-        }
 
-        public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
-        {
+        public void SetPlayerWalletView(IPlayerWalletView playerWalletView) => 
             _coinAnimation.SetPlayerWalletView(playerWalletView);
-        }
 
-        private async void Collect()
+        public void SetCanMove() => 
+            _coinAnimation.SetCanMove();
+
+        private async void CollectAsync()
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
             try
             {
                 await RotateCoinAsync();
-                await MoveToPlayer();
-                await AddCoins();
+                await MoveToPlayerAsync();
+                await AddCoinsAsync();
                 _coinAnimationView.Destroy();
             }
             catch (OperationCanceledException e)
@@ -67,11 +60,10 @@ namespace Sources.Controllers.Items.Coins
             }
         }
 
-        private async UniTask AddCoins()
+        private async UniTask AddCoinsAsync()
         {
             _coinAnimation.PlayerWalletView.Add(_coinAnimation.CoinAmount);
-            // _coinAnimation.SetPlayerWalletView(null);
-            await UniTask.Yield();
+            await UniTask.Yield(_cancellationTokenSource.Token);
         }
 
         private async UniTask RotateCoinAsync()
@@ -79,28 +71,17 @@ namespace Sources.Controllers.Items.Coins
             while (_coinAnimation.CanMove == false)
             {
                 _coinAnimationView.Rotate();
-                await UniTask.Yield();
+                await UniTask.Yield(_cancellationTokenSource.Token);
             }
         }
 
-        private async UniTask MoveToPlayer()
+        private async UniTask MoveToPlayerAsync()
         {
-            // while (Vector3.Distance(_coinAnimationView.Position, new Vector3(
-            //            _coinAnimation.PlayerWalletView.Position.x,
-            //            _coinAnimation.PlayerWalletView.Position.y + _coinAnimationView.OffsetYFinishPoint,
-            //            _coinAnimation.PlayerWalletView.Position.z)) > Constant.Epsilon)
-            //TODO заменить магическое число
             while (Vector3.Distance(_coinAnimationView.Position, 
-                       _coinAnimation.PlayerWalletView.Position) > 1)
+                       _coinAnimation.PlayerWalletView.Position) > TargetDistance)
             {
                 _currentTime += Time.deltaTime;
 
-                // _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
-                //     new Vector3(_coinAnimation.PlayerWalletView.Position.x,
-                //         _coinAnimation.PlayerWalletView.Position.y +
-                //         _coinAnimationView.AnimationCurve.Evaluate(_currentTime),
-                //         _coinAnimation.PlayerWalletView.Position.z), 
-                //     _coinAnimationView.MovementSpeed * Time.deltaTime));
                 _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
                     new Vector3(_coinAnimation.PlayerWalletView.Position.x,
                         _coinAnimation.PlayerWalletView.Position.y +
@@ -108,13 +89,8 @@ namespace Sources.Controllers.Items.Coins
                         _coinAnimation.PlayerWalletView.Position.z), 
                     _coinAnimationView.MovementSpeed * Time.deltaTime));
 
-                await UniTask.Yield();
+                await UniTask.Yield(_cancellationTokenSource.Token);
             }
-        }
-
-        public void SetCanMove(bool canMove)
-        {
-            _coinAnimation.SetCanMove(canMove);
         }
     }
 }

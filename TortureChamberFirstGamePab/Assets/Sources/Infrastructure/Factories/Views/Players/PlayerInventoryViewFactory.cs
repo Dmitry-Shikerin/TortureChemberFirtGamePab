@@ -11,7 +11,9 @@ using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Player;
+using Sources.Presentation.Views.Player.Inventory;
 using Sources.PresentationInterfaces.UI;
+using Sources.PresentationInterfaces.Views.Players;
 
 namespace MyProject.Sources.Infrastructure.Factorys.Views
 {

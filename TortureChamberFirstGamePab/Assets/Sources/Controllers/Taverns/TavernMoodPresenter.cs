@@ -1,13 +1,14 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Taverns;
-using Sources.Presentation.Views.Taverns;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Taverns;
 
 namespace Sources.Controllers.Taverns
 {
+    //TODO у этого презентера пустая вьюшка только для инициализации
+    //TODO мб удалить эту вьюшку, сделать модель и передавать значения яв модель
+    //TODO а текст юай подпишется на эту модель?
     public class TavernMoodPresenter : PresenterBase
     {
         private readonly TavernMood _tavernMood;

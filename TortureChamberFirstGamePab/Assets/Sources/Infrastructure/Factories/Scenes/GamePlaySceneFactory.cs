@@ -23,6 +23,7 @@ using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
+using Sources.Infrastructure.Factories.Controllers.Players;
 using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
@@ -32,6 +33,7 @@ using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
+using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
@@ -47,6 +49,7 @@ using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.PickUpPointUIs;
 using Sources.Presentation.Views.Player;
+using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.Foods;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
@@ -281,26 +284,6 @@ namespace Sources.Infrastructure.Factories.Scenes
 
             playerCameraViewFactory.Create(playerCameraView, playerCamera);
 
-            //PlayerMovement
-            playerCameraView.SetTargetTransform(playerMovementView);
-
-            PlayerAnimation playerAnimation =
-                playerMovementView.GetComponent<PlayerAnimation>() ??
-                throw new NullReferenceException(nameof(PlayerAnimation));
-
-
-            PlayerMovement playerMovement = new PlayerMovement(
-                playerMovementCharacteristic, playerMovementUpgrader);
-
-            PlayerMovementPresenterFactory playerMovementPresenterFactory =
-                new PlayerMovementPresenterFactory(inputService, updateService,
-                    cameraDirectionService);
-
-            PlayerMovementViewFactory playerMovementViewFactory =
-                new PlayerMovementViewFactory(playerMovementPresenterFactory);
-
-            playerMovementViewFactory.Create(playerMovement, playerMovementView, playerAnimation);
-
             //PlayerInventory
             PlayerInventory playerInventory = new PlayerInventory(playerInventoryUpgrader);
 
@@ -326,6 +309,28 @@ namespace Sources.Infrastructure.Factories.Scenes
             playerInventoryView.PlayerInventorySlots[1].Image.HideImage();
             playerInventoryView.PlayerInventorySlots[2].BackgroundImage.HideImage();
             playerInventoryView.PlayerInventorySlots[2].Image.HideImage();
+            
+            //PlayerMovement
+            playerCameraView.SetTargetTransform(playerMovementView);
+
+            PlayerAnimation playerAnimation =
+                playerMovementView.GetComponent<PlayerAnimation>() ??
+                throw new NullReferenceException(nameof(PlayerAnimation));
+
+
+            PlayerMovement playerMovement = new PlayerMovement(
+                playerMovementCharacteristic, playerMovementUpgrader);
+
+            PlayerMovementPresenterFactory playerMovementPresenterFactory =
+                new PlayerMovementPresenterFactory(inputService, updateService,
+                    cameraDirectionService);
+
+            PlayerMovementViewFactory playerMovementViewFactory =
+                new PlayerMovementViewFactory(playerMovementPresenterFactory);
+
+            playerMovementViewFactory.Create(playerMovement, playerMovementView, playerAnimation,
+                playerInventory);
+
 
 
             //UpgradeServices
@@ -386,28 +391,28 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new TavernFoodPickUpPointViewFactory(tavernPickUpPointPresenterFactory);
 
             //BeerPickUpPoint
-            PickUpPointUI berPickUpPointUI = beerPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUI>();
-            tavernFoodPickUpPointViewFactory.Create(beerPickUpPointView, berPickUpPointUI, imageUIFactory,
+            PickUpPointUIImages berPickUpPointUIImages = beerPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            tavernFoodPickUpPointViewFactory.Create(beerPickUpPointView, berPickUpPointUIImages, imageUIFactory,
                 beerConfig);
 
             //BreadPickUpPoint
-            PickUpPointUI breadPickUpPointUI = breadPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUI>();
-            tavernFoodPickUpPointViewFactory.Create(breadPickUpPointView, breadPickUpPointUI, imageUIFactory,
+            PickUpPointUIImages breadPickUpPointUIImages = breadPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            tavernFoodPickUpPointViewFactory.Create(breadPickUpPointView, breadPickUpPointUIImages, imageUIFactory,
                 breadConfig);
 
             //MeatPickUpPoint
-            PickUpPointUI meatPickUpPointUi = meatPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUI>();
-            tavernFoodPickUpPointViewFactory.Create(meatPickUpPointView, meatPickUpPointUi, imageUIFactory,
+            PickUpPointUIImages meatPickUpPointUIImages = meatPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            tavernFoodPickUpPointViewFactory.Create(meatPickUpPointView, meatPickUpPointUIImages, imageUIFactory,
                 meatConfig);
 
             //SoupPickUpPoint
-            PickUpPointUI soupPickUpPointUI = soupPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUI>();
-            tavernFoodPickUpPointViewFactory.Create(soupPickUpPointView, soupPickUpPointUI, imageUIFactory,
+            PickUpPointUIImages soupPickUpPointUIImages = soupPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            tavernFoodPickUpPointViewFactory.Create(soupPickUpPointView, soupPickUpPointUIImages, imageUIFactory,
                 soupConfig);
 
             //WinePickUpPoint
-            PickUpPointUI winePickUpPointUI = winePickUpPointView.gameObject.GetComponentInChildren<PickUpPointUI>();
-            tavernFoodPickUpPointViewFactory.Create(winePickUpPointView, winePickUpPointUI, imageUIFactory,
+            PickUpPointUIImages winePickUpPointUIImages = winePickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            tavernFoodPickUpPointViewFactory.Create(winePickUpPointView, winePickUpPointUIImages, imageUIFactory,
                 wineConfig);
 
             return new GamePlayScene

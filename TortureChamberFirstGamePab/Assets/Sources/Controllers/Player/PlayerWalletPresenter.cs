@@ -1,11 +1,10 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Players;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 
-namespace MyProject.Sources.Controllers
+namespace Sources.Controllers.Player
 {
     public class PlayerWalletPresenter : PresenterBase
     {
@@ -19,20 +18,16 @@ namespace MyProject.Sources.Controllers
         }
 
 
-        public void Add(int quantity)
-        {
+        public void Add(int quantity) => 
             _playerWallet.Add(quantity);
-        }
 
-        public void Remove(int quantity)
-        {
+        public void Remove(int quantity) => 
             _playerWallet.Remove(quantity);
-        }
 
-        public void AddCions(ICoinAnimationView coinAnimationView)
+        public void AddCoins(ICoinAnimationView coinAnimationView)
         {
             coinAnimationView.SetPlayerWalletView(_playerWalletView);
-            coinAnimationView.SetCanMove(true);
+            coinAnimationView.SetCanMove();
         }
     }
 }

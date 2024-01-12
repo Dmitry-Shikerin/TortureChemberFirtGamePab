@@ -2,16 +2,17 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Controllers.Common;
-using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Items;
-using Sources.Presentation.Views.Taverns;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
+using Sources.PresentationInterfaces.Views.Interactions.Givable;
+using Sources.PresentationInterfaces.Views.Players;
 using Sources.Utils.Exceptions;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace Sources.Controllers.Player
 {
     public class PlayerInventoryPresenter : PresenterBase
     {
+        private const int FirstInventoryItemIndex = 0;
+        
         private readonly IPlayerInventoryView _playerInventoryView;
         private readonly ITextUI _textUI;
         private readonly PlayerInventory _playerInventory;
@@ -42,42 +45,40 @@ namespace Sources.Controllers.Player
 
         public override void Enable()
         {
-            _playerInventory.CurrentLevelUpgrade.Changed += ShowAwaielableSlot;
-        }
-
-        private void ShowAwaielableSlot()
-        {
-            int index = _playerInventory.InventoryCapacity - 1;
-            Debug.Log("Show slot");
-            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+            _playerInventory.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
         }
 
         public override void Disable()
         {
-            _playerInventory.CurrentLevelUpgrade.Changed -= ShowAwaielableSlot;
+            _playerInventory.CurrentLevelUpgrade.Changed -= ShowAvailableSlot;
         }
 
-        public bool TryGet()
+        private void ShowAvailableSlot()
         {
-            return _playerInventory.CanGet;
+            int index = _playerInventory.InventoryCapacity - 1;
+            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
         }
 
-        public async void AddItem(IGiveble giveble)
+        public async void TakeItemAsync(IGivable givable)
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            IItem item = await giveble.GiveItemAsync(_cancellationTokenSource.Token);
-            Add(item);
+            IItem item = await givable.GiveItemAsync(_cancellationTokenSource.Token);
+            Take(item);
         }
 
-        private void Add(IItem item)
+        private void Take(IItem item)
         {
             try
             {
                 if (item == null)
                     return;
 
+                if(_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
+                    RemoveItem(_playerInventoryView.PlayerInventorySlots[FirstInventoryItemIndex]
+                        .BackgroundImage, FirstInventoryItemIndex);
+                
                 _playerInventory.Add(item);
                 IItemView itemView = _itemViewFactory.Create(item);
                 item.SetItemView(itemView);
@@ -86,19 +87,12 @@ namespace Sources.Controllers.Player
             }
             catch (InventoryFullException exception)
             {
-                //TODO жесткий дубляж исправить
-                RemoveItem(0);
-                _playerInventory.Add(item);
-                IItemView itemView = _itemViewFactory.Create(item);
-                item.SetItemView(itemView);
-                
-                SetInventoryViewPosition(item);
-
+                //TODO может закидывать текст в модель и уже оттуда брыть в презентер текста?
                 _textUI.SetText(exception.Message);
             }
         }
 
-        public async void GiveItem(ITakeble takeble)
+        public async void GiveItemAsync(ITakeble takeble)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             
@@ -113,11 +107,14 @@ namespace Sources.Controllers.Player
             if(_playerInventory.CanGet == false)
                 return;
             
-            IItem item = await Give(targetItem, _cancellationTokenSource.Token);
+            IItem item = await GiveAsync(targetItem, _cancellationTokenSource.Token);
             takeble.TakeItem(item);
         }
-        
-        public async UniTask<IItem> Give(IItem item, CancellationToken cancellationToken)
+
+        public void Cancel() => 
+            _cancellationTokenSource.Cancel();
+
+        private async UniTask<IItem> GiveAsync(IItem item, CancellationToken cancellationToken)
         {
             IImageUI backGroundImage = null;
 
@@ -125,25 +122,15 @@ namespace Sources.Controllers.Player
             {
                 _playerInventory.LockGiveAbility();
 
-
                 for (int i = 0; i < _playerInventory.Items.Count; i++)
                 {
                     if (_playerInventory.Items[i].GetType() == item.GetType())
                     {
                         backGroundImage = _playerInventoryView.PlayerInventorySlots[i].BackgroundImage;
-                        await backGroundImage.FillMoveTowardsAsync(_playerInventoryView.FillingRate, cancellationToken);
-                        _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
-                        _playerInventoryView.PlayerInventorySlots[i].Image.HideImage();
-                        backGroundImage.SetFillAmount(1);
-                        IItem targetItem = _playerInventory.Items[i];
-                        targetItem.ItemView.Destroy();
-                        _playerInventory.RemoveItem(targetItem);
+                        await backGroundImage.FillMoveTowardsAsync(
+                            _playerInventoryView.FillingRate, cancellationToken);
 
-                        UpdateViewPosition();
-                        RemoveImage();
-                        _playerInventory.SetGiveAbility();
-                        
-                        return targetItem;
+                        return RemoveItem(backGroundImage, i);
                     }
                 }
 
@@ -163,14 +150,12 @@ namespace Sources.Controllers.Player
             }
         }
 
-        private void RemoveItem(int index)
+        private IItem RemoveItem(IImageUI backgroundImage, int index)
         {
-            IImageUI backGroundImage = _playerInventoryView.PlayerInventorySlots[index].BackgroundImage;
-            // await backGroundImage.FillMoveTowardsAsync(_playerInventoryView.FillingRate, cancellationToken);
-            backGroundImage.SetFillAmount(0);
+            backgroundImage.SetFillAmount(Constant.MinimumAmountFillingImage);
             _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
             _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
-            backGroundImage.SetFillAmount(1);
+            backgroundImage.SetFillAmount(Constant.MinimumAmountFillingImage);
             IItem targetItem = _playerInventory.Items[index];
             targetItem.ItemView.Destroy();
             _playerInventory.RemoveItem(targetItem);
@@ -179,11 +164,7 @@ namespace Sources.Controllers.Player
             RemoveImage();
             _playerInventory.SetGiveAbility();
 
-        }
-
-        public void Cancel()
-        {
-            _cancellationTokenSource.Cancel();
+            return targetItem;
         }
 
         private void UpdateViewPosition()
@@ -231,6 +212,5 @@ namespace Sources.Controllers.Player
                 }
             }
         }
-
     }
 }

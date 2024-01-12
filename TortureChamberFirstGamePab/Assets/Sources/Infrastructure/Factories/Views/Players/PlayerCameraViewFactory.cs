@@ -4,6 +4,7 @@ using MyProject.Sources.Controllers;
 using MyProject.Sources.Infrastructure.Factorys.Controllers;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
 
 namespace MyProject.Sources.Infrastructure.Factorys.Views

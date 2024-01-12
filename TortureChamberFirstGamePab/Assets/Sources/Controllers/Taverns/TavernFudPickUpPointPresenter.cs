@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factorys.Domains.Items;
 using Sources.Presentation.UI.PickUpPointUIs;
-using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
 
 namespace Sources.Controllers.Taverns
@@ -16,36 +14,36 @@ namespace Sources.Controllers.Taverns
     {
         private readonly ITavernFudPickUpPointView _tavernFudPickUpPointView;
         private readonly ItemsFactory _itemsFactory;
-        private readonly PickUpPointUI _pickUpPointUI;
+        private readonly PickUpPointUIImages _pickUpPointUIImages;
         private readonly ItemConfig _itemConfig;
 
         public TavernFudPickUpPointPresenter(ITavernFudPickUpPointView tavernFudPickUpPointView, 
-            ItemsFactory itemsFactory, PickUpPointUI pickUpPointUI, ItemConfig itemConfig)
+            ItemsFactory itemsFactory, PickUpPointUIImages pickUpPointUIImages, ItemConfig itemConfig)
         {
             _tavernFudPickUpPointView = tavernFudPickUpPointView ?? 
                                     throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
             _itemsFactory = itemsFactory ?? 
                             throw new ArgumentNullException(nameof(itemsFactory));
-            _pickUpPointUI = pickUpPointUI ? pickUpPointUI : 
-                throw new ArgumentNullException(nameof(pickUpPointUI));
+            _pickUpPointUIImages = pickUpPointUIImages ? pickUpPointUIImages : 
+                throw new ArgumentNullException(nameof(pickUpPointUIImages));
             _itemConfig = itemConfig ? itemConfig : 
                 throw new ArgumentNullException(nameof(itemConfig));
             
-            _pickUpPointUI.Image.SetSprite(_itemConfig.Icon);
+            _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
         }
         
         public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
         {
             try
             {
-                await _pickUpPointUI.BackgroundImage.FillMoveTowardsAsync(_tavernFudPickUpPointView.FillingRate, cancellationToken);
-                _pickUpPointUI.BackgroundImage.SetFillAmount(1);
+                await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(_tavernFudPickUpPointView.FillingRate, cancellationToken);
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
                 
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)
             {
-                _pickUpPointUI.BackgroundImage.SetFillAmount(1);
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
                 
                 return default;
             }

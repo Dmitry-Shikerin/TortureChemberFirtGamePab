@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Services;
 using Sources.InfrastructureInterfaces.Factories.Services;

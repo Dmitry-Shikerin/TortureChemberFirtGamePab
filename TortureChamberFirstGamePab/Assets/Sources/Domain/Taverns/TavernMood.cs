@@ -11,7 +11,7 @@ namespace Sources.Domain.Taverns
     public class TavernMood
     {
         private const float StartTavernMoodValue = 0.5f;
-        private const float RemovedAmountMood = 0.5f;
+        private const float RemovedAmountMood = 0.05f;
         
         private readonly IUpgradeble _upgradeble;
         private ObservableProperty<float> _tavernMoodValue = 

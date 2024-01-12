@@ -2,6 +2,7 @@
 using MyProject.Sources.Controllers;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.Presentation.Views.Triggers.Wallet;
+using Sources.Controllers.Player;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace Sources.Presentation.Views.Player
 
         private void OnEnter(ICoinAnimationView coinAnimationView)
         {
-            Presenter.AddCions(coinAnimationView);
+            Presenter.AddCoins(coinAnimationView);
         }
 
         private void OnExit(ICoinAnimationView coinAnimationView)

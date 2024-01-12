@@ -1,15 +1,13 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers;
 using MyProject.Sources.Domain.PlayerMovement;
-using MyProject.Sources.Presentation.Animations;
-using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Animations;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
+using Sources.Domain.Players;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
 
-namespace MyProject.Sources.Infrastructure.Factorys.Controllers
+namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerMovementPresenterFactory
     {
@@ -33,7 +31,8 @@ namespace MyProject.Sources.Infrastructure.Factorys.Controllers
         }
 
         public PlayerMovementPresenter Create(PlayerMovement playerMovement,
-            IPlayerMovementView playerMovementView, IPlayerAnimation playerAnimation)
+            IPlayerMovementView playerMovementView, IPlayerAnimation playerAnimation,
+            PlayerInventory playerInventory)
         {
             if (playerMovement == null)
                 throw new ArgumentNullException(nameof(playerMovement));
@@ -49,7 +48,8 @@ namespace MyProject.Sources.Infrastructure.Factorys.Controllers
                 playerMovement,
                 _inputService,
                 _updateService,
-                _cameraDirectionService
+                _cameraDirectionService,
+                playerInventory
             );
         }
     }

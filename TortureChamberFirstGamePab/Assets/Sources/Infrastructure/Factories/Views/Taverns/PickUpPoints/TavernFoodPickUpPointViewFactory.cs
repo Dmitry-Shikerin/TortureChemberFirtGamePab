@@ -28,21 +28,21 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
         }
 
         public ITavernFudPickUpPointView Create<T>(TavernFudPickUpPointView<T> beerPickUpPointView,
-            PickUpPointUI pickUpPointUI, ImageUIFactory imageUIFactory, ItemConfig itemConfig) where T : IItem
+            PickUpPointUIImages pickUpPointUIImages, ImageUIFactory imageUIFactory, ItemConfig itemConfig) where T : IItem
         {
             if (beerPickUpPointView == null) 
                 throw new ArgumentNullException(nameof(beerPickUpPointView));
-            if (pickUpPointUI == null) 
-                throw new ArgumentNullException(nameof(pickUpPointUI));
+            if (pickUpPointUIImages == null) 
+                throw new ArgumentNullException(nameof(pickUpPointUIImages));
             if (imageUIFactory == null) 
                 throw new ArgumentNullException(nameof(imageUIFactory));
 
-            imageUIFactory.Create(pickUpPointUI.Image);
-            imageUIFactory.Create(pickUpPointUI.BackgroundImage);
+            imageUIFactory.Create(pickUpPointUIImages.Image);
+            imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
             
             TavernFudPickUpPointPresenter tavernPickUpPointPresenterFactory =
                 _tavernPickUpPointPresenterFactory.Create(beerPickUpPointView,
-                    pickUpPointUI, itemConfig);
+                    pickUpPointUIImages, itemConfig);
             
             beerPickUpPointView.Construct(tavernPickUpPointPresenterFactory);
 

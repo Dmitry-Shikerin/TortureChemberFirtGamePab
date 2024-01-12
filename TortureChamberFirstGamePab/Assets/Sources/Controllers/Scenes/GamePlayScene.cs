@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using JetBrains.Annotations;
 using Sources.ControllersInterfaces;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.UpgradeServices;

@@ -36,7 +36,7 @@ namespace Sources.Presentation.Views.Items.Garbages
         }
 
         private void OnEntered(IPlayerMovementView playerMovementView) => 
-            Presenter.CleanUp();
+            Presenter.CleanUpAsync();
 
         private void OnExited(IPlayerMovementView playerMovementView) => 
             Presenter.Cancel();

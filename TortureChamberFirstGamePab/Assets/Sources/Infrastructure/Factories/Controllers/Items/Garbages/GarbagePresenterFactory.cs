@@ -11,11 +11,11 @@ namespace Sources.Infrastructure.Factories.Controllers.Items.Garbages
         {
         }
 
-        public GarbagePresenter Create(PickUpPointUI pickUpPointUI, IGarbageView garbageView, Garbage garbage)
+        public GarbagePresenter Create(PickUpPointUIImages pickUpPointUIImages, IGarbageView garbageView, Garbage garbage)
         {
             return new GarbagePresenter
             (
-                pickUpPointUI,
+                pickUpPointUIImages,
                 garbageView,
                 garbage
             );

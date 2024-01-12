@@ -1,6 +1,7 @@
 ﻿using System;
 using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Controllers.Player;
 using UnityEngine;
 
 namespace MyProject.Sources.Presentation.Views

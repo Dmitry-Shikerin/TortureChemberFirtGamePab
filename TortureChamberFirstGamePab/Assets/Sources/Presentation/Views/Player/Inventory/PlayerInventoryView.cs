@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Presentation.Triggers.Inventories;
-using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Player.Triggers;
-using Sources.Presentation.Views.Taverns;
-using Sources.PresentationInterfaces.Views.Interactions.Get;
+using Sources.PresentationInterfaces.Views.Interactions.Givable;
+using Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;
 using ITakeble = Sources.PresentationInterfaces.Views.Interactions.Get.ITakeble;
 
-namespace Sources.Presentation.Views.Player
+namespace Sources.Presentation.Views.Player.Inventory
 {
     public class PlayerInventoryView : PresentableView<PlayerInventoryPresenter>, IPlayerInventoryView
     {
+        //TODO сделать списком?
         [field : SerializeField] public PlayerInventorySlotView FirstSlotView { get; private set; }
         [field : SerializeField] public PlayerInventorySlotView SecondSlotView { get; private set; }
         [field : SerializeField] public PlayerInventorySlotView ThirdSlotView { get; private set; }
@@ -23,11 +22,6 @@ namespace Sources.Presentation.Views.Player
         private TakeTrigger _takeTrigger;
         private GiveTrigger _giveTrigger;
         private List<PlayerInventorySlotView> _playerInventorySlots;
-
-        public bool TryGet()
-        {
-            return Presenter.TryGet();
-        }
 
         public IReadOnlyList<PlayerInventorySlotView> PlayerInventorySlots => _playerInventorySlots;
 
@@ -47,7 +41,7 @@ namespace Sources.Presentation.Views.Player
             _takeTrigger.Entered += OnTakebleEnter;
             _takeTrigger.Exited += OnTakebleExit;
 
-            _giveTrigger.Entered += OnGivebleEnter;
+            _giveTrigger.Entered += OnGivableEnter;
             _giveTrigger.Exited += OnGivebleExit;
         }
 
@@ -56,18 +50,18 @@ namespace Sources.Presentation.Views.Player
             _takeTrigger.Entered -= OnTakebleEnter;
             _takeTrigger.Exited -= OnTakebleExit;
             
-            _giveTrigger.Entered -= OnGivebleEnter;
+            _giveTrigger.Entered -= OnGivableEnter;
             _giveTrigger.Entered -= OnGivebleExit;
         }
 
-        private void OnGivebleEnter(Taverns.IGiveble giveble) => 
-            Presenter.AddItem(giveble);
+        private void OnGivableEnter(IGivable givable) => 
+            Presenter.TakeItemAsync(givable);
 
-        private void OnGivebleExit(Taverns.IGiveble giveble) => 
+        private void OnGivebleExit(IGivable givable) => 
             Presenter.Cancel();
 
         private void OnTakebleEnter(ITakeble takeble) => 
-            Presenter.GiveItem(takeble);
+            Presenter.GiveItemAsync(takeble);
 
         private void OnTakebleExit(ITakeble takeble) => 
             Presenter.Cancel();

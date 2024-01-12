@@ -21,15 +21,15 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoint
         
         public TavernFudPickUpPointPresenter Create(
             ITavernFudPickUpPointView tavernFudPickUpPointView,
-            PickUpPointUI pickUpPointUI, ItemConfig itemConfig)
+            PickUpPointUIImages pickUpPointUIImages, ItemConfig itemConfig)
         {
             if (tavernFudPickUpPointView == null) 
                 throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
-            if (pickUpPointUI == null) 
-                throw new ArgumentNullException(nameof(pickUpPointUI));
+            if (pickUpPointUIImages == null) 
+                throw new ArgumentNullException(nameof(pickUpPointUIImages));
             
             return new TavernFudPickUpPointPresenter(
-                tavernFudPickUpPointView, _itemsFactory, pickUpPointUI, itemConfig);
+                tavernFudPickUpPointView, _itemsFactory, pickUpPointUIImages, itemConfig);
         }
     }
 }

@@ -13,16 +13,8 @@ namespace Sources.Presentation.Views.Items.Coins
         [field: SerializeField] public AnimationCurve AnimationCurve { get; private set; }
         [field: SerializeField] public float MovementSpeed { get; private set; }
         [field: SerializeField] public float OffsetYFinishPoint { get; private set; }
-
-        private float _totalTime;
         
         public Vector3 Position => transform.position;
-        
-        private void Start()
-        {
-            _totalTime = AnimationCurve.keys[AnimationCurve.keys.Length - 1].time;
-
-        }
 
         public void Destroy()
         {
@@ -33,7 +25,6 @@ namespace Sources.Presentation.Views.Items.Coins
                 return;
             }
 
-            Debug.Log("Coin Destroed");
             poolableObject.ReturnTooPool();
             Hide();
         }
@@ -43,24 +34,18 @@ namespace Sources.Presentation.Views.Items.Coins
             Presenter.SetCoinAmount(amount);
         }
 
-        public void SetCanMove(bool canMove)
+        public void SetCanMove()
         {
-            Presenter.SetCanMove(canMove);
+            Presenter.SetCanMove();
         }
         
-        public void SetTransformPosition(Vector3 position)
-        {
+        public void SetTransformPosition(Vector3 position) => 
             transform.position = position;
-        }
 
-        public void SetPlayerWalletView(IPlayerWalletView playerWalletView)
-        {
+        public void SetPlayerWalletView(IPlayerWalletView playerWalletView) => 
             Presenter.SetPlayerWalletView(playerWalletView);
-        }
 
-        public void Rotate()
-        {
+        public void Rotate() => 
             transform.Rotate(0, _rotationSpeed, 0);
-        }
     }
 }

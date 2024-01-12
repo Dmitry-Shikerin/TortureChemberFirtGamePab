@@ -1,10 +1,9 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Controllers.Common;
 using Sources.Domain;
 using Sources.PresentationInterfaces.Views.Points;
 
-namespace Sources.Infrastructure.Factories.Controllers.Points
+namespace Sources.Controllers.Points
 {
     public class SeatPointPresenter : PresenterBase
     {

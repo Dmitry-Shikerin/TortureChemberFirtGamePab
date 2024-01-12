@@ -14,9 +14,9 @@ namespace Sources.Domain.Items.Coins
             CoinAmount = amount;
         }
 
-        public void SetCanMove(bool canMove)
+        public void SetCanMove()
         {
-            CanMove = canMove;
+            CanMove = true;
         }
 
         public void SetPlayerWalletView(IPlayerWalletView playerWalletView)

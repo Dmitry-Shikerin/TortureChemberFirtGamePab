@@ -26,12 +26,14 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         public IGarbageView Create(GarbageView garbageView, ImageUIFactory imageUIFactory)
         {
             Garbage garbage = new Garbage();
-            PickUpPointUI pickUpPointUI = garbageView.GetComponentInChildren<PickUpPointUI>();
-            imageUIFactory.Create(pickUpPointUI.Image);
-            imageUIFactory.Create(pickUpPointUI.BackgroundImage);
+            PickUpPointUIImages pickUpPointUIImages = garbageView.GetComponentInChildren<PickUpPointUIImages>();
+            //TODO не знаю куда засунуть
+            pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
+            imageUIFactory.Create(pickUpPointUIImages.Image);
+            imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
             
             GarbagePresenter garbagePresenter = _garbagePresenterFactory.Create(
-                pickUpPointUI, garbageView, garbage);
+                pickUpPointUIImages, garbageView, garbage);
             
             garbageView.Construct(garbagePresenter);
 
