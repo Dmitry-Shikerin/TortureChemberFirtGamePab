@@ -4,6 +4,8 @@ namespace Sources.Controllers.Scenes
 {
     public class MainMenuScene : IScene
     {
+        public string Name { get; } = nameof(MainMenuScene);
+
         public void Update(float deltaTime)
         {
         }

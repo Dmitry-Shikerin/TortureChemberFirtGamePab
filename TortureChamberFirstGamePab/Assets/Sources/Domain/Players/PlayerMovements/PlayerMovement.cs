@@ -9,7 +9,11 @@ namespace MyProject.Sources.Domain.PlayerMovement
     {
         private readonly IUpgradeble _upgradeble;
         private readonly PlayerMovementCharacteristic _characteristic;
-        
+
+        private Vector3 _position;
+
+        public event Action PositionChanged;
+
         public PlayerMovement
         (
             PlayerMovementCharacteristic playerMovementCharacteristic,
@@ -23,8 +27,19 @@ namespace MyProject.Sources.Domain.PlayerMovement
 
             MovementSpeed = _upgradeble.AddedAmountUpgrade;
         }
+
+        public Vector3 Position
+        {
+            get => _position;
+            set
+            {
+                _position = new Vector3(value.x, value.y, value.z);
+                PositionChanged?.Invoke();
+            }
+        }
+
         public float MovementSpeed { get; private set; }
-        
+
         public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
         {
             float speed = runInput == 0 ? _characteristic.RunSpeed : MovementSpeed;
@@ -34,20 +49,20 @@ namespace MyProject.Sources.Domain.PlayerMovement
             return direction;
         }
 
-        public bool IsIdle(Vector2 moveInput) => 
+        public bool IsIdle(Vector2 moveInput) =>
             moveInput.x == 0.0f && moveInput.y == 0.0f;
 
-        public Quaternion GetDirectionRotation(Vector3 direction) => 
+        public Quaternion GetDirectionRotation(Vector3 direction) =>
             Quaternion.LookRotation(direction).normalized;
 
-        public float GetSpeedRotation() => 
+        public float GetSpeedRotation() =>
             _characteristic.AngularSpeed * Time.deltaTime;
 
         public float GetMaxSpeed(Vector2 moveInput, float runInput)
         {
             float maxMovementValue = Mathf.Max(Mathf.Abs(moveInput.x), Mathf.Abs(moveInput.y));
             float speed = runInput == 0 ? maxMovementValue * 2 : maxMovementValue;
-            
+
             return speed;
         }
     }

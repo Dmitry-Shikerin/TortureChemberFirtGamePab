@@ -54,6 +54,7 @@ namespace Sources.Controllers.Player
             _inputService.MovementAxisChanged += OnMovementAxis;
             _inputService.RunAxisChanged += OnRunAxis;
             _updateService.ChangedUpdate += OnUpdate;
+            _playerMovement.PositionChanged += OnPositionChanged;
         }
 
         public override void Disable()
@@ -61,9 +62,10 @@ namespace Sources.Controllers.Player
             _inputService.MovementAxisChanged -= OnMovementAxis;
             _inputService.RunAxisChanged -= OnRunAxis;
             _updateService.ChangedUpdate -= OnUpdate;
+            _playerMovement.PositionChanged += OnPositionChanged;
         }
 
-        private void OnUpdate(float deltaTime)
+        private void OnPositionChanged()
         {
             float runInput = 1;
 
@@ -76,7 +78,23 @@ namespace Sources.Controllers.Player
             float animationSpeed = _playerMovement.GetMaxSpeed(_movementInput, runInput);
 
             _playerAnimation.PlayMovementAnimation(animationSpeed);
-            _playerMovementView.Move(direction);
+            _playerMovementView.Move(_playerMovement.Position);
+        }
+
+        private void OnUpdate(float deltaTime)
+        {
+            // float runInput = 1;
+            //
+            // if (_playerInventory.Items.Count <= 0)
+            //     runInput = 0;
+            //
+            Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(_movementInput);
+            // Vector3 direction = _playerMovement.GetDirection(runInput, cameraDirection);
+            //
+            // float animationSpeed = _playerMovement.GetMaxSpeed(_movementInput, runInput);
+            //
+            // _playerAnimation.PlayMovementAnimation(animationSpeed);
+            // _playerMovementView.Move(direction);
 
             if (_playerMovement.IsIdle(_movementInput))
                 return;

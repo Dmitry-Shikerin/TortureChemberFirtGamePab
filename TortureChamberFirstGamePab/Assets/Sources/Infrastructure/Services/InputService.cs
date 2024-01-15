@@ -1,4 +1,5 @@
 using System;
+using Sources.Domain.Players.Inputs;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services
@@ -8,6 +9,8 @@ namespace Sources.Infrastructure.Services
         public event Action<Vector2> MovementAxisChanged;
         public event Action<float> RunAxisChanged;
         public event Action<bool, bool> RotationChanged;
+        
+        public PlayerInput PlayerInput { get; private set; }
 
         public void Update(float deltaTime)
         {
@@ -29,9 +32,10 @@ namespace Sources.Infrastructure.Services
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
 
-            Vector2 movementInput = new Vector2(horizontalInput, verticalInput);
-        
-            MovementAxisChanged?.Invoke(movementInput);
+            PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
+            //TODO Закоментировал
+            //
+            // MovementAxisChanged?.Invoke(movementInput);
         }
 
         private void UpdateRunAxis()

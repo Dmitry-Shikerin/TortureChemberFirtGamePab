@@ -17,9 +17,7 @@ namespace Sources.Controllers.Scenes
         private readonly TavernUpgradePointService _tavernUpgradePointService;
         private readonly GamePlayService _gamePlayService;
         private readonly IEnumerable<PlayerUpgradeService> _playerUpgradeServices;
-
-        private CancellationTokenSource _cancellationTokenSource;
-
+        
         public GamePlayScene
         (
             IInputService inputService,
@@ -39,6 +37,8 @@ namespace Sources.Controllers.Scenes
             _playerUpgradeServices = playerUpgradeServices ?? throw new ArgumentNullException(nameof(playerUpgradeServices));
         }
 
+        public string Name { get; } = nameof(GamePlayScene);
+        
         public void Update(float deltaTime)
         {
             _inputService.Update(deltaTime);
@@ -75,5 +75,6 @@ namespace Sources.Controllers.Scenes
             _tavernUpgradePointService.OnDisable();
             _gamePlayService.Exit();
         }
+
     }
 }

@@ -37,7 +37,7 @@ namespace Sources.Controllers.Items
                 _garbageView.Destroy();
                 _garbage.EatPointView.Clean();
             }
-            catch (OperationCanceledException exception)
+            catch (OperationCanceledException)
             {
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
             }

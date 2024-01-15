@@ -16,7 +16,7 @@ namespace Sources.Infrastructure.StateMachines.StateMachineBase
 
             _currentState?.Exit();
             _currentState = state;
-            _currentState?.Enter(payload);
+            _currentState?.Enter(payload);      
         }
         
         public void Update(float deltaTime) => 
