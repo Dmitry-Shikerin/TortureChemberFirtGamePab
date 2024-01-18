@@ -2,7 +2,7 @@ using System;
 using Sources.Presentation.Views.ObjectPolls;
 using UnityEngine;
 
-namespace Sources.Infrastructure.Services
+namespace Sources.InfrastructureInterfaces.Services.ObjectPolls
 {
     public interface IObjectPool
     {

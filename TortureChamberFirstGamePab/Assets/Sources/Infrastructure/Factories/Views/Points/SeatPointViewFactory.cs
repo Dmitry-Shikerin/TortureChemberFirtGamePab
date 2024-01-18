@@ -1,6 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Points;
-using Sources.Domain;
+using Sources.Domain.Points;
 using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Points;

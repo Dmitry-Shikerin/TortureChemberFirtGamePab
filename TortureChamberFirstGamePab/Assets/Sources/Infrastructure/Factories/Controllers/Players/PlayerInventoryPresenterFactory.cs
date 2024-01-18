@@ -1,41 +1,44 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers;
-using MyProject.Sources.Presentation.Views;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
+using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Players;
 
-namespace MyProject.Sources.Infrastructure.Factorys.Controllers
+namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerInventoryPresenterFactory
     {
+        private readonly IUpgradeble _upgradeble;
+        private readonly ItemViewFactory _itemViewFactory;
+        private readonly ITextUI _textUI;
+
+        public PlayerInventoryPresenterFactory(IUpgradeble upgradeble,
+            ItemViewFactory itemViewFactory, ITextUI textUI)
+        {
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
+            _textUI = textUI ?? throw new ArgumentNullException(nameof(textUI));
+        }
         public PlayerInventoryPresenter Create
         (
             IPlayerInventoryView playerInventoryView,
-            ITextUI textUI,
-            PlayerInventory playerInventory,
-            ItemViewFactory itemViewFactory
+            PlayerInventory playerInventory
         )
         {
             if (playerInventoryView == null) 
                 throw new ArgumentNullException(nameof(playerInventoryView));
-            if (textUI == null) 
-                throw new ArgumentNullException(nameof(textUI));
             if (playerInventory == null) 
                 throw new ArgumentNullException(nameof(playerInventory));
-            if (itemViewFactory == null) 
-                throw new ArgumentNullException(nameof(itemViewFactory));
             
             return new PlayerInventoryPresenter
             (
                 playerInventoryView,
-                textUI,
+                _textUI,
                 playerInventory,
-                itemViewFactory
+                _itemViewFactory,
+                _upgradeble
             );
         }
     }

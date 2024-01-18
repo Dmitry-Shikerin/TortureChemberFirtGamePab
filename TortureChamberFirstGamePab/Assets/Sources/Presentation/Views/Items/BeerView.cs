@@ -1,5 +1,4 @@
-﻿using Sources.PresentationInterfaces.Views;
-using UnityEngine;
+﻿using Sources.Presentation.Views.Items.Common;
 
 namespace Sources.Presentation.Views.Items
 {

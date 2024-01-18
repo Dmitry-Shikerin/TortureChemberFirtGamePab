@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics
+namespace Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics
 {
     [CreateAssetMenu(fileName = "PlayerMovementCharacteristics", 
         menuName = "Characteristics/PlayerMovementCharacteristic", order = 51)]

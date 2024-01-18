@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -34,21 +28,21 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             // Debug.Log("Посетитель в Состоянии Движения");
-            Moving();
+            MovingAsync();
         }
 
         public override void Exit()
         {
         }
 
-        private async void Moving()
+        private async void MovingAsync()
         {
             _visitorAnimation.PlayWalk();
-            await Move();
+            await MoveAsync();
             _visitor.SetIdle();
         }
         
-        private async UniTask Move()
+        private async UniTask MoveAsync()
         {
             // IVisitorPoint seatPoint = _collectionRepository.Get<SeatPointView>().FirstOrDefault();
             //

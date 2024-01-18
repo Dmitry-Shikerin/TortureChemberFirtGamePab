@@ -1,5 +1,5 @@
 ﻿using System;
-using Sources.InfrastructureInterfaces.Factorys.Services;
+using Sources.InfrastructureInterfaces.Services.ScenServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

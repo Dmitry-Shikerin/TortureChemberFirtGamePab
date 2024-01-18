@@ -1,6 +1,5 @@
 ﻿using Sources.PresentationInterfaces.Views;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sources.DomainInterfaces.Items
 {

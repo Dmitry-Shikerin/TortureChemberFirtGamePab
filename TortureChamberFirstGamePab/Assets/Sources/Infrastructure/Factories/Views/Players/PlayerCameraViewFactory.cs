@@ -1,15 +1,17 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers;
-using MyProject.Sources.Infrastructure.Factorys.Controllers;
 using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
+using Sources.Infrastructure.Factories.Controllers.Players;
+using Sources.InfrastructureInterfaces.Factories;
+using Sources.Presentation.Views.Player;
+using Sources.PresentationInterfaces.Views;
+using Object = UnityEngine.Object;
 
-namespace MyProject.Sources.Infrastructure.Factorys.Views
+namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerCameraViewFactory
+    public class PlayerCameraViewFactory : IFactory<IView>
     {
         private readonly PlayerCameraPresenterFactory _playerCameraPresenterFactory;
 
@@ -19,12 +21,14 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
                                             throw new ArgumentNullException(nameof(playerCameraPresenterFactory));
         }
         
-        public IPlayerCameraView Create(PlayerCameraView playerCameraView, PlayerCamera playerCamera)
+        public IPlayerCameraView Create(PlayerCamera playerCamera)
         {
-            if (playerCameraView == null) 
-                throw new ArgumentNullException(nameof(playerCameraView));
             if (playerCamera == null)
                 throw new ArgumentNullException(nameof(playerCamera));
+
+            //TODO исправить
+            //TODO таким образом мы не получаем вью снаружи и не даем возможность переиспользовать фабрику?
+            PlayerCameraView playerCameraView = Object.FindObjectOfType<PlayerCameraView>();
             
             PlayerCameraPresenter playerCameraPresenter =
                 _playerCameraPresenterFactory.Create(playerCamera, playerCameraView);

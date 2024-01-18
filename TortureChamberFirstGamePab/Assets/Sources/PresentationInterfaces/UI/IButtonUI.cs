@@ -1,4 +1,4 @@
-﻿namespace Sources.Presentation.UI
+﻿namespace Sources.PresentationInterfaces.UI
 {
     public interface IButtonUI
     {

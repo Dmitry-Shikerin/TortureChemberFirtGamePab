@@ -42,6 +42,5 @@ namespace Sources.Domain.Visitors
         public void SetUnSeat() => 
             CanSeat = false;
         
-        
     }
 }

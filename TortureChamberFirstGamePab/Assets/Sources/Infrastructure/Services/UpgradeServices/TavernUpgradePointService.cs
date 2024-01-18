@@ -1,7 +1,10 @@
 ﻿using System;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Presentation.Triggers.Taverns;
+using Sources.Presentation.Views.Taverns;
+using Sources.Presentation.Views.Taverns.UpgradePoints;
 
-namespace Sources.Presentation.Views.Taverns.UpgradePoints
+namespace Sources.Infrastructure.Services.UpgradeServices
 {
     public class TavernUpgradePointService
     {

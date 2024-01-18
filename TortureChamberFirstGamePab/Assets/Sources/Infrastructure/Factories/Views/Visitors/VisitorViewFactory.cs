@@ -1,21 +1,12 @@
 using System;
-using Sources.Controllers;
+using Sources.Controllers.Visitors;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.DomainInterfaces.Items;
-using Sources.Infrastructure.BuilderFactories;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
-using Sources.Infrastructure.Factories.Views.Items.Common;
-using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Factories.Views.Visitors;
-using Sources.Presentation.Animations;
-using Sources.Presentation.UI;
 using Sources.Presentation.Views.Visitors;
-using Sources.Presentation.Views.Visitors.Inventorys;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 
-namespace Sources.Infrastructure.Factorys.Views
+namespace Sources.Infrastructure.Factories.Views.Visitors
 {
     public class VisitorViewFactory
     {
@@ -28,22 +19,10 @@ namespace Sources.Infrastructure.Factorys.Views
         }
 
         public IVisitorView Create(VisitorView visitorView,
-            ItemRepository<IItem> itemRepository,
-             ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder, VisitorCounter visitorCounter)
+            TavernMood tavernMood, VisitorCounter visitorCounter)
         {
             if (visitorView == null) 
                 throw new ArgumentNullException(nameof(visitorView));
-            
-            if (itemRepository == null) 
-                throw new ArgumentNullException(nameof(itemRepository));
-            
-            if (imageUIFactory == null) 
-                throw new ArgumentNullException(nameof(imageUIFactory));
-            
-            if (itemViewFactory == null) 
-                throw new ArgumentNullException(nameof(itemViewFactory));
             
             if (tavernMood == null)
                 throw new ArgumentNullException(nameof(tavernMood));
@@ -56,9 +35,8 @@ namespace Sources.Infrastructure.Factorys.Views
             Visitor visitor = new Visitor();
 
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
-                visitorView, visitorView.Animation, visitor, itemRepository, visitorView.ImageUIContainer,
-                visitorInventory, imageUIFactory, itemViewFactory, tavernMood, garbageBuilder,
-                coinBuilder, visitorCounter);
+                visitorView, visitorView.Animation, visitor, 
+                visitorInventory,  tavernMood, visitorCounter);
             
             visitorView.Construct(visitorPresenter);
 

@@ -1,8 +1,8 @@
 ﻿using System;
-using MyProject.Sources.PresentationInterfaces.Animations;
+using Sources.PresentationInterfaces.Animations;
 using UnityEngine;
 
-namespace MyProject.Sources.Presentation.Animations
+namespace Sources.Presentation.Animations
 {
     [RequireComponent(typeof(Animator))]
     public class PlayerAnimation : MonoBehaviour, IPlayerAnimation

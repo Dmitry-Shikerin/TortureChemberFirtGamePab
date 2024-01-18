@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Voids.GamePoints.VisitorsPoints.Interfaces
+namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces
 {
     public interface IVisitorPoint
     {

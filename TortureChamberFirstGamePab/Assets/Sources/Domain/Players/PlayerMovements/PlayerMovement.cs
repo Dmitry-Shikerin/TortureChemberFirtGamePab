@@ -1,9 +1,9 @@
 ﻿using System;
-using MyProject.Sources.Domain.PlayerMovement.PlayerMovementCharacteristics;
+using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
 using UnityEngine;
 
-namespace MyProject.Sources.Domain.PlayerMovement
+namespace Sources.Domain.Players.PlayerMovements
 {
     public class PlayerMovement
     {
@@ -13,20 +13,6 @@ namespace MyProject.Sources.Domain.PlayerMovement
         private Vector3 _position;
 
         public event Action PositionChanged;
-
-        public PlayerMovement
-        (
-            PlayerMovementCharacteristic playerMovementCharacteristic,
-            IUpgradeble upgradeble
-        )
-        {
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
-            _characteristic = playerMovementCharacteristic
-                ? playerMovementCharacteristic
-                : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
-
-            MovementSpeed = _upgradeble.AddedAmountUpgrade;
-        }
 
         public Vector3 Position
         {
@@ -38,32 +24,7 @@ namespace MyProject.Sources.Domain.PlayerMovement
             }
         }
 
-        public float MovementSpeed { get; private set; }
-
-        public Vector3 GetDirection(float runInput, Vector3 cameraDirection)
-        {
-            float speed = runInput == 0 ? _characteristic.RunSpeed : MovementSpeed;
-            Vector3 direction = speed * Time.deltaTime * cameraDirection;
-            direction.y -= _characteristic.Gravity * Time.deltaTime;
-
-            return direction;
-        }
-
         public bool IsIdle(Vector2 moveInput) =>
             moveInput.x == 0.0f && moveInput.y == 0.0f;
-
-        public Quaternion GetDirectionRotation(Vector3 direction) =>
-            Quaternion.LookRotation(direction).normalized;
-
-        public float GetSpeedRotation() =>
-            _characteristic.AngularSpeed * Time.deltaTime;
-
-        public float GetMaxSpeed(Vector2 moveInput, float runInput)
-        {
-            float maxMovementValue = Mathf.Max(Mathf.Abs(moveInput.x), Mathf.Abs(moveInput.y));
-            float speed = runInput == 0 ? maxMovementValue * 2 : maxMovementValue;
-
-            return speed;
-        }
     }
 }

@@ -5,9 +5,8 @@ using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Views.Visitors;
-using Sources.Utils.Repositoryes;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -54,7 +53,7 @@ namespace Sources.Controllers.Visitors.States
 
             _visitorInventory.SetTargetItem(item);
 
-            Wait();
+            WaitAsync();
         }
 
         public override void Update()
@@ -68,7 +67,8 @@ namespace Sources.Controllers.Visitors.States
             _visitorInventory.SetTargetItem(null);
         }
 
-        private async void Wait()
+        //TODO плохо делать вилку за счет трай кетча
+        private async void WaitAsync()
         {
             try
             {

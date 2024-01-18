@@ -1,9 +1,7 @@
-﻿using System;
-using Sources.Domain.Items.ItemConfigs;
+﻿using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.PresentationInterfaces.Views;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sources.Domain.Items
 {

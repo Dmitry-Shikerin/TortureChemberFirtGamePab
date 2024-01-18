@@ -1,7 +1,6 @@
-﻿using Sources.Infrastructure.StateMachines.States;
-using UnityEngine;
+﻿using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 
-namespace Sources.Infrastructure.StateMachines
+namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
 {
     public abstract class FiniteStateMachine
     {

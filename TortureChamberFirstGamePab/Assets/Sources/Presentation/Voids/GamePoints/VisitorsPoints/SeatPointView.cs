@@ -1,8 +1,8 @@
 using System;
 using Sources.Controllers.Points;
-using Sources.Infrastructure.Factories.Controllers.Points;
+using Sources.Presentation.Views;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Views.Points;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 using UnityEngine;
 
 namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints

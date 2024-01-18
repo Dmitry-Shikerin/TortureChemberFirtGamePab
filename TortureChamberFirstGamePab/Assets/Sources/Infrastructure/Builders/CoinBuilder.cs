@@ -4,11 +4,10 @@ using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.ObjectPolls;
-using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Unity.VisualScripting;
 
-namespace Sources.Infrastructure.BuilderFactories
+namespace Sources.Infrastructure.Builders
 {
     public class CoinBuilder
     {
@@ -30,21 +29,13 @@ namespace Sources.Infrastructure.BuilderFactories
         //TODO это не билдер а спавн сервис
         public ICoinAnimationView Create()
         {
-            // if (_objectPool.Count > 0)
-            // {
-            //     CoinAnimationView coinAnimationView = _objectPool.Get<CoinAnimationView>();
-            //     coinAnimationView.Show();
-            // }
-
+            //TODO возможно переместить это во вью фектори
             CoinAnimationView coinAnimationViewPrefab = _objectPool.Get<CoinAnimationView>() ??
                                                         _prefabFactory.Create<CoinAnimationView>(CoinPrefabPath)
                                                             .AddComponent<PoolableObject>()
                                                             .SetPool(_objectPool)
                                                             .GetComponent<CoinAnimationView>();
 
-            // coinAnimationViewPrefab.AddComponent<PoolableObject>().SetPool(_objectPool);
-
-            
             _coinAnimationViewFactory.Create(coinAnimationViewPrefab);
             coinAnimationViewPrefab.Show();
 

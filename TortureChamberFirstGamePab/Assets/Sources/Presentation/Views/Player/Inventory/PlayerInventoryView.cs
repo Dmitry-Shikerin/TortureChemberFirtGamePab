@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sources.Controllers.Player;
 using Sources.Presentation.Triggers.Inventories;
-using Sources.Presentation.Views.Player.Triggers;
 using Sources.PresentationInterfaces.Views.Interactions.Givable;
 using Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;

@@ -1,15 +1,18 @@
 ﻿using System;
-using MyProject.Sources.Domain.PlayerMovement;
-using MyProject.Sources.Presentation.Animations;
 using MyProject.Sources.Presentation.Views;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
+using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Factories.Controllers.Players;
+using Sources.InfrastructureInterfaces.Factories;
+using Sources.Presentation.Animations;
+using Sources.Presentation.Views.Player;
+using Sources.PresentationInterfaces.Views;
+using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerMovementViewFactory
+    public class PlayerMovementViewFactory : IFactory<IView>
     {
         private readonly PlayerMovementPresenterFactory _playerMovementPresenterFactory;
 
@@ -22,17 +25,15 @@ namespace Sources.Infrastructure.Factories.Views.Players
                                               throw new ArgumentNullException(nameof(playerMovementPresenterFactory));
         }
 
-        public IPlayerMovementView Create(PlayerMovement playerMovement, 
-            PlayerMovementView playerMovementView, PlayerAnimation playerAnimation,
-            PlayerInventory playerInventory)
+        public PlayerMovementView Create(PlayerMovement playerMovement, PlayerInventory playerInventory)
         {
             if (playerMovement == null)
                 throw new ArgumentNullException(nameof(playerMovement));
-            if (playerMovementView == null) 
-                throw new ArgumentNullException(nameof(playerMovementView));
-            if (playerAnimation == null) 
-                throw new ArgumentNullException(nameof(playerAnimation));
 
+            //TODO потом исправить
+            PlayerMovementView playerMovementView = Object.FindObjectOfType<PlayerMovementView>();
+            PlayerAnimation playerAnimation = playerMovementView.GetComponent<PlayerAnimation>();
+            
             PlayerMovementPresenter playerMovementPresenter =
                 _playerMovementPresenterFactory.Create(playerMovement,
                     playerMovementView, playerAnimation, playerInventory);

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Sources.Presentation.Views.Taverns
+namespace Sources.Presentation.Triggers
 {
     public class TriggerBase<T> : MonoBehaviour
     {

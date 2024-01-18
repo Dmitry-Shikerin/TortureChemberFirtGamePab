@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Linq;
-using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.StateMachines.States;
-using Sources.Presentation.UI;
-using Sources.PresentationInterfaces.Animations;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -22,8 +16,6 @@ namespace Sources.Controllers.Visitors.States
         private readonly IObjectPool _objectPool;
 
         public VisitorReturnToPoolState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
-            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
             VisitorCounter visitorCounter
             )
         {

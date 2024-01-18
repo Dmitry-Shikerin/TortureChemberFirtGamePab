@@ -1,5 +1,5 @@
-using MyProject.Sources.Controllers.Common;
 using Sources.Controllers.Points;
+using Sources.Presentation.Views;
 using UnityEngine;
 
 namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints

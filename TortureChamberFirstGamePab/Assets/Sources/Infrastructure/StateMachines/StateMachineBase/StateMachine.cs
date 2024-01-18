@@ -1,6 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
-using Sources.InfrastructureInterfaces.Factorys.Services;
+using Sources.InfrastructureInterfaces.Services.UpdateServices;
 using Sources.InfrastructureInterfaces.StateMachines;
 
 namespace Sources.Infrastructure.StateMachines.StateMachineBase

@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-using Sources.Domain.Items;
 using Sources.DomainInterfaces.Items;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Factories.Views.Items;
-using Sources.InfrastructureInterfaces.Factorys.Prefabs;
 using Sources.Presentation.Views.Items;
+using Sources.Presentation.Views.Items.Common;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
-using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Items
 {

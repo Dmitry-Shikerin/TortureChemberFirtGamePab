@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.Controllers.Common;
+using JetBrains.Annotations;
 using Sources.Domain.Constants;
+using Sources.Domain.Exceptions.Inventorys;
 using Sources.Domain.Players;
 using Sources.DomainInterfaces.Items;
+using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Items;
+using Sources.Presentation.Views.Items.Common;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
 using Sources.PresentationInterfaces.Views.Interactions.Givable;
 using Sources.PresentationInterfaces.Views.Players;
-using Sources.Utils.Exceptions;
 using UnityEngine;
 
 namespace Sources.Controllers.Player
@@ -26,12 +28,13 @@ namespace Sources.Controllers.Player
         private readonly ITextUI _textUI;
         private readonly PlayerInventory _playerInventory;
         private readonly ItemViewFactory _itemViewFactory;
+        private readonly IUpgradeble _upgradeble;
 
         private CancellationTokenSource _cancellationTokenSource;
 
         public PlayerInventoryPresenter(IPlayerInventoryView playerInventoryView,
             ITextUI textUI, PlayerInventory playerInventory,
-            ItemViewFactory itemViewFactory)
+            ItemViewFactory itemViewFactory, IUpgradeble upgradeble)
         {
             _playerInventoryView = playerInventoryView ??
                                    throw new ArgumentNullException(nameof(playerInventoryView));
@@ -39,18 +42,23 @@ namespace Sources.Controllers.Player
             _playerInventory = playerInventory ??
                                throw new ArgumentNullException(nameof(playerInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
         }
 
         public int MaxCapacity => _playerInventory.MaxCapacity;
 
         public override void Enable()
         {
-            _playerInventory.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
+            _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
+            //TODO сделать обновление по подписке
+            _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
+            _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
+
         }
 
         public override void Disable()
         {
-            _playerInventory.CurrentLevelUpgrade.Changed -= ShowAvailableSlot;
+            _upgradeble.CurrentLevelUpgrade.Changed -= ShowAvailableSlot;
         }
 
         private void ShowAvailableSlot()

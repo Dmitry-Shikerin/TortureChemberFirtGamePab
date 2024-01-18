@@ -1,18 +1,19 @@
 using System;
-using Sources.Controllers;
+using Sources.Controllers.Visitors;
 using Sources.Controllers.Visitors.States;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.DomainInterfaces.Items;
-using Sources.Infrastructure.BuilderFactories;
+using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.StateMachines.Transitions;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
 using Sources.Presentation.UI;
+using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Factories.Controllers.Visitors
@@ -21,46 +22,57 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
     {
         private readonly CollectionRepository _collectionRepository;
         private readonly ProductShuffleService _productShuffleService;
+        private readonly ImageUIFactory _imageUIFactory;
+        private readonly ItemViewFactory _itemViewFactory;
+        private readonly GarbageBuilder _garbageBuilder;
+        private readonly CoinBuilder _coinBuilder;
 
-        public VisitorPresenterFactory(CollectionRepository collectionRepository,
-            ProductShuffleService productShuffleService)
+        public VisitorPresenterFactory
+        (
+            CollectionRepository collectionRepository,
+            ProductShuffleService productShuffleService,
+            ImageUIFactory imageUIFactory,
+            ItemViewFactory itemViewFactory,
+            GarbageBuilder garbageBuilder,
+            CoinBuilder coinBuilder
+        )
         {
-            _collectionRepository = collectionRepository ?? 
+            _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
-            _productShuffleService = productShuffleService ?? throw new ArgumentNullException(nameof(productShuffleService));
+            _productShuffleService =
+                productShuffleService ?? throw new ArgumentNullException(nameof(productShuffleService));
+            _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
+            _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
+            _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
+            _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
         }
-        
+
         public VisitorPresenter Create(IVisitorView visitorView,
             IVisitorAnimation visitorAnimation, Visitor visitor,
-            ItemRepository<IItem> itemRepository, VisitorImageUIContainer visitorImageUIContainer,
-            VisitorInventory visitorInventory, ImageUIFactory imageUIFactory,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood, GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder, VisitorCounter visitorCounter)
+            VisitorInventory visitorInventory, TavernMood tavernMood
+            , VisitorCounter visitorCounter)
         {
-            if (visitorView == null) 
+            if (visitorView == null)
                 throw new ArgumentNullException(nameof(visitorView));
-            if (visitorAnimation == null) 
+            if (visitorAnimation == null)
                 throw new ArgumentNullException(nameof(visitorAnimation));
-            if (visitor == null) 
+            if (visitor == null)
                 throw new ArgumentNullException(nameof(visitor));
-            if (itemRepository == null) 
-                throw new ArgumentNullException(nameof(itemRepository));
-            if (visitorImageUIContainer == null) 
-                throw new ArgumentNullException(nameof(visitorImageUIContainer));
             if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
-            if (imageUIFactory == null) 
-                throw new ArgumentNullException(nameof(imageUIFactory));
-            if (itemViewFactory == null)
-                throw new ArgumentNullException(nameof(itemViewFactory));
-            if (tavernMood == null) 
+            if (tavernMood == null)
                 throw new ArgumentNullException(nameof(tavernMood));
-            if (visitorCounter == null) 
+            if (visitorCounter == null)
                 throw new ArgumentNullException(nameof(visitorCounter));
 
-            imageUIFactory.Create(visitorImageUIContainer.OrderImage);
-            imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
+            VisitorImageUIContainer visitorImageUIContainer = null;
             
+            if(visitorView is VisitorView concrete)
+                visitorImageUIContainer = concrete.GetComponentInChildren<VisitorImageUIContainer>();
+            
+            _imageUIFactory.Create(visitorImageUIContainer.OrderImage);
+            _imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
+
             VisitorInitializeState initializeState = new VisitorInitializeState(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorIdleState idleState = new VisitorIdleState(
@@ -68,25 +80,21 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(
                 visitorView, visitor, visitorAnimation, _collectionRepository);
             VisitorSeatState visitorSeatState = new VisitorSeatState(
-                visitorView, visitor, visitorAnimation, _collectionRepository,
-                tavernMood);
+                visitorView, visitor, visitorAnimation, tavernMood);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
                 new VisitorWaitingForOrderState(visitor,
                     visitorInventory, visitorImageUIContainer,
                     _productShuffleService, tavernMood);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
-                visitor,
-                visitorInventory, visitorImageUIContainer, itemViewFactory, tavernMood, garbageBuilder,
-                coinBuilder);
+                visitor, visitorInventory, visitorImageUIContainer, 
+                _itemViewFactory, tavernMood, _garbageBuilder, _coinBuilder);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUIContainer);
             VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
                 new VisitorNotSatisfiedWithOrderState(visitor);
             VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(
-                visitorView, visitor,
-                visitorAnimation, _collectionRepository,
-                visitorInventory, visitorImageUIContainer, visitorCounter);
+                visitorView, visitor, visitorCounter);
 
             FiniteTransitionBase toMoveToSeatTransition = new FiniteTransitionBase(
                 moveToSeatState, () => visitor.TargetPosition != null);
@@ -124,7 +132,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             // FiniteTransitionBase toIdleTransition = new FiniteTransitionBase(
             //     idleState, () => visitor.IsIdle);
             // moveToSeatState.AddTransition(toIdleTransition);
-            
+
             return new VisitorPresenter(initializeState, visitorView, visitor);
         }
     }

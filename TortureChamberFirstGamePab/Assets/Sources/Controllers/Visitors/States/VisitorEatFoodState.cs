@@ -3,16 +3,14 @@ using System.Threading;
 using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.BuilderFactories;
+using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Views.Items.Common;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.UI;
-using Sources.PresentationInterfaces.Animations;
+using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Garbages;
 using Sources.PresentationInterfaces.Views.Items.Coins;
-using Sources.Utils.Repositoryes;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {

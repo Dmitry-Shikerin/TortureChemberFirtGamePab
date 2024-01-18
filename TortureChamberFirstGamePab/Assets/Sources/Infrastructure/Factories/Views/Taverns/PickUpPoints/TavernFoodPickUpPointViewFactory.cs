@@ -1,17 +1,13 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
-using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Presentation.UI;
-using Sources.Presentation.UI.PickUpPointUIs;
 using Sources.Presentation.Views.Taverns;
-using Sources.Presentation.Views.Taverns.Foods;
+using Sources.Presentation.Views.Taverns.PickUpPoints;
+using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
-using UnityEngine.UIElements;
 
 namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
 {

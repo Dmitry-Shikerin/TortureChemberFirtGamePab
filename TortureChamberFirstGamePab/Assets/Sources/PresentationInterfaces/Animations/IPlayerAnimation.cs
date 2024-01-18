@@ -1,4 +1,4 @@
-namespace MyProject.Sources.PresentationInterfaces.Animations
+namespace Sources.PresentationInterfaces.Animations
 {
     public interface IPlayerAnimation
     {

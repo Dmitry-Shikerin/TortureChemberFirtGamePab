@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Presentation.Views.Cameras.Visitors
+namespace Sources.Presentation.Views.Cameras
 {
     public class LookAtCamera : MonoBehaviour
     {

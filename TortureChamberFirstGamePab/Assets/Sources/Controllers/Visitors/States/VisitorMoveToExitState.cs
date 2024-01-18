@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.UI;
+using Sources.Presentation.Views.Visitors;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -41,24 +43,24 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
             // Debug.Log("Посетитель в состоянии движения к выходу");
-            Moving();
+            MovingAsync();
         }
 
         public override void Exit()
         {
         }
         
-        private async void Moving()
+        private async void MovingAsync()
         {
             _visitor.SetMove();
             _visitorAnimation.PlayStandUp();
             _visitorAnimation.PlayWalk();
-            await Move();
+            await MoveAsync();
             _visitor.SetIdle();
             _visitorView.StopMove();
         }
 
-        private async UniTask Move()
+        private async UniTask MoveAsync()
         {
             IVisitorPoint outDoorPoint = _collectionRepository.Get<OutDoorPoint>().FirstOrDefault();
 

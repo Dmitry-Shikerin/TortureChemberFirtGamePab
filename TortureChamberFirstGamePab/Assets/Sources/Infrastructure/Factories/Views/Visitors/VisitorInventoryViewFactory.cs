@@ -1,8 +1,9 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Sources.Controllers;
+using Sources.Controllers.Visitors;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Factorys.Controllers;
+using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Presentation.Views.Visitors.Inventorys;
 using Sources.PresentationInterfaces.Views;
 

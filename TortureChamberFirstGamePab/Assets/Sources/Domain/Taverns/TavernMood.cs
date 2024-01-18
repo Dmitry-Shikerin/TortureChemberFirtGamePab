@@ -1,33 +1,35 @@
 ﻿using System;
-using JetBrains.Annotations;
-using Sources.DomainInterfaces.Upgrades;
-using Sources.Utils.ObservablePropertyes;
-using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
-using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
-using UnityEngine;
+using Sources.Domain.Constants;
 
 namespace Sources.Domain.Taverns
 {
     public class TavernMood
     {
-        private const float StartTavernMoodValue = 0.5f;
-        private const float RemovedAmountMood = 0.05f;
-        
-        private readonly IUpgradeble _upgradeble;
-        private ObservableProperty<float> _tavernMoodValue = 
-            new ObservableProperty<float>(StartTavernMoodValue);
+        private float _tavernMoodValue;
 
-        public TavernMood(IUpgradeble upgradeble)
+        public event Action TavernMoodValueChanged; 
+
+        public TavernMood()
         {
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            _tavernMoodValue = Constant.StartTavernMoodValue;
         }
 
-        public IObservableProperty<float> TavernMoodValue => _tavernMoodValue;
+        public float AddedAmountUpgrade { get; set; }
+        
+        public float TavernMoodValue
+        {
+            get => _tavernMoodValue;
+            private set
+            {
+                _tavernMoodValue = value;
+                TavernMoodValueChanged?.Invoke();
+            }
+        }
 
         public void AddTavernMood() => 
-            _tavernMoodValue.Value += _upgradeble.AddedAmountUpgrade;
+            _tavernMoodValue += AddedAmountUpgrade;
 
         public void RemoveTavernMood() => 
-            _tavernMoodValue.Value -= RemovedAmountMood;
+            _tavernMoodValue -= Constant.RemovedAmountMood;
     }
 }

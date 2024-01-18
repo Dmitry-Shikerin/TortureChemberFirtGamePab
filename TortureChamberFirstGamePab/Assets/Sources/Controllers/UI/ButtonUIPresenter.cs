@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
-using MyProject.Sources.Controllers.Common;
 using Sources.Presentation.UI;
+using Sources.PresentationInterfaces.UI;
 
 namespace Sources.Controllers.UI
 {

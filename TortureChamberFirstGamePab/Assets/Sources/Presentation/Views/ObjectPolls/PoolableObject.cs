@@ -1,4 +1,4 @@
-﻿using Sources.Infrastructure.Services;
+﻿using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.ObjectPolls

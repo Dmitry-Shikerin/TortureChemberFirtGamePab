@@ -1,8 +1,7 @@
 ﻿using System;
-using MyProject.Sources.Controllers;
 using MyProject.Sources.Presentation.Views;
-using MyProject.Sources.Presentation.Views.Triggers.Wallet;
 using Sources.Controllers.Player;
+using Sources.Presentation.Triggers.Wallet;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
 

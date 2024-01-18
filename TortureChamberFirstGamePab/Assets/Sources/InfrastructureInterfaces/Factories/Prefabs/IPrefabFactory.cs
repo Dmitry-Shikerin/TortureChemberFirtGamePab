@@ -1,12 +1,13 @@
 ﻿using System;
-using UnityEngine;
+using Sources.InfrastructureInterfaces.Factories.Views;
 using Object = UnityEngine.Object;
 
-namespace Sources.InfrastructureInterfaces.Factorys.Prefabs
+namespace Sources.InfrastructureInterfaces.Factories.Prefabs
 {
-    public interface IPrefabFactory
+    //TODO наследование от IViewFactory костыль
+    public interface IPrefabFactory : IViewFactory
     {
-        T Create<T>(string prefabPath = "") where T : MonoBehaviour;
+        // T Create<T>(string prefabPath = "") where T : MonoBehaviour;
         T Create<T>(Type viewType, string prefabPath = "") where T : Object;
     }
 }

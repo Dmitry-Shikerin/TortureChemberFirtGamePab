@@ -1,6 +1,6 @@
 ﻿using System;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States

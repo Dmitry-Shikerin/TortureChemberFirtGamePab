@@ -1,11 +1,9 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.PresentationInterfaces.Views;
 
-namespace Sources.Controllers
+namespace Sources.Controllers.Visitors
 {
     public class VisitorInventoryPresenter : PresenterBase
     {

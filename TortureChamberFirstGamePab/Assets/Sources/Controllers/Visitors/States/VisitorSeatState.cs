@@ -1,11 +1,9 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -18,8 +16,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly TavernMood _tavernMood;
 
         public VisitorSeatState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation , CollectionRepository collectionRepository,
-            TavernMood tavernMood)
+            IVisitorAnimation visitorAnimation, TavernMood tavernMood)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));

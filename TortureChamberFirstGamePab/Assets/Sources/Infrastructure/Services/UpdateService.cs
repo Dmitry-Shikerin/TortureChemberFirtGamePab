@@ -1,5 +1,5 @@
 ﻿using System;
-using Sources.InfrastructureInterfaces.Factories.Services;
+using Sources.InfrastructureInterfaces.Services;
 
 namespace Sources.Infrastructure.Services
 {

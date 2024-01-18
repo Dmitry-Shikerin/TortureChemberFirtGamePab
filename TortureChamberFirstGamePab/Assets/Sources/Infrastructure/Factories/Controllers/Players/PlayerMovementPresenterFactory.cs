@@ -1,11 +1,12 @@
 ﻿using System;
-using MyProject.Sources.Domain.PlayerMovement;
-using MyProject.Sources.PresentationInterfaces.Animations;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
+using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
+using Sources.Infrastructure.Services.Movement;
+using Sources.PresentationInterfaces.Animations;
 
 namespace Sources.Infrastructure.Factories.Controllers.Players
 {
@@ -14,12 +15,14 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
         private readonly InputService _inputService;
         private readonly UpdateService _updateService;
         private readonly CameraDirectionService _cameraDirectionService;
+        private readonly PlayerMovementService _playerMovementService;
 
         public PlayerMovementPresenterFactory
         (
             InputService inputService,
             UpdateService updateService,
-            CameraDirectionService cameraDirectionService
+            CameraDirectionService cameraDirectionService,
+            PlayerMovementService playerMovementService
         )
         {
             _inputService = inputService ??
@@ -28,6 +31,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
                              throw new ArgumentNullException(nameof(updateService));
             _cameraDirectionService = cameraDirectionService ?? 
                                       throw new ArgumentNullException(nameof(cameraDirectionService));
+            _playerMovementService = playerMovementService ?? throw new ArgumentNullException(nameof(playerMovementService));
         }
 
         public PlayerMovementPresenter Create(PlayerMovement playerMovement,
@@ -49,7 +53,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
                 _inputService,
                 _updateService,
                 _cameraDirectionService,
-                playerInventory
+                playerInventory,
+                _playerMovementService
             );
         }
     }

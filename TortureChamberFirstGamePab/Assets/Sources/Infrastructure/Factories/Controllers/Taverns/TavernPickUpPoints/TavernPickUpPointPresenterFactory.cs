@@ -1,10 +1,8 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
 using Sources.Domain.Items.ItemConfigs;
-using Sources.Infrastructure.Factorys.Domains.Items;
-using Sources.Presentation.UI.PickUpPointUIs;
-using Sources.PresentationInterfaces.UI;
+using Sources.Infrastructure.Factories.Domains.Items;
+using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
 
 namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints
@@ -25,6 +23,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoint
         {
             if (tavernFudPickUpPointView == null) 
                 throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
+            
             if (pickUpPointUIImages == null) 
                 throw new ArgumentNullException(nameof(pickUpPointUIImages));
             

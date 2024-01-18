@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
-using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Items.Garbages;
-using Sources.Presentation.UI.PickUpPointUIs;
+using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Garbages;
 

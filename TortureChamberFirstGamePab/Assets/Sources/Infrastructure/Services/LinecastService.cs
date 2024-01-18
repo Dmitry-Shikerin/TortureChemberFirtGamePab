@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MyProject.Sources.Infrastructure.Services
+namespace Sources.Infrastructure.Services
 {
     public class LinecastService
     {

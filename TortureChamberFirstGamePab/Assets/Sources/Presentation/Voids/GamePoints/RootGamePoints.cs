@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RootGamePoints : MonoBehaviour
+namespace Sources.Presentation.Voids.GamePoints
 {
+    public class RootGamePoints : MonoBehaviour
+    {
+    }
 }

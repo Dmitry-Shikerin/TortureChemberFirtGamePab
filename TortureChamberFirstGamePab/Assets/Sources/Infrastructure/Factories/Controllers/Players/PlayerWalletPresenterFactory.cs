@@ -1,9 +1,8 @@
-﻿using MyProject.Sources.Controllers;
-using MyProject.Sources.Presentation.Views;
+﻿using MyProject.Sources.Presentation.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
 
-namespace MyProject.Sources.Infrastructure.Factorys.Controllers
+namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerWalletPresenterFactory
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Services;
-using Sources.InfrastructureInterfaces.Factories.Services;
+using Sources.InfrastructureInterfaces.Services;
+using Sources.InfrastructureInterfaces.Services.InputServices;
 
 namespace Sources.Controllers.Player
 {

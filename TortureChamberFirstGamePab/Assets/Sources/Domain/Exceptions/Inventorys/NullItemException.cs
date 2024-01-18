@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sources.Utils.Exceptions
+namespace Sources.Domain.Exceptions.Inventorys
 {
     [Serializable]
     public class NullItemException : Exception

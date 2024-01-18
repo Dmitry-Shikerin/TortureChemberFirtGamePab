@@ -1,8 +1,8 @@
-﻿using Sources.PresentationInterfaces.Views;
+﻿using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Views.Visitors;
 using UnityEngine;
 
-namespace Sources.Presentation.UI
+namespace Sources.Presentation.Views.Visitors
 {
     public class VisitorImageUIContainer : MonoBehaviour, IVisitorImageUI
     {

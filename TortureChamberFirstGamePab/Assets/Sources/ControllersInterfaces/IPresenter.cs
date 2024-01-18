@@ -1,5 +1,8 @@
-public interface IPresenter
+namespace Sources.ControllersInterfaces
 {
-    void Enable();
-    void Disable();
+    public interface IPresenter
+    {
+        void Enable();
+        void Disable();
+    }
 }

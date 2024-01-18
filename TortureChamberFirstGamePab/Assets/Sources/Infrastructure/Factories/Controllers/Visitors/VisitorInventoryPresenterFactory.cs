@@ -1,10 +1,9 @@
 ﻿using System;
-using JetBrains.Annotations;
-using Sources.Controllers;
+using Sources.Controllers.Visitors;
 using Sources.Domain.Visitors;
 using Sources.PresentationInterfaces.Views;
 
-namespace Sources.Infrastructure.Factorys.Controllers
+namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorInventoryPresenterFactory
     {

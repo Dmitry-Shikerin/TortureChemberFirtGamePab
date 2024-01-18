@@ -1,20 +1,19 @@
 ﻿using System;
-using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using UnityEngine;
 
-namespace MyProject.Sources.Presentation.Views
+namespace Sources.Presentation.Views.Player
 {
     public class PlayerCameraView : PresentableView<PlayerCameraPresenter>, IPlayerCameraView
     {
+        private Vector3 _tragetPosition;
         private Transform _targetTransform;
 
-        public void SetTargetTransform(PlayerMovementView playerMovementView)
+        public void SetTargetTransform(Transform targetTransform)
         {
-            _targetTransform = playerMovementView.transform
-                ? playerMovementView.transform
-                : throw new ArgumentNullException(nameof(playerMovementView));
+            _targetTransform = targetTransform;
+            Debug.Log(targetTransform);
         }
 
         public void Follow()
@@ -25,6 +24,11 @@ namespace MyProject.Sources.Presentation.Views
         public void Rotate(float angleY)
         {
             transform.rotation = Quaternion.Euler(0, angleY, 0);
+        }
+
+        public void SetTargetTransform(IPlayerMovementView playerMovementView)
+        {
+            throw new NotImplementedException();
         }
     }
 }

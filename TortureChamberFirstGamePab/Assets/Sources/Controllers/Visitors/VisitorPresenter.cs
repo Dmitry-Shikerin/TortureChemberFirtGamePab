@@ -1,12 +1,12 @@
 using System;
-using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.ControllersInterfaces;
 using Sources.Domain.Visitors;
-using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.StateMachines;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Views;
 
-namespace Sources.Controllers
+namespace Sources.Controllers.Visitors
 {
     public class VisitorPresenter : FiniteStateMachine, IPresenter
     {

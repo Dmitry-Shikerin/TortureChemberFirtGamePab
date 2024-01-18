@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -8,9 +7,8 @@ using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.PresentationInterfaces.Views.Garbages;
 using Unity.VisualScripting;
-using UnityEngine;
 
-namespace Sources.Infrastructure.BuilderFactories
+namespace Sources.Infrastructure.Builders
 {
     public class GarbageBuilder
     {
@@ -33,6 +31,8 @@ namespace Sources.Infrastructure.BuilderFactories
         //TODO это не билдер
         public IGarbageView Create()
         {
+            //TODO возможно переместить это во вью фектори
+
             GarbageView garbageView = _objectPool.Get<GarbageView>() ??
                                       _prefabFactory.Create<GarbageView>(GarbagePrefabPath)
                                           .AddComponent<PoolableObject>()

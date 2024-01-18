@@ -1,6 +1,5 @@
 ﻿using System;
 using Sources.Utils.ObservablePropertyes;
-using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 using UnityEngine;
 

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading;
-using MyProject.Sources.Presentation.Views.Triggers.Items;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Items;
+using Sources.Presentation.Triggers.Items;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Garbages;

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Sources.ControllersInterfaces;
+using Sources.ControllersInterfaces.Scenes;
 using Sources.Infrastructure.StateMachines.StateMachineBase;
-using Sources.InfrastructureInterfaces.Factorys.Scenes;
-using Sources.InfrastructureInterfaces.Factorys.Services;
+using Sources.InfrastructureInterfaces.Factories.Scenes;
+using Sources.InfrastructureInterfaces.Services.ScenServices;
 
-namespace Sources.Infrastructure.Services.SceneService
+namespace Sources.Infrastructure.Services.SceneServices
 {
     public class SceneService : ISceneService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Sources.InfrastructureInterfaces.Factorys.Services;
+using Sources.InfrastructureInterfaces.Services.UpdateServices;
 
-namespace Sources.InfrastructureInterfaces.Factories.Services
+namespace Sources.InfrastructureInterfaces.Services
 {
     public interface IUpdateService : IUpdatable, IFixedUpdatable, ILateUpdatable
     {

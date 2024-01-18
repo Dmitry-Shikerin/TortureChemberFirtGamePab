@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using JetBrains.Annotations;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
-using Sources.Voids.GamePoints.VisitorsPoints.Interfaces;
+using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Controllers.Visitors.States
 {

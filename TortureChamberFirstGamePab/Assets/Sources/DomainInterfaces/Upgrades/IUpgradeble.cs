@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Sources.Utils.ObservablePropertyes;
-using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 
 namespace Sources.DomainInterfaces.Upgrades
@@ -14,6 +12,5 @@ namespace Sources.DomainInterfaces.Upgrades
         IReadOnlyList<int> MoneyPerUpgrades { get; }
         
         void Upgrade();
-        void UpdateAvailability();
     }
 }

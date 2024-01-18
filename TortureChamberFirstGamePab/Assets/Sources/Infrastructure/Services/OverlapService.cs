@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
-namespace MyProject.Sources.Infrastructure.Services
+namespace Sources.Infrastructure.Services
 {
     public class OverlapService
     {

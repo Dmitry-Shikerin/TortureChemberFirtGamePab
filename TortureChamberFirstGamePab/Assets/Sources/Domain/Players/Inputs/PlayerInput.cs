@@ -9,7 +9,7 @@ namespace Sources.Domain.Players.Inputs
             Direction = direction;
         }
 
-        private Vector2 Direction { get; set; }
+        public Vector2 Direction { get; set; }
         //TODO добавить булки для ротации
     }
 }

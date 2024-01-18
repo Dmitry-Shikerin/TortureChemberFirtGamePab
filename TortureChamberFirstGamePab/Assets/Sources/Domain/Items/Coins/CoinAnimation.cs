@@ -1,5 +1,4 @@
 ﻿using MyProject.Sources.Presentation.Views;
-using Sources.Domain.Players;
 
 namespace Sources.Domain.Items.Coins
 {

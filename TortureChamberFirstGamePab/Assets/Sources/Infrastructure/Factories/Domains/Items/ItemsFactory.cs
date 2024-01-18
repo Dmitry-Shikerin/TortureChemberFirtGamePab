@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Sources.DomainInterfaces.Items;
 
-namespace Sources.Infrastructure.Factorys.Domains.Items
+namespace Sources.Infrastructure.Factories.Domains.Items
 {
     public class ItemsFactory
     {
@@ -17,16 +17,10 @@ namespace Sources.Infrastructure.Factorys.Domains.Items
         {
             if (_items.ContainsKey(typeof(T)) == false)
                 throw new InvalidOperationException(nameof(T));
-        
-            IItem item = _items[typeof(T)].Clone();
-        
-            // if (item is not T concrete)
-            //     throw new InvalidCastException("Error cast");
 
-
-            return item;
+            return _items[typeof(T)].Clone();
         }
-        
+
         private void Add(IEnumerable<IItem> items)
         {
             foreach (IItem item in items)

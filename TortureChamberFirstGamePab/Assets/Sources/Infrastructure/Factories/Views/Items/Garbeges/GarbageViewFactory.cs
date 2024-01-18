@@ -4,8 +4,8 @@ using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.ObjectPools;
-using Sources.Presentation.UI.PickUpPointUIs;
 using Sources.Presentation.Views.Items.Garbages;
+using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.PresentationInterfaces.Views.Garbages;
 
 namespace Sources.Infrastructure.Factories.Views.Items.Garbeges

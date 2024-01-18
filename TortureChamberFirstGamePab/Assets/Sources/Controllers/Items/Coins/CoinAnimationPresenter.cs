@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.Controllers.Common;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;

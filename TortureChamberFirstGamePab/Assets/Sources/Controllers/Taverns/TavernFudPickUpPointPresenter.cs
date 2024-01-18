@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
-using Sources.Infrastructure.Factorys.Domains.Items;
-using Sources.Presentation.UI.PickUpPointUIs;
+using Sources.Infrastructure.Factories.Domains.Items;
+using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
 
 namespace Sources.Controllers.Taverns

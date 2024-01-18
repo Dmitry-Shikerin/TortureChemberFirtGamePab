@@ -1,6 +1,6 @@
 ﻿using System;
-using MyProject.Sources.Controllers.Common;
 using Sources.Domain;
+using Sources.Domain.Points;
 using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Controllers.Points

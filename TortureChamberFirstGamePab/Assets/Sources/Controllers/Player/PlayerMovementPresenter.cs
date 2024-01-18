@@ -1,12 +1,13 @@
 ﻿using System;
-using MyProject.Sources.Controllers.Common;
-using MyProject.Sources.Domain.PlayerMovement;
-using MyProject.Sources.PresentationInterfaces.Animations;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players;
+using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
-using Sources.InfrastructureInterfaces.Factories.Services;
+using Sources.Infrastructure.Services.Movement;
+using Sources.InfrastructureInterfaces.Services;
+using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.PresentationInterfaces.Animations;
 using UnityEngine;
 
 namespace Sources.Controllers.Player
@@ -20,6 +21,7 @@ namespace Sources.Controllers.Player
         private readonly IUpdateService _updateService;
         private readonly CameraDirectionService _cameraDirectionService;
         private readonly PlayerInventory _playerInventory;
+        private readonly PlayerMovementService _playerMovementService;
 
         private float _runInput;
         private Vector2 _movementInput;
@@ -32,7 +34,8 @@ namespace Sources.Controllers.Player
             IInputService inputService,
             IUpdateService updateService,
             CameraDirectionService cameraDirectionService,
-            PlayerInventory playerInventory
+            PlayerInventory playerInventory,
+            PlayerMovementService playerMovementService
         )
         {
             _playerMovementView = playerMovementView ??
@@ -47,6 +50,7 @@ namespace Sources.Controllers.Player
             _cameraDirectionService = cameraDirectionService ??
                                       throw new ArgumentNullException(nameof(cameraDirectionService));
             _playerInventory = playerInventory ?? throw new ArgumentNullException(nameof(playerInventory));
+            _playerMovementService = playerMovementService ?? throw new ArgumentNullException(nameof(playerMovementService));
         }
 
         public override void Enable()
@@ -67,40 +71,33 @@ namespace Sources.Controllers.Player
 
         private void OnPositionChanged()
         {
-            float runInput = 1;
-
-            if (_playerInventory.Items.Count <= 0)
-                runInput = 0;
-            
-            Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(_movementInput);
-            Vector3 direction = _playerMovement.GetDirection(runInput, cameraDirection);
-
-            float animationSpeed = _playerMovement.GetMaxSpeed(_movementInput, runInput);
-
-            _playerAnimation.PlayMovementAnimation(animationSpeed);
             _playerMovementView.Move(_playerMovement.Position);
         }
 
         private void OnUpdate(float deltaTime)
         {
-            // float runInput = 1;
-            //
-            // if (_playerInventory.Items.Count <= 0)
-            //     runInput = 0;
-            //
-            Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(_movementInput);
-            // Vector3 direction = _playerMovement.GetDirection(runInput, cameraDirection);
-            //
-            // float animationSpeed = _playerMovement.GetMaxSpeed(_movementInput, runInput);
-            //
-            // _playerAnimation.PlayMovementAnimation(animationSpeed);
-            // _playerMovementView.Move(direction);
+            float runInput = 1;
 
-            if (_playerMovement.IsIdle(_movementInput))
+            if (_playerInventory.Items.Count <= 0)
+                runInput = 0;
+            
+            Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(
+                _inputService.PlayerInput.Direction);
+            // _playerMovement.Position = _playerMovement.GetDirection(runInput, cameraDirection);
+            _playerMovement.Position = _playerMovementService.GetDirection(runInput, cameraDirection);
+
+            // float animationSpeed = _playerMovement.GetMaxSpeed(_inputService.PlayerInput, runInput);
+            float animationSpeed = _playerMovementService.GetMaxSpeed(_inputService.PlayerInput, runInput);
+
+            _playerAnimation.PlayMovementAnimation(animationSpeed);
+            
+            if (_playerMovement.IsIdle(_inputService.PlayerInput.Direction))
                 return;
 
-            Quaternion look = _playerMovement.GetDirectionRotation(cameraDirection);
-            float speedRotation = _playerMovement.GetSpeedRotation();
+            // Quaternion look = _playerMovement.GetDirectionRotation(cameraDirection);
+            Quaternion look = _playerMovementService.GetDirectionRotation(cameraDirection);
+            // float speedRotation = _playerMovement.GetSpeedRotation();
+            float speedRotation = _playerMovementService.GetSpeedRotation();
 
             _playerMovementView.Rotate(look, speedRotation);
         }

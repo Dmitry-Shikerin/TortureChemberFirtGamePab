@@ -1,6 +1,6 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.Presentation.Views;
+using Sources.Presentation.Views.Player;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Cameras
@@ -20,8 +20,6 @@ namespace Sources.Infrastructure.Services.Cameras
         {
             Vector3 direction = _playerCameraView.transform.TransformDirection(
                 moveInput.x, 0, moveInput.y).normalized;
-
-            // direction.y -= _characteristic.Gravity * Time.deltaTime;
 
             return direction;
         }

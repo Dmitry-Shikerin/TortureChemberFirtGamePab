@@ -1,10 +1,9 @@
-﻿using Sources.DomainInterfaces.Items;
-using Sources.PresentationInterfaces.Views;
+﻿using Sources.PresentationInterfaces.Views;
 using UnityEngine;
 
-namespace Sources.Presentation.Views.Items
+namespace Sources.Presentation.Views.Items.Common
 {
-    public class FoodView : MonoBehaviour, IItemView
+    public class FoodView : View, IItemView
     {
         public void SetParent(Transform parentTransform) => 
             transform.SetParent(parentTransform);

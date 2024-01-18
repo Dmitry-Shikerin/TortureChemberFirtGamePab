@@ -1,10 +1,9 @@
 ﻿using System;
-using MyProject.Sources.Controllers;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using UnityEngine;
 
-namespace MyProject.Sources.Presentation.Views
+namespace Sources.Presentation.Views.Player
 {
     public class PlayerMovementView : PresentableView<PlayerMovementPresenter>, IPlayerMovementView
     {
@@ -15,7 +14,10 @@ namespace MyProject.Sources.Presentation.Views
             _characterController = GetComponent<CharacterController>() ??
                                    throw new NullReferenceException(nameof(_characterController));
         }
-        
+
+        public Vector3 Position => transform.position;
+        public Transform Transform => transform;
+
         public void Move(Vector3 direction) => 
             _characterController.Move(direction);
 

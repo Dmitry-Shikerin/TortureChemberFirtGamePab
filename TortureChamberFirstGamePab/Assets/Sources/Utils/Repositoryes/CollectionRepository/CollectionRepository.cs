@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sources.Utils.Repositoryes.Containers;
 using Sources.Utils.Repositoryes.ContainersInterfaces;
 
-namespace Sources.Utils.Repositoryes
+namespace Sources.Utils.Repositoryes.CollectionRepository
 {
     public class CollectionRepository
     {

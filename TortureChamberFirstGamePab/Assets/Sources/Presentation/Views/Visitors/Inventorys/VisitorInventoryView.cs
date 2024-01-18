@@ -1,8 +1,7 @@
-﻿using Sources.Controllers;
+﻿using Sources.Controllers.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
-using UnityEngine;
 
 namespace Sources.Presentation.Views.Visitors.Inventorys
 {

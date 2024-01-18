@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers.Common;
 using Sources.Domain.Constants;
 using Sources.PresentationInterfaces.UI;
 using UnityEngine;

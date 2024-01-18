@@ -1,5 +1,6 @@
 using System;
 using Sources.Domain.Players.Inputs;
+using Sources.InfrastructureInterfaces.Services.InputServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services
@@ -9,6 +10,7 @@ namespace Sources.Infrastructure.Services
         public event Action<Vector2> MovementAxisChanged;
         public event Action<float> RunAxisChanged;
         public event Action<bool, bool> RotationChanged;
+        public event Action PauseButtonChanged;
         
         public PlayerInput PlayerInput { get; private set; }
 
@@ -16,6 +18,7 @@ namespace Sources.Infrastructure.Services
         {
             UpdateMovementAxis();
             UpdateRunAxis();
+            UpdatePauseInput();
         }
 
         public void UpdateLate(float deltaTime)
@@ -51,6 +54,12 @@ namespace Sources.Infrastructure.Services
             bool isRightRotation = Input.GetKey(KeyCode.E);
         
             RotationChanged?.Invoke(isLeftRotation, isRightRotation);
+        }
+
+        private void UpdatePauseInput()
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+                PauseButtonChanged?.Invoke();
         }
     }
 }

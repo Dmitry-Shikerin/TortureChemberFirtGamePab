@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.UI;
 using Sources.PresentationInterfaces.UI;
 

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Sources.Domain
+﻿namespace Sources.Domain.Points
 {
     public class SeatPoint
     {

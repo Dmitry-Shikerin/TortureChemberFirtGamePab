@@ -1,5 +1,5 @@
 ﻿using System;
-using MyProject.Sources.Controllers.Common;
+using Sources.Controllers;
 using Sources.PresentationInterfaces.UI;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Sources.InfrastructureInterfaces.Factorys.Prefabs;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.PresentationInterfaces.Views;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,7 +11,7 @@ namespace Sources.Infrastructure.Factories.Prefabs
     {
         private readonly Dictionary<string, Object> _resources = new Dictionary<string, Object>();
         
-        public T Create<T>(string prefabPath = "") where T : MonoBehaviour
+        public T Create<T>(string prefabPath = "") where T : Object,IView
         {
             try
             {

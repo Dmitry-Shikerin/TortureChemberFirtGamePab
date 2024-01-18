@@ -1,4 +1,4 @@
-﻿namespace Sources.InfrastructureInterfaces.Factorys.Services
+﻿namespace Sources.InfrastructureInterfaces.Services.UpdateServices
 {
     public interface ILateUpdatable
     {

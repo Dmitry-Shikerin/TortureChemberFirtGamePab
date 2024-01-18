@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using MyProject.Sources.Infrastructure.Services.SceneLoaderServices;
 using Sources.App.Core;
 using Sources.Infrastructure.Factories.Scenes;
-using Sources.Infrastructure.Services.SceneService;
-using Sources.InfrastructureInterfaces.Factorys.Scenes;
+using Sources.Infrastructure.Services.SceneLoaderServices;
+using Sources.Infrastructure.Services.SceneServices;
+using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.Presentation.Views.Bootstrap;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -16,6 +15,8 @@ namespace Sources.Infrastructure.Factories.App
     {
         public AppCore Create()
         {
+            //TODO гдето здесь создать зависимость на стор сервис и прокинуть его в фабрики?
+            
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
             CurtainView curtainView =

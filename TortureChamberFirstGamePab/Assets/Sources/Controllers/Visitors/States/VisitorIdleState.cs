@@ -1,12 +1,7 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines.States;
+using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {

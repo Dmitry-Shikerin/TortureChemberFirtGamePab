@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Sources.Presentation.UI;
+using UnityEngine;
 
-namespace Sources.Presentation.UI.PickUpPointUIs
+namespace Sources.Presentation.Views.Taverns.PickUpPoints.Foods
 {
     public class PickUpPointUIImages : MonoBehaviour
     {

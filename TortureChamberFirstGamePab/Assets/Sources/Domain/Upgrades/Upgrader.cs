@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Utils.ObservablePropertyes;
-using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 using UnityEngine;
 
@@ -45,14 +44,6 @@ namespace Sources.Domain.Upgrades
             _currentAmountUpgrade += AddedAmountUpgrade;
             Debug.Log(_currentAmountUpgrade);
             _currentLevelUpgrade.Value++;
-            
-            //TODO костыльно как то
-            UpdateAvailability();
-        }
-
-        public void UpdateAvailability()
-        {
-            
         }
     }
 }

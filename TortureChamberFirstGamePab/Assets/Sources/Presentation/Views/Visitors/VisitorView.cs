@@ -1,12 +1,9 @@
 using System;
-using Sources.Controllers;
-using Sources.DomainInterfaces.Items;
+using Sources.Controllers.Visitors;
 using Sources.Presentation.Animations;
-using Sources.Presentation.UI;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Visitors.Inventorys;
 using Sources.PresentationInterfaces.Views;
-using Sources.PresentationInterfaces.Views.Interactions.Get;
 using UnityEngine;
 using UnityEngine.AI;
 

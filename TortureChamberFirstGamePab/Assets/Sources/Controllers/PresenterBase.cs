@@ -1,4 +1,6 @@
-﻿namespace MyProject.Sources.Controllers.Common
+﻿using Sources.ControllersInterfaces;
+
+namespace Sources.Controllers
 {
     public class PresenterBase : IPresenter
     {

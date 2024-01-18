@@ -2,12 +2,7 @@
 
 namespace Sources.Presentation.Views.Taverns.UpgradePoints
 {
-    public class TavernUpgradePointView : MonoBehaviour
+    public class TavernUpgradePointView : View
     {
-        public void Show() => 
-            gameObject.SetActive(true);
-
-        public void Hide() => 
-            gameObject.SetActive(false);
     }
 }

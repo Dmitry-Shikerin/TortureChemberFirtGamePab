@@ -1,7 +1,7 @@
 ﻿using Sources.Presentation.Views.Taverns;
 using Sources.PresentationInterfaces.Views.Interactions.Givable;
 
-namespace Sources.Presentation.Views.Player.Triggers
+namespace Sources.Presentation.Triggers.Inventories
 {
     public class GiveTrigger : TriggerBase<IGivable>
     {

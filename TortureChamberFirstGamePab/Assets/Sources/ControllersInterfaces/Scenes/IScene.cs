@@ -1,6 +1,6 @@
 ﻿using Sources.InfrastructureInterfaces.StateMachines;
 
-namespace Sources.ControllersInterfaces
+namespace Sources.ControllersInterfaces.Scenes
 {
     public interface IScene : IState
     {

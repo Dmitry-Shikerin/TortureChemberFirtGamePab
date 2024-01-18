@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class VisitorPoints : MonoBehaviour
+namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
 {
+    public class VisitorPoints : MonoBehaviour
+    {
+    }
 }

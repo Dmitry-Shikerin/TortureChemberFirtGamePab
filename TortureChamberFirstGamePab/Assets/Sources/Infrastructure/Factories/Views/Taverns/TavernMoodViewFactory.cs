@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
 using Sources.Domain.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
@@ -19,6 +18,7 @@ namespace Sources.Infrastructure.Factories.Views.Taverns
                                           throw new ArgumentNullException(nameof(tavernMoodPresenterFactory));
         }
         
+        //TODO скорее всего это сервис
         public ITavernMoodView Create(TavernMoodView tavernMoodView, TavernMood tavernMood,
             IImageUI imageUI)
         {

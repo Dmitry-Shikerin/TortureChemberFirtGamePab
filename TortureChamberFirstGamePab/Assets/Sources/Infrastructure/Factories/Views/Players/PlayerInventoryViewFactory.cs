@@ -1,23 +1,16 @@
 ﻿using System;
-using JetBrains.Annotations;
-using MyProject.Sources.Controllers;
-using MyProject.Sources.Infrastructure.Factorys.Controllers;
-using MyProject.Sources.Presentation.Views;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
-using Sources.Infrastructure.Factories.Controllers.UI;
-using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.Infrastructure.Factories.Controllers.Players;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Presentation.UI;
-using Sources.Presentation.Views.Player;
+using Sources.InfrastructureInterfaces.Factories;
 using Sources.Presentation.Views.Player.Inventory;
-using Sources.PresentationInterfaces.UI;
+using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Players;
 
-namespace MyProject.Sources.Infrastructure.Factorys.Views
+namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerInventoryViewFactory
+    public class PlayerInventoryViewFactory : IFactory<IView>
     {
         private readonly PlayerInventoryPresenterFactory _playerInventoryPresenterFactory;
 
@@ -28,18 +21,14 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
                 throw new ArgumentNullException(nameof(playerInventoryPresenterFactory));
         }
 
+        //TODO могу ли я ImageUIFactory прокинуть в презентер и создавать вьюшки там?
         public IPlayerInventoryView Create(PlayerInventoryView playerInventoryView,
-            ITextUI textUI, PlayerInventory playerInventory, ItemViewFactory itemViewFactory,
-            ImageUIFactory imageUIFactory)
+            PlayerInventory playerInventory, ImageUIFactory imageUIFactory)
         {
             if (playerInventoryView == null) 
                 throw new ArgumentNullException(nameof(playerInventoryView));
-            if (textUI == null) 
-                throw new ArgumentNullException(nameof(textUI));
             if (playerInventory == null) 
                 throw new ArgumentNullException(nameof(playerInventory));
-            if (itemViewFactory == null) 
-                throw new ArgumentNullException(nameof(itemViewFactory));
             if (imageUIFactory == null) 
                 throw new ArgumentNullException(nameof(imageUIFactory));
             
@@ -51,8 +40,7 @@ namespace MyProject.Sources.Infrastructure.Factorys.Views
             imageUIFactory.Create(playerInventoryView.ThirdSlotView.Image);
             
             PlayerInventoryPresenter playerInventoryPresenter =
-                _playerInventoryPresenterFactory.Create(playerInventoryView,
-                    textUI, playerInventory, itemViewFactory);
+                _playerInventoryPresenterFactory.Create(playerInventoryView, playerInventory);
             
             playerInventoryView.Construct(playerInventoryPresenter);
 
