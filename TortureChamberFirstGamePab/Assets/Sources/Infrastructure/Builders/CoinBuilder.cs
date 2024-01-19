@@ -1,4 +1,6 @@
 ﻿using System;
+using JetBrains.Annotations;
+using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Services.ObjectPools;
@@ -11,35 +13,33 @@ namespace Sources.Infrastructure.Builders
 {
     public class CoinBuilder
     {
-        private const string CoinPrefabPath = "Views/Coin";
-        private readonly PrefabFactory _prefabFactory;
         private readonly CoinAnimationViewFactory _coinAnimationViewFactory;
         private readonly ObjectPool<CoinAnimationView> _objectPool;
 
-        public CoinBuilder(PrefabFactory prefabFactory, CoinAnimationViewFactory coinAnimationViewFactory
-        )
+        public CoinBuilder(CoinAnimationViewFactory coinAnimationViewFactory,
+            ObjectPool<CoinAnimationView> objectPool)
         {
-            _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _coinAnimationViewFactory = coinAnimationViewFactory ??
                                         throw new ArgumentNullException(nameof(coinAnimationViewFactory));
 
-            _objectPool = new ObjectPool<CoinAnimationView>();
+            _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool)) ;
         }
 
-        //TODO это не билдер а спавн сервис
-        public ICoinAnimationView Create()
+        public ICoinAnimationView Build()
         {
-            //TODO возможно переместить это во вью фектори
-            CoinAnimationView coinAnimationViewPrefab = _objectPool.Get<CoinAnimationView>() ??
-                                                        _prefabFactory.Create<CoinAnimationView>(CoinPrefabPath)
-                                                            .AddComponent<PoolableObject>()
-                                                            .SetPool(_objectPool)
-                                                            .GetComponent<CoinAnimationView>();
+            CoinAnimation coinAnimation = new CoinAnimation();
 
-            _coinAnimationViewFactory.Create(coinAnimationViewPrefab);
-            coinAnimationViewPrefab.Show();
+            return CreateFromPool(coinAnimation) ?? _coinAnimationViewFactory.Create(coinAnimation);
+        }
 
-            return coinAnimationViewPrefab;
+        private ICoinAnimationView CreateFromPool(CoinAnimation coinAnimation)
+        {
+            CoinAnimationView coinAnimationView = _objectPool.Get<CoinAnimationView>();
+        
+            if (coinAnimationView == null)
+                return null;
+        
+            return _coinAnimationViewFactory.Create(coinAnimation, coinAnimationView);
         }
     }
 }

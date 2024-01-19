@@ -15,5 +15,14 @@ namespace Sources.Presentation.UI
 
         protected override void OnAfterDisable() => 
             _button.onClick.RemoveListener(Presenter.OnClick);
+
+        public void SetEnable()
+        {
+            _button.enabled = true;
+        }
+        public void SetDisable()
+        {
+            _button.enabled = false;
+        }
     }
 }

@@ -37829,10 +37829,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 974445905736722410, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Radius
-      value: 0.69
-      objectReference: {fileID: 0}
     - target: {fileID: 1136429733582359293, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
       propertyPath: <Image>k__BackingField
       value: 
@@ -37853,10 +37849,6 @@ PrefabInstance:
       propertyPath: <BackgroundImage>k__BackingField
       value: 
       objectReference: {fileID: 1426074949}
-    - target: {fileID: 4446338719708239570, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_Radius
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5956618844866284941, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
       propertyPath: <Image>k__BackingField
       value: 
@@ -37865,14 +37857,6 @@ PrefabInstance:
       propertyPath: <BackgroundImage>k__BackingField
       value: 
       objectReference: {fileID: 1966802420}
-    - target: {fileID: 7507862256849174200, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.957
-      objectReference: {fileID: 0}
-    - target: {fileID: 7618744919282900202, guid: 4399aec22c0e2b640a6e67c42ce72585, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.614
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

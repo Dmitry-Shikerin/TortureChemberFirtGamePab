@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.App.Core;
+using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Scenes;
+using Sources.Infrastructure.Services.LoadServices;
+using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.SceneLoaderServices;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
@@ -15,9 +19,10 @@ namespace Sources.Infrastructure.Factories.App
     {
         public AppCore Create()
         {
-            //TODO гдето здесь создать зависимость на стор сервис и прокинуть его в фабрики?
-            
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
+            
+            //TODO везде прокидывать этот один экземпляр сервиса
+            PlayerDataService playerDataService = new PlayerDataService();
 
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>("Views/Bootstrap/CurtainView")) ??
@@ -26,8 +31,8 @@ namespace Sources.Infrastructure.Factories.App
             Dictionary<string, ISceneFactory> sceneStates = new Dictionary<string, ISceneFactory>();
             SceneService sceneService = new SceneService(sceneStates);
 
-            sceneStates["MainMenu"] = new MainMenuSceneFactory(sceneService);
-            sceneStates["GamePlay"] = new GamePlaySceneFactory(sceneService);
+            sceneStates["MainMenu"] = new MainMenuSceneFactory(sceneService, playerDataService);
+            sceneStates["GamePlay"] = new GamePlaySceneFactory(sceneService, playerDataService);
 
             // sceneService.AddBeforeSceneChangeHandler(sceneName => curtainView.Show());
             sceneService.AddBeforeSceneChangeHandler(sceneName => 

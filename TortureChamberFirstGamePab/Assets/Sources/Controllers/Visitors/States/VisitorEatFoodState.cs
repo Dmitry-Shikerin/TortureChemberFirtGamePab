@@ -52,11 +52,11 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitor.SeatPointView.UnOccupy();
             _visitor.FinishEating();
-            IGarbageView garbageView = _garbageBuilder.Create();
+            IGarbageView garbageView = _garbageBuilder.Build();
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
             _visitor.SeatPointView.EatPointView.GetDirty();
-            ICoinAnimationView coinAnimationView = _coinBuilder.Create();
+            ICoinAnimationView coinAnimationView = _coinBuilder.Build();
             coinAnimationView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
             coinAnimationView.SetCoinAmount(_visitorInventory.Item.Price);
         }

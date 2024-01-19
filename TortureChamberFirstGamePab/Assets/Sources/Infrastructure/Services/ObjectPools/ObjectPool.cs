@@ -31,6 +31,9 @@ namespace Sources.Infrastructure.Services.ObjectPools
             @object.transform.SetParent(null);
             Debug.Log("Get from pool");
             ObjectCountChanged?.Invoke(_objects.Count);
+            
+            @object.gameObject.SetActive(true);
+            
             return @object;
         }
 

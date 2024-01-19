@@ -25,14 +25,12 @@ namespace Sources.Infrastructure.Factories.Views.Players
                                               throw new ArgumentNullException(nameof(playerMovementPresenterFactory));
         }
 
-        public PlayerMovementView Create(PlayerMovement playerMovement, PlayerInventory playerInventory)
+        public PlayerMovementView Create(PlayerMovement playerMovement, 
+            PlayerInventory playerInventory, PlayerMovementView playerMovementView, PlayerAnimation playerAnimation)
         {
             if (playerMovement == null)
                 throw new ArgumentNullException(nameof(playerMovement));
 
-            //TODO потом исправить
-            PlayerMovementView playerMovementView = Object.FindObjectOfType<PlayerMovementView>();
-            PlayerAnimation playerAnimation = playerMovementView.GetComponent<PlayerAnimation>();
             
             PlayerMovementPresenter playerMovementPresenter =
                 _playerMovementPresenterFactory.Create(playerMovement,

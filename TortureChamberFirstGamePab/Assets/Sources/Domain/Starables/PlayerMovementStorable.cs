@@ -41,7 +41,7 @@ namespace Sources.Domain.Starables
             //TODO потом раскоментировать
             //TODO в зависимость требует модель инвентаря
             //TODO смогу ли я исправить это Zenjectom?
-            PlayerMovementView = viewFactory.Create(PlayerMovement, _playerInventory);
+            // PlayerMovementView = viewFactory.Create(PlayerMovement, _playerInventory);
         }
 
         public void Save()

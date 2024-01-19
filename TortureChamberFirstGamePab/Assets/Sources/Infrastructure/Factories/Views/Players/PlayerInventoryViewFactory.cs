@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Sources.Controllers.Player;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Controllers.Players;
@@ -13,31 +14,33 @@ namespace Sources.Infrastructure.Factories.Views.Players
     public class PlayerInventoryViewFactory : IFactory<IView>
     {
         private readonly PlayerInventoryPresenterFactory _playerInventoryPresenterFactory;
+        private readonly ImageUIFactory _imageUIFactory;
 
-        public PlayerInventoryViewFactory(PlayerInventoryPresenterFactory playerInventoryPresenterFactory)
+        public PlayerInventoryViewFactory(
+            PlayerInventoryPresenterFactory playerInventoryPresenterFactory,
+            ImageUIFactory imageUIFactory)
         {
             _playerInventoryPresenterFactory = 
                 playerInventoryPresenterFactory ?? 
                 throw new ArgumentNullException(nameof(playerInventoryPresenterFactory));
+            _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
         }
 
         //TODO могу ли я ImageUIFactory прокинуть в презентер и создавать вьюшки там?
-        public IPlayerInventoryView Create(PlayerInventoryView playerInventoryView,
-            PlayerInventory playerInventory, ImageUIFactory imageUIFactory)
+        public PlayerInventoryView Create(
+            PlayerInventory playerInventory, PlayerInventoryView playerInventoryView)
         {
             if (playerInventoryView == null) 
                 throw new ArgumentNullException(nameof(playerInventoryView));
             if (playerInventory == null) 
                 throw new ArgumentNullException(nameof(playerInventory));
-            if (imageUIFactory == null) 
-                throw new ArgumentNullException(nameof(imageUIFactory));
             
-            imageUIFactory.Create(playerInventoryView.FirstSlotView.BackgroundImage);
-            imageUIFactory.Create(playerInventoryView.FirstSlotView.Image);
-            imageUIFactory.Create(playerInventoryView.SecondSlotView.BackgroundImage);
-            imageUIFactory.Create(playerInventoryView.SecondSlotView.Image);
-            imageUIFactory.Create(playerInventoryView.ThirdSlotView.BackgroundImage);
-            imageUIFactory.Create(playerInventoryView.ThirdSlotView.Image);
+            _imageUIFactory.Create(playerInventoryView.FirstSlotView.BackgroundImage);
+            _imageUIFactory.Create(playerInventoryView.FirstSlotView.Image);
+            _imageUIFactory.Create(playerInventoryView.SecondSlotView.BackgroundImage);
+            _imageUIFactory.Create(playerInventoryView.SecondSlotView.Image);
+            _imageUIFactory.Create(playerInventoryView.ThirdSlotView.BackgroundImage);
+            _imageUIFactory.Create(playerInventoryView.ThirdSlotView.Image);
             
             PlayerInventoryPresenter playerInventoryPresenter =
                 _playerInventoryPresenterFactory.Create(playerInventoryView, playerInventory);

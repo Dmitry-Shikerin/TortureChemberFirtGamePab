@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sources.PresentationInterfaces.Views.Items.Coins
 {
-    public interface ICoinAnimationView
+    public interface ICoinAnimationView : IView
     {
         public float OffsetYFinishPoint { get; }
         float MovementSpeed { get; }
@@ -16,6 +16,5 @@ namespace Sources.PresentationInterfaces.Views.Items.Coins
         void SetPlayerWalletView(IPlayerWalletView playerWalletView);
         void Rotate();
         void SetTransformPosition(Vector3 position);
-
     }
 }

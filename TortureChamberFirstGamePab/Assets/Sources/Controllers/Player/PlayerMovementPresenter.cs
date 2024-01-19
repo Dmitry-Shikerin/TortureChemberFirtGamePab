@@ -2,7 +2,6 @@
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.Movement;
 using Sources.InfrastructureInterfaces.Services;
@@ -59,6 +58,7 @@ namespace Sources.Controllers.Player
             _inputService.RunAxisChanged += OnRunAxis;
             _updateService.ChangedUpdate += OnUpdate;
             _playerMovement.PositionChanged += OnPositionChanged;
+            _playerMovementView.SetPosition(_playerMovement.Position);
         }
 
         public override void Disable()

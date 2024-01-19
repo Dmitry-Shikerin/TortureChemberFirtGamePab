@@ -13,7 +13,6 @@ namespace Sources.Presentation.Views.Player
         public void SetTargetTransform(Transform targetTransform)
         {
             _targetTransform = targetTransform;
-            Debug.Log(targetTransform);
         }
 
         public void Follow()

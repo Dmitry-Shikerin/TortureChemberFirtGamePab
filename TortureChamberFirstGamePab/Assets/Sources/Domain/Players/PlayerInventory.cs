@@ -1,12 +1,20 @@
 ﻿using System.Collections.Generic;
 using Sources.Domain.Exceptions.Inventorys;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Services.LoadServices.DataAccess;
 
 namespace Sources.Domain.Players
 {
     public class PlayerInventory
     {
         private List<IItem> _items = new List<IItem>();
+
+        public PlayerInventory(PlayerInventoryData playerInventoryData)
+        {
+        }
+        public PlayerInventory()
+        {
+        }
         
         public int MaxCapacity { get; set; }
         public int InventoryCapacity { get; set; }
@@ -15,13 +23,11 @@ namespace Sources.Domain.Players
 
         public void SetGiveAbility()
         {
-            // Debug.Log("UnLock inventory");
             CanGet = true;
         }
 
         public void LockGiveAbility()
         {
-            // Debug.Log("Lock inventory");
             CanGet = false;
         }
 

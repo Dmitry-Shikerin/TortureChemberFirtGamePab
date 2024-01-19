@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.Presentation.Views;
+using JetBrains.Annotations;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.GamePlays;
@@ -41,7 +41,11 @@ using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Repositories;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
+using Sources.Infrastructure.Services.LoadServices;
+using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.Movement;
+using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.Stores;
 using Sources.Infrastructure.Services.UpgradeServices;
@@ -49,6 +53,7 @@ using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
+using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns;
@@ -70,6 +75,7 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly SceneService _sceneService;
+        private readonly PlayerDataService _playerDataService;
 
         private const string PlayerMovementCharacteristicsPath = "Configs/PlayerMovementCharacteristics";
         private const string BeerItemConfigPath = "Configs/Items/BeerItemConfig";
@@ -78,20 +84,17 @@ namespace Sources.Infrastructure.Factories.Scenes
         private const string SoupItemConfigPath = "Configs/Items/SoupItemConfig";
         private const string WineItemConfigPath = "Configs/Items/WineItemConfig";
 
-        public GamePlaySceneFactory(SceneService sceneService)
+        public GamePlaySceneFactory(SceneService sceneService, PlayerDataService playerDataService)
         {
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));
+            _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
         }
 
         public async UniTask<IScene> Create(object payload)
         {
-            PlayerMovementView playerMovementView =
-                Object.FindObjectOfType<PlayerMovementView>();
             PlayerCameraView playerCameraView =
                 Object.FindObjectOfType<PlayerCameraView>();
-            PlayerInventoryView playerInventoryView =
-                Object.FindObjectOfType<PlayerInventoryView>();
             HUD hud = Object.FindObjectOfType<HUD>();
             BeerPickUpPointView beerPickUpPointView =
                 Object.FindObjectOfType<BeerPickUpPointView>();
@@ -111,8 +114,6 @@ namespace Sources.Infrastructure.Factories.Scenes
                 Object.FindObjectOfType<TavernUpgradePointView>(true);
 
             HudTextUIContainer hudTextUIContainer = hud.GetComponent<HudTextUIContainer>();
-
-            //TODO сделать абстрактную фабрику
             
             //RootGamePoints
             RootGamePoints rootGamePoints = Object.FindObjectOfType<RootGamePoints>();
@@ -125,13 +126,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             //ItemRepository
             ItemRepository<IItem> itemRepository = new ItemRepository<IItem>();
 
-            //ItemViewrepository
-            // ItemRepository<IItemView> itemViewRepository = new ItemRepository<IItemView>();
-
             //TavernUpgradePointService
             TavernUpgradePointService tavernUpgradePointService = new TavernUpgradePointService(
                 tavernUpgradeTrigger, tavernUpgradePointView);
-            
+
             //EatPointFactories
             EatPointPresenterFactory eatPointPresenterFactory = new EatPointPresenterFactory();
             EatPointViewFactory eatPointViewFactory = new EatPointViewFactory(eatPointPresenterFactory);
@@ -210,34 +208,36 @@ namespace Sources.Infrastructure.Factories.Scenes
             TextUIFactory textUIFactory = new TextUIFactory(textUIPresenterFactory);
 
             //CoinAnimationFactories
+            ObjectPool<CoinAnimationView> coinAnimationViewObjectPool = new ObjectPool<CoinAnimationView>();
             CoinAnimationPresenterFactory coinAnimationPresenterFactory = new CoinAnimationPresenterFactory();
             CoinAnimationViewFactory coinAnimationViewFactory =
-                new CoinAnimationViewFactory(coinAnimationPresenterFactory);
-            CoinBuilder coinBuilder = new CoinBuilder(prefabFactory, coinAnimationViewFactory);
+                new CoinAnimationViewFactory(coinAnimationPresenterFactory,
+                    prefabFactory, coinAnimationViewObjectPool);
+            CoinBuilder coinBuilder = new CoinBuilder(coinAnimationViewFactory, coinAnimationViewObjectPool);
 
             // нужна здесь для DI
             PlayerMovementCharacteristic playerMovementCharacteristic =
                 Resources.Load<PlayerMovementCharacteristic>(PlayerMovementCharacteristicsPath);
 
-            
+
             //PlayerUpgradeContainers
-            UpgradeConfig charismaUpgradeConfig = 
+            UpgradeConfig charismaUpgradeConfig =
                 Resources.Load<UpgradeConfig>("Configs/Upgrades/CharismaUpgradeConfig");
-            UpgradeConfig inventoryUpgradeConfig = 
+            UpgradeConfig inventoryUpgradeConfig =
                 Resources.Load<UpgradeConfig>("Configs/Upgrades/InventoryUpgradeConfig");
-            UpgradeConfig movementUpgradeConfig = 
+            UpgradeConfig movementUpgradeConfig =
                 Resources.Load<UpgradeConfig>("Configs/Upgrades/MovementUpgradeConfig");
-            
+
             Upgrader playerCharismaUpgrader = new Upgrader(charismaUpgradeConfig);
             Upgrader playerInventoryUpgrader = new Upgrader(inventoryUpgradeConfig);
             Upgrader playerMovementUpgrader = new Upgrader(movementUpgradeConfig);
-            
+
             //TavernMood
             TavernMood tavernMood = new TavernMood();
             ImageUI imageUI = hud.GetComponentInChildren<ImageUI>();
             imageUIFactory.Create(imageUI);
             TavernMoodView tavernMoodView = hud.GetComponentInChildren<TavernMoodView>();
-            TavernMoodPresenterFactory tavernMoodPresenterFactory = 
+            TavernMoodPresenterFactory tavernMoodPresenterFactory =
                 new TavernMoodPresenterFactory(playerCharismaUpgrader);
             TavernMoodViewFactory tavernMoodViewFactory = new TavernMoodViewFactory(tavernMoodPresenterFactory);
             tavernMoodViewFactory.Create(tavernMoodView, tavernMood, imageUI);
@@ -262,137 +262,43 @@ namespace Sources.Infrastructure.Factories.Scenes
                 coinBuilder);
             VisitorBuilder visitorBuilder = new VisitorBuilder(
                 visitorPresenterFactory, tavernMood, visitorCounter);
-            // visitorBuilder.Create(objectPool);
 
             //VisitorSpawnService
             VisitorSpawnService visitorSpawnService = new VisitorSpawnService(
                 gamePlay, visitorBuilder, visitorCounter, prefabFactory);
 
             //PLayerWallet
-            PlayerWalletView playerWalletView = playerMovementView.GetComponent<PlayerWalletView>();
-            PlayerWallet playerWallet = new PlayerWallet();
             PlayerWalletPresenterFactory playerWalletPresenterFactory = new PlayerWalletPresenterFactory();
 
             PlayerWalletViewFactory playerWalletViewFactory =
                 new PlayerWalletViewFactory(playerWalletPresenterFactory);
-
-            playerWalletViewFactory.Create(playerWalletView, playerWallet);
-
-
-            textUIFactory.Create(hudTextUIContainer.PlayerWalletText, playerWallet.Coins);
-
-            //PlayerCamera
-            PlayerCamera playerCamera = new PlayerCamera();
-            playerCamera.SetStartAngleY(playerCameraView.transform.position.y);
-
             PlayerCameraPresenterFactory playerCameraPresenterFactory =
                 new PlayerCameraPresenterFactory(inputService, updateService);
 
             PlayerCameraViewFactory playerCameraViewFactory =
                 new PlayerCameraViewFactory(playerCameraPresenterFactory);
 
-            // playerCameraViewFactory.Create(playerCameraView, playerCamera);
-
-            //PlayerInventory
-            PlayerInventory playerInventory = new PlayerInventory();
-
             PlayerInventoryPresenterFactory playerInventoryPresenterFactory =
                 new PlayerInventoryPresenterFactory(playerInventoryUpgrader,
                     itemViewFactory, hudTextUIContainer.SystemErrorsText);
 
             PlayerInventoryViewFactory playerInventoryViewFactory =
-                new PlayerInventoryViewFactory(playerInventoryPresenterFactory);
+                new PlayerInventoryViewFactory(playerInventoryPresenterFactory,
+                    imageUIFactory);
 
-            //TODO как исправить заглушку в виде проперти?
-            //TODO если через интефей вьюшку можно брать дополнительную вьюку
-            //TODO нужен посредник для вьюки чтобы добавить его в презентер
-            //TODO сделать еще один презентер здя текс юай
             textUIFactory.Create(hudTextUIContainer.SystemErrorsText,
                 new ObservableProperty<string>());
 
-            playerInventoryViewFactory.Create(playerInventoryView, playerInventory, imageUIFactory);
-            
-            //TODO потом подправить
-            playerInventoryView.PlayerInventorySlots[1].BackgroundImage.HideImage();
-            playerInventoryView.PlayerInventorySlots[1].Image.HideImage();
-            playerInventoryView.PlayerInventorySlots[2].BackgroundImage.HideImage();
-            playerInventoryView.PlayerInventorySlots[2].Image.HideImage();
-            
-            //PlayerMovement
-            // playerCameraView.SetTargetTransform(playerMovementView);
+            //PlayerMovementFactorys
+            PlayerMovementService playerMovementService =
+                new PlayerMovementService(playerMovementUpgrader, playerMovementCharacteristic);
 
-            // PlayerAnimation playerAnimation =
-            //     playerMovementView.GetComponent<PlayerAnimation>() ??
-            //     throw new NullReferenceException(nameof(PlayerAnimation));
-            //
-            //
-            // PlayerMovement playerMovement = new PlayerMovement(
-            //     playerMovementCharacteristic, playerMovementUpgrader);
-
-            
-            PlayerMovementService playerMovementService = 
-                new PlayerMovementService(playerMovementUpgrader,playerMovementCharacteristic);
-            
             PlayerMovementPresenterFactory playerMovementPresenterFactory =
                 new PlayerMovementPresenterFactory(inputService, updateService,
                     cameraDirectionService, playerMovementService);
 
             PlayerMovementViewFactory playerMovementViewFactory =
                 new PlayerMovementViewFactory(playerMovementPresenterFactory);
-
-            // playerMovementViewFactory.Create(playerMovement);
-
-            //TODO могу ли я сделать абстрактную фабрику для всех вьюшек?
-
-            //UpgradeServices
-            //TODO потом сделать по человечески
-            TavernUpgradePointTextUIs tavernUpgradePointTextUIs =
-                tavernUpgradePointButtons.GetComponent<TavernUpgradePointTextUIs>();
-
-            //TODO не забыть построить все презенторы для текстов
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerCharismaLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerCharismaPriceNextLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            PlayerUpgradeService playerCharismaUpgradeService = new PlayerUpgradeService(
-                playerCharismaUpgrader, tavernUpgradePointTextUIs.PlayerCharismaLevelUpgradeTextUI,
-                tavernUpgradePointTextUIs.PlayerCharismaPriceNextLevelUpgradeTextUI,
-                playerWallet);
-
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerMovementSpeedLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerMovementPriceNextSpeedLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            PlayerUpgradeService playerMovementUpgradeService = new PlayerUpgradeService(
-                playerMovementUpgrader, tavernUpgradePointTextUIs.PlayerMovementSpeedLevelUpgradeTextUI,
-                tavernUpgradePointTextUIs.PlayerMovementPriceNextSpeedLevelUpgradeTextUI,
-                playerWallet);
-
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerInventoryLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            textUIFactory.Create(tavernUpgradePointTextUIs.PlayerInventoryPriceNextLevelUpgradeTextUI,
-                new ObservableProperty<int>());
-            PlayerUpgradeService playerInventoryUpgradeService = new PlayerUpgradeService(
-                playerInventoryUpgrader, tavernUpgradePointTextUIs.PlayerInventoryLevelUpgradeTextUI,
-                tavernUpgradePointTextUIs.PlayerInventoryPriceNextLevelUpgradeTextUI,
-                playerWallet);
-
-            PlayerUpgradeService[] playerUpgradeServices = new PlayerUpgradeService[]
-            {
-                playerCharismaUpgradeService,
-                playerMovementUpgradeService,
-                playerInventoryUpgradeService
-            };
-
-            //TavernUpgradePointButtons
-            buttonUIFactory.Create(tavernUpgradePointButtons.CharismaButtonUI,
-                playerCharismaUpgradeService.Upgrade);
-
-            buttonUIFactory.Create(tavernUpgradePointButtons.InventoryButtonUI,
-                playerInventoryUpgradeService.Upgrade);
-
-            buttonUIFactory.Create(tavernUpgradePointButtons.MovementButtonUI,
-                playerMovementUpgradeService.Upgrade);
 
             //PickUpPointsFactories
             TavernPickUpPointPresenterFactory tavernPickUpPointPresenterFactory =
@@ -402,51 +308,77 @@ namespace Sources.Infrastructure.Factories.Scenes
                 new TavernFoodPickUpPointViewFactory(tavernPickUpPointPresenterFactory);
 
             //BeerPickUpPoint
-            PickUpPointUIImages berPickUpPointUIImages = beerPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            PickUpPointUIImages berPickUpPointUIImages =
+                beerPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
             tavernFoodPickUpPointViewFactory.Create(beerPickUpPointView, berPickUpPointUIImages, imageUIFactory,
                 beerConfig);
 
             //BreadPickUpPoint
-            PickUpPointUIImages breadPickUpPointUIImages = breadPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            PickUpPointUIImages breadPickUpPointUIImages =
+                breadPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
             tavernFoodPickUpPointViewFactory.Create(breadPickUpPointView, breadPickUpPointUIImages, imageUIFactory,
                 breadConfig);
 
             //MeatPickUpPoint
-            PickUpPointUIImages meatPickUpPointUIImages = meatPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            PickUpPointUIImages meatPickUpPointUIImages =
+                meatPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
             tavernFoodPickUpPointViewFactory.Create(meatPickUpPointView, meatPickUpPointUIImages, imageUIFactory,
                 meatConfig);
 
             //SoupPickUpPoint
-            PickUpPointUIImages soupPickUpPointUIImages = soupPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            PickUpPointUIImages soupPickUpPointUIImages =
+                soupPickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
             tavernFoodPickUpPointViewFactory.Create(soupPickUpPointView, soupPickUpPointUIImages, imageUIFactory,
                 soupConfig);
 
             //WinePickUpPoint
-            PickUpPointUIImages winePickUpPointUIImages = winePickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
+            PickUpPointUIImages winePickUpPointUIImages =
+                winePickUpPointView.gameObject.GetComponentInChildren<PickUpPointUIImages>();
             tavernFoodPickUpPointViewFactory.Create(winePickUpPointView, winePickUpPointUIImages, imageUIFactory,
                 wineConfig);
-            
+
             //PauseMenuService
             PauseMenuWindow pauseMenuWindow = hud.GetComponentInChildren<PauseMenuWindow>(true);
             PauseMenuService pauseMenuService = new PauseMenuService(inputService, pauseMenuWindow);
 
-            //ViewFactoryCollection
-            ViewFactoryCollection viewFactoryCollection = new ViewFactoryCollection();
-            viewFactoryCollection.Register(playerMovementViewFactory);
-            viewFactoryCollection.Register(playerCameraViewFactory);
-            viewFactoryCollection.Register(playerInventoryViewFactory);
-            
-            //StorableRepositoryes
-            StorableRepository storableRepository = new StorableRepository();
-            
-            //DataSources
-            PlayerPrefsDataSource playerPrefsDataSource = new PlayerPrefsDataSource();
-            
-            //StoreService
-            StoreService storeService = new StoreService(
-                storableRepository, playerPrefsDataSource, viewFactoryCollection);
-            
-            
+            //TODO вилка по загрузке
+            CreateService createService = new CreateService
+            (
+                playerMovementViewFactory,
+                playerCameraViewFactory,
+                playerInventoryViewFactory,
+                playerWalletViewFactory,
+                textUIFactory,
+                buttonUIFactory,
+                playerCharismaUpgrader,
+                playerMovementUpgrader,
+                playerInventoryUpgrader
+            );
+            LoadService loadService = new LoadService
+            (
+                playerMovementViewFactory,
+                playerCameraViewFactory,
+                playerInventoryViewFactory,
+                playerWalletViewFactory,
+                _playerDataService,
+                textUIFactory,
+                buttonUIFactory,
+                playerCharismaUpgrader,
+                playerMovementUpgrader,
+                playerInventoryUpgrader
+            );
+
+            //TODO костыль на костыле
+            ILoadService concreteLoadService = createService;
+
+            if (payload is LoadServicePayload loadServicePayload)
+            {
+                if (loadServicePayload.CanLoad)
+                {
+                    concreteLoadService = loadService;
+                }
+            }
+
             return new GamePlayScene
             (
                 inputService,
@@ -454,12 +386,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                 visitorSpawnService,
                 tavernUpgradePointService,
                 gamePlayService,
-                playerUpgradeServices,
-                storeService,
-                storableRepository,
-                playerMovementViewFactory,
-                playerCameraViewFactory,
-                pauseMenuService
+                concreteLoadService,
+                _playerDataService
             );
         }
     }

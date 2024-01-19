@@ -1,4 +1,5 @@
 ﻿using System;
+using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
 using UnityEngine;
@@ -9,9 +10,17 @@ namespace Sources.Domain.Players
     {
         private ObservableProperty<int> _coins;
 
-        public PlayerWallet()
+        public PlayerWallet() : this(default(int))
         {
-            _coins = new ObservableProperty<int>();
+        }
+
+        public PlayerWallet(PlayerWalletData data) : this(data.Coins)
+        {
+        }
+
+        private PlayerWallet(int coins)
+        {
+            _coins = new ObservableProperty<int>(coins);
         }
 
         public IObservableProperty<int> Coins => _coins;

@@ -2,5 +2,7 @@
 {
     public interface IButtonUI
     {
+        void SetEnable();
+        void SetDisable();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using JetBrains.Annotations;
+using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -19,28 +21,36 @@ namespace Sources.Infrastructure.Builders
         private readonly ObjectPool<GarbageView> _objectPool;
 
         public GarbageBuilder(PrefabFactory prefabFactory, GarbageViewFactory garbageViewFactory,
-            ImageUIFactory imageUIFactory)
+            ImageUIFactory imageUIFactory, ObjectPool<GarbageView> objectPool)
         {
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _garbageViewFactory = garbageViewFactory ?? throw new ArgumentNullException(nameof(garbageViewFactory));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
-
-            _objectPool = new ObjectPool<GarbageView>();
+            _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
         }
         
         //TODO это не билдер
-        public IGarbageView Create()
+        public IGarbageView Build()
         {
             //TODO возможно переместить это во вью фектори
 
-            GarbageView garbageView = _objectPool.Get<GarbageView>() ??
-                                      _prefabFactory.Create<GarbageView>(GarbagePrefabPath)
-                                          .AddComponent<PoolableObject>()
-                                          .SetPool(_objectPool)
-                                          .GetComponent<GarbageView>();
+            // GarbageView garbageView = _objectPool.Get<GarbageView>() ??
+            //                           _prefabFactory.Create<GarbageView>(GarbagePrefabPath)
+            //                               .AddComponent<PoolableObject>()
+            //                               .SetPool(_objectPool)
+            //                               .GetComponent<GarbageView>();
 
-            _garbageViewFactory.Create(garbageView, _imageUIFactory);
-            garbageView.Show();
+            Garbage garbage = new Garbage();
+            
+            return CreateFromPool(garbage) ?? _garbageViewFactory.Create(garbage);
+        }
+
+        public IGarbageView CreateFromPool(Garbage garbage)
+        {
+            GarbageView garbageView = _objectPool.Get<GarbageView>();
+
+            if (garbageView == null)
+                return null;
 
             return garbageView;
         }
