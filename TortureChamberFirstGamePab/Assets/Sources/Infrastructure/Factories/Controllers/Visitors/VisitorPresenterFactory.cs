@@ -24,8 +24,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
         private readonly ProductShuffleService _productShuffleService;
         private readonly ImageUIFactory _imageUIFactory;
         private readonly ItemViewFactory _itemViewFactory;
-        private readonly GarbageBuilder _garbageBuilder;
-        private readonly CoinBuilder _coinBuilder;
+        private readonly GarbageSpawner _garbageSpawner;
+        private readonly CoinSpawner _coinSpawner;
 
         public VisitorPresenterFactory
         (
@@ -33,8 +33,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             ProductShuffleService productShuffleService,
             ImageUIFactory imageUIFactory,
             ItemViewFactory itemViewFactory,
-            GarbageBuilder garbageBuilder,
-            CoinBuilder coinBuilder
+            GarbageSpawner garbageSpawner,
+            CoinSpawner coinSpawner
         )
         {
             _collectionRepository = collectionRepository ??
@@ -43,8 +43,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 productShuffleService ?? throw new ArgumentNullException(nameof(productShuffleService));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
-            _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
+            _garbageSpawner = garbageSpawner ?? throw new ArgumentNullException(nameof(garbageSpawner));
+            _coinSpawner = coinSpawner ?? throw new ArgumentNullException(nameof(coinSpawner));
         }
 
         public VisitorPresenter Create(IVisitorView visitorView,
@@ -87,7 +87,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                     _productShuffleService, tavernMood);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitor, visitorInventory, visitorImageUIContainer, 
-                _itemViewFactory, tavernMood, _garbageBuilder, _coinBuilder);
+                _itemViewFactory, tavernMood, _garbageSpawner, _coinSpawner);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUIContainer);

@@ -1,4 +1,6 @@
-﻿namespace Sources.Domain.Constants
+﻿using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
+
+namespace Sources.Domain.Constants
 {
     public static class Constant
     {
@@ -9,5 +11,7 @@
 
         public const float StartTavernMoodValue = 0.5f;
         public const float RemovedAmountMood = 0.05f;
+        public const float VisitorSpawnDelay = 5f;
+        public const int MaximumVisitorsCapacity = 2;
     }
 }

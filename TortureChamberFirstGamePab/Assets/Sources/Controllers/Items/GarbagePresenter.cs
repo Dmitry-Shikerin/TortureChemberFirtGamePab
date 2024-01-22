@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Sources.Domain.Constants;
 using Sources.Domain.Items.Garbages;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
@@ -20,10 +21,16 @@ namespace Sources.Controllers.Items
             _pickUpPointUIImages = pickUpPointUIImages ? pickUpPointUIImages : throw new ArgumentNullException(nameof(pickUpPointUIImages));
             _garbageView = garbageView ?? throw new ArgumentNullException(nameof(garbageView));
             _garbage = garbage ?? throw new ArgumentNullException(nameof(garbage));
+            
         }
 
         public IEatPointView EatPointView => _garbage.EatPointView;
 
+        public override void Enable()
+        {
+            _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
+        }
+        
         public async void CleanUpAsync()
         {
             _cancellationTokenSource = new CancellationTokenSource();

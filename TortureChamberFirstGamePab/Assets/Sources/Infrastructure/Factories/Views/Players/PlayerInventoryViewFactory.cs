@@ -26,7 +26,6 @@ namespace Sources.Infrastructure.Factories.Views.Players
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
         }
 
-        //TODO могу ли я ImageUIFactory прокинуть в презентер и создавать вьюшки там?
         public PlayerInventoryView Create(
             PlayerInventory playerInventory, PlayerInventoryView playerInventoryView)
         {

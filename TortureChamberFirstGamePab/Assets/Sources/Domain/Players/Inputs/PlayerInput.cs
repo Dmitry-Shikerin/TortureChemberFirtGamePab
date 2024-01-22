@@ -10,6 +10,5 @@ namespace Sources.Domain.Players.Inputs
         }
 
         public Vector2 Direction { get; set; }
-        //TODO добавить булки для ротации
     }
 }

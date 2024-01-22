@@ -8,5 +8,8 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess
     {
         [JsonProperty("position")] 
         public Vector3Data Position { get; set; }
+        
+        [JsonProperty("direction")] 
+        public float Direction { get; set; }
     }
 }

@@ -7,14 +7,16 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public class PlayerDataService : IPlayerDataService
+    //TODO исправить дубляж в этих классах
+    public class PlayerDataService : IDataService<Player>
     {
         private const string MovementKey = nameof(PlayerMovement);
         private const string InventoryKey = nameof(PlayerInventory);
         private const string WalletKey = nameof(PlayerWallet);
 
-        //TODO нужен метод для очищения префсов
-        public Player LoadPlayer() => 
+        public bool CanLoad => PlayerPrefs.HasKey(MovementKey);
+
+        public Player Load() => 
             new(LoadMovement(), LoadInventory(), LoadWallet());
 
         public void Save(Player player)
@@ -25,13 +27,12 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Save(player.Wallet);
         }
 
-        //TODO здесь ли должен быть этот метод?
         public void Clear()
         {
             PlayerPrefs.DeleteAll();
         }
 
-        public PlayerMovement LoadMovement()
+        private PlayerMovement LoadMovement()
         {
             string json = PlayerPrefs.GetString(MovementKey, string.Empty);
             PlayerMovementData movementData = JsonConvert.DeserializeObject<PlayerMovementData>(json);
@@ -39,7 +40,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             return new PlayerMovement(movementData);
         }
 
-        public PlayerInventory LoadInventory()
+        private PlayerInventory LoadInventory()
         {
             string json = PlayerPrefs.GetString(InventoryKey, string.Empty);
             PlayerInventoryData inventoryData = JsonConvert.DeserializeObject<PlayerInventoryData>(json);
@@ -48,7 +49,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             return new PlayerInventory();
         }
 
-        public PlayerWallet LoadWallet()
+        private PlayerWallet LoadWallet()
         {
             string json = PlayerPrefs.GetString(WalletKey, string.Empty);
             PlayerWalletData walletData = JsonConvert.DeserializeObject<PlayerWalletData>(json);
@@ -56,23 +57,24 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             return new PlayerWallet(walletData);
         }
 
-        public void Save(PlayerMovement movement)
+        private void Save(PlayerMovement movement)
         {
             PlayerMovementData movementData = new PlayerMovementData()
             {
-                Position = movement.Position.Vector3ToVector3Data(),
+                Position = movement.Position.ToVector3Data(),
+                Direction = movement.RotationAngle,
             };
 
             string json = JsonConvert.SerializeObject(movementData);
             PlayerPrefs.SetString(MovementKey, json);
         }
 
-        public void Save(PlayerInventory inventory)
+        private void Save(PlayerInventory inventory)
         {
             
         }
 
-        public void Save(PlayerWallet wallet)
+        private void Save(PlayerWallet wallet)
         {
             PlayerWalletData walletData = new PlayerWalletData()
             {

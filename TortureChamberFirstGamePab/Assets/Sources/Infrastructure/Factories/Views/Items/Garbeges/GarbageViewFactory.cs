@@ -39,8 +39,6 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         {
             PickUpPointUIImages pickUpPointUIImages = garbageView.GetComponentInChildren<PickUpPointUIImages>();
             
-            //TODO не знаю куда засунуть
-            pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
             _imageUIFactory.Create(pickUpPointUIImages.Image);
             _imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
             

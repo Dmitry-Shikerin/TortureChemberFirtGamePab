@@ -9,7 +9,7 @@ namespace Sources.Domain.Visitors
 
         public void AddActiveVisitorsCount()
         {
-            //TODO добавить проверки
+            //  TODO добавить проверки
             ActiveVisitorsCount++;
         }
         

@@ -1,8 +1,10 @@
-﻿namespace Sources.PresentationInterfaces.UI
+﻿using Sources.PresentationInterfaces.Views;
+
+namespace Sources.PresentationInterfaces.UI
 {
     public interface IButtonUI
     {
-        void SetEnable();
-        void SetDisable();
+        void Enable();
+        void Disable();
     }
 }

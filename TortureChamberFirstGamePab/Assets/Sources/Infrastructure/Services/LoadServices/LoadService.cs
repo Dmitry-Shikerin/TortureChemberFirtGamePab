@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Domain.Players;
+using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -10,35 +11,47 @@ namespace Sources.Infrastructure.Services.LoadServices
 {
     public class LoadService : LoadServiceBase
     {
-        private readonly IPlayerDataService _playerDataService;
-
-        public LoadService( 
-            PlayerMovementViewFactory playerMovementViewFactory, 
-            PlayerCameraViewFactory playerCameraViewFactory, 
-            PlayerInventoryViewFactory playerInventoryViewFactory, 
+        public LoadService
+        (
+            PlayerMovementViewFactory playerMovementViewFactory,
+            PlayerCameraViewFactory playerCameraViewFactory,
+            PlayerInventoryViewFactory playerInventoryViewFactory,
             PlayerWalletViewFactory playerWalletViewFactory,
-            IPlayerDataService playerDataService,
+            IDataService<Player> playerDataService,
+            IDataService<PlayerUpgrade> playerUpgradeDataService,
+            IDataService<Tavern> tavernDataService,
             TextUIFactory textUIFactory,
-            ButtonUIFactory buttonUIFactory,
-            IUpgradeble playerCharismaUpgrader,
-            IUpgradeble playerMovementUpgrader,
-            IUpgradeble playerInventoryUpgrader
-            ) :
-            base(playerMovementViewFactory, 
-                playerCameraViewFactory, playerInventoryViewFactory, 
-                playerWalletViewFactory, textUIFactory,buttonUIFactory,
-                 playerCharismaUpgrader,
-                 playerMovementUpgrader,
-                playerInventoryUpgrader
-                )
+            ButtonUIFactory buttonUIFactory
+        ) :
+            base
+            (
+                playerMovementViewFactory,
+                playerCameraViewFactory,
+                playerInventoryViewFactory,
+                playerWalletViewFactory,
+                textUIFactory,
+                buttonUIFactory,
+                playerDataService,
+                playerUpgradeDataService,
+                tavernDataService
+            )
         {
-            _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
         }
 
         protected override Player CreatePlayer()
         {
             Debug.Log("Load scene");
-            return _playerDataService.LoadPlayer();
+            return PlayerDataService.Load();
+        }
+
+        protected override PlayerUpgrade CreatePlayerUpgrade()
+        {
+            return PlayerUpgradeDataService.Load();
+        }
+
+        protected override Tavern CreateTavern()
+        {
+            return TavernDataService.Load();
         }
     }
 }

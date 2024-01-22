@@ -22,7 +22,6 @@ namespace Sources.Controllers.Scenes
         private readonly TavernUpgradePointService _tavernUpgradePointService;
         private readonly GamePlayService _gamePlayService;
         private readonly ILoadService _loadService;
-        private readonly PlayerDataService _playerDataService;
         private readonly IEnumerable<PlayerUpgradeService> _playerUpgradeServices;
         private readonly StoreService _storeService;
         private readonly StorableRepository _storableRepository;
@@ -30,8 +29,6 @@ namespace Sources.Controllers.Scenes
         private readonly PlayerCameraViewFactory _playerCameraViewFactory;
         private readonly PauseMenuService _pauseMenuService;
         
-        private Domain.Players.Player _player;
-
         public GamePlayScene
         (
             IInputService inputService,
@@ -39,8 +36,7 @@ namespace Sources.Controllers.Scenes
             VisitorSpawnService visitorSpawnService,
             TavernUpgradePointService tavernUpgradePointService,
             GamePlayService gamePlayService,
-            ILoadService loadService,
-            PlayerDataService playerDataService
+            ILoadService loadService
         )
         {
             _inputService = inputService ??
@@ -51,7 +47,6 @@ namespace Sources.Controllers.Scenes
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
             _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
             _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
-            _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
         }
 
         public string Name { get; } = nameof(GamePlayScene);
@@ -61,10 +56,9 @@ namespace Sources.Controllers.Scenes
             _inputService.Update(deltaTime);
             _updateService.Update(deltaTime);
 
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                //TODO как правильно получить ссылку  на плеера?
-                _playerDataService.Save(_player);
+                _loadService.Save();
             }
         }
 
@@ -82,17 +76,12 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
-            //TODO по другому не придумал
-            // foreach (PlayerUpgradeService playerUpgradeService in _playerUpgradeServices)
-            // {
-            //     playerUpgradeService.Start();
-            // }
             // _visitorSpawnService.SpawnVisitorAsync();
             // _tavernUpgradePointService.OnEnable();
             _gamePlayService.Start();
             // _pauseMenuService.Enter();
 
-            _player = _loadService.Load();
+            _loadService.Load();
         }
 
         public void Exit()

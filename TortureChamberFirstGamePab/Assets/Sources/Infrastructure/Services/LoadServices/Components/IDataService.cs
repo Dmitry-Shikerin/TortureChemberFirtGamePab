@@ -3,10 +3,12 @@ using Sources.Domain.Players.PlayerMovements;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public interface IPlayerDataService
+    public interface IDataService<T>
     {
-        Player LoadPlayer();
-        void Save(Player player);
+        bool CanLoad { get; }
+        
+        T Load();
+        void Save(T @object);
         void Clear();
     }
 }

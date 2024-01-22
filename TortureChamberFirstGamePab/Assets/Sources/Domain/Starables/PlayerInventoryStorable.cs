@@ -24,10 +24,6 @@ namespace Sources.Domain.Starables
 
             PlayerInventory = new PlayerInventory();
 
-            //TODO потом раскоментировать
-            //TODO в зависимость требует модель инвентаря
-            //TODO смогу ли я исправить это Zenjectom?
-            //TODO где взять ссылки на эти зависимости?
             
             // viewFactory.Create();
         }

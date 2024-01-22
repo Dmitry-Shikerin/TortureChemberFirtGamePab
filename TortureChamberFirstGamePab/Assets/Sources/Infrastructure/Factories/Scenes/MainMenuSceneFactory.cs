@@ -22,16 +22,16 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class MainMenuSceneFactory : ISceneFactory
     {
         private readonly SceneService _sceneService;
-        private readonly PlayerDataService _playerDataService;
+        private readonly IDataService<Player> _dataService;
 
         private bool _canLoad;
 
         public MainMenuSceneFactory(SceneService sceneService,
-            PlayerDataService playerDataService)
+            IDataService<Player> dataService, PlayerUpgradeDataService playerUpgradeDataService)
         {
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));
-            _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
+            _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
         }
 
         public async UniTask<IScene> Create(object payload)
@@ -50,14 +50,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 
             buttonUIFactory.Create(hudButtonUIContainer.NewGameButton, CreateGamePlayScene);
             // buttonUIFactory.Create(hudButtonUIContainer.OptionsButton,);
-            //TODO костыль
-            hud.gameObject.SetActive(true);
 
-            
-            if (PlayerPrefs.HasKey(nameof(PlayerMovement)) == false) 
-                continueGameButton.SetDisable();
-
-            return new MainMenuScene();
+            return new MainMenuScene(hud, continueGameButton, _dataService);
         }
 
         private async void LoadGamePlayScene() =>
@@ -65,7 +59,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         
         private async void CreateGamePlayScene()
         {
-            _playerDataService.Clear();
+            _dataService.Clear();
             
             await _sceneService.ChangeSceneAsync("GamePlay", new LoadServicePayload(false));
         }

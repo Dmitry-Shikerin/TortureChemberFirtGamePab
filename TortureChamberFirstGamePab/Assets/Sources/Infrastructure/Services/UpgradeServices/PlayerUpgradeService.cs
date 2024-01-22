@@ -14,6 +14,12 @@ namespace Sources.Infrastructure.Services.UpgradeServices
         private readonly PlayerWallet _playerWallet;
 
         //TODO не знал как сделать по другому
+        //TODO как разорвать связь текст юай!!!
+        //TODO для этого сделать вьюшку у которой будут текст юай без контроллеров
+        //TODO а значения для текст юай получать через шину
+        //TODO чтобы разорвать связь текст юай с какимто контроллером
+        //TODO презентер у текст юай круто нол тяжело его обощить
+        //TODO сделать вьюки по типу формочек как у леши
         public PlayerUpgradeService(IUpgradeble upgradeble, ITextUI levelUpgradeTextUI,
              ITextUI priceNextLvlUpgradeTextUI, PlayerWallet playerWallet)
         {

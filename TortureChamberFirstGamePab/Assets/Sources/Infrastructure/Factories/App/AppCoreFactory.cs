@@ -21,8 +21,8 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
             
-            //TODO везде прокидывать этот один экземпляр сервиса
             PlayerDataService playerDataService = new PlayerDataService();
+            PlayerUpgradeDataService playerUpgradeDataService = new PlayerUpgradeDataService();
 
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>("Views/Bootstrap/CurtainView")) ??
@@ -31,8 +31,10 @@ namespace Sources.Infrastructure.Factories.App
             Dictionary<string, ISceneFactory> sceneStates = new Dictionary<string, ISceneFactory>();
             SceneService sceneService = new SceneService(sceneStates);
 
-            sceneStates["MainMenu"] = new MainMenuSceneFactory(sceneService, playerDataService);
-            sceneStates["GamePlay"] = new GamePlaySceneFactory(sceneService, playerDataService);
+            sceneStates["MainMenu"] = new MainMenuSceneFactory(
+                sceneService, playerDataService, playerUpgradeDataService);
+            sceneStates["GamePlay"] = new GamePlaySceneFactory(
+                sceneService, playerDataService, playerUpgradeDataService);
 
             // sceneService.AddBeforeSceneChangeHandler(sceneName => curtainView.Show());
             sceneService.AddBeforeSceneChangeHandler(sceneName => 

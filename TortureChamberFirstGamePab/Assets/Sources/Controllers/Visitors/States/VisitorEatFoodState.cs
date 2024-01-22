@@ -20,8 +20,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly TavernMood _tavernMood;
-        private readonly GarbageBuilder _garbageBuilder;
-        private readonly CoinBuilder _coinBuilder;
+        private readonly GarbageSpawner _garbageSpawner;
+        private readonly CoinSpawner _coinSpawner;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         private const float FillingRate = 0.2f;
@@ -29,14 +29,14 @@ namespace Sources.Controllers.Visitors.States
         public VisitorEatFoodState(Visitor visitor,
             VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
             ItemViewFactory itemViewFactory, TavernMood tavernMood,
-            GarbageBuilder garbageBuilder, CoinBuilder coinBuilder)
+            GarbageSpawner garbageSpawner, CoinSpawner coinSpawner)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
-            _garbageBuilder = garbageBuilder ?? throw new ArgumentNullException(nameof(garbageBuilder));
-            _coinBuilder = coinBuilder ?? throw new ArgumentNullException(nameof(coinBuilder));
+            _garbageSpawner = garbageSpawner ?? throw new ArgumentNullException(nameof(garbageSpawner));
+            _coinSpawner = coinSpawner ?? throw new ArgumentNullException(nameof(coinSpawner));
             _visitorImageUIContainer = visitorImageUIContainer ? visitorImageUIContainer : 
                 throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
@@ -52,11 +52,11 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitor.SeatPointView.UnOccupy();
             _visitor.FinishEating();
-            IGarbageView garbageView = _garbageBuilder.Build();
+            IGarbageView garbageView = _garbageSpawner.Spawn();
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
             _visitor.SeatPointView.EatPointView.GetDirty();
-            ICoinAnimationView coinAnimationView = _coinBuilder.Build();
+            ICoinAnimationView coinAnimationView = _coinSpawner.Spawn();
             coinAnimationView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
             coinAnimationView.SetCoinAmount(_visitorInventory.Item.Price);
         }

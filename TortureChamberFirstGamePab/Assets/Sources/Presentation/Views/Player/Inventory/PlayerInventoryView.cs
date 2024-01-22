@@ -10,7 +10,6 @@ namespace Sources.Presentation.Views.Player.Inventory
 {
     public class PlayerInventoryView : PresentableView<PlayerInventoryPresenter>, IPlayerInventoryView
     {
-        //TODO сделать списком?
         [field : SerializeField] public PlayerInventorySlotView FirstSlotView { get; private set; }
         [field : SerializeField] public PlayerInventorySlotView SecondSlotView { get; private set; }
         [field : SerializeField] public PlayerInventorySlotView ThirdSlotView { get; private set; }

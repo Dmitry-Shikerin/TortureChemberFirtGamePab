@@ -57,8 +57,8 @@ namespace Sources.Controllers.Player
             _inputService.MovementAxisChanged += OnMovementAxis;
             _inputService.RunAxisChanged += OnRunAxis;
             _updateService.ChangedUpdate += OnUpdate;
-            _playerMovement.PositionChanged += OnPositionChanged;
             _playerMovementView.SetPosition(_playerMovement.Position);
+            _playerMovementView.SetAngle(_playerMovement.RotationAngle);
         }
 
         public override void Disable()
@@ -66,13 +66,8 @@ namespace Sources.Controllers.Player
             _inputService.MovementAxisChanged -= OnMovementAxis;
             _inputService.RunAxisChanged -= OnRunAxis;
             _updateService.ChangedUpdate -= OnUpdate;
-            _playerMovement.PositionChanged += OnPositionChanged;
         }
 
-        private void OnPositionChanged()
-        {
-            _playerMovementView.Move(_playerMovement.Position);
-        }
 
         private void OnUpdate(float deltaTime)
         {
@@ -83,10 +78,10 @@ namespace Sources.Controllers.Player
             
             Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(
                 _inputService.PlayerInput.Direction);
-            // _playerMovement.Position = _playerMovement.GetDirection(runInput, cameraDirection);
-            _playerMovement.Position = _playerMovementService.GetDirection(runInput, cameraDirection);
+            Vector3 direction = _playerMovementService.GetDirection(runInput, cameraDirection);
 
-            // float animationSpeed = _playerMovement.GetMaxSpeed(_inputService.PlayerInput, runInput);
+            _playerMovementView.Move(direction);
+            
             float animationSpeed = _playerMovementService.GetMaxSpeed(_inputService.PlayerInput, runInput);
 
             _playerAnimation.PlayMovementAnimation(animationSpeed);
@@ -94,12 +89,13 @@ namespace Sources.Controllers.Player
             if (_playerMovement.IsIdle(_inputService.PlayerInput.Direction))
                 return;
 
-            // Quaternion look = _playerMovement.GetDirectionRotation(cameraDirection);
             Quaternion look = _playerMovementService.GetDirectionRotation(cameraDirection);
-            // float speedRotation = _playerMovement.GetSpeedRotation();
             float speedRotation = _playerMovementService.GetSpeedRotation();
 
             _playerMovementView.Rotate(look, speedRotation);
+
+            _playerMovement.Position = _playerMovementView.Position;
+            _playerMovement.RotationAngle = _playerMovementView.RotationAngle;
         }
 
         private void OnRunAxis(float runInput) =>

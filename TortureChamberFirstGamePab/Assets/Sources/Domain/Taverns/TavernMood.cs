@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Domain.Constants;
+using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
 
 namespace Sources.Domain.Taverns
 {
@@ -9,9 +10,17 @@ namespace Sources.Domain.Taverns
 
         public event Action TavernMoodValueChanged; 
 
-        public TavernMood()
+        public TavernMood() : this(Constant.StartTavernMoodValue)
         {
-            _tavernMoodValue = Constant.StartTavernMoodValue;
+        }
+
+        public TavernMood(TavernMoodData tavernMoodData) : this(tavernMoodData.MoodValue)
+        {
+        }
+
+        private TavernMood(float tavernMoodValue)
+        {
+            _tavernMoodValue = tavernMoodValue;
         }
 
         public float AddedAmountUpgrade { get; set; }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views
 {
-    public abstract class View : MonoBehaviour,IView
+    public abstract class View : MonoBehaviour, IView
     {
         public void Hide() => 
             gameObject.SetActive(false);

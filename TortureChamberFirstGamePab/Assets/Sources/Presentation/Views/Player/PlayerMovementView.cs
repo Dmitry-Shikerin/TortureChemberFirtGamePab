@@ -17,6 +17,7 @@ namespace Sources.Presentation.Views.Player
 
         public Vector3 Position => transform.position;
         public Transform Transform => transform;
+        public float RotationAngle => transform.rotation.eulerAngles.y;
 
         public void Move(Vector3 direction) => 
             _characterController.Move(direction);
@@ -28,6 +29,11 @@ namespace Sources.Presentation.Views.Player
         public void SetPosition(Vector3 position)
         {
             transform.position = position;
+        }
+
+        public void SetAngle(float angle)
+        {
+            transform.rotation = Quaternion.Euler(0,angle, 0);
         }
     }
 }

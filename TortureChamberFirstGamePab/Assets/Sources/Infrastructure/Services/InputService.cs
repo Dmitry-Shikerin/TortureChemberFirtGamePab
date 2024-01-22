@@ -36,9 +36,6 @@ namespace Sources.Infrastructure.Services
             float verticalInput = Input.GetAxis("Vertical");
 
             PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
-            //TODO Закоментировал
-            //
-            // MovementAxisChanged?.Invoke(movementInput);
         }
 
         private void UpdateRunAxis()

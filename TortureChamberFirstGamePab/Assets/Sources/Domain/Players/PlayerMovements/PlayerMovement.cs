@@ -14,8 +14,9 @@ namespace Sources.Domain.Players.PlayerMovements
             if (data == null) 
                 throw new ArgumentNullException(nameof(data));
             
-            Position = data.Position.Vector3DataToVector3();
-            Debug.Log(data.Position.Vector3DataToVector3());
+            Position = data.Position.ToVector3();
+            RotationAngle = data.Direction;
+            Debug.Log(data.Position.ToVector3());
         }
 
         public PlayerMovement()
@@ -24,21 +25,9 @@ namespace Sources.Domain.Players.PlayerMovements
         
         private readonly IUpgradeble _upgradeble;
         private readonly PlayerMovementCharacteristic _characteristic;
-
-        private Vector3 _position;
-
-        public event Action PositionChanged;
-
-        //TODO это не позишн а директион
-        public Vector3 Position
-        {
-            get => _position;
-            set
-            {
-                _position = new Vector3(value.x, value.y, value.z);
-                PositionChanged?.Invoke();
-            }
-        }
+        
+        public float RotationAngle { get; set; }
+        public Vector3 Position { get; set; }
 
         public bool IsIdle(Vector2 moveInput) =>
             moveInput.x == 0.0f && moveInput.y == 0.0f;
