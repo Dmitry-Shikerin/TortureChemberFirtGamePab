@@ -33,20 +33,20 @@ namespace Sources.Controllers.Scenes
         (
             IInputService inputService,
             IUpdateService updateService,
-            VisitorSpawnService visitorSpawnService,
-            TavernUpgradePointService tavernUpgradePointService,
-            GamePlayService gamePlayService,
-            ILoadService loadService
+            // VisitorSpawnService visitorSpawnService,
+            TavernUpgradePointService tavernUpgradePointService
+            // GamePlayService gamePlayService,
+            // ILoadService loadService
         )
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
-            _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
+            // _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
             _tavernUpgradePointService = tavernUpgradePointService ??
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
-            _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
-            _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
+            // _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            // _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
         }
 
         public string Name { get; } = nameof(GamePlayScene);

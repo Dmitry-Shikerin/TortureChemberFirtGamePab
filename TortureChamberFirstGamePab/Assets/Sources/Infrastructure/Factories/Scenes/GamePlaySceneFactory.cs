@@ -231,7 +231,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             //TODO придумать обобщение для текстUI
             //GamePlayService
             // GamePlay gamePlay = new GamePlay();
-            GamePlayService gamePlayService = new GamePlayService(gamePlay, seatPoints.Count);
+            // GamePlayService gamePlayService = new GamePlayService(gamePlay, seatPoints.Count);
 
             //TODO подумать над ISP над принципом разделения интерфейсов
             //TODO разделить интерфейсы на вьюшках
@@ -275,27 +275,27 @@ namespace Sources.Infrastructure.Factories.Scenes
             PlayerCameraViewFactory playerCameraViewFactory =
                 new PlayerCameraViewFactory(playerCameraPresenterFactory);
 
-            PlayerInventoryPresenterFactory playerInventoryPresenterFactory =
-                new PlayerInventoryPresenterFactory(playerInventoryUpgrader,
-                    itemViewFactory, hudTextUIContainer.SystemErrorsText);
+            // PlayerInventoryPresenterFactory playerInventoryPresenterFactory =
+            //     new PlayerInventoryPresenterFactory(playerInventoryUpgrader,
+            //         itemViewFactory, hudTextUIContainer.SystemErrorsText);
 
-            PlayerInventoryViewFactory playerInventoryViewFactory =
-                new PlayerInventoryViewFactory(playerInventoryPresenterFactory,
-                    imageUIFactory);
+            // PlayerInventoryViewFactory playerInventoryViewFactory =
+            //     new PlayerInventoryViewFactory(playerInventoryPresenterFactory,
+            //         imageUIFactory);
 
             textUIFactory.Create(hudTextUIContainer.SystemErrorsText,
                 new ObservableProperty<string>());
 
             //PlayerMovementFactorys
-            PlayerMovementService playerMovementService =
-                new PlayerMovementService(playerMovementUpgrader, playerMovementCharacteristic);
+            // PlayerMovementService playerMovementService =
+            //     new PlayerMovementService(playerMovementUpgrader, playerMovementCharacteristic);
 
-            PlayerMovementPresenterFactory playerMovementPresenterFactory =
-                new PlayerMovementPresenterFactory(inputService, updateService,
-                    cameraDirectionService, playerMovementService);
+            // PlayerMovementPresenterFactory playerMovementPresenterFactory =
+            //     new PlayerMovementPresenterFactory(inputService, updateService,
+            //         cameraDirectionService, playerMovementService);
 
-            PlayerMovementViewFactory playerMovementViewFactory =
-                new PlayerMovementViewFactory(playerMovementPresenterFactory);
+            // PlayerMovementViewFactory playerMovementViewFactory =
+            //     new PlayerMovementViewFactory(playerMovementPresenterFactory);
 
             //PickUpPointsFactories
             TavernPickUpPointPresenterFactory tavernPickUpPointPresenterFactory =
@@ -340,65 +340,65 @@ namespace Sources.Infrastructure.Factories.Scenes
 
             bool canLoad = payload is LoadServicePayload { CanLoad: true };
 
-            ILoadService loadService = CreateLoadService
-            (
-                playerMovementViewFactory,
-                playerCameraViewFactory,
-                playerInventoryViewFactory,
-                playerWalletViewFactory,
-                textUIFactory,
-                buttonUIFactory,
-                canLoad
-            );
-
-
+            // ILoadService loadService = CreateLoadService
+            // (
+            //     playerMovementViewFactory,
+            //     playerCameraViewFactory,
+            //     playerInventoryViewFactory,
+            //     playerWalletViewFactory,
+            //     textUIFactory,
+            //     buttonUIFactory,
+            //     canLoad
+            // );
+        
+        
             return new GamePlayScene
             (
                 inputService,
                 updateService,
-                visitorSpawnService,
-                tavernUpgradePointService,
-                gamePlayService,
-                loadService
+                // visitorSpawnService,
+                tavernUpgradePointService
+                // gamePlayService,
+                // loadService
             );
         }
 
-        private ILoadService CreateLoadService
-        (
-            PlayerMovementViewFactory playerMovementViewFactory,
-            PlayerCameraViewFactory playerCameraViewFactory,
-            PlayerInventoryViewFactory playerInventoryViewFactory,
-            PlayerWalletViewFactory playerWalletViewFactory,
-            TextUIFactory textUIFactory,
-            ButtonUIFactory buttonUIFactory,
-            bool canLoad)
-        {
-            if (canLoad == false)
-            {
-                return new CreateService
-                (
-                    playerMovementViewFactory,
-                    playerCameraViewFactory,
-                    playerInventoryViewFactory,
-                    playerWalletViewFactory,
-                    textUIFactory,
-                    buttonUIFactory,
-                    _playerDataService,
-                    _playerUpgradeDataService
-                );
-            }
-
-            return new LoadService
-            (
-                playerMovementViewFactory,
-                playerCameraViewFactory,
-                playerInventoryViewFactory,
-                playerWalletViewFactory,
-                _playerDataService,
-                _playerUpgradeDataService,
-                textUIFactory,
-                buttonUIFactory
-            );
-        }
+        // private ILoadService CreateLoadService
+        // (
+        //     PlayerMovementViewFactory playerMovementViewFactory,
+        //     PlayerCameraViewFactory playerCameraViewFactory,
+        //     PlayerInventoryViewFactory playerInventoryViewFactory,
+        //     PlayerWalletViewFactory playerWalletViewFactory,
+        //     TextUIFactory textUIFactory,
+        //     ButtonUIFactory buttonUIFactory,
+        //     bool canLoad)
+        // {
+        //     if (canLoad == false)
+        //     {
+        //         return new CreateService
+        //         (
+        //             playerMovementViewFactory,
+        //             playerCameraViewFactory,
+        //             playerInventoryViewFactory,
+        //             playerWalletViewFactory,
+        //             textUIFactory,
+        //             buttonUIFactory,
+        //             _playerDataService,
+        //             _playerUpgradeDataService
+        //         );
+        //     }
+        //
+        //     return new LoadService
+        //     (
+        //         playerMovementViewFactory,
+        //         playerCameraViewFactory,
+        //         playerInventoryViewFactory,
+        //         playerWalletViewFactory,
+        //         _playerDataService,
+        //         _playerUpgradeDataService,
+        //         textUIFactory,
+        //         buttonUIFactory
+        //     );
+        // }
     }
 }

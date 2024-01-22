@@ -209,15 +209,15 @@ namespace Sources.Infrastructure.Services.LoadServices
             //Visitor
             ObjectPool<VisitorView> visitorViewObjectPool = new ObjectPool<VisitorView>();
 
-            VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
-                collectionRepository, productShuffleService, imageUIFactory, itemViewFactory, garbageSpawner,
-                coinSpawner);
-            VisitorViewFactory visitorViewFactory = new VisitorViewFactory(visitorPresenterFactory,
-                prefabFactory, visitorViewObjectPool);
+            // VisitorPresenterFactory visitorPresenterFactory = new VisitorPresenterFactory(
+            //     collectionRepository, productShuffleService, imageUIFactory, itemViewFactory, garbageSpawner,
+            //     coinSpawner);
+            // VisitorViewFactory visitorViewFactory = new VisitorViewFactory(visitorPresenterFactory,
+            //     prefabFactory, visitorViewObjectPool);
             
-            VisitorSpawnService visitorSpawnService = new VisitorSpawnService(
-                _tavern.GamePlay, visitorCounter, _prefabFactory, visitorViewObjectPool,
-                visitorViewFactory, _tavern.TavernMood);
+            // VisitorSpawnService visitorSpawnService = new VisitorSpawnService(
+            //     _tavern.GamePlay, visitorCounter, _prefabFactory, visitorViewObjectPool,
+            //     visitorViewFactory, _tavern.TavernMood);
         }
 
         public void Save()

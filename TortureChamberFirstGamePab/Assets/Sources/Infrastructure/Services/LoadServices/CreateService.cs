@@ -6,6 +6,7 @@ using Sources.Domain.Taverns.Data;
 using Sources.Domain.Upgrades;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.Upgrades;
+using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -25,13 +26,23 @@ namespace Sources.Infrastructure.Services.LoadServices
             ButtonUIFactory buttonUIFactory,
             IDataService<Player> playerDataService,
             IDataService<PlayerUpgrade> playerUpgradeDataService,
-            IDataService<Tavern> tavernDataService
+            IDataService<Tavern> tavernDataService,
+            ImageUIFactory imageUIFactory,
+            PrefabFactory prefabFactory
         ) :
             base
             (
-                playerMovementViewFactory, playerCameraViewFactory, playerInventoryViewFactory,
-                playerWalletViewFactory, textUIFactory, buttonUIFactory, playerDataService,
-                playerUpgradeDataService, tavernDataService
+                playerMovementViewFactory,
+                playerCameraViewFactory, 
+                playerInventoryViewFactory,
+                playerWalletViewFactory, 
+                textUIFactory, 
+                buttonUIFactory, 
+                playerDataService,
+                playerUpgradeDataService, 
+                tavernDataService,
+                imageUIFactory,
+                prefabFactory
             )
         {
         }

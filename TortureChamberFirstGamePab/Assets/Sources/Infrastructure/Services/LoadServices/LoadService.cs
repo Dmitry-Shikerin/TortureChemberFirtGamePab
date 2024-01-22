@@ -2,6 +2,7 @@
 using Sources.Domain.Players;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Upgrades;
+using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -11,6 +12,7 @@ namespace Sources.Infrastructure.Services.LoadServices
 {
     public class LoadService : LoadServiceBase
     {
+
         public LoadService
         (
             PlayerMovementViewFactory playerMovementViewFactory,
@@ -21,7 +23,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<PlayerUpgrade> playerUpgradeDataService,
             IDataService<Tavern> tavernDataService,
             TextUIFactory textUIFactory,
-            ButtonUIFactory buttonUIFactory
+            ButtonUIFactory buttonUIFactory,
+            ImageUIFactory imageUIFactory,
+            PrefabFactory prefabFactory
         ) :
             base
             (
@@ -33,7 +37,10 @@ namespace Sources.Infrastructure.Services.LoadServices
                 buttonUIFactory,
                 playerDataService,
                 playerUpgradeDataService,
-                tavernDataService
+                tavernDataService,
+                imageUIFactory,
+                prefabFactory
+
             )
         {
         }
