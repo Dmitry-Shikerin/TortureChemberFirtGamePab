@@ -6,5 +6,8 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         void Load();
         void Save();
+        //TODO пришлось добавить
+        void Enter();
+        void Exit();
     }
 }

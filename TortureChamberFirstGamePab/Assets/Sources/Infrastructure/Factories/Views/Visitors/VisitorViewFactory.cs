@@ -5,6 +5,7 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
@@ -17,11 +18,11 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         private const string VisitorViewPrefabPath = "Prefabs/Visitor";
         
         private readonly VisitorPresenterFactory _visitorPresenterFactory;
-        private readonly PrefabFactory _prefabFactory;
+        private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
 
         public VisitorViewFactory(VisitorPresenterFactory visitorPresenterFactory, 
-            PrefabFactory prefabFactory, ObjectPool<VisitorView> objectPool)
+            IPrefabFactory prefabFactory, ObjectPool<VisitorView> objectPool)
         {
             _visitorPresenterFactory = visitorPresenterFactory ?? 
                                        throw new ArgumentNullException(nameof(visitorPresenterFactory));

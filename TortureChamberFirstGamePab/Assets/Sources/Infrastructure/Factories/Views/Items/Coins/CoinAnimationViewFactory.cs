@@ -5,6 +5,7 @@ using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.PresentationInterfaces.Views.Items.Coins;
@@ -15,12 +16,12 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
     public class CoinAnimationViewFactory
     {
         private const string CoinPrefabPath = "Views/Coin";
-        private readonly PrefabFactory _prefabFactory;
+        private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<CoinAnimationView> _objectPool;
         private readonly CoinAnimationPresenterFactory _coinAnimationPresenterFactory;
 
         public CoinAnimationViewFactory(CoinAnimationPresenterFactory coinAnimationPresenterFactory,
-            PrefabFactory prefabFactory, ObjectPool<CoinAnimationView> objectPool)
+            IPrefabFactory prefabFactory, ObjectPool<CoinAnimationView> objectPool)
         {
             _coinAnimationPresenterFactory = coinAnimationPresenterFactory ?? 
                                              throw new ArgumentNullException(nameof(coinAnimationPresenterFactory));

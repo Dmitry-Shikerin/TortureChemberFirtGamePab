@@ -8,6 +8,7 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
@@ -18,18 +19,22 @@ namespace Sources.Infrastructure.Services
     {
         private readonly GamePlay _gamePlay;
         private readonly VisitorCounter _visitorCounter;
-        private readonly PrefabFactory _prefabFactory;
-        private readonly IObjectPool _objectPool;
+        private readonly IPrefabFactory _prefabFactory;
+        private readonly ObjectPool<VisitorView> _objectPool;
         private readonly VisitorViewFactory _visitorViewFactory;
         private readonly TavernMood _tavernMood;
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public VisitorSpawnService(GamePlay gamePlay
-            , VisitorCounter visitorCounter,
-            PrefabFactory prefabFactory, ObjectPool<VisitorView> objectPool,
+        public VisitorSpawnService
+        (
+            GamePlay gamePlay,
+            VisitorCounter visitorCounter,
+            IPrefabFactory prefabFactory,
+            ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
-            TavernMood tavernMood)
+            TavernMood tavernMood
+        )
         {
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));
             _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
@@ -50,9 +55,9 @@ namespace Sources.Infrastructure.Services
             {
                 if (CanSpawn)
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(Constant.VisitorSpawnDelay), 
+                    await UniTask.Delay(TimeSpan.FromSeconds(Constant.VisitorSpawnDelay),
                         cancellationToken: _cancellationTokenSource.Token);
-                    
+
                     Spawn();
                 }
 
@@ -66,19 +71,19 @@ namespace Sources.Infrastructure.Services
         private void Spawn()
         {
             Create();
-            
+
             _visitorCounter.AddActiveVisitorsCount();
         }
-        
-        public IVisitorView Create()
+
+        private IVisitorView Create()
         {
             Visitor visitor = new Visitor();
-            
-            return CreateFromPool(visitor, _tavernMood, _visitorCounter) ?? 
+
+            return CreateFromPool(visitor, _tavernMood, _visitorCounter) ??
                    _visitorViewFactory.Create(visitor, _tavernMood, _visitorCounter);
         }
 
-        public IVisitorView CreateFromPool(Visitor visitor, TavernMood tavernMood, VisitorCounter visitorCounter)
+        private IVisitorView CreateFromPool(Visitor visitor, TavernMood tavernMood, VisitorCounter visitorCounter)
         {
             VisitorView visitorView = _objectPool.Get<VisitorView>();
 

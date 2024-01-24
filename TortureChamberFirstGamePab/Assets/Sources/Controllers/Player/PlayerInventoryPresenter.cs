@@ -42,7 +42,8 @@ namespace Sources.Controllers.Player
             _playerInventory = playerInventory ??
                                throw new ArgumentNullException(nameof(playerInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            //TODO нету проверки на нулл чтобы не упало
+            _upgradeble = upgradeble;
         }
 
         public int MaxCapacity => _playerInventory.MaxCapacity;

@@ -34,9 +34,9 @@ namespace Sources.Controllers.Scenes
             IInputService inputService,
             IUpdateService updateService,
             // VisitorSpawnService visitorSpawnService,
-            TavernUpgradePointService tavernUpgradePointService
+            TavernUpgradePointService tavernUpgradePointService,
             // GamePlayService gamePlayService,
-            // ILoadService loadService
+            ILoadService loadService
         )
         {
             _inputService = inputService ??
@@ -46,10 +46,30 @@ namespace Sources.Controllers.Scenes
             _tavernUpgradePointService = tavernUpgradePointService ??
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
             // _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
-            // _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
+            _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
         }
 
         public string Name { get; } = nameof(GamePlayScene);
+
+        public void Enter(object payload)
+        {
+            // _visitorSpawnService.SpawnVisitorAsync();
+            // _tavernUpgradePointService.OnEnable();
+            // _gamePlayService.Start();
+            // _pauseMenuService.Enter();
+
+            _loadService.Load();
+            _loadService.Enter();
+        }
+
+        public void Exit()
+        {
+            _loadService.Exit();
+            _visitorSpawnService.Cancel();
+            _tavernUpgradePointService.OnDisable();
+            _gamePlayService.Exit();
+            _pauseMenuService.Exit();
+        }
 
         public void Update(float deltaTime)
         {
@@ -72,24 +92,6 @@ namespace Sources.Controllers.Scenes
         {
             _inputService.UpdateFixed(fixedDeltaTime);
             _updateService.UpdateFixed(fixedDeltaTime);
-        }
-
-        public void Enter(object payload)
-        {
-            // _visitorSpawnService.SpawnVisitorAsync();
-            // _tavernUpgradePointService.OnEnable();
-            _gamePlayService.Start();
-            // _pauseMenuService.Enter();
-
-            _loadService.Load();
-        }
-
-        public void Exit()
-        {
-            _visitorSpawnService.Cancel();
-            _tavernUpgradePointService.OnDisable();
-            _gamePlayService.Exit();
-            _pauseMenuService.Exit();
         }
     }
 }

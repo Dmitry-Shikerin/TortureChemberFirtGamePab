@@ -4,15 +4,16 @@ using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Services;
+using Sources.InfrastructureInterfaces.Services.InputServices;
 
 namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerCameraPresenterFactory
     {
-        private readonly InputService _inputService;
+        private readonly IInputService _inputService;
         private readonly UpdateService _updateService;
 
-        public PlayerCameraPresenterFactory(InputService inputService, [NotNull] UpdateService updateService)
+        public PlayerCameraPresenterFactory(IInputService inputService, [NotNull] UpdateService updateService)
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));

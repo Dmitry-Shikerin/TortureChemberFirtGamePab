@@ -2,6 +2,7 @@
 using Sources.Domain.Players.Inputs;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
+using Sources.Infrastructure.Services.Brokers;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Movement
@@ -12,11 +13,11 @@ namespace Sources.Infrastructure.Services.Movement
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
         //TODO пришлось сюда запросить конфиг
-        public PlayerMovementService(IUpgradeble upgradeble,
+        public PlayerMovementService(PlayerMovementUpgradeBrokerService playerMovementUpgradeBrokerService,
             PlayerMovementCharacteristic playerMovementCharacteristic)
         {
-            _upgradeble = upgradeble ?? 
-                          throw new ArgumentNullException(nameof(upgradeble));
+            //TODO костыль, нельзя делать проверку на нулл   иначе крашнется все
+            _upgradeble = playerMovementUpgradeBrokerService.PlayerMovementUpgrader;
             _playerMovementCharacteristic = playerMovementCharacteristic;
         }
 

@@ -7,6 +7,7 @@ using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.ObjectPolls;
@@ -21,11 +22,11 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         private const string GarbagePrefabPath = "Prefabs/Garbage";
         private readonly GarbagePresenterFactory _garbagePresenterFactory;
         private readonly ObjectPool<GarbageView> _objectPool;
-        private readonly PrefabFactory _prefabFactory;
+        private readonly IPrefabFactory _prefabFactory;
         private readonly ImageUIFactory _imageUIFactory;
 
         public GarbageViewFactory(GarbagePresenterFactory garbagePresenterFactory,
-            ObjectPool<GarbageView> objectPool, PrefabFactory prefabFactory,
+            ObjectPool<GarbageView> objectPool, IPrefabFactory prefabFactory,
             ImageUIFactory imageUIFactory)
         {
             _garbagePresenterFactory = garbagePresenterFactory ?? 

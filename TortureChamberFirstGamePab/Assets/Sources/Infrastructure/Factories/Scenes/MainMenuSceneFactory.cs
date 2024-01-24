@@ -1,10 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Players;
-using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -14,7 +12,6 @@ using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.Presentation.UI.Conteiners.MainMenu;
 using Sources.Presentation.Voids;
 using Sources.PresentationInterfaces.UI;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Scenes

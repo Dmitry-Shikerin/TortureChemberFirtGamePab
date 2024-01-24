@@ -4,5 +4,6 @@
     {
         void SetPriceNextUpgrade(string text);
         void SetCurrentLevelUpgrade(string text);
+        void Upgrade();
     }
 }

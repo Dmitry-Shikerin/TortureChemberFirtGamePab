@@ -15,8 +15,17 @@ namespace Sources.Controllers.UI
             _buttonUI = buttonUI ?? throw new ArgumentNullException(nameof(buttonUI));
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }
+        public override void Enable()
+        {
+            _buttonUI.AddListener(OnClick);
+        }
 
-        public void OnClick()
+        public override void Disable()
+        {
+            _buttonUI.RemoveListener(OnClick);
+        }
+
+        private void OnClick()
         {
             _action.Invoke();
         }

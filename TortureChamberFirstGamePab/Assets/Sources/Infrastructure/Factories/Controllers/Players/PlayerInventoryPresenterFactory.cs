@@ -3,6 +3,7 @@ using Sources.Controllers.Player;
 using Sources.Domain.Players;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.Infrastructure.Services.Brokers;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Players;
 
@@ -10,21 +11,21 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerInventoryPresenterFactory
     {
-        private readonly IUpgradeble _upgradeble;
+        private readonly PlayerInventoryUpgradeBrokerService _playerInventoryUpgradeBrokerService;
         private readonly ItemViewFactory _itemViewFactory;
-        private readonly ITextUI _textUI;
 
-        public PlayerInventoryPresenterFactory(IUpgradeble upgradeble,
-            ItemViewFactory itemViewFactory, ITextUI textUI)
+        public PlayerInventoryPresenterFactory(
+            PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService,
+            ItemViewFactory itemViewFactory)
         {
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            _playerInventoryUpgradeBrokerService = playerInventoryUpgradeBrokerService ?? throw new ArgumentNullException(nameof(playerInventoryUpgradeBrokerService));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            _textUI = textUI ?? throw new ArgumentNullException(nameof(textUI));
         }
         public PlayerInventoryPresenter Create
         (
             IPlayerInventoryView playerInventoryView,
-            PlayerInventory playerInventory
+            PlayerInventory playerInventory,
+            ITextUI textUI
         )
         {
             if (playerInventoryView == null) 
@@ -35,10 +36,10 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
             return new PlayerInventoryPresenter
             (
                 playerInventoryView,
-                _textUI,
+                textUI,
                 playerInventory,
                 _itemViewFactory,
-                _upgradeble
+                _playerInventoryUpgradeBrokerService.PlayerInventoryUpgrader
             );
         }
     }

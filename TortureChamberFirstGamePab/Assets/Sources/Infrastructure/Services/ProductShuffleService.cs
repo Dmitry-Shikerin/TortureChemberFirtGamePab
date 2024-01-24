@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.DomainInterfaces.Items;
+using Sources.Utils.Repositoryes;
 using Random = UnityEngine.Random;
 
 namespace Sources.Infrastructure.Services
@@ -10,15 +11,17 @@ namespace Sources.Infrastructure.Services
     {
         private readonly List<IItem> _items;
 
-        public ProductShuffleService(IEnumerable<IItem> items)
+        public ProductShuffleService(ItemRepository<IItem> itemRepository)
         {
-            if(items == null)
-                throw new ArgumentNullException(nameof(items));
+            if (itemRepository == null) 
+                throw new ArgumentNullException(nameof(itemRepository));
+            // if(items == null)
+            //     throw new ArgumentNullException(nameof(items));
+            //
+            // if (items.Count() <= 0)
+            //     throw new ArgumentOutOfRangeException(nameof(items));
 
-            if (items.Count() <= 0)
-                throw new ArgumentOutOfRangeException(nameof(items));
-
-            _items = new List<IItem>(items);
+            _items = new List<IItem>(itemRepository.GetAll());
         }
 
         public IItem GetRandomItem()

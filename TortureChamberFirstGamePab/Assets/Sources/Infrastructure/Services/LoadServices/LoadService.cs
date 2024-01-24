@@ -1,12 +1,18 @@
 ﻿using System;
 using Sources.Domain.Players;
 using Sources.Domain.Taverns.Data;
+using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.Presentation.Voids;
+using Sources.Utils.Repositoryes;
 using UnityEngine;
+using Zenject;
 
 namespace Sources.Infrastructure.Services.LoadServices
 {
@@ -15,6 +21,10 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         public LoadService
         (
+            PlayerUpgradeViewFactory playerUpgradeViewFactory,
+            HUD hud,
+            DiContainer diContainer,
+            ItemRepository<IItem> itemRepository,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
             PlayerInventoryViewFactory playerInventoryViewFactory,
@@ -25,10 +35,16 @@ namespace Sources.Infrastructure.Services.LoadServices
             TextUIFactory textUIFactory,
             ButtonUIFactory buttonUIFactory,
             ImageUIFactory imageUIFactory,
-            PrefabFactory prefabFactory
+            IPrefabFactory prefabFactory,
+            PlayerMovementUpgradeBrokerService playerMovementUpgradeBrokerService,
+            PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService
         ) :
             base
             (
+                playerUpgradeViewFactory,
+                hud,
+                diContainer,
+                itemRepository,
                 playerMovementViewFactory,
                 playerCameraViewFactory,
                 playerInventoryViewFactory,
@@ -39,8 +55,9 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerUpgradeDataService,
                 tavernDataService,
                 imageUIFactory,
-                prefabFactory
-
+                prefabFactory,
+                playerMovementUpgradeBrokerService,
+                playerInventoryUpgradeBrokerService
             )
         {
         }

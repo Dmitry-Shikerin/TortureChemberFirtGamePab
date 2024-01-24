@@ -79,7 +79,7 @@ namespace Sources.Controllers.Player
             Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(
                 _inputService.PlayerInput.Direction);
             Vector3 direction = _playerMovementService.GetDirection(runInput, cameraDirection);
-
+            
             _playerMovementView.Move(direction);
             
             float animationSpeed = _playerMovementService.GetMaxSpeed(_inputService.PlayerInput, runInput);

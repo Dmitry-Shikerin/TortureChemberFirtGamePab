@@ -6,20 +6,21 @@ using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.PresentationInterfaces.Animations;
 
 namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerMovementPresenterFactory
     {
-        private readonly InputService _inputService;
+        private readonly IInputService _inputService;
         private readonly UpdateService _updateService;
         private readonly CameraDirectionService _cameraDirectionService;
         private readonly PlayerMovementService _playerMovementService;
 
         public PlayerMovementPresenterFactory
         (
-            InputService inputService,
+            IInputService inputService,
             UpdateService updateService,
             CameraDirectionService cameraDirectionService,
             PlayerMovementService playerMovementService

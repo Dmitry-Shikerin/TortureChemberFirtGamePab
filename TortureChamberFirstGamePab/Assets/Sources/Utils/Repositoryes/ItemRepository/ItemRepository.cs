@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Sources.DomainInterfaces.Items;
 
 namespace Sources.Utils.Repositoryes
 {
@@ -59,6 +61,19 @@ namespace Sources.Utils.Repositoryes
                 throw new InvalidOperationException();
 
             _repositoryes[typeof(T2)] = @object;
+        }
+
+        public IEnumerable<T1> GetAll()
+        {
+            //TODO переделать на линку
+            List<T1> items = new List<T1>();
+
+            foreach (KeyValuePair<Type, T1> repository in _repositoryes)
+            {
+                items.Add(repository.Value);
+            }
+
+            return items;
         }
 
         public void AddCollection(IEnumerable<T1> items)

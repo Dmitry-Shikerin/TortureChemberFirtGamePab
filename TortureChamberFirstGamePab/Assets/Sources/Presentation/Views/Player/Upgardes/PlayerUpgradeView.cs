@@ -19,5 +19,10 @@ namespace Sources.Presentation.Views.Player.Upgardes
         {
             _currentLevelUpgrade.text = text;
         }
+
+        public void Upgrade()
+        {
+            Presenter.Upgrade();
+        }
     }
 }
