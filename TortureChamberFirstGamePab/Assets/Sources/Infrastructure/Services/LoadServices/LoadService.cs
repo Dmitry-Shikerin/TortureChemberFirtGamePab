@@ -5,10 +5,14 @@ using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Players;
+using Sources.Infrastructure.Factories.Views.Taverns;
+using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Voids;
 using Sources.Utils.Repositoryes;
 using UnityEngine;
@@ -21,6 +25,9 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         public LoadService
         (
+            IUpgradeProviderSetter upgradeProviderSetter,
+            TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
+            TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
             DiContainer diContainer,
@@ -36,11 +43,14 @@ namespace Sources.Infrastructure.Services.LoadServices
             ButtonUIFactory buttonUIFactory,
             ImageUIFactory imageUIFactory,
             IPrefabFactory prefabFactory,
-            PlayerMovementUpgradeBrokerService playerMovementUpgradeBrokerService,
+            PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
             PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService
         ) :
             base
             (
+                upgradeProviderSetter,
+                tavernFoodPickUpPointViewFactory,
+                tavernMoodViewFactory,
                 playerUpgradeViewFactory,
                 hud,
                 diContainer,
@@ -56,7 +66,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                 tavernDataService,
                 imageUIFactory,
                 prefabFactory,
-                playerMovementUpgradeBrokerService,
+                playerMovementUpgradeProviderService,
                 playerInventoryUpgradeBrokerService
             )
         {

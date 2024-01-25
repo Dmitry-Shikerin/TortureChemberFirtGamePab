@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Players;
+﻿using Sources.Domain.GamePlays;
+using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
@@ -30,6 +31,8 @@ using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.Infrastructure.Services.Providers.Taverns;
+using Sources.Infrastructure.Services.Providers.Upgrades;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.InputServices;
@@ -65,6 +68,14 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<HudTextUIContainer>().FromInstance(hudTextUIContainer).AsSingle();
 
             Container.Bind<CollectionRepository>().AsSingle();
+            
+            //TODO работает ли
+            Container.BindInterfacesTo<UpgradeProvider>().AsSingle();
+            Container.BindInterfacesTo<TavernProvider>().AsSingle();
+
+            Container.Bind<GamePlayService>().AsSingle();
+
+            Container.Bind<VisitorSpawnService>().AsSingle();
 
             Container.Bind<IInputService>().To<InputService>().AsSingle();
 
@@ -135,7 +146,7 @@ namespace Sources.Infrastructure.DIContainers
 
             //TODO подправить
             Container.Bind<PlayerMovementCharacteristic>().FromResource("Configs/PlayerMovementCharacteristics");
-            Container.Bind<PlayerMovementUpgradeBrokerService>().AsSingle();
+            Container.Bind<PlayerMovementUpgradeProviderService>().AsSingle();
             Container.Bind<PlayerMovementService>().AsSingle();
             Container.Bind<PlayerMovementPresenterFactory>().AsSingle();
             Container.Bind<PlayerMovementViewFactory>().AsSingle();

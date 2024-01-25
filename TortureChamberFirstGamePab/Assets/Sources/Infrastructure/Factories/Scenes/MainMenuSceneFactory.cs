@@ -23,8 +23,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         private bool _canLoad;
 
-        public MainMenuSceneFactory(SceneService sceneService,
-            IDataService<Player> dataService, PlayerUpgradeDataService playerUpgradeDataService)
+        public MainMenuSceneFactory(SceneService sceneService, IDataService<Player> dataService)
         {
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));

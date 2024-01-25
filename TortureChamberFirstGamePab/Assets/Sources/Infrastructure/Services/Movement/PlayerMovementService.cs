@@ -13,11 +13,11 @@ namespace Sources.Infrastructure.Services.Movement
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
         //TODO пришлось сюда запросить конфиг
-        public PlayerMovementService(PlayerMovementUpgradeBrokerService playerMovementUpgradeBrokerService,
+        public PlayerMovementService(PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
             PlayerMovementCharacteristic playerMovementCharacteristic)
         {
             //TODO костыль, нельзя делать проверку на нулл   иначе крашнется все
-            _upgradeble = playerMovementUpgradeBrokerService.PlayerMovementUpgrader;
+            _upgradeble = playerMovementUpgradeProviderService.Movement;
             _playerMovementCharacteristic = playerMovementCharacteristic;
         }
 

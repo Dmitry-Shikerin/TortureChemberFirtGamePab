@@ -50,6 +50,7 @@ namespace Sources.Controllers.Player
 
         public override void Enable()
         {
+            HideSlots();
             _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
             //TODO сделать обновление по подписке
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
@@ -204,6 +205,14 @@ namespace Sources.Controllers.Player
             }
         }
 
+        private void HideSlots()
+        {
+            _playerInventoryView.PlayerInventorySlots[1].BackgroundImage.HideImage();
+            _playerInventoryView.PlayerInventorySlots[1].Image.HideImage();
+            _playerInventoryView.PlayerInventorySlots[2].BackgroundImage.HideImage();
+            _playerInventoryView.PlayerInventorySlots[2].Image.HideImage();
+        }
+        
         private void SetInventoryViewPosition(IItem targetItem)
         {
             for (int i = 0; i < _playerInventory.Items.Count; i++)

@@ -2,6 +2,9 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.GamePlays;
+using Sources.Domain.Points;
+using Sources.Infrastructure.Services.Providers.Taverns;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services
@@ -16,13 +19,15 @@ namespace Sources.Infrastructure.Services
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public GamePlayService(GamePlay gamePlay, int maximumSetPointsCapacity)
+        public GamePlayService(ITavernProvider tavernProvider, CollectionRepository collectionRepository)
         {
-            if (maximumSetPointsCapacity <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(maximumSetPointsCapacity));
+            _maximumSetPointsCapacity = collectionRepository.Get<SeatPoint>().Count;
             
-            _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));
-            _maximumSetPointsCapacity = maximumSetPointsCapacity;
+            if (_maximumSetPointsCapacity <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(_maximumSetPointsCapacity));
+            
+            //TODO нету проверки на нулл что бы не поламалось
+            _gamePlay = tavernProvider.GamePlay;
         }
 
         public async void Start()

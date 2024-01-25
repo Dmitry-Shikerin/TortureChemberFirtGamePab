@@ -8,6 +8,7 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using Sources.Presentation.Views.Visitors;
@@ -29,19 +30,23 @@ namespace Sources.Infrastructure.Services
         public VisitorSpawnService
         (
             GamePlay gamePlay,
-            VisitorCounter visitorCounter,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
-            TavernMood tavernMood
+            TavernMood tavernMood,
+            ITavernProvider tavernProvider
         )
         {
-            _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));
-            _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
+            //TODO Нет проверок на нулл
+            _gamePlay = tavernProvider.GamePlay;
+            _tavernMood = tavernProvider.TavernMood;
+            _visitorCounter = new VisitorCounter();
+            
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorViewFactory = visitorViewFactory ?? throw new ArgumentNullException(nameof(visitorViewFactory));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
+            
         }
 
         private bool CanSpawn => _visitorCounter.ActiveVisitorsCount < _gamePlay.MaximumVisitorsCapacity;

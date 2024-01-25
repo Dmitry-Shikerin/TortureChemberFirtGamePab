@@ -22,30 +22,27 @@ namespace Sources.Controllers.Scenes
         private readonly TavernUpgradePointService _tavernUpgradePointService;
         private readonly GamePlayService _gamePlayService;
         private readonly ILoadService _loadService;
-        private readonly IEnumerable<PlayerUpgradeService> _playerUpgradeServices;
-        private readonly StoreService _storeService;
-        private readonly StorableRepository _storableRepository;
-        private readonly PlayerMovementViewFactory _playerMovementViewFactory;
-        private readonly PlayerCameraViewFactory _playerCameraViewFactory;
         private readonly PauseMenuService _pauseMenuService;
-        
+
         public GamePlayScene
         (
             IInputService inputService,
             IUpdateService updateService,
-            // VisitorSpawnService visitorSpawnService,
+            VisitorSpawnService visitorSpawnService,
             TavernUpgradePointService tavernUpgradePointService,
-            // GamePlayService gamePlayService,
+            GamePlayService gamePlayService,
+            PauseMenuService pauseMenuService,
             ILoadService loadService
         )
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
-            // _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
+            _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
             _tavernUpgradePointService = tavernUpgradePointService ??
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
-            // _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
         }
 
@@ -53,21 +50,19 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
-            // _visitorSpawnService.SpawnVisitorAsync();
-            // _tavernUpgradePointService.OnEnable();
-            // _gamePlayService.Start();
-            // _pauseMenuService.Enter();
-
             _loadService.Load();
-            _loadService.Enter();
+            _tavernUpgradePointService.OnEnable();
+            _gamePlayService.Start();
+            _visitorSpawnService.SpawnVisitorAsync();
+            _pauseMenuService.Enter();
         }
 
         public void Exit()
         {
-            _loadService.Exit();
             _visitorSpawnService.Cancel();
             _tavernUpgradePointService.OnDisable();
             _gamePlayService.Exit();
+            _visitorSpawnService.Cancel();
             _pauseMenuService.Exit();
         }
 

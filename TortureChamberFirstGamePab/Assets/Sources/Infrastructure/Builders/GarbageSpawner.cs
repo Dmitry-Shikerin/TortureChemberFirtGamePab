@@ -25,7 +25,7 @@ namespace Sources.Infrastructure.Builders
             return CreateFromPool(garbage) ?? _garbageViewFactory.Create(garbage);
         }
 
-        public IGarbageView CreateFromPool(Garbage garbage)
+        private IGarbageView CreateFromPool(Garbage garbage)
         {
             GarbageView garbageView = _objectPool.Get<GarbageView>();
 

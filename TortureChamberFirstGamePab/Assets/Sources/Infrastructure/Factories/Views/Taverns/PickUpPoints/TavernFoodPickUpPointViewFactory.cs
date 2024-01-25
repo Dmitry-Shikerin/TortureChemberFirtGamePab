@@ -23,11 +23,11 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
                 throw new ArgumentNullException(nameof(tavernPickUpPointPresenterFactory));
         }
 
-        public ITavernFudPickUpPointView Create<T>(TavernFudPickUpPointView<T> beerPickUpPointView,
+        public ITavernFudPickUpPointView Create<T>(TavernFudPickUpPointView<T> pickUpPointView,
             PickUpPointUIImages pickUpPointUIImages, ImageUIFactory imageUIFactory, ItemConfig itemConfig) where T : IItem
         {
-            if (beerPickUpPointView == null) 
-                throw new ArgumentNullException(nameof(beerPickUpPointView));
+            if (pickUpPointView == null) 
+                throw new ArgumentNullException(nameof(pickUpPointView));
             if (pickUpPointUIImages == null) 
                 throw new ArgumentNullException(nameof(pickUpPointUIImages));
             if (imageUIFactory == null) 
@@ -37,12 +37,12 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
             imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
             
             TavernFudPickUpPointPresenter tavernPickUpPointPresenterFactory =
-                _tavernPickUpPointPresenterFactory.Create(beerPickUpPointView,
+                _tavernPickUpPointPresenterFactory.Create(pickUpPointView,
                     pickUpPointUIImages, itemConfig);
             
-            beerPickUpPointView.Construct(tavernPickUpPointPresenterFactory);
+            pickUpPointView.Construct(tavernPickUpPointPresenterFactory);
 
-            return beerPickUpPointView;
+            return pickUpPointView;
         }
     }
 }
