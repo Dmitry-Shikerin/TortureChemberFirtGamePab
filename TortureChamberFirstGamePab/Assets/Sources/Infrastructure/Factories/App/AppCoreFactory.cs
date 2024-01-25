@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.App.Core;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Services.LoadServices;
@@ -24,15 +25,15 @@ namespace Sources.Infrastructure.Factories.App
             PlayerDataService playerDataService = new PlayerDataService();
 
             CurtainView curtainView =
-                Object.Instantiate(Resources.Load<CurtainView>("Views/Bootstrap/CurtainView")) ??
+                Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
                 throw new NullReferenceException(nameof(CurtainView));
 
             Dictionary<string, ISceneFactory> sceneStates = new Dictionary<string, ISceneFactory>();
             SceneService sceneService = new SceneService(sceneStates);
 
-            sceneStates["MainMenu"] = new MainMenuSceneFactory(
+            sceneStates[Constant.SceneNames.MainMenu] = new MainMenuSceneFactory(
                 sceneService, playerDataService);
-            sceneStates["GamePlay"] = new GamePlaySceneFactory(sceneService);
+            sceneStates[Constant.SceneNames.GamePlay] = new GamePlaySceneFactory(sceneService);
 
             // sceneService.AddBeforeSceneChangeHandler(sceneName => curtainView.Show());
             sceneService.AddBeforeSceneChangeHandler(sceneName => 

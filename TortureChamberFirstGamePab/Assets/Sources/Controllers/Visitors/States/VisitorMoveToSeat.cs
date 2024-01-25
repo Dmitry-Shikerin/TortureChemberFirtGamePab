@@ -1,5 +1,5 @@
 ﻿using System;
- using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
@@ -16,15 +16,20 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
 
-        public VisitorMoveToSeat(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation ,CollectionRepository collectionRepository)
+        public VisitorMoveToSeat
+        (
+            IVisitorView visitorView,
+            Visitor visitor,
+            IVisitorAnimation visitorAnimation,
+            CollectionRepository collectionRepository
+        )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
-            _visitorAnimation = visitorAnimation ?? 
+            _visitorAnimation = visitorAnimation ??
                                 throw new ArgumentNullException(nameof(visitorAnimation));
         }
-        
+
         public override void Enter()
         {
             // Debug.Log("Посетитель в Состоянии Движения");
@@ -41,18 +46,16 @@ namespace Sources.Controllers.Visitors.States
             await MoveAsync();
             _visitor.SetIdle();
         }
-        
+
         private async UniTask MoveAsync()
         {
-            // IVisitorPoint seatPoint = _collectionRepository.Get<SeatPointView>().FirstOrDefault();
-            //
             _visitorView.SetDestination(_visitor.SeatPointView.Position);
 
-            while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) > 
+            while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
                 await UniTask.Yield();
             }
-        } 
+        }
     }
 }

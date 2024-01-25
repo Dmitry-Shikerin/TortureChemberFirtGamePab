@@ -19,7 +19,6 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
 {
     public class GarbageViewFactory
     {
-        private const string GarbagePrefabPath = "Prefabs/Garbage";
         private readonly GarbagePresenterFactory _garbagePresenterFactory;
         private readonly ObjectPool<GarbageView> _objectPool;
         private readonly IPrefabFactory _prefabFactory;
@@ -59,7 +58,7 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         }
         
         private GarbageView CreateView() =>
-            _prefabFactory.Create<GarbageView>(GarbagePrefabPath)
+            _prefabFactory.Create<GarbageView>(Constant.PrefabPaths.GarbageView)
                 .AddComponent<PoolableObject>()
                 .SetPool(_objectPool)
                 .GetComponent<GarbageView>();

@@ -3,13 +3,11 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
-using Sources.Presentation.UI;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 
@@ -17,16 +15,21 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorMoveToExitState : FiniteState
     {
-        
         private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly CollectionRepository _collectionRepository;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
-        public VisitorMoveToExitState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation, CollectionRepository collectionRepository,
-            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer)
+        public VisitorMoveToExitState
+        (
+            IVisitorView visitorView,
+            Visitor visitor,
+            IVisitorAnimation visitorAnimation,
+            CollectionRepository collectionRepository,
+            VisitorInventory visitorInventory,
+            VisitorImageUIContainer visitorImageUIContainer
+        )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -34,8 +37,9 @@ namespace Sources.Controllers.Visitors.States
                                 throw new ArgumentNullException(nameof(visitorAnimation));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
-            _visitorImageUIContainer = visitorImageUIContainer ? visitorImageUIContainer : 
-                throw new ArgumentNullException(nameof(visitorImageUIContainer));
+            _visitorImageUIContainer = visitorImageUIContainer
+                ? visitorImageUIContainer
+                : throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
 
         public override void Enter()
@@ -49,7 +53,7 @@ namespace Sources.Controllers.Visitors.States
         public override void Exit()
         {
         }
-        
+
         private async void MovingAsync()
         {
             _visitor.SetMove();

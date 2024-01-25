@@ -1,8 +1,7 @@
-﻿using System;
-using Sources.Domain.Players.Inputs;
+﻿using Sources.Domain.Players.Inputs;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
-using Sources.Infrastructure.Services.Brokers;
+using Sources.InfrastructureInterfaces.Services.Providers;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Movement
@@ -13,11 +12,11 @@ namespace Sources.Infrastructure.Services.Movement
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
         //TODO пришлось сюда запросить конфиг
-        public PlayerMovementService(PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
+        public PlayerMovementService(IUpgradeProvider upgradeProvider,
             PlayerMovementCharacteristic playerMovementCharacteristic)
         {
             //TODO костыль, нельзя делать проверку на нулл   иначе крашнется все
-            _upgradeble = playerMovementUpgradeProviderService.Movement;
+            _upgradeble = upgradeProvider.Movement;
             _playerMovementCharacteristic = playerMovementCharacteristic;
         }
 

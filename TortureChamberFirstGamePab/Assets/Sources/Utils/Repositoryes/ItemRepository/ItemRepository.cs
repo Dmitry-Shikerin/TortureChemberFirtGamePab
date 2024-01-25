@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Sources.DomainInterfaces.Items;
 
-namespace Sources.Utils.Repositoryes
+namespace Sources.Utils.Repositoryes.ItemRepository
 {
     public class ItemRepository<T1>
     {

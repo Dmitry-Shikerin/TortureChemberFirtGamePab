@@ -9,6 +9,7 @@ namespace Sources.Domain.Taverns.Data
             TavernMood = tavernMood;
             GamePlay = gamePlay;
         }
+        
         public TavernMood TavernMood { get; private set; }
         public GamePlay GamePlay { get; private set; }
     }

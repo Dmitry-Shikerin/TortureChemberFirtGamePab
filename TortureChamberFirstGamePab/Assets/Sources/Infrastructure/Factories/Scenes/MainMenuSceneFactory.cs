@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;

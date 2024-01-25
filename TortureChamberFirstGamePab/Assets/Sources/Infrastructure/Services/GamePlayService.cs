@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Points;
 using Sources.Infrastructure.Services.Providers.Taverns;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 
@@ -11,17 +13,17 @@ namespace Sources.Infrastructure.Services
 {
     public class GamePlayService
     {
-        private const int Delay = 2;
-        
         private readonly GamePlay _gamePlay;
 
         private readonly int _maximumSetPointsCapacity;
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public GamePlayService(ITavernProvider tavernProvider, CollectionRepository collectionRepository)
+        public GamePlayService(ITavernProvider tavernProvider,
+            VisitorPoints visitorPoints)
         {
-            _maximumSetPointsCapacity = collectionRepository.Get<SeatPoint>().Count;
+            // _maximumSetPointsCapacity = collectionRepository.Get<SeatPoint>().Count;
+            _maximumSetPointsCapacity = visitorPoints.GetComponentsInChildren<SeatPointView>().Length;
             
             if (_maximumSetPointsCapacity <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(_maximumSetPointsCapacity));
@@ -43,7 +45,8 @@ namespace Sources.Infrastructure.Services
             
             while (visitorsCount <= _maximumSetPointsCapacity)
             {
-                await UniTask.Delay(TimeSpan.FromMinutes(Delay), cancellationToken: _cancellationTokenSource.Token);
+                await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
+                    cancellationToken: _cancellationTokenSource.Token);
                 Debug.Log("увеличино максимальное количество посетителей");
                 visitorsCount++;
                 _gamePlay.AddMaximumVisitorsCapacity();

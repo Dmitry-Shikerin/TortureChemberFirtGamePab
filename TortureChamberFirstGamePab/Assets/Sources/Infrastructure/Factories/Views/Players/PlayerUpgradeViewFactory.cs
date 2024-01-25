@@ -8,8 +8,6 @@ using Sources.PresentationInterfaces.Views.Players;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
-    //TODO презентер знает что как склеить а логику максимально выносить из контроллера
-    //TODO и сервис логики закидывать под интерфейсом
     public class PlayerUpgradeViewFactory
     {
         private readonly PlayerUpgradePresenterFactory _playerUpgradePresenterFactory;

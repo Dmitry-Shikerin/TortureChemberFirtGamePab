@@ -9,11 +9,11 @@ namespace Sources.Domain.Starables
 {
     public class PlayerInventoryStorable : IStorable
     {
-
         public PlayerInventoryStorable(PlayerInventory playerInventory)
         {
             PlayerInventory = playerInventory;
         }
+        
         [JsonIgnore]
         public PlayerInventory PlayerInventory { get; private set; }
 
@@ -24,7 +24,6 @@ namespace Sources.Domain.Starables
 
             PlayerInventory = new PlayerInventory();
 
-            
             // viewFactory.Create();
         }
 

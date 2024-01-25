@@ -1,10 +1,9 @@
 ﻿using Sources.Domain.Upgrades;
 
-namespace Sources.Domain.Players
+namespace Sources.Domain.Players.Data
 {
     public class PlayerUpgrade
     {
-        //TODO запрвшивать их под интерфейсом?
         public PlayerUpgrade(Upgrader charismaUpgrader, Upgrader inventoryUpgrader, Upgrader movementUpgrader)
         {
             CharismaUpgrader = charismaUpgrader;

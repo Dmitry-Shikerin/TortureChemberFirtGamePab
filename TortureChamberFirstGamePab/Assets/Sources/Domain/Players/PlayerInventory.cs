@@ -2,6 +2,7 @@
 using Sources.Domain.Exceptions.Inventorys;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
+using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 
 namespace Sources.Domain.Players
 {

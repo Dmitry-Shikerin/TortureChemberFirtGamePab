@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Sources.Domain.Constants;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Domains.Items;
@@ -35,14 +36,15 @@ namespace Sources.Controllers.Taverns
         {
             try
             {
-                await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(_tavernFudPickUpPointView.FillingRate, cancellationToken);
-                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
+                await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
+                    _tavernFudPickUpPointView.FillingRate, cancellationToken);
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
                 
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)
             {
-                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
                 
                 return default;
             }

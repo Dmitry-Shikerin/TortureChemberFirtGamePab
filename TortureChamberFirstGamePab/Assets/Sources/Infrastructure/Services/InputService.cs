@@ -1,4 +1,5 @@
 using System;
+using Sources.Domain.Constants;
 using Sources.Domain.Players.Inputs;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using UnityEngine;
@@ -32,15 +33,15 @@ namespace Sources.Infrastructure.Services
 
         private void UpdateMovementAxis()
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
+            float verticalInput = Input.GetAxis(Constant.Input.Vertical);
 
             PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
         }
 
         private void UpdateRunAxis()
         {
-            float runInput = Input.GetAxis("Run");
+            float runInput = Input.GetAxis(Constant.Input.Run);
         
             RunAxisChanged?.Invoke(runInput);
         }

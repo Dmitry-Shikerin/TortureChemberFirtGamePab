@@ -8,11 +8,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Items.Coins
     {
         public CoinAnimationPresenter Create(ICoinAnimationView coinAnimationView, CoinAnimation coinAnimation)
         {
-            return new CoinAnimationPresenter
-                (
-                    coinAnimationView,
-                    coinAnimation
-                    );
+            return new CoinAnimationPresenter(coinAnimationView, coinAnimation);
         }
     }
 }

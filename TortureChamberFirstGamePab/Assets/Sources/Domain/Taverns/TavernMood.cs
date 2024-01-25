@@ -10,7 +10,7 @@ namespace Sources.Domain.Taverns
 
         public event Action TavernMoodValueChanged; 
 
-        public TavernMood() : this(Constant.StartTavernMoodValue)
+        public TavernMood() : this(Constant.TavernMoodValues.StartValue)
         {
         }
 
@@ -39,6 +39,6 @@ namespace Sources.Domain.Taverns
             _tavernMoodValue += AddedAmountUpgrade;
 
         public void RemoveTavernMood() => 
-            _tavernMoodValue -= Constant.RemovedAmountMood;
+            _tavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
     }
 }

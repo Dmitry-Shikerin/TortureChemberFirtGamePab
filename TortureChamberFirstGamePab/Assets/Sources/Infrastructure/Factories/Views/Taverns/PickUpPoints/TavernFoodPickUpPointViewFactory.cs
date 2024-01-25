@@ -4,7 +4,6 @@ using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.PickUpPoints;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.PresentationInterfaces.Views.Taverns.PickUpPoints;
@@ -23,8 +22,13 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
                 throw new ArgumentNullException(nameof(tavernPickUpPointPresenterFactory));
         }
 
-        public ITavernFudPickUpPointView Create<T>(TavernFudPickUpPointView<T> pickUpPointView,
-            PickUpPointUIImages pickUpPointUIImages, ImageUIFactory imageUIFactory, ItemConfig itemConfig) where T : IItem
+        public ITavernFudPickUpPointView Create<T>
+        (
+            TavernFudPickUpPointView<T> pickUpPointView,
+            PickUpPointUIImages pickUpPointUIImages, 
+            ImageUIFactory imageUIFactory, 
+            ItemConfig itemConfig
+            ) where T : IItem
         {
             if (pickUpPointView == null) 
                 throw new ArgumentNullException(nameof(pickUpPointView));

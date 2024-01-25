@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
 using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Upgrades;
+using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Taverns;
 
@@ -12,9 +13,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
     {
         private readonly IUpgradeble _upgradeble;
 
-        public TavernMoodPresenterFactory(IUpgradeble upgradeble)
+        public TavernMoodPresenterFactory(IUpgradeProvider upgradeProvider)
         {
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            _upgradeble = upgradeProvider.Charisma;
         }
         
         public TavernMoodPresenter Create(TavernMood tavernMood, ITavernMoodView tavernMoodView, IImageUI imageUI)

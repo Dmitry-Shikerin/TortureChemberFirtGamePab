@@ -1,7 +1,6 @@
 using System;
 using Sources.ControllersInterfaces;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.StateMachines;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Views;

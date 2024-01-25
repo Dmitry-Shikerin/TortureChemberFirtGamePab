@@ -5,12 +5,10 @@ using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
-using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 
@@ -29,11 +27,9 @@ namespace Sources.Infrastructure.Services
 
         public VisitorSpawnService
         (
-            GamePlay gamePlay,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
-            TavernMood tavernMood,
             ITavernProvider tavernProvider
         )
         {
@@ -45,8 +41,6 @@ namespace Sources.Infrastructure.Services
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorViewFactory = visitorViewFactory ?? throw new ArgumentNullException(nameof(visitorViewFactory));
-            _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
-            
         }
 
         private bool CanSpawn => _visitorCounter.ActiveVisitorsCount < _gamePlay.MaximumVisitorsCapacity;
@@ -60,7 +54,7 @@ namespace Sources.Infrastructure.Services
             {
                 if (CanSpawn)
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(Constant.VisitorSpawnDelay),
+                    await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
                         cancellationToken: _cancellationTokenSource.Token);
 
                     Spawn();

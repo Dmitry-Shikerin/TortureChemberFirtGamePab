@@ -21,6 +21,5 @@ namespace Sources.Domain.Visitors
             ActiveVisitorsCount--;
             Debug.Log($"Активных посетителей {ActiveVisitorsCount}");
         }
-
     }
 }

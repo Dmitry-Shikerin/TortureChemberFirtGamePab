@@ -1,5 +1,5 @@
-﻿using Sources.Domain.GamePlays;
-using Sources.Domain.Players;
+﻿using Sources.Domain.Constants;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
@@ -25,7 +25,6 @@ using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -46,32 +45,41 @@ using Sources.Presentation.Views.UIs;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
+using Sources.Utils.Repositoryes.ItemRepository;
+using UnityEngine;
 using Zenject;
+using Zenject.ReflectionBaking.Mono.Cecil;
+using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.DIContainers
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
+        [SerializeField] private PlayerCameraView _playerCameraView;
+        [SerializeField] private RootGamePoints _rootGamePoints;
+        
         public override void InstallBindings()
         {
-            //TODO исправить
-            RootGamePoints rootGamePoints = FindObjectOfType<RootGamePoints>(true);
-            Container.Bind<RootGamePoints>().FromInstance(rootGamePoints).AsSingle();
+            Container.Bind<RootGamePoints>().FromInstance(_rootGamePoints).AsSingle();
 
-            //TODO исправить
-            HUD hud = FindObjectOfType<HUD>();
+            Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
+
+            HUD hudPrefab = Resources.Load<HUD>(Constant.PrefabPaths.HUD);
+            HUD hud = Object.Instantiate(hudPrefab);
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
             
-            HudTextUIContainer hudTextUIContainer = hud.GetComponent<HudTextUIContainer>();
-            Container.Bind<HudTextUIContainer>().FromInstance(hudTextUIContainer).AsSingle();
+            Container.Bind<HudTextUIContainer>().FromInstance(hud.TextUIContainer).AsSingle();
 
             Container.Bind<CollectionRepository>().AsSingle();
             
             //TODO работает ли
-            Container.BindInterfacesTo<UpgradeProvider>().AsSingle();
-            Container.BindInterfacesTo<TavernProvider>().AsSingle();
+            // Container.BindInterfacesTo<UpgradeProvider>().AsSingle();
+            // Container.BindInterfacesTo<TavernProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UpgradeProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<TavernProvider>().AsSingle();
 
             Container.Bind<GamePlayService>().AsSingle();
 
@@ -97,7 +105,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<SeatPointViewFactory>().AsSingle();
 
             Container.Bind<UpdateService>().AsSingle();
-
 
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();
 
@@ -135,18 +142,16 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<PlayerWalletViewFactory>().AsSingle();
 
             //TODO плохо
-            PlayerCameraView playerCameraView = FindObjectOfType<PlayerCameraView>();
-            Container.Bind<PlayerCameraView>().FromInstance(playerCameraView).AsSingle();
+            Container.Bind<PlayerCameraView>().FromInstance(_playerCameraView).AsSingle();
             Container.Bind<PlayerCameraPresenterFactory>().AsSingle();
             Container.Bind<PlayerCameraViewFactory>().AsSingle();
 
-            Container.Bind<PlayerInventoryUpgradeBrokerService>().AsSingle();
             Container.Bind<PlayerInventoryPresenterFactory>().AsSingle();
             Container.Bind<PlayerInventoryViewFactory>().AsSingle();
 
             //TODO подправить
-            Container.Bind<PlayerMovementCharacteristic>().FromResource("Configs/PlayerMovementCharacteristics");
-            Container.Bind<PlayerMovementUpgradeProviderService>().AsSingle();
+            Container.Bind<PlayerMovementCharacteristic>().FromResource(
+                Constant.PrefabPaths.PlayerMovementCharacteristic);
             Container.Bind<PlayerMovementService>().AsSingle();
             Container.Bind<PlayerMovementPresenterFactory>().AsSingle();
             Container.Bind<PlayerMovementViewFactory>().AsSingle();

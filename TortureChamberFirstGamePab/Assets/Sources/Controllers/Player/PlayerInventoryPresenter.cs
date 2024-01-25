@@ -22,8 +22,6 @@ namespace Sources.Controllers.Player
 {
     public class PlayerInventoryPresenter : PresenterBase
     {
-        private const int FirstInventoryItemIndex = 0;
-        
         private readonly IPlayerInventoryView _playerInventoryView;
         private readonly ITextUI _textUI;
         private readonly PlayerInventory _playerInventory;
@@ -32,9 +30,14 @@ namespace Sources.Controllers.Player
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public PlayerInventoryPresenter(IPlayerInventoryView playerInventoryView,
-            ITextUI textUI, PlayerInventory playerInventory,
-            ItemViewFactory itemViewFactory, IUpgradeble upgradeble)
+        public PlayerInventoryPresenter
+        (
+            IPlayerInventoryView playerInventoryView,
+            ITextUI textUI,
+            PlayerInventory playerInventory,
+            ItemViewFactory itemViewFactory,
+            IUpgradeble upgradeble
+        )
         {
             _playerInventoryView = playerInventoryView ??
                                    throw new ArgumentNullException(nameof(playerInventoryView));
@@ -55,7 +58,6 @@ namespace Sources.Controllers.Player
             //TODO сделать обновление по подписке
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
             _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
-
         }
 
         public override void Disable()
@@ -85,10 +87,10 @@ namespace Sources.Controllers.Player
                 if (item == null)
                     return;
 
-                if(_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
-                    RemoveItem(_playerInventoryView.PlayerInventorySlots[FirstInventoryItemIndex]
-                        .BackgroundImage, FirstInventoryItemIndex);
-                
+                if (_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
+                    RemoveItem(_playerInventoryView.PlayerInventorySlots[Constant.Inventory.FirstItemIndex]
+                        .BackgroundImage, Constant.Inventory.FirstItemIndex);
+
                 _playerInventory.Add(item);
                 IItemView itemView = _itemViewFactory.Create(item);
                 item.SetItemView(itemView);
@@ -105,23 +107,23 @@ namespace Sources.Controllers.Player
         public async void GiveItemAsync(ITakeble takeble)
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             IItem targetItem = takeble.TargetItem;
-            
+
             if (targetItem == null)
                 return;
-            
+
             if (takeble.Item != null)
                 return;
-            
-            if(_playerInventory.CanGet == false)
+
+            if (_playerInventory.CanGet == false)
                 return;
-            
+
             IItem item = await GiveAsync(targetItem, _cancellationTokenSource.Token);
             takeble.TakeItem(item);
         }
 
-        public void Cancel() => 
+        public void Cancel() =>
             _cancellationTokenSource.Cancel();
 
         private async UniTask<IItem> GiveAsync(IItem item, CancellationToken cancellationToken)
@@ -162,10 +164,10 @@ namespace Sources.Controllers.Player
 
         private IItem RemoveItem(IImageUI backgroundImage, int index)
         {
-            backgroundImage.SetFillAmount(Constant.MinimumAmountFillingImage);
+            backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
             _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
             _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
-            backgroundImage.SetFillAmount(Constant.MinimumAmountFillingImage);
+            backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
             IItem targetItem = _playerInventory.Items[index];
             targetItem.ItemView.Destroy();
             _playerInventory.RemoveItem(targetItem);
@@ -207,12 +209,16 @@ namespace Sources.Controllers.Player
 
         private void HideSlots()
         {
-            _playerInventoryView.PlayerInventorySlots[1].BackgroundImage.HideImage();
-            _playerInventoryView.PlayerInventorySlots[1].Image.HideImage();
-            _playerInventoryView.PlayerInventorySlots[2].BackgroundImage.HideImage();
-            _playerInventoryView.PlayerInventorySlots[2].Image.HideImage();
+            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
+                BackgroundImage.HideImage();
+            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
+                Image.HideImage();
+            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
+                BackgroundImage.HideImage();
+            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
+                Image.HideImage();
         }
-        
+
         private void SetInventoryViewPosition(IItem targetItem)
         {
             for (int i = 0; i < _playerInventory.Items.Count; i++)

@@ -11,8 +11,7 @@ namespace Sources.Presentation.Views.Taverns.PickUpPoints
     public class TavernFudPickUpPointView<TItem> : 
         PresentableView<TavernFudPickUpPointPresenter>,
         ITavernFudPickUpPointView,
-        IGivable
-    where TItem : IItem
+        IGivable where TItem : IItem
     {
         [field: SerializeField] public float FillingRate { get; private set; } = 0.1f;
         

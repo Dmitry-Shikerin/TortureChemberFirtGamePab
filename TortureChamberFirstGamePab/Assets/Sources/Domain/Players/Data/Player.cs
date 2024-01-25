@@ -1,6 +1,6 @@
 ﻿using Sources.Domain.Players.PlayerMovements;
 
-namespace Sources.Domain.Players
+namespace Sources.Domain.Players.Data
 {
     public class Player
     {

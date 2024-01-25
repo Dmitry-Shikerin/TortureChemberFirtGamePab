@@ -10,5 +10,13 @@ namespace Sources.Presentation.Views
 
         public void Show() => 
             gameObject.SetActive(true);
+        public void SetParent(Transform parentTransform) => 
+            transform.SetParent(parentTransform);
+
+        public void SetPosition(Transform parentTransform) => 
+            transform.position = parentTransform.position;
+
+        public void Destroy() =>
+            Destroy(gameObject);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using MyProject.Sources.Controllers.UI;
+using Sources.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.UI;

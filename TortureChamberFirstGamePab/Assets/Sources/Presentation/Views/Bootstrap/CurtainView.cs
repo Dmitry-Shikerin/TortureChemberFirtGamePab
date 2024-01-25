@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Sources.Domain.Constants;
 using Sources.Domain.Exceptions.Serializefields;
 using UnityEngine;
 
@@ -29,16 +30,16 @@ namespace Sources.Presentation.Views.Bootstrap
         }
 
         public async UniTask Show() => 
-            await Fade(0, 1);
+            await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Maximum);
 
         public async UniTask Hide() => 
-            await Fade(1, 0);
+            await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Minimum);
 
         private async UniTask Fade(float startAlpha, float endAlpha)
         {
             _canvasGroup.alpha = startAlpha;
 
-            while (Mathf.Abs(_canvasGroup.alpha - endAlpha) > 0.01)
+            while (Mathf.Abs(_canvasGroup.alpha - endAlpha) > Constant.Epsilon)
             {
                 _canvasGroup.alpha = Mathf.MoveTowards(
                     _canvasGroup.alpha, endAlpha, Time.deltaTime / _duration);

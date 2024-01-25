@@ -15,8 +15,13 @@ namespace Sources.Controllers.Visitors.States
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly TavernMood _tavernMood;
 
-        public VisitorSeatState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation, TavernMood tavernMood)
+        public VisitorSeatState
+        (
+            IVisitorView visitorView,
+            Visitor visitor,
+            IVisitorAnimation visitorAnimation,
+            TavernMood tavernMood
+        )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -24,7 +29,7 @@ namespace Sources.Controllers.Visitors.States
                                 throw new ArgumentNullException(nameof(visitorAnimation));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
         }
-        
+
         public override void Enter()
         {
             // Debug.Log("Посетитель в состоянии сидя");
@@ -35,7 +40,7 @@ namespace Sources.Controllers.Visitors.States
                 _tavernMood.RemoveTavernMood();
                 Debug.Log("Посетитель недоволен грязным местом");
             }
-                
+
             _visitorAnimation.PlaySeatIdle();
             _visitor.SetSeat();
         }

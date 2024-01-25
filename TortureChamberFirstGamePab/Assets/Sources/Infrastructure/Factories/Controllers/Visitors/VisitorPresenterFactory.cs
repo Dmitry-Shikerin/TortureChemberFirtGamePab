@@ -8,11 +8,9 @@ using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
-using Sources.Presentation.UI;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 

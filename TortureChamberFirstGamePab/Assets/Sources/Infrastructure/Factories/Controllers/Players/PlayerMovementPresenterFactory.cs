@@ -28,22 +28,27 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
-            _updateService = updateService ?? 
+            _updateService = updateService ??
                              throw new ArgumentNullException(nameof(updateService));
-            _cameraDirectionService = cameraDirectionService ?? 
+            _cameraDirectionService = cameraDirectionService ??
                                       throw new ArgumentNullException(nameof(cameraDirectionService));
-            _playerMovementService = playerMovementService ?? throw new ArgumentNullException(nameof(playerMovementService));
+            _playerMovementService = playerMovementService ??
+                                     throw new ArgumentNullException(nameof(playerMovementService));
         }
 
-        public PlayerMovementPresenter Create(PlayerMovement playerMovement,
-            IPlayerMovementView playerMovementView, IPlayerAnimation playerAnimation,
-            PlayerInventory playerInventory)
+        public PlayerMovementPresenter Create
+        (
+            PlayerMovement playerMovement,
+            IPlayerMovementView playerMovementView,
+            IPlayerAnimation playerAnimation,
+            PlayerInventory playerInventory
+        )
         {
             if (playerMovement == null)
                 throw new ArgumentNullException(nameof(playerMovement));
             if (playerMovementView == null)
                 throw new ArgumentNullException(nameof(playerMovementView));
-            if (playerAnimation == null) 
+            if (playerAnimation == null)
                 throw new ArgumentNullException(nameof(playerAnimation));
 
             return new PlayerMovementPresenter

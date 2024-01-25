@@ -1,7 +1,6 @@
 ﻿using System;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
-using Sources.Infrastructure.Services;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 

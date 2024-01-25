@@ -9,9 +9,6 @@ namespace Sources.Controllers.UI
 {
     public class ImageUIPresenter : PresenterBase
     {
-        private const float MinValue = 0;
-        private const float MaxValue = 1;
-        
         private readonly IImageUI _imageUI;
 
         public ImageUIPresenter(IImageUI imageUI)
@@ -21,19 +18,19 @@ namespace Sources.Controllers.UI
 
         public async UniTask FillMoveTowardsAsync(float fillingRate, CancellationToken cancellationToken)
         {
-            _imageUI.SetFillAmount(MaxValue);
+            _imageUI.SetFillAmount(Constant.FillingAmount.Maximum);
 
             while (_imageUI.FillAmount > Constant.Epsilon)
             {
-                float fill = Mathf.MoveTowards(
-                    _imageUI.FillAmount, MinValue,
-                    fillingRate * Time.deltaTime);
+                float fill = Mathf.MoveTowards(_imageUI.FillAmount, 
+                    Constant.FillingAmount.Minimum, fillingRate * Time.deltaTime);
+                
                 _imageUI.SetFillAmount(fill);
 
                 await UniTask.Yield(cancellationToken);
             }
 
-            _imageUI.SetFillAmount(MinValue);
+            _imageUI.SetFillAmount(Constant.FillingAmount.Minimum);
         }
     }
 }

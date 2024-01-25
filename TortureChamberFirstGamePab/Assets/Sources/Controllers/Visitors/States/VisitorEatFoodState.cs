@@ -6,7 +6,6 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
-using Sources.Presentation.UI;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Garbages;
@@ -23,9 +22,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly GarbageSpawner _garbageSpawner;
         private readonly CoinSpawner _coinSpawner;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
-
-        private const float FillingRate = 0.2f;
-
+        
         public VisitorEatFoodState(Visitor visitor,
             VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
             ItemViewFactory itemViewFactory, TavernMood tavernMood,
@@ -64,8 +61,8 @@ namespace Sources.Controllers.Visitors.States
         private async void Eat(IItemView itemView)
         {
             await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
-                FillingRate, new CancellationTokenSource().Token);
-            _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
+                Constant.Visitors.EatFillingRate, new CancellationTokenSource().Token);
+            _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _visitor.SetUnSeat();
             itemView.Destroy();
             _tavernMood.AddTavernMood();

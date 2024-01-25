@@ -2,13 +2,14 @@
 
 namespace Sources.Presentation.Views.Cameras
 {
-    public class LookAtCamera : MonoBehaviour
+    public class LookAtCamera : View
     {
         private Camera _mainCamera;
 
         private void Start() =>
             _mainCamera = Camera.main;
 
+        //TODO придумать ка убрать отсюда этот апдейт
         private void Update()
         {
             Quaternion rotation = _mainCamera.transform.rotation;

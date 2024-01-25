@@ -17,16 +17,21 @@ namespace Sources.Controllers.Taverns
         private readonly IImageUI _imageUI;
         private readonly IUpgradeble _upgradeble;
 
-        public TavernMoodPresenter(TavernMood tavernMood, 
-            ITavernMoodView tavernMoodView, IImageUI imageUI,
-            IUpgradeble upgradeble)
+        public TavernMoodPresenter
+        (
+            TavernMood tavernMood, 
+            ITavernMoodView tavernMoodView, 
+            IImageUI imageUI,
+            IUpgradeble upgradeble
+            )
         {
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _tavernMoodView = tavernMoodView ?? throw new ArgumentNullException(nameof(tavernMoodView));
             _imageUI = imageUI ?? throw new ArgumentNullException(nameof(imageUI));
-            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
+            //TODO Нет проверки
+            _upgradeble = upgradeble;
 
-            _imageUI.SetFillAmount(Constant.StartTavernMoodValue);
+            _imageUI.SetFillAmount(Constant.TavernMoodValues.StartValue);
         }
 
         public override void Enable()

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData;
 using UnityEngine;
@@ -8,12 +10,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 {
     public class PlayerUpgradeDataService : IDataService<PlayerUpgrade>
     {
-        private const string CharismaKey = "CharismaUpgrader";
-        private const string InventoryKey = "InventoryUpgrader";
-        private const string MovementKey = "MovementUpgrader";
-
-
-        public bool CanLoad => PlayerPrefs.HasKey(CharismaKey);
+        public bool CanLoad => PlayerPrefs.HasKey(Constant.UpgradeDataKey.CharismaKey);
 
         public PlayerUpgrade Load() => 
             new(LoadCharismaUpgrader(), LoadInventoryUpgrader(), LoadMovementUpgrader());
@@ -33,7 +30,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         //TODO все методы возращают один и тот же класс, опасно?
         private Upgrader LoadCharismaUpgrader()
         {
-            string json = PlayerPrefs.GetString(CharismaKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.CharismaKey, string.Empty);
             PlayerCharismaUpgradeData charismaData =
                 JsonConvert.DeserializeObject<PlayerCharismaUpgradeData>(json);
 
@@ -57,7 +54,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadInventoryUpgrader()
         {
-            string json = PlayerPrefs.GetString(InventoryKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.InventoryKey, string.Empty);
             PlayerInventoryUpgradeData inventoryData =
                 JsonConvert.DeserializeObject<PlayerInventoryUpgradeData>(json);
 
@@ -80,7 +77,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadMovementUpgrader()
         {
-            string json = PlayerPrefs.GetString(MovementKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.MovementKey, string.Empty);
             PlayerMovementUpgradeData movementData =
                 JsonConvert.DeserializeObject<PlayerMovementUpgradeData>(json);
 
@@ -124,7 +121,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
 
             string json = JsonConvert.SerializeObject(playerCharismaUpgradeData);
-            PlayerPrefs.SetString(CharismaKey, json);
+            PlayerPrefs.SetString(Constant.UpgradeDataKey.CharismaKey, json);
         }
 
         private void SaveInventory(Upgrader inventoryUpgrader)
@@ -149,7 +146,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
 
             string json = JsonConvert.SerializeObject(playerCharismaUpgradeData);
-            PlayerPrefs.SetString(InventoryKey, json);
+            PlayerPrefs.SetString(Constant.UpgradeDataKey.InventoryKey, json);
         }
 
         private void SaveMovement(Upgrader movementUpgrader)
@@ -173,7 +170,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
 
             string json = JsonConvert.SerializeObject(playerMovementUpgradeData);
-            PlayerPrefs.SetString(MovementKey, json);
+            PlayerPrefs.SetString(Constant.UpgradeDataKey.MovementKey, json);
         }
     }
 }

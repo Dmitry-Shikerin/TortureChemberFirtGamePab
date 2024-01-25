@@ -7,8 +7,12 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerUpgradePresenterFactory
     {
-        public PlayerUpgradePresenter Create(Upgrader upgrader, PlayerWallet playerWallet, 
-            IPlayerUpgradeView playerUpgradeView)
+        public PlayerUpgradePresenter Create
+        (
+            Upgrader upgrader,
+            PlayerWallet playerWallet,
+            IPlayerUpgradeView playerUpgradeView
+        )
         {
             return new PlayerUpgradePresenter(upgrader, playerWallet, playerUpgradeView);
         }

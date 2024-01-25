@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using Sources.Controllers.Items.Coins;
+using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Prefabs;
@@ -15,7 +16,6 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
 {
     public class CoinAnimationViewFactory
     {
-        private const string CoinPrefabPath = "Views/Coin";
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<CoinAnimationView> _objectPool;
         private readonly CoinAnimationPresenterFactory _coinAnimationPresenterFactory;
@@ -47,7 +47,7 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
         }
 
         private CoinAnimationView CreateView() =>
-            _prefabFactory.Create<CoinAnimationView>(CoinPrefabPath)
+            _prefabFactory.Create<CoinAnimationView>(Constant.PrefabPaths.CoinView)
                 .AddComponent<PoolableObject>()
                 .SetPool(_objectPool)
                 .GetComponent<CoinAnimationView>();

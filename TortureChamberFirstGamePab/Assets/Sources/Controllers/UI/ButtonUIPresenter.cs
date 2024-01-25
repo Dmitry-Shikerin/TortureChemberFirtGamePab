@@ -10,11 +10,16 @@ namespace Sources.Controllers.UI
         private readonly IButtonUI _buttonUI;
         private readonly Action _action;
 
-        public ButtonUIPresenter(IButtonUI buttonUI ,Action action)
+        public ButtonUIPresenter
+        (
+            IButtonUI buttonUI,
+            Action action
+        )
         {
             _buttonUI = buttonUI ?? throw new ArgumentNullException(nameof(buttonUI));
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }
+
         public override void Enable()
         {
             _buttonUI.AddListener(OnClick);

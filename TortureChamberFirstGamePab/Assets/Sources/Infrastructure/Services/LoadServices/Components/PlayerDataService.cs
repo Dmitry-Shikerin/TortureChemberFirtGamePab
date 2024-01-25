@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Extensions.Domain;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
+using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
@@ -10,11 +13,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
     //TODO исправить дубляж в этих классах
     public class PlayerDataService : IDataService<Player>
     {
-        private const string MovementKey = nameof(PlayerMovement);
-        private const string InventoryKey = nameof(PlayerInventory);
-        private const string WalletKey = nameof(PlayerWallet);
-
-        public bool CanLoad => PlayerPrefs.HasKey(MovementKey);
+        public bool CanLoad => PlayerPrefs.HasKey(Constant.DataKey.MovementKey);
 
         public Player Load() => 
             new(LoadMovement(), LoadInventory(), LoadWallet());
@@ -34,7 +33,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private PlayerMovement LoadMovement()
         {
-            string json = PlayerPrefs.GetString(MovementKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.DataKey.MovementKey, string.Empty);
             PlayerMovementData movementData = JsonConvert.DeserializeObject<PlayerMovementData>(json);
 
             return new PlayerMovement(movementData);
@@ -42,7 +41,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private PlayerInventory LoadInventory()
         {
-            string json = PlayerPrefs.GetString(InventoryKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.DataKey.InventoryKey, string.Empty);
             PlayerInventoryData inventoryData = JsonConvert.DeserializeObject<PlayerInventoryData>(json);
 
             //TODO чтобы засунуть айтемы в плейер инсвентори нужна фабрика
@@ -51,7 +50,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private PlayerWallet LoadWallet()
         {
-            string json = PlayerPrefs.GetString(WalletKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.DataKey.WalletKey, string.Empty);
             PlayerWalletData walletData = JsonConvert.DeserializeObject<PlayerWalletData>(json);
 
             return new PlayerWallet(walletData);
@@ -66,7 +65,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
 
             string json = JsonConvert.SerializeObject(movementData);
-            PlayerPrefs.SetString(MovementKey, json);
+            PlayerPrefs.SetString(Constant.DataKey.MovementKey, json);
         }
 
         private void Save(PlayerInventory inventory)
@@ -82,7 +81,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
             
             string json = JsonConvert.SerializeObject(walletData);
-            PlayerPrefs.SetString(WalletKey, json);
+            PlayerPrefs.SetString(Constant.DataKey.WalletKey, json);
         }
     }
 }

@@ -753,6 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecb0321f23fac84d8c620dc8a26eee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TextUIContainer>k__BackingField: {fileID: 1790518852072667884}
 --- !u!114 &1790518852072667884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,19 +2169,47 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5983925554240320095, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1049333862872815985}
+    - targetCorrespondingSourceObject: {fileID: 5983925554240320095, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6738171170221376410}
     - targetCorrespondingSourceObject: {fileID: 3764032876028819871, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1238804434661707192}
     - targetCorrespondingSourceObject: {fileID: 363942306869654833, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1591718473163753824}
+    - targetCorrespondingSourceObject: {fileID: 3207289613007565079, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6027661444554158122}
     - targetCorrespondingSourceObject: {fileID: 1538534111410504020, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7996214076760311785}
+    - targetCorrespondingSourceObject: {fileID: 5059911137405494050, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1722948276131330848}
     - targetCorrespondingSourceObject: {fileID: 558008027809954085, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7542772425003436722}
   m_SourcePrefab: {fileID: 100100000, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+--- !u!1 &919892065121158945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3207289613007565079, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+  m_PrefabInstance: {fileID: 2325695917432436278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6027661444554158122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919892065121158945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fe2029e57d4da188f6f21819107b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _priceNextUpgrade: {fileID: 447067170711562520}
+  _currentLevelUpgrade: {fileID: 4692291366161767622}
 --- !u!1 &1475509317639868329 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3764032876028819871, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
@@ -2302,6 +2331,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7933734036610212243, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
   m_PrefabInstance: {fileID: 2325695917432436278}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7385589218778158356 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5059911137405494050, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
+  m_PrefabInstance: {fileID: 2325695917432436278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1722948276131330848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385589218778158356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77fe2029e57d4da188f6f21819107b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _priceNextUpgrade: {fileID: 5984486796258492710}
+  _currentLevelUpgrade: {fileID: 5199844237628900176}
 --- !u!224 &7973209341572641354 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5683560028164949116, guid: 3a9fde7cb4ce7d741ab42abe7a519ec7, type: 3}
@@ -2330,3 +2378,18 @@ MonoBehaviour:
   <PlayerInventoryPriceNextLevelUpgradeTextUI>k__BackingField: {fileID: 4255615330115145143}
   <PlayerMovementSpeedLevelUpgradeTextUI>k__BackingField: {fileID: 7542772425003436722}
   <PlayerMovementPriceNextSpeedLevelUpgradeTextUI>k__BackingField: {fileID: 42873754532162718}
+--- !u!114 &6738171170221376410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308477805428114537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833ce58feb1341c7a20d9ab667f87cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CharismaUpgradeView>k__BackingField: {fileID: 1238804434661707192}
+  <InventoryUpgradeView>k__BackingField: {fileID: 6027661444554158122}
+  <MovementUpgradeView>k__BackingField: {fileID: 1722948276131330848}

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sources.Utils.Repositoryes.Interfaces
+﻿namespace Sources.Utils.Repositoryes.ItemRepository.Interfaces
 {
     public interface IItemRepository<T1>
     {

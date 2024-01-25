@@ -1,24 +1,23 @@
-﻿using Sources.Domain.GamePlays;
+﻿using Sources.Domain.Constants;
+using Sources.Domain.GamePlays;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Domain.Taverns;
 using Sources.Domain.Taverns.Data;
 using Sources.Domain.Upgrades;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.Items;
-using Sources.DomainInterfaces.Upgrades;
-using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.Providers;
-using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Voids;
 using Sources.Utils.Repositoryes;
+using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
 using Zenject;
 
@@ -45,9 +44,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<PlayerUpgrade> playerUpgradeDataService,
             IDataService<Tavern> tavernDataService,
             ImageUIFactory imageUIFactory,
-            IPrefabFactory prefabFactory,
-            PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
-            PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService
+            IPrefabFactory prefabFactory
         ) :
             base
             (
@@ -68,9 +65,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerUpgradeDataService, 
                 tavernDataService,
                 imageUIFactory,
-                prefabFactory,
-                playerMovementUpgradeProviderService,
-                playerInventoryUpgradeBrokerService
+                prefabFactory
             )
         {
         }
@@ -90,13 +85,12 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected override PlayerUpgrade CreatePlayerUpgrade()
         {
-            //TODO порешать с этими конфигами
             UpgradeConfig charismaUpgradeConfig =
-                Resources.Load<UpgradeConfig>("Configs/Upgrades/CharismaUpgradeConfig");
+                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Charisma);
             UpgradeConfig inventoryUpgradeConfig =
-                Resources.Load<UpgradeConfig>("Configs/Upgrades/InventoryUpgradeConfig");
+                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Inventory);
             UpgradeConfig movementUpgradeConfig =
-                Resources.Load<UpgradeConfig>("Configs/Upgrades/MovementUpgradeConfig");
+                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Movement);
 
             //TODO Отрефакторить запись
             Upgrader charismaUpgrader = new Upgrader(charismaUpgradeConfig);

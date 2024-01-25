@@ -1,4 +1,4 @@
-﻿using MyProject.Sources.Controllers.UI;
+﻿using Sources.Controllers.UI;
 using Sources.PresentationInterfaces.UI;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces;
 

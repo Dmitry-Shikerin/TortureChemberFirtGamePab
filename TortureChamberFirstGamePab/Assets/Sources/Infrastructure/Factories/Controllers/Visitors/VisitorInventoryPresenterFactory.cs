@@ -7,14 +7,17 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorInventoryPresenterFactory
     {
-        public VisitorInventoryPresenter Create(IVisitorInventoryView visitorInventoryView,
-            VisitorInventory visitorInventory)
+        public VisitorInventoryPresenter Create
+        (
+            IVisitorInventoryView visitorInventoryView,
+            VisitorInventory visitorInventory
+        )
         {
-            if (visitorInventoryView == null) 
+            if (visitorInventoryView == null)
                 throw new ArgumentNullException(nameof(visitorInventoryView));
-            if (visitorInventory == null) 
+            if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
-            
+
             return new VisitorInventoryPresenter
             (
                 visitorInventoryView,

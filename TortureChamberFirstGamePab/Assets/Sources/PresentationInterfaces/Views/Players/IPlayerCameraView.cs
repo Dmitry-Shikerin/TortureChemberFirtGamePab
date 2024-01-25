@@ -6,8 +6,6 @@ namespace MyProject.Sources.PresentationInterfaces.Views
     {
         void Follow();
         void Rotate(float playerCameraAngleY);
-        void SetTargetTransform(IPlayerMovementView playerMovementView);
-        public void SetTargetTransform(Transform targetTransform);
-
+        void SetTargetTransform(Transform targetTransform);
     }
 }

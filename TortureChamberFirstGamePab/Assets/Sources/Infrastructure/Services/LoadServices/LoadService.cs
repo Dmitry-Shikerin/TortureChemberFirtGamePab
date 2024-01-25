@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
@@ -8,13 +9,13 @@ using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Voids;
 using Sources.Utils.Repositoryes;
+using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +23,6 @@ namespace Sources.Infrastructure.Services.LoadServices
 {
     public class LoadService : LoadServiceBase
     {
-
         public LoadService
         (
             IUpgradeProviderSetter upgradeProviderSetter,
@@ -42,9 +42,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             TextUIFactory textUIFactory,
             ButtonUIFactory buttonUIFactory,
             ImageUIFactory imageUIFactory,
-            IPrefabFactory prefabFactory,
-            PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
-            PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService
+            IPrefabFactory prefabFactory
         ) :
             base
             (
@@ -65,9 +63,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerUpgradeDataService,
                 tavernDataService,
                 imageUIFactory,
-                prefabFactory,
-                playerMovementUpgradeProviderService,
-                playerInventoryUpgradeBrokerService
+                prefabFactory
             )
         {
         }

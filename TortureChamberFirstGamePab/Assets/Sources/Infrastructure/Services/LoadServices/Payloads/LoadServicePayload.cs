@@ -6,6 +6,7 @@
         {
             CanLoad = canLoad;
         }
+        
         public bool CanLoad { get; private set; }
     }
 }

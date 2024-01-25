@@ -17,13 +17,13 @@ namespace Sources.Domain.Upgrades
 
         public Upgrader(UpgradeConfig upgradeConfig)
         {
-            if (upgradeConfig.CurrentAmountUpgrade <= 0) 
+            if (upgradeConfig.CurrentAmountUpgrade <= 0)
                 throw new ArgumentOutOfRangeException(nameof(upgradeConfig.CurrentAmountUpgrade));
             if (upgradeConfig.AddedAmountUpgrade <= 0)
                 throw new ArgumentOutOfRangeException(nameof(upgradeConfig.AddedAmountUpgrade));
             if (upgradeConfig.MaximumAmountUpgrade <= 0)
                 throw new ArgumentOutOfRangeException(nameof(upgradeConfig.MaximumAmountUpgrade));
-            
+
             _currentAmountUpgrade = upgradeConfig.CurrentAmountUpgrade;
             AddedAmountUpgrade = upgradeConfig.AddedAmountUpgrade;
             MaximumUpgradeAmount = upgradeConfig.MaximumAmountUpgrade;
@@ -31,10 +31,15 @@ namespace Sources.Domain.Upgrades
             MoneyPerUpgrades = upgradeConfig.MoneyPerUpgrades;
             _currentLevelUpgrade = new ObservableProperty<int>();
         }
-        
-        public Upgrader(float currentAmountUpgrade, float addedAmountUpgrade, 
-            float maximumUpgradeAmount, int currentLevelUpgrade,
-            IEnumerable<int> moneyPerUpgrades)
+
+        public Upgrader
+        (
+            float currentAmountUpgrade,
+            float addedAmountUpgrade,
+            float maximumUpgradeAmount,
+            int currentLevelUpgrade,
+            IEnumerable<int> moneyPerUpgrades
+        )
         {
             _currentAmountUpgrade = currentAmountUpgrade;
             AddedAmountUpgrade = addedAmountUpgrade;
@@ -53,7 +58,7 @@ namespace Sources.Domain.Upgrades
         {
             if (_currentAmountUpgrade >= MaximumUpgradeAmount)
                 throw new InvalidOperationException("Достигнут максимальный лимит улучшения");
-            
+
             _currentAmountUpgrade += AddedAmountUpgrade;
             Debug.Log(_currentAmountUpgrade);
             _currentLevelUpgrade.Value++;

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Sources.Infrastructure.Services.LoadServices.DataAccess
+namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
 {
     public class PlayerInventoryItemData
     {

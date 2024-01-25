@@ -15,9 +15,12 @@ namespace Sources.Controllers.Visitors.States
         private readonly VisitorCounter _visitorCounter;
         private readonly IObjectPool _objectPool;
 
-        public VisitorReturnToPoolState(IVisitorView visitorView, Visitor visitor,
+        public VisitorReturnToPoolState
+        (
+            IVisitorView visitorView,
+            Visitor visitor,
             VisitorCounter visitorCounter
-            )
+        )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -32,9 +35,9 @@ namespace Sources.Controllers.Visitors.States
             _visitor.SetIdle();
             _visitor.SetSeatPoint(null);
             _visitor.SetUnSeat();
-            
+
             _visitorCounter.RemoveActiveVisitor();
-            
+
             _visitorView.Destroy();
         }
 

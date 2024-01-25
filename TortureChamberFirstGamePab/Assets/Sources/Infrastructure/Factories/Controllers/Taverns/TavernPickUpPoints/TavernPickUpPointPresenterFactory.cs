@@ -13,20 +13,23 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoint
 
         public TavernPickUpPointPresenterFactory(ItemsFactory itemsFactory)
         {
-            _itemsFactory = itemsFactory ?? 
+            _itemsFactory = itemsFactory ??
                             throw new ArgumentNullException(nameof(itemsFactory));
         }
-        
-        public TavernFudPickUpPointPresenter Create(
+
+        public TavernFudPickUpPointPresenter Create
+        (
             ITavernFudPickUpPointView tavernFudPickUpPointView,
-            PickUpPointUIImages pickUpPointUIImages, ItemConfig itemConfig)
+            PickUpPointUIImages pickUpPointUIImages,
+            ItemConfig itemConfig
+        )
         {
-            if (tavernFudPickUpPointView == null) 
+            if (tavernFudPickUpPointView == null)
                 throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
-            
-            if (pickUpPointUIImages == null) 
+
+            if (pickUpPointUIImages == null)
                 throw new ArgumentNullException(nameof(pickUpPointUIImages));
-            
+
             return new TavernFudPickUpPointPresenter(
                 tavernFudPickUpPointView, _itemsFactory, pickUpPointUIImages, itemConfig);
         }

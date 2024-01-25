@@ -13,8 +13,6 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
-        private const float FillingRate = 0.02f;
-
         private readonly Visitor _visitor;
         private readonly VisitorInventory _visitorInventory;
         private readonly ProductShuffleService _productShuffleService;
@@ -49,7 +47,7 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();
             _visitorImageUI.BackGroundImage.ShowImage();
-            _visitorImageUI.BackGroundImage.SetFillAmount(Constant.MaximumAmountFillingImage);
+            _visitorImageUI.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
             _visitorInventory.SetTargetItem(item);
 
@@ -74,12 +72,12 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    FillingRate, _cancellationTokenSource.Token);
+                    Constant.Visitors.EatFillingRate, _cancellationTokenSource.Token);
                 _visitor.SetUnHappy();
                 Debug.Log("Посетитель недоволен отсутствием заказа");
                 _visitor.SeatPointView.UnOccupy();
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
                 Debug.Log("получил пролдукт");
                 _visitorInventory.SetTargetItem(null);

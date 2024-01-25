@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.Domain.Constants;
 using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.Domain.Players;
+using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns.Data;
 using Sources.Domain.Visitors;
@@ -14,7 +16,6 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
-using Sources.Infrastructure.Services.Brokers;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.UpgradeServices;
@@ -34,6 +35,7 @@ using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Players;
 using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
+using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -45,8 +47,6 @@ namespace Sources.Infrastructure.Services.LoadServices
         protected readonly IDataService<Player> PlayerDataService;
         protected readonly IDataService<PlayerUpgrade> PlayerUpgradeDataService;
         protected readonly IDataService<Tavern> TavernDataService;
-        private readonly PlayerMovementUpgradeProviderService _playerMovementUpgradeProviderService;
-        private readonly PlayerInventoryUpgradeBrokerService _playerInventoryUpgradeBrokerService;
         private readonly ImageUIFactory _imageUIFactory;
         private readonly IPrefabFactory _prefabFactory;
 
@@ -71,13 +71,6 @@ namespace Sources.Infrastructure.Services.LoadServices
         private PlayerUpgradeService[] _playerUpgradeServices;
         private Tavern _tavern;
 
-        //TODO сделать отдельный класс констант
-        private const string BeerItemConfigPath = "Configs/Items/BeerItemConfig";
-        private const string BreadItemConfigPath = "Configs/Items/BreadItemConfig";
-        private const string MeatItemConfigPath = "Configs/Items/MeatItemConfig";
-        private const string SoupItemConfigPath = "Configs/Items/SoupItemConfig";
-        private const string WineItemConfigPath = "Configs/Items/WineItemConfig";
-        
         protected LoadServiceBase
         (
             IUpgradeProviderSetter upgradeProviderSetter,
@@ -97,10 +90,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<PlayerUpgrade> playerUpgradeDataService,
             IDataService<Tavern> tavernDataService,
             ImageUIFactory imageUIFactory,
-            IPrefabFactory prefabFactory,
-            PlayerMovementUpgradeProviderService playerMovementUpgradeProviderService,
-            PlayerInventoryUpgradeBrokerService playerInventoryUpgradeBrokerService
-            //TODO очень плохо
+            IPrefabFactory prefabFactory
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
@@ -127,9 +117,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernDataService = tavernDataService ?? throw new ArgumentNullException(nameof(tavernDataService));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
-            _playerMovementUpgradeProviderService = playerMovementUpgradeProviderService;
-            _playerInventoryUpgradeBrokerService = playerInventoryUpgradeBrokerService 
-                                                   ?? throw new ArgumentNullException(nameof(playerInventoryUpgradeBrokerService));
         }
         
         public void Load()
@@ -144,18 +131,16 @@ namespace Sources.Infrastructure.Services.LoadServices
             //TODO сделать один сервис для всех Upgradov
             //TODO сделать три интерфейса
             //TODO или передавать только нужную информацию из Upgreyda
-            // _playerMovementUpgradeProviderService.Set(_playerUpgrade.MovementUpgrader);
-            // _playerInventoryUpgradeBrokerService.Set(_playerUpgrade.InventoryUpgrader);
             _upgradeProviderSetter.SetCharisma(_playerUpgrade.CharismaUpgrader);
             _upgradeProviderSetter.SetInventory(_playerUpgrade.InventoryUpgrader);
             _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
             
             //Items
-            ItemConfig beerConfig = Resources.Load<ItemConfig>(BeerItemConfigPath);
-            ItemConfig breadConfig = Resources.Load<ItemConfig>(BreadItemConfigPath);
-            ItemConfig meatConfig = Resources.Load<ItemConfig>(MeatItemConfigPath);
-            ItemConfig soupConfig = Resources.Load<ItemConfig>(SoupItemConfigPath);
-            ItemConfig wineConfig = Resources.Load<ItemConfig>(WineItemConfigPath);
+            ItemConfig beerConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Beer);
+            ItemConfig breadConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Bread);
+            ItemConfig meatConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Meat);
+            ItemConfig soupConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Soup);
+            ItemConfig wineConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Wine);
 
             IItem[] items = new IItem[]
             {
@@ -193,12 +178,8 @@ namespace Sources.Infrastructure.Services.LoadServices
             collectionRepository.Add(seatPoints);
             collectionRepository.Add(outDoorPoints);
             
-            //TODO сделать провайдеры и внедрять провайдеры в сервисы
-
-            //TODO поправить
-            HudTextUIContainer hudTextUIContainer = _hud.GetComponent<HudTextUIContainer>();
-            
-            _textUIFactory.Create(hudTextUIContainer.PlayerWalletText, _player.Wallet.Coins);
+            //HudText
+            _textUIFactory.Create(_hud.TextUIContainer.PlayerWalletText, _player.Wallet.Coins);
             
             //PlayerMovementView
             PlayerView playerView = Object.FindObjectOfType<PlayerView>();

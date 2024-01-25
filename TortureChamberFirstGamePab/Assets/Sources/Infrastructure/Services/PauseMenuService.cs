@@ -1,14 +1,15 @@
 ﻿using System;
+using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Views.UIs;
 
 namespace Sources.Infrastructure.Services
 {
     public class PauseMenuService
     {
-        private readonly InputService _inputService;
+        private readonly IInputService _inputService;
         private readonly PauseMenuWindow _pauseMenuWindow;
 
-        public PauseMenuService(InputService inputService, PauseMenuWindow pauseMenuWindow)
+        public PauseMenuService(IInputService inputService, PauseMenuWindow pauseMenuWindow)
         {
             _inputService = inputService ?? throw new ArgumentNullException(nameof(inputService));
             _pauseMenuWindow =

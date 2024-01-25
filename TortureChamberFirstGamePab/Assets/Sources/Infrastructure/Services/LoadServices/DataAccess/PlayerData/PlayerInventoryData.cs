@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Sources.Domain.Players;
-using Sources.DomainInterfaces.Items;
+﻿using Newtonsoft.Json;
 
-namespace Sources.Infrastructure.Services.LoadServices.DataAccess
+namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
 {
     public class PlayerInventoryData
     {

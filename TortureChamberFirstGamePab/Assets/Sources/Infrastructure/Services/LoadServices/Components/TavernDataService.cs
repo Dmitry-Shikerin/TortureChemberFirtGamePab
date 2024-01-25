@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
-using Sources.Domain.Players;
 using Sources.Domain.Taverns;
 using Sources.Domain.Taverns.Data;
-using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
 using UnityEngine;
 
@@ -11,10 +10,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 {
     public class TavernDataService : IDataService<Tavern>
     {
-        private const string TavernMoodKey = nameof(TavernMood);
-        private const string GameplayKey = nameof(GamePlay);
-        
-        public bool CanLoad => PlayerPrefs.HasKey(TavernMoodKey);
+        public bool CanLoad => PlayerPrefs.HasKey(Constant.TavernDataKey.TavernMoodKey);
         
         public Tavern Load()
         {
@@ -34,7 +30,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         
         private TavernMood LoadTavernMood()
         {
-            string json = PlayerPrefs.GetString(TavernMoodKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.TavernDataKey.TavernMoodKey, string.Empty);
             TavernMoodData moodData = JsonConvert.DeserializeObject<TavernMoodData>(json);
 
             return new TavernMood(moodData);
@@ -42,7 +38,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private GamePlay LoadGamePlay()
         {
-            string json = PlayerPrefs.GetString(GameplayKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.TavernDataKey.GameplayKey, string.Empty);
             GameplayData gameplayData = JsonConvert.DeserializeObject<GameplayData>(json);
             
             return new GamePlay(gameplayData);
@@ -56,7 +52,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
             
             string json = JsonConvert.SerializeObject(tavernMoodData);
-            PlayerPrefs.SetString(TavernMoodKey, json);
+            PlayerPrefs.SetString(Constant.TavernDataKey.TavernMoodKey, json);
         }
 
         private void Save(GamePlay gamePlay)
@@ -67,7 +63,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             };
             
             string json = JsonConvert.SerializeObject(gameplayData);
-            PlayerPrefs.SetString(GameplayKey, json);
+            PlayerPrefs.SetString(Constant.TavernDataKey.GameplayKey, json);
         }
     }
 }

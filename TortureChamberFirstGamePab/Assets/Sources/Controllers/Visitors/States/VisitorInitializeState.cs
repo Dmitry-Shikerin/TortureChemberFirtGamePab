@@ -6,7 +6,6 @@ using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Controllers.Visitors.States
@@ -16,8 +15,12 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly CollectionRepository _collectionRepository;
 
-        public VisitorInitializeState(IVisitorView visitorView, Visitor visitor,
-            IVisitorAnimation visitorAnimation , CollectionRepository collectionRepository)
+        public VisitorInitializeState
+        (
+            IVisitorView visitorView, 
+            Visitor visitor,
+            IVisitorAnimation visitorAnimation, 
+            CollectionRepository collectionRepository)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _collectionRepository = collectionRepository ?? 

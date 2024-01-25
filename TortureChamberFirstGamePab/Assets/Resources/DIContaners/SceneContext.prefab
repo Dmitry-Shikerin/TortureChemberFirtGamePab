@@ -77,3 +77,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb30adf4425f4bd7bcd6d1944a04349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerCameraView: {fileID: 0}
+  _rootGamePoints: {fileID: 0}

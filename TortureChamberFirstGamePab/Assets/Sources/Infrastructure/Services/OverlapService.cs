@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sources.Domain.Constants;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services
@@ -7,7 +8,7 @@ namespace Sources.Infrastructure.Services
     public class OverlapService
     {
         private readonly LinecastService _linecastService;
-        private Collider[] _colliders  = new Collider[32];
+        private Collider[] _colliders  = new Collider[Constant.Overlap.MaxCollidersValue];
 
         public OverlapService(LinecastService linecastService)
         {

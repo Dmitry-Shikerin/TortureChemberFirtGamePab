@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sources.DomainInterfaces.Items;
 using Sources.Utils.Repositoryes;
+using Sources.Utils.Repositoryes.ItemRepository;
 
 namespace Sources.Infrastructure.Factories.Domains.Items
 {
@@ -9,10 +10,6 @@ namespace Sources.Infrastructure.Factories.Domains.Items
     {
         private Dictionary<Type, IItem> _items = new Dictionary<Type, IItem>();
 
-        // public ItemsFactory(IEnumerable<IItem> items)
-        // {
-        //     Add(items);
-        // }
         public ItemsFactory(ItemRepository<IItem> itemRepository)
         {
             //TODO надеюсь работает

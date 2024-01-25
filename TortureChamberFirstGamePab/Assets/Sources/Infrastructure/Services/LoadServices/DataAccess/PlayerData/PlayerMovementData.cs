@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Sources.Domain.Data;
-using UnityEngine;
 
-namespace Sources.Infrastructure.Services.LoadServices.DataAccess
+namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
 {
     public class PlayerMovementData
     {

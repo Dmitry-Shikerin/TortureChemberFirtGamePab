@@ -2,8 +2,7 @@
 
 namespace Sources.InfrastructureInterfaces.Services.Providers
 {
-    public interface IUpgradeProvider : ICharismaProvider, IInventoryProvider, 
-         IMovementProvider
+    public interface IUpgradeProvider : ICharismaProvider, IInventoryProvider, IMovementProvider
     {
     }
 }

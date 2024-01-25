@@ -7,11 +7,12 @@ namespace Sources.Infrastructure.Factories.Controllers.Items.Garbages
 {
     public class GarbagePresenterFactory
     {
-        public GarbagePresenterFactory()
-        {
-        }
-
-        public GarbagePresenter Create(PickUpPointUIImages pickUpPointUIImages, IGarbageView garbageView, Garbage garbage)
+        public GarbagePresenter Create
+        (
+            PickUpPointUIImages pickUpPointUIImages,
+            IGarbageView garbageView,
+            Garbage garbage
+        )
         {
             return new GarbagePresenter
             (

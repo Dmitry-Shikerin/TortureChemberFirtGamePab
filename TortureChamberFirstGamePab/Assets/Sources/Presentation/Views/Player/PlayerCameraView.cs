@@ -24,10 +24,5 @@ namespace Sources.Presentation.Views.Player
         {
             transform.rotation = Quaternion.Euler(0, angleY, 0);
         }
-
-        public void SetTargetTransform(IPlayerMovementView playerMovementView)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

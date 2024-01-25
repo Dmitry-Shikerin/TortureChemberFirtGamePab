@@ -5,8 +5,7 @@ namespace Sources.Domain.GamePlays
 {
     public class GamePlay
     {
-        //TODO убрать магическое число
-        public GamePlay() : this(Constant.MaximumVisitorsCapacity)
+        public GamePlay() : this(Constant.Visitors.MaximumCapacity)
         {
         }
         

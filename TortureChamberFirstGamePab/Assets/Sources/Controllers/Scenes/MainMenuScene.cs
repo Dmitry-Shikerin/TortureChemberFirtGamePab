@@ -10,10 +10,10 @@ namespace Sources.Controllers.Scenes
     {
         private readonly HUD _hud;
         private readonly IButtonUI _continueGameButton;
-        private readonly IDataService<Domain.Players.Player> _dataService;
+        private readonly IDataService<Domain.Players.Data.Player> _dataService;
 
         public MainMenuScene(HUD hud, IButtonUI continueGameButton, 
-            IDataService<Domain.Players.Player> dataService)
+            IDataService<Domain.Players.Data.Player> dataService)
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _continueGameButton = continueGameButton ?? throw new ArgumentNullException(nameof(continueGameButton));

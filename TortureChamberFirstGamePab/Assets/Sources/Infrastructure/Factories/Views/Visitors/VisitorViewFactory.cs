@@ -1,9 +1,9 @@
 using System;
 using Sources.Controllers.Visitors;
+using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
-using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.ObjectPolls;
@@ -15,8 +15,6 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
 {
     public class VisitorViewFactory
     {
-        private const string VisitorViewPrefabPath = "Prefabs/Visitor";
-        
         private readonly VisitorPresenterFactory _visitorPresenterFactory;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
@@ -55,7 +53,7 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         }
         
         private VisitorView CreateView() =>
-            _prefabFactory.Create<VisitorView>(VisitorViewPrefabPath)
+            _prefabFactory.Create<VisitorView>(Constant.PrefabPaths.VisitorView)
                 .AddComponent<PoolableObject>()
                 .SetPool(_objectPool)
                 .GetComponent<VisitorView>();

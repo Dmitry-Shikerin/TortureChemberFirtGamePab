@@ -1,4 +1,5 @@
 using System;
+using Sources.Domain.Constants;
 using Sources.DomainInterfaces.Items;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Factories.Views.Items;
@@ -10,8 +11,6 @@ namespace Sources.Infrastructure.Factories.Views.Items
 {
     public class FoodViewFactory : IItemViewFactory
     {
-        private const string ItemViewPath = "Prefabs/ItemViews/";
-        
         private readonly IPrefabFactory _prefabFactory;
         
         public FoodViewFactory(IPrefabFactory prefabFactory)
@@ -21,7 +20,7 @@ namespace Sources.Infrastructure.Factories.Views.Items
         
         public IItemView Create(IItem item) 
         {
-            string fullPath = ItemViewPath + item.GetType().Name + "View";
+            string fullPath = Constant.PrefabPaths.ItemView + item.GetType().Name + "View";
             
             FoodView itemView = _prefabFactory.Create<FoodView>(fullPath);
 

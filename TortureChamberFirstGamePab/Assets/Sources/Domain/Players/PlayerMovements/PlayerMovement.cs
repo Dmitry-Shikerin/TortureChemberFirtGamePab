@@ -3,6 +3,7 @@ using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Extensions.Domain;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
+using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 using UnityEngine;
 
 namespace Sources.Domain.Players.PlayerMovements
@@ -16,7 +17,6 @@ namespace Sources.Domain.Players.PlayerMovements
             
             Position = data.Position.ToVector3();
             RotationAngle = data.Direction;
-            Debug.Log(data.Position.ToVector3());
         }
 
         public PlayerMovement()
