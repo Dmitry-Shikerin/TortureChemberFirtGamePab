@@ -10,7 +10,7 @@ namespace Sources.Infrastructure.Services.Providers.Taverns
         public TavernMood TavernMood { get; private set; }
         public GamePlay GamePlay { get; private set; }
 
-        public void SetTavern(TavernMood tavern)
+        public void SetTavernMood(TavernMood tavern)
         {
             TavernMood = tavern ?? throw new ArgumentNullException(nameof(tavern));
         }

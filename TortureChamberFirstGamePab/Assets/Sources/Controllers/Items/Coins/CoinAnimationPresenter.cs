@@ -58,8 +58,7 @@ namespace Sources.Controllers.Items.Coins
             }
             catch (OperationCanceledException e)
             {
-                Console.WriteLine(e);
-                throw;
+                Debug.Log(e.Message);
             }
         }
 

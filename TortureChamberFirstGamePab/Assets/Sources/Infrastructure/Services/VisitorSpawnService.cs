@@ -16,12 +16,14 @@ namespace Sources.Infrastructure.Services
 {
     public class VisitorSpawnService
     {
-        private readonly GamePlay _gamePlay;
         private readonly VisitorCounter _visitorCounter;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
         private readonly VisitorViewFactory _visitorViewFactory;
-        private readonly TavernMood _tavernMood;
+        private readonly ITavernProvider _tavernProvider;
+        
+        private TavernMood _tavernMood;
+        private GamePlay _gamePlay;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -33,17 +35,21 @@ namespace Sources.Infrastructure.Services
             ITavernProvider tavernProvider
         )
         {
+            if (tavernProvider == null) 
+                throw new ArgumentNullException(nameof(tavernProvider));
             //TODO Нет проверок на нулл
-            _gamePlay = tavernProvider.GamePlay;
-            _tavernMood = tavernProvider.TavernMood;
             _visitorCounter = new VisitorCounter();
             
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorViewFactory = visitorViewFactory ?? throw new ArgumentNullException(nameof(visitorViewFactory));
+            _tavernProvider = tavernProvider;
         }
 
-        private bool CanSpawn => _visitorCounter.ActiveVisitorsCount < _gamePlay.MaximumVisitorsCapacity;
+        private GamePlay GamePlay => _gamePlay ??= _tavernProvider.GamePlay;
+        private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
+        
+        private bool CanSpawn => _visitorCounter.ActiveVisitorsCount < GamePlay.MaximumVisitorsCapacity;
 
         //TODO не забыть запустить этот метод
         public async void SpawnVisitorAsync()
@@ -78,8 +84,8 @@ namespace Sources.Infrastructure.Services
         {
             Visitor visitor = new Visitor();
 
-            return CreateFromPool(visitor, _tavernMood, _visitorCounter) ??
-                   _visitorViewFactory.Create(visitor, _tavernMood, _visitorCounter);
+            return CreateFromPool(visitor, TavernMood, _visitorCounter) ??
+                   _visitorViewFactory.Create(visitor, TavernMood, _visitorCounter);
         }
 
         private IVisitorView CreateFromPool(Visitor visitor, TavernMood tavernMood, VisitorCounter visitorCounter)

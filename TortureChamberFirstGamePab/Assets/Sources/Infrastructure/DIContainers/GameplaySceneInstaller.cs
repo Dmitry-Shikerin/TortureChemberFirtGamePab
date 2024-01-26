@@ -40,6 +40,7 @@ using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
+using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
 using Sources.Presentation.Views.UIs;
 using Sources.Presentation.Views.Visitors;
@@ -71,13 +72,12 @@ namespace Sources.Infrastructure.DIContainers
             HUD hud = Object.Instantiate(hudPrefab);
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
             
+            Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
+            
             Container.Bind<HudTextUIContainer>().FromInstance(hud.TextUIContainer).AsSingle();
 
             Container.Bind<CollectionRepository>().AsSingle();
             
-            //TODO работает ли
-            // Container.BindInterfacesTo<UpgradeProvider>().AsSingle();
-            // Container.BindInterfacesTo<TavernProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradeProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<TavernProvider>().AsSingle();
 
@@ -89,7 +89,7 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<VisitorPointRepositoryFactory>().AsSingle();
 
-            Container.Bind<ItemRepository<IItem>>().AsSingle();
+            Container.Bind<ItemProvider<IItem>>().AsSingle();
 
             Container.Bind<ItemsFactory>().AsSingle();
 
@@ -141,7 +141,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<PlayerWalletPresenterFactory>().AsSingle();
             Container.Bind<PlayerWalletViewFactory>().AsSingle();
 
-            //TODO плохо
             Container.Bind<PlayerCameraView>().FromInstance(_playerCameraView).AsSingle();
             Container.Bind<PlayerCameraPresenterFactory>().AsSingle();
             Container.Bind<PlayerCameraViewFactory>().AsSingle();
@@ -149,7 +148,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<PlayerInventoryPresenterFactory>().AsSingle();
             Container.Bind<PlayerInventoryViewFactory>().AsSingle();
 
-            //TODO подправить
             Container.Bind<PlayerMovementCharacteristic>().FromResource(
                 Constant.PrefabPaths.PlayerMovementCharacteristic);
             Container.Bind<PlayerMovementService>().AsSingle();
@@ -159,19 +157,13 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<TavernPickUpPointPresenterFactory>().AsSingle();
             Container.Bind<TavernFoodPickUpPointViewFactory>().AsSingle();
 
-            //TODO исправить
-            TavernUpgradeTrigger tavernUpgradeTrigger = FindObjectOfType<TavernUpgradeTrigger>(true);
-            TavernUpgradePointView tavernUpgradePointView = FindObjectOfType<TavernUpgradePointView>(true);
-            Container.Bind<TavernUpgradeTrigger>().FromInstance(tavernUpgradeTrigger);
-            Container.Bind<TavernUpgradePointView>().FromInstance(tavernUpgradePointView);
+            Container.Bind<TavernUpgradeTrigger>().FromInstance(_rootGamePoints.TavernUpgradeTrigger).AsSingle();
+            Container.Bind<TavernUpgradePointView>().FromInstance(hud.TavernUpgradePointView).AsSingle();
             Container.Bind<TavernUpgradePointService>().AsSingle();
 
-            //TODO исправить
-            PauseMenuWindow pauseMenuWindow = hud.GetComponentInChildren<PauseMenuWindow>(true);
-            Container.Bind<PauseMenuWindow>().FromInstance(pauseMenuWindow);
+            Container.Bind<PauseMenuWindow>().FromInstance(hud.PauseMenuWindow);
             Container.Bind<PauseMenuService>().AsSingle();
 
-            //TODO плохо, взять на заметку
             Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
             Container.Bind<IDataService<PlayerUpgrade>>().To<PlayerUpgradeDataService>().AsSingle();
             Container.Bind<IDataService<Tavern>>().To<TavernDataService>().AsSingle();

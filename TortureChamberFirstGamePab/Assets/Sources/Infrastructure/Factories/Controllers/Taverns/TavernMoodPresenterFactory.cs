@@ -11,16 +11,18 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
 {
     public class TavernMoodPresenterFactory
     {
-        private readonly IUpgradeble _upgradeble;
+        private readonly IUpgradeProvider _upgradeProvider;
 
         public TavernMoodPresenterFactory(IUpgradeProvider upgradeProvider)
         {
-            _upgradeble = upgradeProvider.Charisma;
+            _upgradeProvider = upgradeProvider ?? throw new ArgumentNullException(nameof(upgradeProvider));
         }
+        
+        
         
         public TavernMoodPresenter Create(TavernMood tavernMood, ITavernMoodView tavernMoodView, IImageUI imageUI)
         {
-            return new TavernMoodPresenter(tavernMood, tavernMoodView, imageUI, _upgradeble);
+            return new TavernMoodPresenter(tavernMood, tavernMoodView, imageUI, _upgradeProvider.Inventory);
         }
     }
 }

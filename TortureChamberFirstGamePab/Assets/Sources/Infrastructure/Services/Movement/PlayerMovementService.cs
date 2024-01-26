@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Players.Inputs;
+﻿using System;
+using Sources.Domain.Players.Inputs;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.InfrastructureInterfaces.Services.Providers;
@@ -8,19 +9,26 @@ namespace Sources.Infrastructure.Services.Movement
 {
     public class PlayerMovementService
     {
-        private readonly IUpgradeble _upgradeble;
+        private IUpgradeble _upgradeble;
+        private readonly IUpgradeProvider _upgradeProvider;
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
         //TODO пришлось сюда запросить конфиг
         public PlayerMovementService(IUpgradeProvider upgradeProvider,
             PlayerMovementCharacteristic playerMovementCharacteristic)
         {
+            if (upgradeProvider == null) 
+                throw new ArgumentNullException(nameof(upgradeProvider));
             //TODO костыль, нельзя делать проверку на нулл   иначе крашнется все
-            _upgradeble = upgradeProvider.Movement;
+            // _upgradeble = upgradeProvider.Movement;
+            _upgradeProvider = upgradeProvider;
             _playerMovementCharacteristic = playerMovementCharacteristic;
         }
 
-        private float MovementSpeed => _upgradeble.AddedAmountUpgrade;
+        private IUpgradeble Upgradeble => _upgradeble ??= _upgradeProvider.Movement;
+
+        
+        private float MovementSpeed => Upgradeble.AddedAmountUpgrade;
         
         public Quaternion GetDirectionRotation(Vector3 direction) =>
             Quaternion.LookRotation(direction).normalized;

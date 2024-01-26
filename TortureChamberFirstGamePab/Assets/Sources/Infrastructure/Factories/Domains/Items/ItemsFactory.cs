@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sources.DomainInterfaces.Items;
 using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.ItemRepository;
@@ -8,28 +9,36 @@ namespace Sources.Infrastructure.Factories.Domains.Items
 {
     public class ItemsFactory
     {
-        private Dictionary<Type, IItem> _items = new Dictionary<Type, IItem>();
+        private readonly ItemProvider<IItem> _itemProvider;
+        private Dictionary<Type, IItem> _items;
 
-        public ItemsFactory(ItemRepository<IItem> itemRepository)
+        public ItemsFactory(ItemProvider<IItem> itemProvider)
         {
+            _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
             //TODO надеюсь работает
-            Add(itemRepository.GetAll());
+            // Add(itemRepository.GetAll());
         }
 
+        private Dictionary<Type, IItem> Items => _items ??=
+            _itemProvider.GetAll()
+                .ToDictionary(item => item.GetType(), item => item);
+        
         public IItem Create<T>() where T : IItem
         {
-            if (_items.ContainsKey(typeof(T)) == false)
+            if (Items.ContainsKey(typeof(T)) == false)
                 throw new InvalidOperationException(nameof(T));
 
-            return _items[typeof(T)].Clone();
+            return Items[typeof(T)].Clone();
         }
 
-        private void Add(IEnumerable<IItem> items)
+        private Dictionary<Type, IItem> Add(IEnumerable<IItem> items)
         {
             foreach (IItem item in items)
             {
                 _items[item.GetType()] = item;
             }
+            
+            return _items;
         }
     }
 }

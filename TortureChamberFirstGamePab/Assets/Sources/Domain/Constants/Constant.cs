@@ -47,6 +47,7 @@ namespace Sources.Domain.Constants
             public const float SpawnDelay = 5f;
             public const int MaximumCapacity = 2;
             public const float EatFillingRate = 0.2f;
+            public const float WaitingEatFillingRate = 0.02f;
         }
 
         public static class PrefabPaths

@@ -4,6 +4,7 @@ using Sources.Domain.Players;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Views.Player.Inventory;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Players;
 
@@ -11,8 +12,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerInventoryPresenterFactory
     {
+        private readonly IUpgradeProvider _upgradeProvider;
         private readonly ItemViewFactory _itemViewFactory;
-        private IUpgradeble _upgradeble;
 
         public PlayerInventoryPresenterFactory
         (
@@ -20,12 +21,13 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
             ItemViewFactory itemViewFactory
         )
         {
+            _upgradeProvider = upgradeProvider ?? throw new ArgumentNullException(nameof(upgradeProvider));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            _upgradeble = upgradeProvider.Inventory;
         }
 
         public PlayerInventoryPresenter Create
         (
+            PlayerInventorySlotsImages playerInventorySlotsImages,
             IPlayerInventoryView playerInventoryView,
             PlayerInventory playerInventory,
             ITextUI textUI
@@ -38,11 +40,12 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
 
             return new PlayerInventoryPresenter
             (
+                playerInventorySlotsImages,
                 playerInventoryView,
                 textUI,
                 playerInventory,
                 _itemViewFactory,
-                _upgradeble
+                _upgradeProvider.Inventory
             );
         }
     }

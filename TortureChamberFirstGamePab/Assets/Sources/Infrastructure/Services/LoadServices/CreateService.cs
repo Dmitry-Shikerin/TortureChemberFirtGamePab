@@ -9,14 +9,17 @@ using Sources.Domain.Upgrades;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Players;
+using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Voids;
-using Sources.Utils.Repositoryes;
+using Sources.Presentation.Voids.GamePoints;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
 using Zenject;
@@ -27,13 +30,18 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public CreateService
         (
+            CollectionRepository collectionRepository,
+            EatPointViewFactory eatPointViewFactory,
+            SeatPointViewFactory seatPointViewFactory,
+            RootGamePoints rootGamePoints,
+            ITavernProviderSetter tavernProviderSetter,
             IUpgradeProviderSetter upgradeProviderSetter,
             TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
             TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
             DiContainer diContainer,
-            ItemRepository<IItem> itemRepository,
+            ItemProvider<IItem> itemProvider,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
             PlayerInventoryViewFactory playerInventoryViewFactory,
@@ -48,13 +56,18 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                collectionRepository,
+                eatPointViewFactory,
+                seatPointViewFactory,
+                rootGamePoints,
+                tavernProviderSetter,
                 upgradeProviderSetter,
                 tavernFoodPickUpPointViewFactory,
                 tavernMoodViewFactory,
                 playerUpgradeViewFactory,
                 hud,
                 diContainer,
-                itemRepository,
+                itemProvider,
                 playerMovementViewFactory,
                 playerCameraViewFactory, 
                 playerInventoryViewFactory,

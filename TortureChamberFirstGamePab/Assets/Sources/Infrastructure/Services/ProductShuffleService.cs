@@ -10,32 +10,41 @@ namespace Sources.Infrastructure.Services
 {
     public class ProductShuffleService
     {
-        private readonly List<IItem> _items;
+        private readonly ItemProvider<IItem> _itemProvider;
+        private List<IItem> _items;
 
-        public ProductShuffleService(ItemRepository<IItem> itemRepository)
+        public ProductShuffleService(ItemProvider<IItem> itemProvider)
         {
-            if (itemRepository == null) 
-                throw new ArgumentNullException(nameof(itemRepository));
-
-            _items = new List<IItem>(itemRepository.GetAll());
+            if (itemProvider == null)
+                throw new ArgumentNullException(nameof(itemProvider));
+            
+            if (itemProvider == null) 
+                throw new ArgumentNullException(nameof(itemProvider));
+            
+            _itemProvider = itemProvider;
+            //
+            // _items = new List<IItem>(itemRepository.GetAll());
         }
+
+        //TODO плохая запись?
+        private List<IItem> Items => _items ??= new List<IItem>(_itemProvider.GetAll());
 
         public IItem GetRandomItem()
         {
             Shuffle();
 
-            if (_items.Count <= 0)
-                throw new InvalidOperationException(nameof(_items));
+            if (Items.Count <= 0)
+                throw new InvalidOperationException(nameof(Items));
             
-            return _items.First();
+            return Items.First();
         }
 
         private void Shuffle()
         {
-            for (int i = 0; i < _items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
-                int randomItem = Random.Range(0 ,_items.Count);
-                (_items[randomItem], _items[i]) = (_items[i], _items[randomItem]);
+                int randomItem = Random.Range(0 ,Items.Count);
+                (Items[randomItem], Items[i]) = (Items[i], Items[randomItem]);
             }
         }
     }

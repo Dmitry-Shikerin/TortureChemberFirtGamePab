@@ -28,10 +28,19 @@ namespace Sources.Controllers.Taverns
                 throw new ArgumentNullException(nameof(pickUpPointUIImages));
             _itemConfig = itemConfig ? itemConfig : 
                 throw new ArgumentNullException(nameof(itemConfig));
-            
+        }
+
+
+        public override void Enable()
+        {
             _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
         }
-        
+
+        public override void Disable()
+        {
+            base.Disable();
+        }
+
         public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
         {
             try

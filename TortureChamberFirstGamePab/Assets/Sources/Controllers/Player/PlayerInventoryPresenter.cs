@@ -11,6 +11,7 @@ using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Presentation.UI;
 using Sources.Presentation.Views.Items;
 using Sources.Presentation.Views.Items.Common;
+using Sources.Presentation.Views.Player.Inventory;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Interactions.Get;
@@ -22,6 +23,7 @@ namespace Sources.Controllers.Player
 {
     public class PlayerInventoryPresenter : PresenterBase
     {
+        private readonly PlayerInventorySlotsImages _playerInventorySlotsImages;
         private readonly IPlayerInventoryView _playerInventoryView;
         private readonly ITextUI _textUI;
         private readonly PlayerInventory _playerInventory;
@@ -32,6 +34,7 @@ namespace Sources.Controllers.Player
 
         public PlayerInventoryPresenter
         (
+            PlayerInventorySlotsImages playerInventorySlotsImages,
             IPlayerInventoryView playerInventoryView,
             ITextUI textUI,
             PlayerInventory playerInventory,
@@ -39,6 +42,8 @@ namespace Sources.Controllers.Player
             IUpgradeble upgradeble
         )
         {
+            _playerInventorySlotsImages = playerInventorySlotsImages ? playerInventorySlotsImages : 
+                throw new ArgumentNullException(nameof(playerInventorySlotsImages));
             _playerInventoryView = playerInventoryView ??
                                    throw new ArgumentNullException(nameof(playerInventoryView));
             _textUI = textUI ?? throw new ArgumentNullException(nameof(textUI));
@@ -217,6 +222,15 @@ namespace Sources.Controllers.Player
                 BackgroundImage.HideImage();
             _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
                 Image.HideImage();
+            // _playerInventorySlotsImages.SecondSlotBackgroundImage.HideImage();
+            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
+            //     Image.HideImage();
+            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
+            //     BackgroundImage.HideImage();
+            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
+            //     Image.HideImage();
+            
+            Debug.Log("Slots Hide");
         }
 
         private void SetInventoryViewPosition(IItem targetItem)

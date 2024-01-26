@@ -72,7 +72,7 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.EatFillingRate, _cancellationTokenSource.Token);
+                    Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token);
                 _visitor.SetUnHappy();
                 Debug.Log("Посетитель недоволен отсутствием заказа");
                 _visitor.SeatPointView.UnOccupy();

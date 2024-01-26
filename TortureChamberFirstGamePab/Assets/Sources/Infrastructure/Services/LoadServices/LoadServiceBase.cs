@@ -1,39 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Constants;
 using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
-using Sources.Domain.Players;
 using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns.Data;
-using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.LoadServices.Components;
-using Sources.Infrastructure.Services.ObjectPools;
+using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.Providers;
-using Sources.Presentation.UI;
-using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Player.Inventory;
-using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
-using Sources.Presentation.Views.Taverns.UpgradePoints;
-using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Players;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
@@ -51,12 +43,17 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly IPrefabFactory _prefabFactory;
 
         private readonly HUD _hud;
+        private readonly RootGamePoints _rootGamePoints;
+        private readonly CollectionRepository _collectionRepository;
+        private readonly EatPointViewFactory _eatPointViewFactory;
+        private readonly SeatPointViewFactory _seatPointViewFactory;
+        private readonly ITavernProviderSetter _tavernProviderSetter;
         private readonly IUpgradeProviderSetter _upgradeProviderSetter;
         private readonly TavernFoodPickUpPointViewFactory _tavernFoodPickUpPointViewFactory;
         private readonly TavernMoodViewFactory _tavernMoodViewFactory;
         private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
         private readonly DiContainer _diContainer;
-        private readonly ItemRepository<IItem> _itemRepository;
+        private readonly ItemProvider<IItem> _itemProvider;
         private readonly PlayerMovementViewFactory _playerMovementViewFactory;
         private readonly PlayerCameraViewFactory _playerCameraViewFactory;
         private readonly PlayerInventoryViewFactory _playerInventoryViewFactory;
@@ -73,13 +70,18 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected LoadServiceBase
         (
+            CollectionRepository collectionRepository,
+            EatPointViewFactory eatPointViewFactory,
+            SeatPointViewFactory seatPointViewFactory,
+            RootGamePoints rootGamePoints,
+            ITavernProviderSetter tavernProviderSetter,
             IUpgradeProviderSetter upgradeProviderSetter,
             TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
             TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
             DiContainer diContainer,
-            ItemRepository<IItem> itemRepository,
+            ItemProvider<IItem> itemProvider,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
             PlayerInventoryViewFactory playerInventoryViewFactory,
@@ -94,12 +96,27 @@ namespace Sources.Infrastructure.Services.LoadServices
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
-            _upgradeProviderSetter = upgradeProviderSetter ?? throw new ArgumentNullException(nameof(upgradeProviderSetter));
-            _tavernFoodPickUpPointViewFactory = tavernFoodPickUpPointViewFactory ?? throw new ArgumentNullException(nameof(tavernFoodPickUpPointViewFactory));
-            _tavernMoodViewFactory = tavernMoodViewFactory ?? throw new ArgumentNullException(nameof(tavernMoodViewFactory));
-            _playerUpgradeViewFactory = playerUpgradeViewFactory ?? throw new ArgumentNullException(nameof(playerUpgradeViewFactory));
+            _rootGamePoints = rootGamePoints ? rootGamePoints : 
+                throw new ArgumentNullException(nameof(rootGamePoints));
+            _collectionRepository = collectionRepository ?? 
+                                    throw new ArgumentNullException(nameof(collectionRepository));
+            _eatPointViewFactory = eatPointViewFactory ??
+                                   throw new ArgumentNullException(nameof(eatPointViewFactory));
+            _seatPointViewFactory = seatPointViewFactory ??
+                                    throw new ArgumentNullException(nameof(seatPointViewFactory));
+            _tavernProviderSetter = tavernProviderSetter ??
+                                    throw new ArgumentNullException(nameof(tavernProviderSetter));
+            _upgradeProviderSetter = upgradeProviderSetter ?? 
+                                     throw new ArgumentNullException(nameof(upgradeProviderSetter));
+            _tavernFoodPickUpPointViewFactory = 
+                tavernFoodPickUpPointViewFactory ?? 
+                throw new ArgumentNullException(nameof(tavernFoodPickUpPointViewFactory));
+            _tavernMoodViewFactory = tavernMoodViewFactory ?? 
+                                     throw new ArgumentNullException(nameof(tavernMoodViewFactory));
+            _playerUpgradeViewFactory = playerUpgradeViewFactory ?? 
+                                        throw new ArgumentNullException(nameof(playerUpgradeViewFactory));
             _diContainer = diContainer;
-            _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
+            _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
             _playerMovementViewFactory = playerMovementViewFactory ??
                                          throw new ArgumentNullException(nameof(playerMovementViewFactory));
             _playerCameraViewFactory = playerCameraViewFactory ??
@@ -135,6 +152,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             _upgradeProviderSetter.SetInventory(_playerUpgrade.InventoryUpgrader);
             _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
             
+            _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
+            _tavernProviderSetter.SetGameplay(_tavern.GamePlay);
+            
             //Items
             ItemConfig beerConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Beer);
             ItemConfig breadConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Bread);
@@ -151,37 +171,30 @@ namespace Sources.Infrastructure.Services.LoadServices
                 new Wine(wineConfig)
             };
             
-            _itemRepository.AddCollection(items);
+            _itemProvider.AddCollection(items);
 
             //EatAndSeatGamePoints
             RootGamePoints rootGamePoints = Resolve<RootGamePoints>();
             
             List<SeatPointView> seatPoints = new List<SeatPointView>();
             
-            //TODO переделать на линку
             foreach (SeatPointView seatPointView in rootGamePoints.GetComponentsInChildren<SeatPointView>())
             {
-                //TODO плохо
-                Resolve<SeatPointViewFactory>().Create(seatPointView);
-                Resolve<EatPointViewFactory>().Create(seatPointView.EatPointView);
+                _seatPointViewFactory.Create(seatPointView);
+                _eatPointViewFactory.Create(seatPointView.EatPointView);
                 seatPoints.Add(seatPointView);
             }
 
-            List<OutDoorPoint> outDoorPoints = new List<OutDoorPoint>();
+            List<OutDoorPoint> outDoorPoints = rootGamePoints.GetComponentsInChildren<OutDoorPoint>().ToList();
             
-            foreach (OutDoorPoint outDoorPoint in rootGamePoints.GetComponentsInChildren<OutDoorPoint>())
-            {
-                outDoorPoints.Add(outDoorPoint);
-            }
-            
-            CollectionRepository collectionRepository = Resolve<CollectionRepository>();
-            collectionRepository.Add(seatPoints);
-            collectionRepository.Add(outDoorPoints);
+            _collectionRepository.Add(seatPoints);
+            _collectionRepository.Add(outDoorPoints);
             
             //HudText
             _textUIFactory.Create(_hud.TextUIContainer.PlayerWalletText, _player.Wallet.Coins);
             
             //PlayerMovementView
+            //TODO исправить
             PlayerView playerView = Object.FindObjectOfType<PlayerView>();
             PlayerMovementView playerMovementView = 
                 _playerMovementViewFactory.Create(_player.Movement, _player.Inventory, 
@@ -199,80 +212,56 @@ namespace Sources.Infrastructure.Services.LoadServices
             //PlayerInventory
             PlayerInventoryView playerInventoryView =
                 _playerInventoryViewFactory.Create(_player.Inventory, playerView.Inventory);
-
-            TavernUpgradePointTextUIs tavernUpgradePointTextUIs =
-                Object.FindObjectOfType<TavernUpgradePointTextUIs>(true);
             
             //PlayerUpgradeViews
-            PlayerUpgradeViewsContainer playerUpgradeViewsContainer =
-                _hud.GetComponentInChildren<PlayerUpgradeViewsContainer>(true);
-
+            //TODO не работают кнопки контейнеров
             IPlayerUpgradeView playerCharismaUpgradeView = 
                 _playerUpgradeViewFactory.Create(_playerUpgrade.CharismaUpgrader, _player.Wallet,
-                playerUpgradeViewsContainer.CharismaUpgradeView);
+                _hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
             IPlayerUpgradeView playerInventoryUpgradeView =
             _playerUpgradeViewFactory.Create(_playerUpgrade.InventoryUpgrader, _player.Wallet,
-                playerUpgradeViewsContainer.InventoryUpgradeView);
+                _hud.PlayerUpgradeViewsContainer.InventoryUpgradeView);
             IPlayerUpgradeView playerMovementUpgradeView =
             _playerUpgradeViewFactory.Create(_playerUpgrade.MovementUpgrader, _player.Wallet,
-                playerUpgradeViewsContainer.MovementUpgradeView);
+                _hud.PlayerUpgradeViewsContainer.MovementUpgradeView);
             
             //TavernUpgradePointButtons
-            TavernUpgradePointButtons tavernUpgradePointButtons =
-                Object.FindObjectOfType<TavernUpgradePointButtons>(true);
-            _buttonUIFactory.Create(tavernUpgradePointButtons.CharismaButtonUI,
+            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.CharismaButtonUI,
                 playerCharismaUpgradeView.Upgrade);
-            _buttonUIFactory.Create(tavernUpgradePointButtons.InventoryButtonUI,
+            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.InventoryButtonUI,
                 playerInventoryUpgradeView.Upgrade);
-            _buttonUIFactory.Create(tavernUpgradePointButtons.MovementButtonUI,
+            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.MovementButtonUI,
                 playerMovementUpgradeView.Upgrade);
 
             //TavernMood
-            ImageUI imageUI = _hud.GetComponentInChildren<ImageUI>();
-            _imageUIFactory.Create(imageUI);
-            TavernMoodView tavernMoodView = _hud.GetComponentInChildren<TavernMoodView>();
-            _tavernMoodViewFactory.Create(tavernMoodView, _tavern.TavernMood, imageUI);
+            _imageUIFactory.Create(_hud.TavernMoodImageUI);
+            _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
             
             //TavernPickUpPoints
-            //TODO плохо
-            BeerPickUpPointView beerPickUpPointView =
-                Object.FindObjectOfType<BeerPickUpPointView>();
             PickUpPointUIImages beerPickUpPointImageUI =
-                beerPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(beerPickUpPointView, beerPickUpPointImageUI,
+                _rootGamePoints.BeerPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BeerPickUpPointView, beerPickUpPointImageUI,
                 _imageUIFactory, beerConfig);
 
-            //TODO плохо
-            BreadPickUpPointView breadPickUpPointView =
-                Object.FindObjectOfType<BreadPickUpPointView>();
             PickUpPointUIImages breadPickUpPointImageUI =
-                beerPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(breadPickUpPointView, breadPickUpPointImageUI,
-                _imageUIFactory, breadConfig);
+                _rootGamePoints.BreadPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BreadPickUpPointView, 
+                breadPickUpPointImageUI, _imageUIFactory, breadConfig);
             
-            //TODO плохо
-            MeatPickUpPointView meatPickUpPointView =
-                Object.FindObjectOfType<MeatPickUpPointView>();
             PickUpPointUIImages meatPickUpPointImageUI =
-                meatPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(meatPickUpPointView, meatPickUpPointImageUI,
-                _imageUIFactory, meatConfig);
+                _rootGamePoints.MeatPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, 
+                meatPickUpPointImageUI, _imageUIFactory, meatConfig);
             
-            //TODO плохо
-            SoupPickUpPointView soupPickUpPointView =
-                Object.FindObjectOfType<SoupPickUpPointView>();
             PickUpPointUIImages soupPickUpPointImageUI =
-                soupPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(soupPickUpPointView, soupPickUpPointImageUI,
-                _imageUIFactory, soupConfig);
+                _rootGamePoints.SoupPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, 
+                soupPickUpPointImageUI, _imageUIFactory, soupConfig);
 
-            //TODO плохо
-            WinePickUpPointView winePickUpPointView =
-                Object.FindObjectOfType<WinePickUpPointView>();
             PickUpPointUIImages winePickUpPointImageUI =
-                soupPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(winePickUpPointView, winePickUpPointImageUI,
-                _imageUIFactory, wineConfig);
+                _rootGamePoints.WinePickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, 
+                winePickUpPointImageUI, _imageUIFactory, wineConfig);
         }
 
         public void Save()
