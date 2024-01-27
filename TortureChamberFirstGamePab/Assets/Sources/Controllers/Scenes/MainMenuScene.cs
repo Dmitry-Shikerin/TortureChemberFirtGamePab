@@ -8,12 +8,16 @@ namespace Sources.Controllers.Scenes
 {
     public class MainMenuScene : IScene
     {
-        private readonly HUD _hud;
+        private readonly MainMenuHUD _hud;
         private readonly IButtonUI _continueGameButton;
         private readonly IDataService<Domain.Players.Data.Player> _dataService;
 
-        public MainMenuScene(HUD hud, IButtonUI continueGameButton, 
-            IDataService<Domain.Players.Data.Player> dataService)
+        public MainMenuScene
+        (
+            MainMenuHUD hud,
+            IButtonUI continueGameButton,
+            IDataService<Domain.Players.Data.Player> dataService
+        )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _continueGameButton = continueGameButton ?? throw new ArgumentNullException(nameof(continueGameButton));
@@ -26,7 +30,7 @@ namespace Sources.Controllers.Scenes
         {
             _hud.Show();
 
-            if (_dataService.CanLoad == false) 
+            if (_dataService.CanLoad == false)
                 _continueGameButton.Disable();
         }
 

@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Domain.Players.Data;
 using Sources.Infrastructure.Factories.Controllers.UI;
@@ -33,14 +34,14 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public async UniTask<IScene> Create(object payload)
         {
-            HUD hud = Object.FindObjectOfType<HUD>(true);
+            MainMenuHUD hud = Object.FindObjectOfType<MainMenuHUD>(true);
             
             //ButtonFactories
             ButtonUIPresenterFactory buttonUIPresenterFactory = new ButtonUIPresenterFactory();
             ButtonUIFactory buttonUIFactory = new ButtonUIFactory(buttonUIPresenterFactory);
 
             //MainMenuButtons
-            HudButtonUIContainer hudButtonUIContainer = hud.GetComponent<HudButtonUIContainer>();
+            HudButtonUIContainer hudButtonUIContainer = hud.ButtonUIContainer;
 
             IButtonUI continueGameButton = buttonUIFactory.Create(
                 hudButtonUIContainer.ContinueGameButton, LoadGamePlayScene);
@@ -52,13 +53,13 @@ namespace Sources.Infrastructure.Factories.Scenes
         }
 
         private async void LoadGamePlayScene() =>
-            await _sceneService.ChangeSceneAsync("GamePlay", new LoadServicePayload(true));
+            await _sceneService.ChangeSceneAsync(Constant.SceneNames.GamePlay, new LoadServicePayload(true));
         
         private async void CreateGamePlayScene()
         {
             _dataService.Clear();
             
-            await _sceneService.ChangeSceneAsync("GamePlay", new LoadServicePayload(false));
+            await _sceneService.ChangeSceneAsync(Constant.SceneNames.GamePlay, new LoadServicePayload(false));
         }
     }
 }

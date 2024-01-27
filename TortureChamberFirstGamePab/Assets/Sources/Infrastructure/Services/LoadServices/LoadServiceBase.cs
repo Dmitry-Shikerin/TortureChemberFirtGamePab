@@ -152,6 +152,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _upgradeProviderSetter.SetInventory(_playerUpgrade.InventoryUpgrader);
             _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
             
+            //TODO ошибки если пишу на русском в UI
             _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
             _tavernProviderSetter.SetGameplay(_tavern.GamePlay);
             
