@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5642e1bf23594650b84846529e8bd875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <SaveButton>k__BackingField: {fileID: 0}
+  <QuitButton>k__BackingField: {fileID: 0}
+  <CloseButton>k__BackingField: {fileID: 0}
 --- !u!1 &2525715959371337076
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,9 +788,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5612895866457224718}
-  - {fileID: 322137680640849083}
   - {fileID: 5818182505877764906}
   - {fileID: 1642448147287612160}
+  - {fileID: 322137680640849083}
   m_Father: {fileID: 545578434362681925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.32934058, y: 0.14155896}

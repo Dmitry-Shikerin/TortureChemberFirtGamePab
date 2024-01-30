@@ -21,11 +21,14 @@ namespace Sources.Controllers.Visitors.States
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public VisitorWaitingForOrderState(Visitor visitor,
+        public VisitorWaitingForOrderState
+        (
+            Visitor visitor,
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
             ProductShuffleService productShuffleService,
-            TavernMood tavernMood)
+            TavernMood tavernMood
+        )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ??

@@ -27,7 +27,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteAll();
         }
 
-        //TODO все методы возращают один и тот же класс, опасно?
         private Upgrader LoadCharismaUpgrader()
         {
             string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.CharismaKey, string.Empty);

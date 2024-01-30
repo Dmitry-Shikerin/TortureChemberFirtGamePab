@@ -19,10 +19,14 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
 
-        public VisitorViewFactory(VisitorPresenterFactory visitorPresenterFactory, 
-            IPrefabFactory prefabFactory, ObjectPool<VisitorView> objectPool)
+        public VisitorViewFactory
+        (
+            VisitorPresenterFactory visitorPresenterFactory,
+            IPrefabFactory prefabFactory,
+            ObjectPool<VisitorView> objectPool
+        )
         {
-            _visitorPresenterFactory = visitorPresenterFactory ?? 
+            _visitorPresenterFactory = visitorPresenterFactory ??
                                        throw new ArgumentNullException(nameof(visitorPresenterFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
@@ -32,13 +36,13 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
             TavernMood tavernMood, VisitorCounter visitorCounter, VisitorView visitorView)
         {
             VisitorInventory visitorInventory = CreateInventory(visitorView);
-            
+
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
-                visitorView, visitorView.Animation, visitor, 
-                visitorInventory,  tavernMood, visitorCounter);
-            
+                visitorView, visitorView.Animation, visitor,
+                visitorInventory, tavernMood, visitorCounter);
+
             visitorView.Construct(visitorPresenter);
-            
+
             return visitorView;
         }
 
@@ -46,12 +50,12 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
             TavernMood tavernMood, VisitorCounter visitorCounter)
         {
             VisitorView visitorView = CreateView();
-            
+
             Create(visitor, tavernMood, visitorCounter, visitorView);
 
             return visitorView;
         }
-        
+
         private VisitorView CreateView() =>
             _prefabFactory.Create<VisitorView>(Constant.PrefabPaths.VisitorView)
                 .AddComponent<PoolableObject>()

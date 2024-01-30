@@ -15,8 +15,6 @@ namespace Sources.Infrastructure.Factories.Domains.Items
         public ItemsFactory(ItemProvider<IItem> itemProvider)
         {
             _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
-            //TODO надеюсь работает
-            // Add(itemRepository.GetAll());
         }
 
         private Dictionary<Type, IItem> Items => _items ??=

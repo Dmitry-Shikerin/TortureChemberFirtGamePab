@@ -31,12 +31,20 @@ namespace Sources.Infrastructure.Services
             if (_pauseMenuWindow.gameObject.activeSelf == false)
             {
                 _pauseMenuWindow.Show();
-                //TODO здесь поставить на паузу
                 return;
             }
 
             _pauseMenuWindow.Hide();
-            //TODO здесь убрать с паузы
+        }
+
+        public void Show()
+        {
+            _pauseMenuWindow.Show();
+        }
+
+        public void Hide()
+        {
+            _pauseMenuWindow.Hide();
         }
     }
 }

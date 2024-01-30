@@ -26,7 +26,6 @@ namespace Sources.Infrastructure.Factories.Views.Players
             if (playerCamera == null)
                 throw new ArgumentNullException(nameof(playerCamera));
 
-            //TODO исправить
             //TODO таким образом мы не получаем вью снаружи и не даем возможность переиспользовать фабрику?
             PlayerCameraView playerCameraView = Object.FindObjectOfType<PlayerCameraView>();
             

@@ -50,8 +50,6 @@ namespace Sources.Infrastructure.Services
         private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
         
         private bool CanSpawn => _visitorCounter.ActiveVisitorsCount < GamePlay.MaximumVisitorsCapacity;
-
-        //TODO не забыть запустить этот метод
         public async void SpawnVisitorAsync()
         {
             _cancellationTokenSource = new CancellationTokenSource();

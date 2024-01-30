@@ -12,19 +12,26 @@ namespace Sources.Controllers.Player
         private readonly PlayerWallet _playerWallet;
         private readonly IPlayerUpgradeView _playerUpgradeView;
 
-        public PlayerUpgradePresenter(Upgrader upgrader, PlayerWallet playerWallet, 
-            IPlayerUpgradeView playerUpgradeView)
+        public PlayerUpgradePresenter
+        (
+            Upgrader upgrader,
+            PlayerWallet playerWallet,
+            IPlayerUpgradeView playerUpgradeView
+        )
         {
             _upgrader = upgrader ?? throw new ArgumentNullException(nameof(upgrader));
             _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
             _playerUpgradeView = playerUpgradeView ?? throw new ArgumentNullException(nameof(playerUpgradeView));
         }
 
+        private bool CanUpgrade => _playerWallet.Coins.GetValue >
+                                   _upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue];
+
         public override void Enable()
         {
             UpdatePricePerUpgrade();
         }
-        
+
         //TODO порефакторить
         public void Upgrade()
         {
@@ -38,7 +45,7 @@ namespace Sources.Controllers.Player
                         $"{_upgrader.CurrentLevelUpgrade.StringValue} уровень");
                     UpdatePricePerUpgrade();
                 }
-                
+
                 UpdatePricePerUpgrade();
             }
             catch (InvalidOperationException exception)
@@ -63,8 +70,7 @@ namespace Sources.Controllers.Player
         private void UpdatePricePerUpgrade()
         {
             _playerUpgradeView.SetPriceNextUpgrade(
-                $"Цена следующего улучшения " +
-                $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
+                $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
     }
 }

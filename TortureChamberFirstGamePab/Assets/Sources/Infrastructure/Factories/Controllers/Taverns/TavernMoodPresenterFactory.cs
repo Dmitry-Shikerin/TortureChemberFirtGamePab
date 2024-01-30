@@ -22,7 +22,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
         
         public TavernMoodPresenter Create(TavernMood tavernMood, ITavernMoodView tavernMoodView, IImageUI imageUI)
         {
-            return new TavernMoodPresenter(tavernMood, tavernMoodView, imageUI, _upgradeProvider.Inventory);
+            return new TavernMoodPresenter(tavernMood, tavernMoodView, imageUI, _upgradeProvider.Charisma);
         }
     }
 }

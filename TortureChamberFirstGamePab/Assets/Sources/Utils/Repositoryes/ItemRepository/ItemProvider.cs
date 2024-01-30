@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Sources.Utils.Repositoryes.ItemRepository
@@ -64,15 +65,13 @@ namespace Sources.Utils.Repositoryes.ItemRepository
 
         public IEnumerable<T1> GetAll()
         {
-            //TODO переделать на линку
             List<T1> items = new List<T1>();
 
             foreach (KeyValuePair<Type, T1> repository in _repositoryes)
             {
                 items.Add(repository.Value);
             }
-
-            Debug.Log("GetCollection");
+            
             return items;
         }
 
@@ -87,8 +86,6 @@ namespace Sources.Utils.Repositoryes.ItemRepository
 
                 _repositoryes[type] = item;
             }
-            
-            Debug.Log("AddCollection");
         }
     }
 }

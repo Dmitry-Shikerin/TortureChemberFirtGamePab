@@ -31,7 +31,6 @@ namespace Sources.Domain.Players
 
         public void Remove(int quantity)
         {
-            //TODO заменить
             if (_coins.Value - quantity < 0)
                 throw new InvalidOperationException("в кошельке недостаточно денег");
             

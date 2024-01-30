@@ -39,11 +39,12 @@ namespace Sources.Infrastructure.Services.LoadServices
         protected readonly IDataService<Player> PlayerDataService;
         protected readonly IDataService<PlayerUpgrade> PlayerUpgradeDataService;
         protected readonly IDataService<Tavern> TavernDataService;
+        
         private readonly ImageUIFactory _imageUIFactory;
         private readonly IPrefabFactory _prefabFactory;
-
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
+        private readonly PauseMenuService _pauseMenuService;
         private readonly CollectionRepository _collectionRepository;
         private readonly EatPointViewFactory _eatPointViewFactory;
         private readonly SeatPointViewFactory _seatPointViewFactory;
@@ -52,7 +53,6 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly TavernFoodPickUpPointViewFactory _tavernFoodPickUpPointViewFactory;
         private readonly TavernMoodViewFactory _tavernMoodViewFactory;
         private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
-        private readonly DiContainer _diContainer;
         private readonly ItemProvider<IItem> _itemProvider;
         private readonly PlayerMovementViewFactory _playerMovementViewFactory;
         private readonly PlayerCameraViewFactory _playerCameraViewFactory;
@@ -62,14 +62,14 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly ButtonUIFactory _buttonUIFactory;
 
         private VisitorSpawnService _visitorSpawnService;
-        //TODO сделать обьект который будет хранить ссылку
         private Player _player;
         private PlayerUpgrade _playerUpgrade;
-        private PlayerUpgradeService[] _playerUpgradeServices;
+        // private PlayerUpgradeService[] _playerUpgradeServices;
         private Tavern _tavern;
 
         protected LoadServiceBase
         (
+            PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
             EatPointViewFactory eatPointViewFactory,
             SeatPointViewFactory seatPointViewFactory,
@@ -80,7 +80,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
-            DiContainer diContainer,
             ItemProvider<IItem> itemProvider,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
@@ -98,6 +97,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _rootGamePoints = rootGamePoints ? rootGamePoints : 
                 throw new ArgumentNullException(nameof(rootGamePoints));
+            _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
             _eatPointViewFactory = eatPointViewFactory ??
@@ -115,7 +115,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                                      throw new ArgumentNullException(nameof(tavernMoodViewFactory));
             _playerUpgradeViewFactory = playerUpgradeViewFactory ?? 
                                         throw new ArgumentNullException(nameof(playerUpgradeViewFactory));
-            _diContainer = diContainer;
             _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
             _playerMovementViewFactory = playerMovementViewFactory ??
                                          throw new ArgumentNullException(nameof(playerMovementViewFactory));
@@ -138,21 +137,15 @@ namespace Sources.Infrastructure.Services.LoadServices
         
         public void Load()
         {
-            //TODO нормально сложить все что находится на сцене
             _player = CreatePlayer();
             _playerUpgrade = CreatePlayerUpgrade();
             _tavern = CreateTavern();
             
-            //UpgradeBrokers
-            //TODO сделать тишку для маркера
-            //TODO сделать один сервис для всех Upgradov
-            //TODO сделать три интерфейса
-            //TODO или передавать только нужную информацию из Upgreyda
+            //UpgradeProviders
             _upgradeProviderSetter.SetCharisma(_playerUpgrade.CharismaUpgrader);
             _upgradeProviderSetter.SetInventory(_playerUpgrade.InventoryUpgrader);
             _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
             
-            //TODO ошибки если пишу на русском в UI
             _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
             _tavernProviderSetter.SetGameplay(_tavern.GamePlay);
             
@@ -175,18 +168,16 @@ namespace Sources.Infrastructure.Services.LoadServices
             _itemProvider.AddCollection(items);
 
             //EatAndSeatGamePoints
-            RootGamePoints rootGamePoints = Resolve<RootGamePoints>();
-            
             List<SeatPointView> seatPoints = new List<SeatPointView>();
             
-            foreach (SeatPointView seatPointView in rootGamePoints.GetComponentsInChildren<SeatPointView>())
+            foreach (SeatPointView seatPointView in _rootGamePoints.GetComponentsInChildren<SeatPointView>())
             {
                 _seatPointViewFactory.Create(seatPointView);
                 _eatPointViewFactory.Create(seatPointView.EatPointView);
                 seatPoints.Add(seatPointView);
             }
 
-            List<OutDoorPoint> outDoorPoints = rootGamePoints.GetComponentsInChildren<OutDoorPoint>().ToList();
+            List<OutDoorPoint> outDoorPoints = _rootGamePoints.GetComponentsInChildren<OutDoorPoint>().ToList();
             
             _collectionRepository.Add(seatPoints);
             _collectionRepository.Add(outDoorPoints);
@@ -216,6 +207,8 @@ namespace Sources.Infrastructure.Services.LoadServices
             
             //PlayerUpgradeViews
             //TODO не работают кнопки контейнеров
+            //TODO после поднятия монеток
+            //TODO Канцелится операция по движению монетки
             IPlayerUpgradeView playerCharismaUpgradeView = 
                 _playerUpgradeViewFactory.Create(_playerUpgrade.CharismaUpgrader, _player.Wallet,
                 _hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
@@ -233,6 +226,15 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerInventoryUpgradeView.Upgrade);
             _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.MovementButtonUI,
                 playerMovementUpgradeView.Upgrade);
+            
+            //PauseMenuButtons
+            _buttonUIFactory.Create(_hud.PauseMenuButton, _pauseMenuService.Show);
+
+            // _buttonUIFactory.Create(_hud.PauseMenuWindow.SaveButton, Save);
+            //TODo ошибка при сохранении плейер харизмы
+            //TODO обратить внимание, подправить
+            _buttonUIFactory.Create(_hud.PauseMenuWindow.QuitButton, () => Application.Quit());
+            _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, _pauseMenuService.Hide);
 
             //TavernMood
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
@@ -275,8 +277,5 @@ namespace Sources.Infrastructure.Services.LoadServices
         protected abstract Player CreatePlayer();
         protected abstract PlayerUpgrade CreatePlayerUpgrade();
         protected abstract Tavern CreateTavern();
-
-        private T Resolve<T>() => 
-            _diContainer.Resolve<T>();
     }
 }

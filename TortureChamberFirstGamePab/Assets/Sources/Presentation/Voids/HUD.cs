@@ -22,6 +22,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public PlayerUpgradeViewsContainer PlayerUpgradeViewsContainer { get; private set; }
         [field: SerializeField] public PauseMenuWindow PauseMenuWindow { get; private set; }
         [field: SerializeField] public ImageUI TavernMoodImageUI { get; private set; }
+        [field: SerializeField] public ButtonUI PauseMenuButton { get; private set; }
 
     private void OnValidate()
         {

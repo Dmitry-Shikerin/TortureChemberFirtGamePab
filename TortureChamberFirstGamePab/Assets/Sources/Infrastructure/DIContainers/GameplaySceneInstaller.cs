@@ -15,6 +15,7 @@ using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Domains.Items;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Repositoryes;
+using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
@@ -64,6 +65,8 @@ namespace Sources.Infrastructure.DIContainers
         
         public override void InstallBindings()
         {
+            Container.Bind<GamePlaySceneFactory>().AsSingle();
+            
             Container.Bind<RootGamePoints>().FromInstance(_rootGamePoints).AsSingle();
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);

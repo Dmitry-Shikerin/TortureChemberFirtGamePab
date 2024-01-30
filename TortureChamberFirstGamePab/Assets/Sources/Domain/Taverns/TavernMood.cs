@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.Domain.Constants;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
+using UnityEngine;
 
 namespace Sources.Domain.Taverns
 {
@@ -35,10 +36,14 @@ namespace Sources.Domain.Taverns
             }
         }
 
-        public void AddTavernMood() => 
-            _tavernMoodValue += AddedAmountUpgrade;
+        public void AddTavernMood()
+        {
+            TavernMoodValue += AddedAmountUpgrade;
+        }
 
-        public void RemoveTavernMood() => 
-            _tavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
+        public void RemoveTavernMood()
+        {
+            TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
+        }
     }
 }

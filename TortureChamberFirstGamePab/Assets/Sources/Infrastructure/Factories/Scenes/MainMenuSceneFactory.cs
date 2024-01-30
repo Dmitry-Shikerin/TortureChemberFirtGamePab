@@ -22,43 +22,54 @@ namespace Sources.Infrastructure.Factories.Scenes
     {
         private readonly SceneService _sceneService;
         private readonly IDataService<Player> _dataService;
+        private readonly ButtonUIFactory _buttonUIFactory;
+        private readonly MainMenuHUD _mainMenuHUD;
 
         private bool _canLoad;
 
-        public MainMenuSceneFactory(SceneService sceneService, IDataService<Player> dataService)
+        public MainMenuSceneFactory
+        (
+            SceneService sceneService,
+            IDataService<Player> dataService,
+            MainMenuHUD mainMenuHUD,
+            ButtonUIFactory buttonUIFactory
+        )
         {
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
+            _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
+            _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
         public async UniTask<IScene> Create(object payload)
         {
-            MainMenuHUD hud = Object.FindObjectOfType<MainMenuHUD>(true);
-            
-            //ButtonFactories
-            ButtonUIPresenterFactory buttonUIPresenterFactory = new ButtonUIPresenterFactory();
-            ButtonUIFactory buttonUIFactory = new ButtonUIFactory(buttonUIPresenterFactory);
-
             //MainMenuButtons
-            HudButtonUIContainer hudButtonUIContainer = hud.ButtonUIContainer;
-
-            IButtonUI continueGameButton = buttonUIFactory.Create(
-                hudButtonUIContainer.ContinueGameButton, LoadGamePlayScene);
-
-            buttonUIFactory.Create(hudButtonUIContainer.NewGameButton, CreateGamePlayScene);
+            // HudButtonUIContainer hudButtonUIContainer = _mainMenuHUD.ButtonUIContainer;
+            //
+            // IButtonUI continueGameButton = _buttonUIFactory.Create(
+            //     hudButtonUIContainer.ContinueGameButton, LoadGamePlayScene);
+            //
+            // _buttonUIFactory.Create(hudButtonUIContainer.NewGameButton, CreateGamePlayScene);
             // buttonUIFactory.Create(hudButtonUIContainer.OptionsButton,);
 
-            return new MainMenuScene(hud, continueGameButton, _dataService);
+            return new MainMenuScene
+            (
+                _mainMenuHUD,
+                // continueGameButton,
+                _dataService,
+                _buttonUIFactory,
+                _sceneService
+            );
         }
 
         private async void LoadGamePlayScene() =>
             await _sceneService.ChangeSceneAsync(Constant.SceneNames.GamePlay, new LoadServicePayload(true));
-        
+
         private async void CreateGamePlayScene()
         {
             _dataService.Clear();
-            
+
             await _sceneService.ChangeSceneAsync(Constant.SceneNames.GamePlay, new LoadServicePayload(false));
         }
     }

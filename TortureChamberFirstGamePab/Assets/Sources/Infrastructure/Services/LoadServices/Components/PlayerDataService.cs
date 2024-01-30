@@ -10,7 +10,6 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    //TODO исправить дубляж в этих классах
     public class PlayerDataService : IDataService<Player>
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.DataKey.MovementKey);
@@ -44,7 +43,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             string json = PlayerPrefs.GetString(Constant.DataKey.InventoryKey, string.Empty);
             PlayerInventoryData inventoryData = JsonConvert.DeserializeObject<PlayerInventoryData>(json);
 
-            //TODO чтобы засунуть айтемы в плейер инсвентори нужна фабрика
             return new PlayerInventory();
         }
 

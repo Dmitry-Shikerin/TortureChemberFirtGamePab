@@ -7,12 +7,9 @@ namespace Sources.Domain.Visitors
     {
         public int ActiveVisitorsCount { get; private set; } = 0;
 
-        public void AddActiveVisitorsCount()
-        {
-            //  TODO добавить проверки
+        public void AddActiveVisitorsCount() => 
             ActiveVisitorsCount++;
-        }
-        
+
         public void RemoveActiveVisitor()
         {
             if (ActiveVisitorsCount <= 0)

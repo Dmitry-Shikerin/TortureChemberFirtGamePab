@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Constants;
+﻿using System;
+using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Players;
 using Sources.Domain.Players.Data;
@@ -28,8 +29,11 @@ namespace Sources.Infrastructure.Services.LoadServices
 {
     public class CreateService : LoadServiceBase
     {
+        private readonly PauseMenuService _pauseMenuService;
+
         public CreateService
         (
+            PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
             EatPointViewFactory eatPointViewFactory,
             SeatPointViewFactory seatPointViewFactory,
@@ -40,7 +44,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
-            DiContainer diContainer,
             ItemProvider<IItem> itemProvider,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
@@ -56,6 +59,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                pauseMenuService,
                 collectionRepository,
                 eatPointViewFactory,
                 seatPointViewFactory,
@@ -66,7 +70,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                 tavernMoodViewFactory,
                 playerUpgradeViewFactory,
                 hud,
-                diContainer,
                 itemProvider,
                 playerMovementViewFactory,
                 playerCameraViewFactory, 
@@ -81,12 +84,11 @@ namespace Sources.Infrastructure.Services.LoadServices
                 prefabFactory
             )
         {
+            _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
         }
 
         protected override Player CreatePlayer()
         {
-            Debug.Log("Create scene");
-
             PlayerMovement playerMovement = new PlayerMovement();
             PlayerInventory playerInventory = new PlayerInventory();
             PlayerWallet playerWallet = new PlayerWallet();
@@ -105,7 +107,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             UpgradeConfig movementUpgradeConfig =
                 Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Movement);
 
-            //TODO Отрефакторить запись
             Upgrader charismaUpgrader = new Upgrader(charismaUpgradeConfig);
             Upgrader inventoryUpgrader = new Upgrader(inventoryUpgradeConfig);
             Upgrader movementUpgrader = new Upgrader(movementUpgradeConfig);

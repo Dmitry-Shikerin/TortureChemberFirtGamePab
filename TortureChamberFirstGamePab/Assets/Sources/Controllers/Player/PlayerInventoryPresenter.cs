@@ -72,6 +72,8 @@ namespace Sources.Controllers.Player
 
         private void ShowAvailableSlot()
         {
+            _playerInventory.IncreaseCapacity();
+            
             int index = _playerInventory.InventoryCapacity - 1;
             _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
             _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
@@ -104,7 +106,6 @@ namespace Sources.Controllers.Player
             }
             catch (InventoryFullException exception)
             {
-                //TODO может закидывать текст в модель и уже оттуда брыть в презентер текста?
                 _textUI.SetText(exception.Message);
             }
         }
@@ -169,10 +170,10 @@ namespace Sources.Controllers.Player
 
         private IItem RemoveItem(IImageUI backgroundImage, int index)
         {
-            backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
+            backgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
             _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
-            backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
+            // backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
             IItem targetItem = _playerInventory.Items[index];
             targetItem.ItemView.Destroy();
             _playerInventory.RemoveItem(targetItem);
@@ -222,15 +223,6 @@ namespace Sources.Controllers.Player
                 BackgroundImage.HideImage();
             _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
                 Image.HideImage();
-            // _playerInventorySlotsImages.SecondSlotBackgroundImage.HideImage();
-            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
-            //     Image.HideImage();
-            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
-            //     BackgroundImage.HideImage();
-            // _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
-            //     Image.HideImage();
-            
-            Debug.Log("Slots Hide");
         }
 
         private void SetInventoryViewPosition(IItem targetItem)

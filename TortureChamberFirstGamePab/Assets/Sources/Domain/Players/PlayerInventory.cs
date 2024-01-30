@@ -47,5 +47,10 @@ namespace Sources.Domain.Players
             
             _items.Remove(item);
         }
+
+        public void IncreaseCapacity()
+        {
+            InventoryCapacity++;
+        }
     }
 }

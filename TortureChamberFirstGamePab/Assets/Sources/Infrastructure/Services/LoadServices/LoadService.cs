@@ -29,6 +29,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public LoadService
         (
+            PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
             EatPointViewFactory eatPointViewFactory,
             SeatPointViewFactory seatPointViewFactory,
@@ -39,7 +40,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernMoodViewFactory tavernMoodViewFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             HUD hud,
-            DiContainer diContainer,
             ItemProvider<IItem> itemProvider,
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
@@ -55,6 +55,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                pauseMenuService,
                 collectionRepository,
                 eatPointViewFactory,
                 seatPointViewFactory,
@@ -65,7 +66,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                 tavernMoodViewFactory,
                 playerUpgradeViewFactory,
                 hud,
-                diContainer,
                 itemProvider,
                 playerMovementViewFactory,
                 playerCameraViewFactory,
@@ -88,14 +88,10 @@ namespace Sources.Infrastructure.Services.LoadServices
             return PlayerDataService.Load();
         }
 
-        protected override PlayerUpgrade CreatePlayerUpgrade()
-        {
-            return PlayerUpgradeDataService.Load();
-        }
+        protected override PlayerUpgrade CreatePlayerUpgrade() => 
+            PlayerUpgradeDataService.Load();
 
-        protected override Tavern CreateTavern()
-        {
-            return TavernDataService.Load();
-        }
+        protected override Tavern CreateTavern() => 
+            TavernDataService.Load();
     }
 }

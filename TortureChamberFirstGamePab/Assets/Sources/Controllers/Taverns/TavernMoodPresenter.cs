@@ -19,11 +19,11 @@ namespace Sources.Controllers.Taverns
 
         public TavernMoodPresenter
         (
-            TavernMood tavernMood, 
-            ITavernMoodView tavernMoodView, 
+            TavernMood tavernMood,
+            ITavernMoodView tavernMoodView,
             IImageUI imageUI,
             IUpgradeble upgradeble
-            )
+        )
         {
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _tavernMoodView = tavernMoodView ?? throw new ArgumentNullException(nameof(tavernMoodView));

@@ -10,6 +10,7 @@ using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Garbages;
 using Sources.PresentationInterfaces.Views.Items.Coins;
+using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -22,11 +23,17 @@ namespace Sources.Controllers.Visitors.States
         private readonly GarbageSpawner _garbageSpawner;
         private readonly CoinSpawner _coinSpawner;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
-        
-        public VisitorEatFoodState(Visitor visitor,
-            VisitorInventory visitorInventory, VisitorImageUIContainer visitorImageUIContainer,
-            ItemViewFactory itemViewFactory, TavernMood tavernMood,
-            GarbageSpawner garbageSpawner, CoinSpawner coinSpawner)
+
+        public VisitorEatFoodState
+        (
+            Visitor visitor,
+            VisitorInventory visitorInventory,
+            VisitorImageUIContainer visitorImageUIContainer,
+            ItemViewFactory itemViewFactory,
+            TavernMood tavernMood,
+            GarbageSpawner garbageSpawner,
+            CoinSpawner coinSpawner
+        )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
@@ -34,8 +41,9 @@ namespace Sources.Controllers.Visitors.States
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _garbageSpawner = garbageSpawner ?? throw new ArgumentNullException(nameof(garbageSpawner));
             _coinSpawner = coinSpawner ?? throw new ArgumentNullException(nameof(coinSpawner));
-            _visitorImageUIContainer = visitorImageUIContainer ? visitorImageUIContainer : 
-                throw new ArgumentNullException(nameof(visitorImageUIContainer));
+            _visitorImageUIContainer = visitorImageUIContainer
+                ? visitorImageUIContainer
+                : throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
 
         public override void Enter()
@@ -65,6 +73,7 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _visitor.SetUnSeat();
             itemView.Destroy();
+            Debug.Log("Здесь должно добавиться настроение");
             _tavernMood.AddTavernMood();
         }
     }

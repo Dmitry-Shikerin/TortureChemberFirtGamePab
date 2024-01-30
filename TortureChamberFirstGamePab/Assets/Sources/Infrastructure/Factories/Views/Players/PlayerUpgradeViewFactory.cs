@@ -14,16 +14,20 @@ namespace Sources.Infrastructure.Factories.Views.Players
 
         public PlayerUpgradeViewFactory(PlayerUpgradePresenterFactory playerUpgradePresenterFactory)
         {
-            _playerUpgradePresenterFactory = playerUpgradePresenterFactory ?? 
+            _playerUpgradePresenterFactory = playerUpgradePresenterFactory ??
                                              throw new ArgumentNullException(nameof(playerUpgradePresenterFactory));
         }
 
-        public IPlayerUpgradeView Create(Upgrader upgrader, PlayerWallet playerWallet
-            , PlayerUpgradeView playerUpgradeView)
+        public IPlayerUpgradeView Create
+        (
+            Upgrader upgrader,
+            PlayerWallet playerWallet,
+            PlayerUpgradeView playerUpgradeView
+        )
         {
-            PlayerUpgradePresenter playerUpgradePresenter = 
+            PlayerUpgradePresenter playerUpgradePresenter =
                 _playerUpgradePresenterFactory.Create(upgrader, playerWallet, playerUpgradeView);
-            
+
             playerUpgradeView.Construct(playerUpgradePresenter);
 
             return playerUpgradeView;

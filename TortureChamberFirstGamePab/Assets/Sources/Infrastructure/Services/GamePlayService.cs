@@ -14,20 +14,21 @@ namespace Sources.Infrastructure.Services
     public class GamePlayService
     {
         private readonly GamePlay _gamePlay;
-
         private readonly int _maximumSetPointsCapacity;
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public GamePlayService(ITavernProvider tavernProvider,
-            VisitorPoints visitorPoints)
+        public GamePlayService
+        (
+            ITavernProvider tavernProvider,
+            VisitorPoints visitorPoints
+        )
         {
-            // _maximumSetPointsCapacity = collectionRepository.Get<SeatPoint>().Count;
             _maximumSetPointsCapacity = visitorPoints.GetComponentsInChildren<SeatPointView>().Length;
-            
-            if (_maximumSetPointsCapacity <= 0) 
+
+            if (_maximumSetPointsCapacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(_maximumSetPointsCapacity));
-            
+
             //TODO нету проверки на нулл что бы не поламалось
             _gamePlay = tavernProvider.GamePlay;
         }
@@ -40,9 +41,9 @@ namespace Sources.Infrastructure.Services
         private async UniTask IncreaseDifficulty()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             int visitorsCount = 0;
-            
+
             while (visitorsCount <= _maximumSetPointsCapacity)
             {
                 await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
@@ -53,7 +54,7 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        public void Exit() => 
+        public void Exit() =>
             _cancellationTokenSource.Cancel();
     }
 }
