@@ -31,6 +31,7 @@ using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.Infrastructure.Services.PauseServices;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.Providers.Upgrades;
 using Sources.Infrastructure.Services.UpgradeServices;
@@ -74,6 +75,8 @@ namespace Sources.Infrastructure.DIContainers
             HUD hudPrefab = Resources.Load<HUD>(Constant.PrefabPaths.HUD);
             HUD hud = Object.Instantiate(hudPrefab);
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
+
+            Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
             

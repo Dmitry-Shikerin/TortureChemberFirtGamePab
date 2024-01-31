@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Presentation.Views;
 using Sources.Domain.Items.Coins;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using UnityEngine;
 
@@ -14,15 +15,18 @@ namespace Sources.Controllers.Items.Coins
 
         private readonly ICoinAnimationView _coinAnimationView;
         private readonly CoinAnimation _coinAnimation;
+        private readonly IPauseService _pauseService;
 
         public CoinAnimationPresenter
         (
             ICoinAnimationView coinAnimationView,
-            CoinAnimation coinAnimation
+            CoinAnimation coinAnimation,
+            IPauseService pauseService
         )
         {
             _coinAnimationView = coinAnimationView ?? throw new ArgumentNullException(nameof(coinAnimationView));
             _coinAnimation = coinAnimation ?? throw new ArgumentNullException(nameof(coinAnimation));
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
 
@@ -74,6 +78,7 @@ namespace Sources.Controllers.Items.Coins
             {
                 _coinAnimationView.Rotate();
                 await UniTask.Yield(_cancellationTokenSource.Token);
+                await _pauseService.OnPauseAsync();
             }
         }
 
