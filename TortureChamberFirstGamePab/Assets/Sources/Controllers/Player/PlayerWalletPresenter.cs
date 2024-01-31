@@ -17,6 +17,16 @@ namespace Sources.Controllers.Player
         }
 
 
+        public override void Enable()
+        {
+            
+        }
+
+        public override void Disable()
+        {
+            
+        }
+
         public void Add(int quantity) => 
             _playerWallet.Add(quantity);
 

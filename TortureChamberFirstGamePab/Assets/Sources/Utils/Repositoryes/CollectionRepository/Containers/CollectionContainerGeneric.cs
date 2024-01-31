@@ -6,12 +6,12 @@ namespace Sources.Utils.Repositoryes.Containers
 {
     public class CollectionContainerGeneric<T> : ICollectionContainerGeneric<T>
     {
-        private List<T> _objects = new List<T>();
+        private IEnumerable<T> _objects = new List<T>();
         
-        public List<T> Get() => 
+        public IEnumerable<T> Get() => 
             _objects;
 
-        public void Set(List<T> objects) => 
+        public void Set(IEnumerable<T> objects) => 
             _objects = objects;
     }
 }

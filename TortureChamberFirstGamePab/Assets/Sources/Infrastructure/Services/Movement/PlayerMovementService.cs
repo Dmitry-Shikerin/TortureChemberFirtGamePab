@@ -13,7 +13,6 @@ namespace Sources.Infrastructure.Services.Movement
         private readonly IUpgradeProvider _upgradeProvider;
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
-        //TODO пришлось сюда запросить конфиг
         public PlayerMovementService(IUpgradeProvider upgradeProvider,
             PlayerMovementCharacteristic playerMovementCharacteristic)
         {

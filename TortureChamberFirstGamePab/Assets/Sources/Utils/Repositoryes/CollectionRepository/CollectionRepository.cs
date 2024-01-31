@@ -10,7 +10,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
         private Dictionary<Type, ICollectionContainer> _repositoryes = 
             new Dictionary<Type, ICollectionContainer>();
 
-        public List<T> Get<T>()
+        public IEnumerable<T> Get<T>()
         {
             if (_repositoryes.ContainsKey(typeof(T)) == false)
                 throw new InvalidOperationException();
@@ -21,7 +21,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
             throw new InvalidOperationException(nameof(T));
         }
 
-        public void Add<T>(List<T> objects)
+        public void Add<T>(IEnumerable<T> objects)
         {
             if (_repositoryes.ContainsKey(typeof(T)))
                 throw new InvalidOperationException();

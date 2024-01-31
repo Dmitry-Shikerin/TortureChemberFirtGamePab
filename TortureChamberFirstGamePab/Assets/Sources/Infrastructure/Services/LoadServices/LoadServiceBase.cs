@@ -184,6 +184,8 @@ namespace Sources.Infrastructure.Services.LoadServices
             
             //HudText
             _textUIFactory.Create(_hud.TextUIContainer.PlayerWalletText, _player.Wallet.Coins);
+            //Todo костыль
+            _hud.TextUIContainer.PlayerWalletText.SetText(_player.Wallet.Coins.StringValue);
             
             //PlayerMovementView
             //TODO исправить
@@ -206,9 +208,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                 _playerInventoryViewFactory.Create(_player.Inventory, playerView.Inventory);
             
             //PlayerUpgradeViews
-            //TODO не работают кнопки контейнеров
-            //TODO после поднятия монеток
-            //TODO Канцелится операция по движению монетки
             IPlayerUpgradeView playerCharismaUpgradeView = 
                 _playerUpgradeViewFactory.Create(_playerUpgrade.CharismaUpgrader, _player.Wallet,
                 _hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
@@ -231,7 +230,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _buttonUIFactory.Create(_hud.PauseMenuButton, _pauseMenuService.Show);
 
             // _buttonUIFactory.Create(_hud.PauseMenuWindow.SaveButton, Save);
-            //TODo ошибка при сохранении плейер харизмы
+            //TODo ошибка при сохранении плейер харизмы, иправить по аналогии
             //TODO обратить внимание, подправить
             _buttonUIFactory.Create(_hud.PauseMenuWindow.QuitButton, () => Application.Quit());
             _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, _pauseMenuService.Hide);

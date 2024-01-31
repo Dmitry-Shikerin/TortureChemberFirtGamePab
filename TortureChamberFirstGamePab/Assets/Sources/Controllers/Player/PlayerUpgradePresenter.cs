@@ -30,6 +30,7 @@ namespace Sources.Controllers.Player
         public override void Enable()
         {
             UpdatePricePerUpgrade();
+            UpdateCurrentLevelUpgrade();
         }
 
         //TODO порефакторить
@@ -39,14 +40,16 @@ namespace Sources.Controllers.Player
             {
                 if (UpgradeAvailability())
                 {
-                    _upgrader.Upgrade();
                     _playerWallet.Remove(_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]);
-                    _playerUpgradeView.SetCurrentLevelUpgrade(
-                        $"{_upgrader.CurrentLevelUpgrade.StringValue} уровень");
+                    _upgrader.Upgrade();
                     UpdatePricePerUpgrade();
+                    UpdateCurrentLevelUpgrade();
+                    // _playerUpgradeView.SetCurrentLevelUpgrade(
+                    //     $"{_upgrader.CurrentLevelUpgrade.StringValue} уровень");
                 }
 
                 UpdatePricePerUpgrade();
+                UpdateCurrentLevelUpgrade();
             }
             catch (InvalidOperationException exception)
             {
@@ -57,6 +60,12 @@ namespace Sources.Controllers.Player
 
         private bool UpgradeAvailability()
         {
+            if (_upgrader.CurrentLevelUpgrade.GetValue >= _upgrader.MoneyPerUpgrades.Count)
+            {
+                Debug.Log("Улучшение недоступно");
+                return false;
+            }
+
             //TODO порефакторить
             if (_playerWallet.Coins.GetValue < _upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue])
             {
@@ -69,8 +78,23 @@ namespace Sources.Controllers.Player
 
         private void UpdatePricePerUpgrade()
         {
+            if (_upgrader.CurrentLevelUpgrade.GetValue >= _upgrader.MoneyPerUpgrades.Count)
+            {
+                _playerUpgradeView.SetPriceNextUpgrade(
+                    $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue - 1]}");
+                
+                return;
+            }
+                
             _playerUpgradeView.SetPriceNextUpgrade(
                 $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
+        }
+
+        private void UpdateCurrentLevelUpgrade()
+        {
+            Debug.Log($"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
+            _playerUpgradeView.SetCurrentLevelUpgrade(
+                $"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
         }
     }
 }

@@ -28,9 +28,20 @@ namespace Sources.Controllers.UI
                 _imageUI.SetFillAmount(fill);
 
                 await UniTask.Yield(cancellationToken);
+                await Pause();
             }
 
             _imageUI.SetFillAmount(Constant.FillingAmount.Minimum);
+        }
+
+        //TODO это будет в UPdateService
+        private async UniTask Pause()
+        {
+            //TODO это из другого сервиси и это поле
+            bool isPaused = false;
+
+            while (isPaused)
+                await UniTask.Yield();
         }
     }
 }

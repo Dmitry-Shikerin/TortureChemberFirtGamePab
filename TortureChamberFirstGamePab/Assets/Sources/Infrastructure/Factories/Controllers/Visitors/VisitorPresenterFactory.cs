@@ -72,7 +72,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             _imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
 
             VisitorInitializeState initializeState = new VisitorInitializeState(
-                visitorView, visitor, visitorAnimation, _collectionRepository);
+                visitorView, visitor, visitorAnimation, _collectionRepository, visitorCounter);
             VisitorIdleState idleState = new VisitorIdleState(
                 visitor, visitorAnimation);
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(

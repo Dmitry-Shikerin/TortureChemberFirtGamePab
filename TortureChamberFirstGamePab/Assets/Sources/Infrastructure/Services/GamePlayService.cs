@@ -13,8 +13,9 @@ namespace Sources.Infrastructure.Services
 {
     public class GamePlayService
     {
-        private readonly GamePlay _gamePlay;
+        private readonly ITavernProvider _tavernProvider;
         private readonly int _maximumSetPointsCapacity;
+        private GamePlay _gamePlay;
 
         private CancellationTokenSource _cancellationTokenSource;
 
@@ -24,15 +25,18 @@ namespace Sources.Infrastructure.Services
             VisitorPoints visitorPoints
         )
         {
+            _tavernProvider = tavernProvider ?? throw new ArgumentNullException(nameof(tavernProvider));
             _maximumSetPointsCapacity = visitorPoints.GetComponentsInChildren<SeatPointView>().Length;
 
             if (_maximumSetPointsCapacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(_maximumSetPointsCapacity));
 
             //TODO нету проверки на нулл что бы не поламалось
-            _gamePlay = tavernProvider.GamePlay;
+            // _gamePlay = tavernProvider.GamePlay;
         }
 
+        private GamePlay GamePlay => _gamePlay ??= _tavernProvider.GamePlay;
+        
         public async void Start()
         {
             await IncreaseDifficulty();
@@ -50,7 +54,7 @@ namespace Sources.Infrastructure.Services
                     cancellationToken: _cancellationTokenSource.Token);
                 Debug.Log("увеличино максимальное количество посетителей");
                 visitorsCount++;
-                _gamePlay.AddMaximumVisitorsCapacity();
+                GamePlay.AddMaximumVisitorsCapacity();
             }
         }
 

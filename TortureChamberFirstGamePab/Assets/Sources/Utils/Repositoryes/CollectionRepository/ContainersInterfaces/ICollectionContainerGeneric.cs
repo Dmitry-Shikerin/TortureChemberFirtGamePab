@@ -5,7 +5,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository.ContainersInterfaces
 {
     public interface ICollectionContainerGeneric<T> : ICollectionContainer
     {
-        List<T> Get();
-        void Set(List<T> objects);
+        IEnumerable<T> Get();
+        void Set(IEnumerable<T> objects);
     }
 }

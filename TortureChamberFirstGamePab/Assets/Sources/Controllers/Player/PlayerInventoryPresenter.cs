@@ -18,6 +18,7 @@ using Sources.PresentationInterfaces.Views.Interactions.Get;
 using Sources.PresentationInterfaces.Views.Interactions.Givable;
 using Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Sources.Controllers.Player
 {
@@ -50,7 +51,7 @@ namespace Sources.Controllers.Player
             _playerInventory = playerInventory ??
                                throw new ArgumentNullException(nameof(playerInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            //TODO нету проверки на нулл чтобы не упало
+            //TODO сделать проверки
             _upgradeble = upgradeble;
         }
 
@@ -61,6 +62,13 @@ namespace Sources.Controllers.Player
             HideSlots();
             _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
             //TODO сделать обновление по подписке
+            //tODO ИСПРАВИТЬ
+            for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
+            {
+                // Debug.Log(i);
+                UpdateAvailableSlot(i);
+            }
+            Debug.Log(_upgradeble.CurrentLevelUpgrade.GetValue);
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
             _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
         }
@@ -77,6 +85,14 @@ namespace Sources.Controllers.Player
             int index = _playerInventory.InventoryCapacity - 1;
             _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
             _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+        }
+        
+        private void UpdateAvailableSlot(int index)
+        {
+            // int index = _playerInventory.InventoryCapacity - 1;
+            //TODO подправить
+            _playerInventoryView.PlayerInventorySlots[index + 1].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[index + 1].Image.ShowImage();
         }
 
         public async void TakeItemAsync(IGivable givable)

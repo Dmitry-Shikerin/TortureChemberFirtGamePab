@@ -27,7 +27,6 @@ namespace Sources.Domain.Upgrades
             _currentAmountUpgrade = upgradeConfig.CurrentAmountUpgrade;
             AddedAmountUpgrade = upgradeConfig.AddedAmountUpgrade;
             MaximumUpgradeAmount = upgradeConfig.MaximumAmountUpgrade;
-            //TODO тут есть статичные данные и статичные списки
             MoneyPerUpgrades = upgradeConfig.MoneyPerUpgrades;
             _currentLevelUpgrade = new ObservableProperty<int>();
         }

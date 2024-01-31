@@ -2,7 +2,6 @@
 
 namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData
 {
-    //TODO правильно или нет?
     public class PlayerCharismaUpgradeData
     {
         [JsonProperty("currentAmountCharisma")]

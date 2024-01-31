@@ -14,23 +14,28 @@ namespace Sources.Controllers.Visitors.States
     {
         private readonly Visitor _visitor;
         private readonly CollectionRepository _collectionRepository;
+        private readonly VisitorCounter _visitorCounter;
 
         public VisitorInitializeState
         (
             IVisitorView visitorView, 
             Visitor visitor,
             IVisitorAnimation visitorAnimation, 
-            CollectionRepository collectionRepository)
+            CollectionRepository collectionRepository,
+            VisitorCounter visitorCounter
+            )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _collectionRepository = collectionRepository ?? 
                                    throw new ArgumentNullException(nameof(collectionRepository));
+            _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
         }
         
         public override void Enter()
         {
-            List<SeatPointView> seatPoints = _collectionRepository.Get<SeatPointView>();
-            var seatPointView = seatPoints.FirstOrDefault(seatPointView => seatPointView.IsOccupied == false);
+            SeatPointView seatPointView = _collectionRepository
+                .Get<SeatPointView>()
+                .FirstOrDefault(seatPointView => seatPointView.IsOccupied == false);
             
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);
