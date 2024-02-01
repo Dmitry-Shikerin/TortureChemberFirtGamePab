@@ -18,7 +18,6 @@ namespace Sources.Infrastructure.Factories.Views.Taverns
                                           throw new ArgumentNullException(nameof(tavernMoodPresenterFactory));
         }
         
-        //TODO скорее всего это сервис
         public ITavernMoodView Create(TavernMoodView tavernMoodView, TavernMood tavernMood,
             IImageUI imageUI)
         {

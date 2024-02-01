@@ -10,19 +10,13 @@ namespace Sources.Presentation.Views.Player
         private Vector3 _tragetPosition;
         private Transform _targetTransform;
 
-        public void SetTargetTransform(Transform targetTransform)
-        {
+        public void SetTargetTransform(Transform targetTransform) => 
             _targetTransform = targetTransform;
-        }
 
-        public void Follow()
-        {
+        public void Follow() => 
             transform.position = _targetTransform.position;
-        }
 
-        public void Rotate(float angleY)
-        {
+        public void Rotate(float angleY) => 
             transform.rotation = Quaternion.Euler(0, angleY, 0);
-        }
     }
 }

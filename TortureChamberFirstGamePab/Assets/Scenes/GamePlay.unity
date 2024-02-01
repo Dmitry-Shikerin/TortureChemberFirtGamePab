@@ -36754,6 +36754,10 @@ PrefabInstance:
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4126518723731813865, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
+      propertyPath: <PickUpPointUIImages>k__BackingField
+      value: 
+      objectReference: {fileID: 1699866561153377348}
     - target: {fileID: 5079347826013105631, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
       propertyPath: m_LocalPosition.x
       value: -17.067947
@@ -36803,6 +36807,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
+--- !u!114 &1699866561153377348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1799478112508780059, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
+  m_PrefabInstance: {fileID: 1699866561153377347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e53a62091ed4bb89f98b0c3face4acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1935658703869184631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36912,6 +36927,10 @@ PrefabInstance:
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2964559089615445339, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
+      propertyPath: <PickUpPointUIImages>k__BackingField
+      value: 
+      objectReference: {fileID: 1977139344660414204}
     - target: {fileID: 8143213714720810889, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
       propertyPath: m_Name
       value: SoupPickUpPoint
@@ -36921,6 +36940,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
+--- !u!114 &1977139344660414204 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3978350097716357745, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
+  m_PrefabInstance: {fileID: 1977139344660414203}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e53a62091ed4bb89f98b0c3face4acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2616872533983741283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37283,6 +37313,10 @@ PrefabInstance:
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5963787657564636407, guid: e2090158fd23bf64397707407f47b231, type: 3}
+      propertyPath: <PickUpPointUIImages>k__BackingField
+      value: 
+      objectReference: {fileID: 4615361495597558454}
     - target: {fileID: 7619218049112520690, guid: e2090158fd23bf64397707407f47b231, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.334947
@@ -37328,6 +37362,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2090158fd23bf64397707407f47b231, type: 3}
+--- !u!114 &4615361495597558454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2907238414433212591, guid: e2090158fd23bf64397707407f47b231, type: 3}
+  m_PrefabInstance: {fileID: 4615361495597558453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e53a62091ed4bb89f98b0c3face4acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5853254989782431825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37457,11 +37502,26 @@ PrefabInstance:
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7311022476617166488, guid: 344cad7f7a7d19347a6bab91ce8aceca, type: 3}
+      propertyPath: <PickUpPointUIImages>k__BackingField
+      value: 
+      objectReference: {fileID: 6775408891672319386}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 344cad7f7a7d19347a6bab91ce8aceca, type: 3}
+--- !u!114 &6775408891672319386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4238188300965670590, guid: 344cad7f7a7d19347a6bab91ce8aceca, type: 3}
+  m_PrefabInstance: {fileID: 6775408891672319385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e53a62091ed4bb89f98b0c3face4acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6891314395718392810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5079347826013105631, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
@@ -37669,6 +37729,10 @@ PrefabInstance:
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1151540355252877796, guid: a65b063c475ad5246b6283d23981202a, type: 3}
+      propertyPath: <PickUpPointUIImages>k__BackingField
+      value: 
+      objectReference: {fileID: 9119991337383777851}
     - target: {fileID: 1640781206977154555, guid: a65b063c475ad5246b6283d23981202a, type: 3}
       propertyPath: m_Name
       value: BreadPickUpPoint
@@ -37718,6 +37782,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65b063c475ad5246b6283d23981202a, type: 3}
+--- !u!114 &9119991337383777851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7661857863044058851, guid: a65b063c475ad5246b6283d23981202a, type: 3}
+  m_PrefabInstance: {fileID: 9119991337383777850}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e53a62091ed4bb89f98b0c3face4acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -37725,7 +37800,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1686585285}
   - {fileID: 3246249506992728350}
+  - {fileID: 786350490014770926}
   - {fileID: 3050302428863479659}
   - {fileID: 3919586400564260472}
-  - {fileID: 786350490014770926}
   - {fileID: 1313114462}

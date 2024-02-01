@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Controllers.UI;
 using Sources.Presentation.Views;
@@ -19,6 +20,12 @@ namespace Sources.Presentation.UI
 
         public void SetFillAmount(float filling) => 
             _image.fillAmount = filling;
+
+        public async UniTask FillMoveTowardsAsync(float fillingRate, 
+            CancellationToken cancellationToken, Action action)
+        {
+            await Presenter.FillMoveTowardsAsync(fillingRate, cancellationToken, action);
+        }
 
         public async UniTask FillMoveTowardsAsync(float fillingRate, CancellationToken cancellationToken)
         {

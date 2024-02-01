@@ -49,12 +49,10 @@ using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
 using Zenject;
-using Zenject.ReflectionBaking.Mono.Cecil;
 using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.DIContainers

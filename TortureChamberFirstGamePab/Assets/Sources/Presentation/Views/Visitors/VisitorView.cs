@@ -42,20 +42,14 @@ namespace Sources.Presentation.Views.Visitors
         protected override void OnConstructed() =>
             Presenter?.Start();
 
-        public void SetPosition(Vector3 position)
-        {
+        public void SetPosition(Vector3 position) => 
             transform.position = position;
-        }
 
-        public void StopMove()
-        {
+        public void StopMove() => 
             NavMeshAgent.isStopped = true;
-        }
 
-        public void Move()
-        {
+        public void Move() => 
             NavMeshAgent.isStopped = false;
-        }
 
         public void SetDestination(Vector3 destination) =>
             NavMeshAgent.destination = destination;

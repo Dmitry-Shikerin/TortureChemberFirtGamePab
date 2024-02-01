@@ -13,6 +13,7 @@ using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Voids;
@@ -29,6 +30,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public LoadService
         (
+            IPauseService pauseService,
             PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
             EatPointViewFactory eatPointViewFactory,
@@ -55,6 +57,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                pauseService,
                 pauseMenuService,
                 collectionRepository,
                 eatPointViewFactory,

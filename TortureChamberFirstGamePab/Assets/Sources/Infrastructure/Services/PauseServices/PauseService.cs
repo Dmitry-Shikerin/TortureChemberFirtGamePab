@@ -1,5 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services.PauseServices
 {
@@ -10,19 +12,21 @@ namespace Sources.Infrastructure.Services.PauseServices
         public void Pause()
         {
             IsPaused = true;
+            Debug.Log("Pause");
         }
 
         public void Continue()
         {
             IsPaused = false;
+            Debug.Log("Continue");
         }
         
-        public async UniTask OnPauseAsync()
+        public async UniTask Yield(CancellationToken cancellationToken)
         {
-            while (IsPaused)
+            do
             {
-                await UniTask.Yield();
-            }
+                await UniTask.Yield(cancellationToken);
+            } while (IsPaused);
         }
     }
 }

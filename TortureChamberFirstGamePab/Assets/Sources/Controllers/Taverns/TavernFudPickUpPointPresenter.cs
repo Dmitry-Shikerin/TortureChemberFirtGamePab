@@ -17,28 +17,28 @@ namespace Sources.Controllers.Taverns
         private readonly PickUpPointUIImages _pickUpPointUIImages;
         private readonly ItemConfig _itemConfig;
 
-        public TavernFudPickUpPointPresenter(ITavernFudPickUpPointView tavernFudPickUpPointView, 
-            ItemsFactory itemsFactory, PickUpPointUIImages pickUpPointUIImages, ItemConfig itemConfig)
+        public TavernFudPickUpPointPresenter
+        (
+            ITavernFudPickUpPointView tavernFudPickUpPointView,
+            ItemsFactory itemsFactory,
+            PickUpPointUIImages pickUpPointUIImages,
+            ItemConfig itemConfig
+        )
         {
-            _tavernFudPickUpPointView = tavernFudPickUpPointView ?? 
-                                    throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
-            _itemsFactory = itemsFactory ?? 
+            _tavernFudPickUpPointView = tavernFudPickUpPointView ??
+                                        throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
+            _itemsFactory = itemsFactory ??
                             throw new ArgumentNullException(nameof(itemsFactory));
-            _pickUpPointUIImages = pickUpPointUIImages ? pickUpPointUIImages : 
-                throw new ArgumentNullException(nameof(pickUpPointUIImages));
-            _itemConfig = itemConfig ? itemConfig : 
-                throw new ArgumentNullException(nameof(itemConfig));
+            _pickUpPointUIImages = pickUpPointUIImages
+                ? pickUpPointUIImages
+                : throw new ArgumentNullException(nameof(pickUpPointUIImages));
+            _itemConfig = itemConfig ? itemConfig : throw new ArgumentNullException(nameof(itemConfig));
         }
 
 
         public override void Enable()
         {
             _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
-        }
-
-        public override void Disable()
-        {
-            base.Disable();
         }
 
         public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
@@ -48,13 +48,13 @@ namespace Sources.Controllers.Taverns
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
                     _tavernFudPickUpPointView.FillingRate, cancellationToken);
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-                
+
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)
             {
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-                
+
                 return default;
             }
         }

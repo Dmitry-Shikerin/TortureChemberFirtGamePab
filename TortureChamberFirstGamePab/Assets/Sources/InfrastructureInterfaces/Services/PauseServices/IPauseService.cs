@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Sources.InfrastructureInterfaces.Services.PauseServices
 {
@@ -8,6 +9,6 @@ namespace Sources.InfrastructureInterfaces.Services.PauseServices
 
         void Continue();
         void Pause();
-        UniTask OnPauseAsync();
+        UniTask Yield(CancellationToken cancellationToken);
     }
 }

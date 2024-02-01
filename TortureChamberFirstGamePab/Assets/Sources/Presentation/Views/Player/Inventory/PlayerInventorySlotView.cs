@@ -6,8 +6,6 @@ namespace Sources.Presentation.Views.Player.Inventory
 {
     public class PlayerInventorySlotView : MonoBehaviour
     {
-        // [field : SerializeField] public ImageUI Image { get; private set; }
-        // [field : SerializeField] public ImageUI BackgroundImage { get; private set; }
         public ImageUI Image { get; private set; }
         public ImageUI BackgroundImage { get; private set; }
 

@@ -22,6 +22,11 @@ namespace Sources.Presentation.Animations
             StopPlaySeatIdle();
             StopPlayStandUp();
             
+            if(_animator.GetBool(IsIdle))
+                return;
+            
+            //TODO попробовать сделать аниматор.Speed
+            
             _animator.SetBool(IsIdle, true);
         }
 
@@ -38,6 +43,9 @@ namespace Sources.Presentation.Animations
             StopPlayIdle();
             StopPlaySeatIdle();
             StopPlayStandUp();
+            
+            if(_animator.GetBool(IsWalk))
+                return;
             
             _animator.SetBool(IsWalk, true);
         }
@@ -56,6 +64,9 @@ namespace Sources.Presentation.Animations
             StopPlayWalk();
             StopPlayStandUp();
             
+            if(_animator.GetBool(IsSeatedIdle))
+                return;
+            
             _animator.SetBool(IsSeatedIdle, true);
         }
 
@@ -72,6 +83,9 @@ namespace Sources.Presentation.Animations
             StopPlayIdle();
             StopPlayWalk();
             StopPlaySeatIdle();
+            
+            if(_animator.GetBool(IsStandUp))
+                return;
             
             _animator.SetBool(IsStandUp, true);
         }

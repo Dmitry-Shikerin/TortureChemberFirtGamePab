@@ -16,12 +16,11 @@ using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Taverns;
-using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Player.Inventory;
-using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
@@ -29,7 +28,6 @@ using Sources.PresentationInterfaces.Views.Players;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
-using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Services.LoadServices
@@ -44,6 +42,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly IPrefabFactory _prefabFactory;
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
+        private readonly IPauseService _pauseService;
         private readonly PauseMenuService _pauseMenuService;
         private readonly CollectionRepository _collectionRepository;
         private readonly EatPointViewFactory _eatPointViewFactory;
@@ -61,14 +60,13 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly TextUIFactory _textUIFactory;
         private readonly ButtonUIFactory _buttonUIFactory;
 
-        private VisitorSpawnService _visitorSpawnService;
         private Player _player;
         private PlayerUpgrade _playerUpgrade;
-        // private PlayerUpgradeService[] _playerUpgradeServices;
         private Tavern _tavern;
 
         protected LoadServiceBase
         (
+            IPauseService pauseService,
             PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
             EatPointViewFactory eatPointViewFactory,
@@ -97,6 +95,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _rootGamePoints = rootGamePoints ? rootGamePoints : 
                 throw new ArgumentNullException(nameof(rootGamePoints));
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -184,7 +183,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             
             //HudText
             _textUIFactory.Create(_hud.TextUIContainer.PlayerWalletText, _player.Wallet.Coins);
-            //Todo костыль
             _hud.TextUIContainer.PlayerWalletText.SetText(_player.Wallet.Coins.StringValue);
             
             //PlayerMovementView
@@ -227,43 +225,30 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerMovementUpgradeView.Upgrade);
             
             //PauseMenuButtons
-            _buttonUIFactory.Create(_hud.PauseMenuButton, _pauseMenuService.Show);
-
-            // _buttonUIFactory.Create(_hud.PauseMenuWindow.SaveButton, Save);
-            //TODo ошибка при сохранении плейер харизмы, иправить по аналогии
+            _buttonUIFactory.Create(_hud.PauseMenuButton, () =>
+            {
+                _pauseMenuService.Show();
+                _pauseService.Pause();
+            });
+            
             //TODO обратить внимание, подправить
             _buttonUIFactory.Create(_hud.PauseMenuWindow.QuitButton, () => Application.Quit());
-            _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, _pauseMenuService.Hide);
+            _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, () =>
+            {
+                _pauseMenuService.Hide();
+                _pauseService.Continue();
+            });
 
             //TavernMood
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
             
             //TavernPickUpPoints
-            PickUpPointUIImages beerPickUpPointImageUI =
-                _rootGamePoints.BeerPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BeerPickUpPointView, beerPickUpPointImageUI,
-                _imageUIFactory, beerConfig);
-
-            PickUpPointUIImages breadPickUpPointImageUI =
-                _rootGamePoints.BreadPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BreadPickUpPointView, 
-                breadPickUpPointImageUI, _imageUIFactory, breadConfig);
-            
-            PickUpPointUIImages meatPickUpPointImageUI =
-                _rootGamePoints.MeatPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, 
-                meatPickUpPointImageUI, _imageUIFactory, meatConfig);
-            
-            PickUpPointUIImages soupPickUpPointImageUI =
-                _rootGamePoints.SoupPickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, 
-                soupPickUpPointImageUI, _imageUIFactory, soupConfig);
-
-            PickUpPointUIImages winePickUpPointImageUI =
-                _rootGamePoints.WinePickUpPointView.GetComponentInChildren<PickUpPointUIImages>();
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, 
-                winePickUpPointImageUI, _imageUIFactory, wineConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BeerPickUpPointView, beerConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BreadPickUpPointView, breadConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, meatConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, soupConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, wineConfig);
         }
 
         public void Save()

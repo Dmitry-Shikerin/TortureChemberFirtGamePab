@@ -15,18 +15,9 @@ namespace Sources.Infrastructure.Services
 
         public ProductShuffleService(ItemProvider<IItem> itemProvider)
         {
-            if (itemProvider == null)
-                throw new ArgumentNullException(nameof(itemProvider));
-            
-            if (itemProvider == null) 
-                throw new ArgumentNullException(nameof(itemProvider));
-            
-            _itemProvider = itemProvider;
-            //
-            // _items = new List<IItem>(itemRepository.GetAll());
+            _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
         }
-
-        //TODO плохая запись?
+        
         private List<IItem> Items => _items ??= new List<IItem>(_itemProvider.GetAll());
 
         public IItem GetRandomItem()

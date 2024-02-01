@@ -6,8 +6,9 @@ using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.PresentationInterfaces.Animations;
+using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -17,6 +18,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly VisitorInventory _visitorInventory;
         private readonly ProductShuffleService _productShuffleService;
         private readonly TavernMood _tavernMood;
+        private readonly IVisitorAnimation _visitorAnimation;
+        private readonly IVisitorView _visitorView;
         private readonly IVisitorImageUI _visitorImageUI;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -27,7 +30,9 @@ namespace Sources.Controllers.Visitors.States
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
             ProductShuffleService productShuffleService,
-            TavernMood tavernMood
+            TavernMood tavernMood,
+            IVisitorAnimation visitorAnimation,
+            IVisitorView visitorView
         )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -36,6 +41,8 @@ namespace Sources.Controllers.Visitors.States
             _productShuffleService = productShuffleService ??
                                      throw new ArgumentNullException(nameof(productShuffleService));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
+            _visitorAnimation = visitorAnimation ?? throw new ArgumentNullException(nameof(visitorAnimation));
+            _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitorImageUI = visitorImageUI ??
                               throw new ArgumentNullException(nameof(visitorImageUI));
         }
@@ -46,14 +53,14 @@ namespace Sources.Controllers.Visitors.States
 
             IItem item = _productShuffleService.GetRandomItem();
 
-            // Debug.Log($"Посетитель заказал {item}");
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();
             _visitorImageUI.BackGroundImage.ShowImage();
             _visitorImageUI.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
             _visitorInventory.SetTargetItem(item);
-
+            _visitorAnimation.PlaySeatIdle();
+            
             WaitAsync();
         }
 
@@ -75,14 +82,20 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token);
+                    Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token,
+                    () =>
+                    {
+                        //TODO вот таакие костыли
+                        // _visitorAnimation.PlayIdle();
+                        _visitorView.StopMove();
+                        _visitorAnimation.PlaySeatIdle();
+                    });
+                
                 _visitor.SetUnHappy();
-                Debug.Log("Посетитель недоволен отсутствием заказа");
                 _visitor.SeatPointView.UnOccupy();
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("получил пролдукт");
                 _visitorInventory.SetTargetItem(null);
                 _visitor.Eat();
             }

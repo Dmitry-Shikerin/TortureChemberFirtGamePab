@@ -4,18 +4,11 @@ using Cysharp.Threading.Tasks;
 using Sources.App.Core;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Constants;
-using Sources.Domain.Players;
 using Sources.Infrastructure.Factories.Scenes;
-using Sources.Infrastructure.Services.LoadServices;
-using Sources.Infrastructure.Services.LoadServices.Components;
-using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.SceneLoaderServices;
 using Sources.Infrastructure.Services.SceneServices;
-using Sources.InfrastructureInterfaces.Factories.Scenes;
-using Sources.Presentation.Views.Bootstrap;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.App
 {
@@ -39,6 +32,8 @@ namespace Sources.Infrastructure.Factories.App
             sceneStates[Constant.SceneNames.GamePlay] = (payload, sceneContext) =>
                 sceneContext.Container.Resolve<GamePlaySceneFactory>().Create(payload);
 
+            //Todo сделать курточку здесь
+            //TODO возможно сделать крутилку
             // sceneService.AddBeforeSceneChangeHandler(sceneName => curtainView.Show());
             sceneService.AddBeforeSceneChangeHandler(async sceneName =>
                 await new SceneLoaderService().Load(sceneName));

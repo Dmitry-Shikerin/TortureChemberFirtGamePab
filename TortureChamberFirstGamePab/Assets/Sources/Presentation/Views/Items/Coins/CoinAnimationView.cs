@@ -29,16 +29,12 @@ namespace Sources.Presentation.Views.Items.Coins
             Hide();
         }
 
-        public void SetCoinAmount(int amount)
-        {
+        public void SetCoinAmount(int amount) => 
             Presenter.SetCoinAmount(amount);
-        }
 
-        public void SetCanMove()
-        {
+        public void SetCanMove() => 
             Presenter.SetCanMove();
-        }
-        
+
         public void SetTransformPosition(Vector3 position) => 
             transform.position = position;
 

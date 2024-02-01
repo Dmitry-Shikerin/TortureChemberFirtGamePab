@@ -26,14 +26,10 @@ namespace Sources.Presentation.Views.Player
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation, look, speed);
 
-        public void SetPosition(Vector3 position)
-        {
+        public void SetPosition(Vector3 position) => 
             transform.position = position;
-        }
 
-        public void SetAngle(float angle)
-        {
+        public void SetAngle(float angle) => 
             transform.rotation = Quaternion.Euler(0,angle, 0);
-        }
     }
 }

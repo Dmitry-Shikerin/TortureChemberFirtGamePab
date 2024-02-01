@@ -7,9 +7,6 @@ using Sources.PresentationInterfaces.Views.Taverns;
 
 namespace Sources.Controllers.Taverns
 {
-    //TODO у этого презентера пустая вьюшка только для инициализации
-    //TODO мб удалить эту вьюшку, сделать модель и передавать значения яв модель
-    //TODO а текст юай подпишется на эту модель?
     public class TavernMoodPresenter : PresenterBase
     {
         private readonly TavernMood _tavernMood;
@@ -28,14 +25,13 @@ namespace Sources.Controllers.Taverns
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _tavernMoodView = tavernMoodView ?? throw new ArgumentNullException(nameof(tavernMoodView));
             _imageUI = imageUI ?? throw new ArgumentNullException(nameof(imageUI));
-            //TODO Нет проверки
-            _upgradeble = upgradeble;
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
 
-            _imageUI.SetFillAmount(Constant.TavernMoodValues.StartValue);
         }
 
         public override void Enable()
         {
+            _imageUI.SetFillAmount(Constant.TavernMoodValues.StartValue);
             _tavernMood.TavernMoodValueChanged += OnTavernMoodValueChanged;
             _upgradeble.CurrentLevelUpgrade.Changed += OnAddedAmountUpgradeChanged;
             _tavernMood.AddedAmountUpgrade = _upgradeble.AddedAmountUpgrade;

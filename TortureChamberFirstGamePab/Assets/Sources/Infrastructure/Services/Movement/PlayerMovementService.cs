@@ -13,22 +13,23 @@ namespace Sources.Infrastructure.Services.Movement
         private readonly IUpgradeProvider _upgradeProvider;
         private readonly PlayerMovementCharacteristic _playerMovementCharacteristic;
 
-        public PlayerMovementService(IUpgradeProvider upgradeProvider,
-            PlayerMovementCharacteristic playerMovementCharacteristic)
+        public PlayerMovementService
+        (
+            IUpgradeProvider upgradeProvider,
+            PlayerMovementCharacteristic playerMovementCharacteristic
+        )
         {
-            if (upgradeProvider == null) 
-                throw new ArgumentNullException(nameof(upgradeProvider));
-            //TODO костыль, нельзя делать проверку на нулл   иначе крашнется все
-            // _upgradeble = upgradeProvider.Movement;
-            _upgradeProvider = upgradeProvider;
-            _playerMovementCharacteristic = playerMovementCharacteristic;
+            _upgradeProvider = upgradeProvider ?? throw new ArgumentNullException(nameof(upgradeProvider));
+            _playerMovementCharacteristic = playerMovementCharacteristic
+                ? playerMovementCharacteristic
+                : throw new ArgumentNullException(nameof(playerMovementCharacteristic));
         }
 
         private IUpgradeble Upgradeble => _upgradeble ??= _upgradeProvider.Movement;
 
-        
+
         private float MovementSpeed => Upgradeble.AddedAmountUpgrade;
-        
+
         public Quaternion GetDirectionRotation(Vector3 direction) =>
             Quaternion.LookRotation(direction).normalized;
 
@@ -37,7 +38,7 @@ namespace Sources.Infrastructure.Services.Movement
 
         public float GetMaxSpeed(PlayerInput playerInput, float runInput)
         {
-            float maxMovementValue = Mathf.Max(Mathf.Abs(playerInput.Direction.x), 
+            float maxMovementValue = Mathf.Max(Mathf.Abs(playerInput.Direction.x),
                 Mathf.Abs(playerInput.Direction.y));
             float speed = runInput == 0 ? maxMovementValue * 2 : maxMovementValue;
 

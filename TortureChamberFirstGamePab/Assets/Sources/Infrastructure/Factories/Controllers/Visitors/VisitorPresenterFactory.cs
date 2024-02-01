@@ -8,6 +8,7 @@ using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
@@ -18,6 +19,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorPresenterFactory
     {
+        private readonly IPauseService _pauseService;
         private readonly CollectionRepository _collectionRepository;
         private readonly ProductShuffleService _productShuffleService;
         private readonly ImageUIFactory _imageUIFactory;
@@ -27,6 +29,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
 
         public VisitorPresenterFactory
         (
+            IPauseService pauseService,
             CollectionRepository collectionRepository,
             ProductShuffleService productShuffleService,
             ImageUIFactory imageUIFactory,
@@ -35,6 +38,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             CoinSpawner coinSpawner
         )
         {
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
             _productShuffleService =
@@ -76,19 +80,21 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             VisitorIdleState idleState = new VisitorIdleState(
                 visitor, visitorAnimation);
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(
-                visitorView, visitor, visitorAnimation, _collectionRepository);
+                visitorView, visitor, visitorAnimation, _collectionRepository,
+                _pauseService);
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, tavernMood);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
                 new VisitorWaitingForOrderState(visitor,
                     visitorInventory, visitorImageUIContainer,
-                    _productShuffleService, tavernMood);
+                    _productShuffleService, tavernMood, visitorAnimation,
+                    visitorView);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitor, visitorInventory, visitorImageUIContainer, 
                 _itemViewFactory, tavernMood, _garbageSpawner, _coinSpawner);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
-                visitorInventory, visitorImageUIContainer);
+                visitorInventory, visitorImageUIContainer, _pauseService);
             VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
                 new VisitorNotSatisfiedWithOrderState(visitor);
             VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(

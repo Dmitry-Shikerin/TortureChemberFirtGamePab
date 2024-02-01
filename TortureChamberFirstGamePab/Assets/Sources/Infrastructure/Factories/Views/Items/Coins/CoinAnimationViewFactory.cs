@@ -1,10 +1,8 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.Items.Coins;
 using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
-using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.Items.Coins;

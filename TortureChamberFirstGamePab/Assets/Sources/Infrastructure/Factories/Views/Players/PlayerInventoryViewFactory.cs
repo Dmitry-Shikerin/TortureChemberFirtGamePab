@@ -43,12 +43,6 @@ namespace Sources.Infrastructure.Factories.Views.Players
             if (playerInventory == null)
                 throw new ArgumentNullException(nameof(playerInventory));
 
-            // _imageUIFactory.Create(playerInventoryView.FirstSlotView.BackgroundImage);
-            // _imageUIFactory.Create(playerInventoryView.FirstSlotView.Image);
-            // _imageUIFactory.Create(playerInventoryView.SecondSlotView.BackgroundImage);
-            // _imageUIFactory.Create(playerInventoryView.SecondSlotView.Image);
-            // _imageUIFactory.Create(playerInventoryView.ThirdSlotView.BackgroundImage);
-            // _imageUIFactory.Create(playerInventoryView.ThirdSlotView.Image);
             _imageUIFactory.Create(_playerInventorySlotsImages.FirsSlotImage);
             _imageUIFactory.Create(_playerInventorySlotsImages.FirsSlotBackgroundImage);
             _imageUIFactory.Create(_playerInventorySlotsImages.SecondSlotImage);
@@ -63,8 +57,6 @@ namespace Sources.Infrastructure.Factories.Views.Players
             playerInventoryView.ThirdSlotView.Construct(_playerInventorySlotsImages.ThirdSlotImage,
                 _playerInventorySlotsImages.ThirdSlotBackgroundImage);
 
-            //TODO создать все презентеры для картинок слотов
-            //TODO удалить картинки с инвентори слотов
             PlayerInventoryPresenter playerInventoryPresenter =
                 _playerInventoryPresenterFactory.Create(_playerInventorySlotsImages,
                     playerInventoryView, playerInventory,

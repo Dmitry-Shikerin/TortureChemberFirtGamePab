@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes;
@@ -15,19 +17,22 @@ namespace Sources.Controllers.Visitors.States
         private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
+        private readonly IPauseService _pauseService;
 
         public VisitorMoveToSeat
         (
             IVisitorView visitorView,
             Visitor visitor,
             IVisitorAnimation visitorAnimation,
-            CollectionRepository collectionRepository
+            CollectionRepository collectionRepository,
+            IPauseService pauseService
         )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorAnimation = visitorAnimation ??
                                 throw new ArgumentNullException(nameof(visitorAnimation));
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
         public override void Enter()
@@ -49,12 +54,25 @@ namespace Sources.Controllers.Visitors.States
 
         private async UniTask MoveAsync()
         {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            
             _visitorView.SetDestination(_visitor.SeatPointView.Position);
 
             while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
+                //TODO проверить эти записи
                 await UniTask.Yield();
+
+                if (_pauseService.IsPaused)
+                {
+                    _visitorView.StopMove();
+                    _visitorAnimation.PlayIdle();
+                }
+                    
+                await _pauseService.Yield(cancellationTokenSource.Token);
+                _visitorView.Move();
+                _visitorAnimation.PlayWalk();
             }
         }
     }

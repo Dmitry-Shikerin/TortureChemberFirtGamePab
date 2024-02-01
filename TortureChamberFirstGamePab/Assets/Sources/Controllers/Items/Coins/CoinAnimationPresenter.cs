@@ -78,7 +78,7 @@ namespace Sources.Controllers.Items.Coins
             {
                 _coinAnimationView.Rotate();
                 await UniTask.Yield(_cancellationTokenSource.Token);
-                await _pauseService.OnPauseAsync();
+                await _pauseService.Yield(_cancellationTokenSource.Token);
             }
         }
 
@@ -97,6 +97,7 @@ namespace Sources.Controllers.Items.Coins
                     _coinAnimationView.MovementSpeed * Time.deltaTime));
 
                 await UniTask.Yield(_cancellationTokenSource.Token);
+                await _pauseService.Yield(_cancellationTokenSource.Token);
             }
         }
     }

@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Linq;
+using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using Sources.Domain.Constants;
-using Sources.Domain.Players;
 using Sources.Domain.Players.Data;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData;
@@ -33,13 +34,9 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerCharismaUpgradeData charismaData =
                 JsonConvert.DeserializeObject<PlayerCharismaUpgradeData>(json);
 
-            //TODO нужен экстеншн
-            int[] moneyPerUpgradeCharisma = new int[charismaData.MoneyPerUpgradesCharisma.Length];
-
-            for (int i = 0; i < charismaData.MoneyPerUpgradesCharisma.Length; i++)
-            {
-                moneyPerUpgradeCharisma[i] = charismaData.MoneyPerUpgradesCharisma[i].MoneyPerUpgradeCharisma;
-            }
+            int[] moneyPerUpgradeCharisma = charismaData.MoneyPerUpgradesCharisma
+                .Select(money => money.MoneyPerUpgradeCharisma)
+                .ToArray();
 
             return new Upgrader
             (
@@ -56,13 +53,10 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.InventoryKey, string.Empty);
             PlayerInventoryUpgradeData inventoryData =
                 JsonConvert.DeserializeObject<PlayerInventoryUpgradeData>(json);
-
-            int[] moneyPerUpgradeInventory = new int[inventoryData.MoneyPerUpgradesInventory.Length];
-
-            for (int i = 0; i < inventoryData.MoneyPerUpgradesInventory.Length; i++)
-            {
-                moneyPerUpgradeInventory[i] = inventoryData.MoneyPerUpgradesInventory[i].MoneyPerUpgradeInventory;
-            }
+            
+            int[] moneyPerUpgradeInventory = inventoryData.MoneyPerUpgradesInventory
+                .Select(money => money.MoneyPerUpgradeInventory)
+                .ToArray();
 
             return new Upgrader
             (
@@ -79,13 +73,10 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.MovementKey, string.Empty);
             PlayerMovementUpgradeData movementData =
                 JsonConvert.DeserializeObject<PlayerMovementUpgradeData>(json);
-
-            int[] moneyPerUpgradeMovement = new int[movementData.MoneyPerUpgradesMovement.Length];
-
-            for (int i = 0; i < movementData.MoneyPerUpgradesMovement.Length; i++)
-            {
-                moneyPerUpgradeMovement[i] = movementData.MoneyPerUpgradesMovement[i].MoneyPerUpgradeMovement;
-            }
+            
+            int[] moneyPerUpgradeMovement = movementData.MoneyPerUpgradesMovement
+                .Select(money => money.MoneyPerUpgradeMovement)
+                .ToArray();
 
             return new Upgrader
             (
@@ -99,20 +90,12 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveCharisma(Upgrader charismaUpgrader)
         {
-            //TODO правильно ли
-            PlayerCharismaMoneyPerUpgradeData[]
-                playerCharismaMoneyPerUpgradeDatas =
-                    new PlayerCharismaMoneyPerUpgradeData[charismaUpgrader.MoneyPerUpgrades.Count];
-
-            for (int i = 0; i < charismaUpgrader.MoneyPerUpgrades.Count; i++)
-            {
-                PlayerCharismaMoneyPerUpgradeData playerCharismaMoneyPerUpgradeData =
-                    new PlayerCharismaMoneyPerUpgradeData();
-                playerCharismaMoneyPerUpgradeData.MoneyPerUpgradeCharisma =
-                    charismaUpgrader.MoneyPerUpgrades[i];
-                playerCharismaMoneyPerUpgradeDatas[i] = playerCharismaMoneyPerUpgradeData;
-            }
-
+            PlayerCharismaMoneyPerUpgradeData[] playerCharismaMoneyPerUpgradeDatas =
+                charismaUpgrader.MoneyPerUpgrades
+                    .Select(money => new PlayerCharismaMoneyPerUpgradeData()
+                        { MoneyPerUpgradeCharisma = money })
+                    .ToArray();
+            
             PlayerCharismaUpgradeData playerCharismaUpgradeData = new PlayerCharismaUpgradeData()
             {
                 CurrentAmountCharisma = charismaUpgrader.CurrentAmountUpgrade,
@@ -128,18 +111,11 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveInventory(Upgrader inventoryUpgrader)
         {
-            PlayerInventoryMoneyPerUpgradeData[]
-                playerInventoryMoneyPerUpgradeDatas =
-                    new PlayerInventoryMoneyPerUpgradeData[inventoryUpgrader.MoneyPerUpgrades.Count];
-
-            for (int i = 0; i < inventoryUpgrader.MoneyPerUpgrades.Count; i++)
-            {
-                PlayerInventoryMoneyPerUpgradeData playerInventoryMoneyPerUpgradeData =
-                    new PlayerInventoryMoneyPerUpgradeData();
-                playerInventoryMoneyPerUpgradeData.MoneyPerUpgradeInventory =
-                    inventoryUpgrader.MoneyPerUpgrades[i];
-                playerInventoryMoneyPerUpgradeDatas[i] = playerInventoryMoneyPerUpgradeData;
-            }
+            PlayerInventoryMoneyPerUpgradeData[] playerInventoryMoneyPerUpgradeDatas =
+                inventoryUpgrader.MoneyPerUpgrades
+                    .Select(money => new PlayerInventoryMoneyPerUpgradeData() 
+                        { MoneyPerUpgradeInventory = money })
+                    .ToArray();
 
             PlayerInventoryUpgradeData playerCharismaUpgradeData = new PlayerInventoryUpgradeData()
             {
@@ -156,19 +132,12 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveMovement(Upgrader movementUpgrader)
         {
-            //TODO пределать на линку
             PlayerMovementMoneyPerUpgradeData[] playerMovementMoneyPerUpgradeDatas =
-                new PlayerMovementMoneyPerUpgradeData[movementUpgrader.MoneyPerUpgrades.Count];
-
-            for (int i = 0; i < movementUpgrader.MoneyPerUpgrades.Count; i++)
-            {
-                PlayerMovementMoneyPerUpgradeData playerMovementMoneyPerUpgradeData =
-                    new PlayerMovementMoneyPerUpgradeData();
-                playerMovementMoneyPerUpgradeData.MoneyPerUpgradeMovement =
-                    movementUpgrader.MoneyPerUpgrades[i];
-                playerMovementMoneyPerUpgradeDatas[i] = playerMovementMoneyPerUpgradeData;
-            }
-
+                movementUpgrader.MoneyPerUpgrades
+                .Select(money => new PlayerMovementMoneyPerUpgradeData() 
+                    { MoneyPerUpgradeMovement = money })
+                .ToArray();
+            
             PlayerMovementUpgradeData playerMovementUpgradeData = new PlayerMovementUpgradeData()
             {
                 CurrentAmountMovement = movementUpgrader.CurrentAmountUpgrade,

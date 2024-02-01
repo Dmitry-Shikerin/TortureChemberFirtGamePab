@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
@@ -19,6 +21,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly CollectionRepository _collectionRepository;
+        private readonly IPauseService _pauseService;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         public VisitorMoveToExitState
@@ -28,7 +31,8 @@ namespace Sources.Controllers.Visitors.States
             IVisitorAnimation visitorAnimation,
             CollectionRepository collectionRepository,
             VisitorInventory visitorInventory,
-            VisitorImageUIContainer visitorImageUIContainer
+            VisitorImageUIContainer visitorImageUIContainer,
+            IPauseService pauseService
         )
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
@@ -37,6 +41,7 @@ namespace Sources.Controllers.Visitors.States
                                 throw new ArgumentNullException(nameof(visitorAnimation));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _visitorImageUIContainer = visitorImageUIContainer
                 ? visitorImageUIContainer
                 : throw new ArgumentNullException(nameof(visitorImageUIContainer));
@@ -66,6 +71,8 @@ namespace Sources.Controllers.Visitors.States
 
         private async UniTask MoveAsync()
         {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            
             IVisitorPoint outDoorPoint = _collectionRepository.Get<OutDoorPoint>().FirstOrDefault();
 
             _visitorView.SetDestination(outDoorPoint.Position);
@@ -73,7 +80,18 @@ namespace Sources.Controllers.Visitors.States
             while (Vector3.Distance(_visitorView.Position, outDoorPoint.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
+                //TODO проверить эти записи
                 await UniTask.Yield();
+
+                if (_pauseService.IsPaused)
+                {
+                    _visitorView.StopMove();
+                    _visitorAnimation.PlayIdle();
+                }
+                    
+                await _pauseService.Yield(cancellationTokenSource.Token);
+                _visitorView.Move();
+                _visitorAnimation.PlayWalk();
             }
         }
     }

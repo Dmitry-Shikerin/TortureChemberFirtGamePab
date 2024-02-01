@@ -10,19 +10,13 @@ namespace Sources.Presentation.Views.Player.Upgardes
         [SerializeField] private TextMeshProUGUI _priceNextUpgrade;
         [SerializeField] private TextMeshProUGUI _currentLevelUpgrade;
 
-        public void SetPriceNextUpgrade(string text)
-        {
+        public void SetPriceNextUpgrade(string text) => 
             _priceNextUpgrade.text = text;
-        }
 
-        public void SetCurrentLevelUpgrade(string text)
-        {
+        public void SetCurrentLevelUpgrade(string text) => 
             _currentLevelUpgrade.text = text;
-        }
 
-        public void Upgrade()
-        {
+        public void Upgrade() => 
             Presenter.Upgrade();
-        }
     }
 }

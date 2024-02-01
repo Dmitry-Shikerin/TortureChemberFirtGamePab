@@ -51,8 +51,7 @@ namespace Sources.Controllers.Player
             _playerInventory = playerInventory ??
                                throw new ArgumentNullException(nameof(playerInventory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
-            //TODO сделать проверки
-            _upgradeble = upgradeble;
+            _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
         }
 
         public int MaxCapacity => _playerInventory.MaxCapacity;
@@ -65,7 +64,6 @@ namespace Sources.Controllers.Player
             //tODO ИСПРАВИТЬ
             for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
             {
-                // Debug.Log(i);
                 UpdateAvailableSlot(i);
             }
             Debug.Log(_upgradeble.CurrentLevelUpgrade.GetValue);
@@ -89,10 +87,10 @@ namespace Sources.Controllers.Player
         
         private void UpdateAvailableSlot(int index)
         {
-            // int index = _playerInventory.InventoryCapacity - 1;
-            //TODO подправить
-            _playerInventoryView.PlayerInventorySlots[index + 1].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[index + 1].Image.ShowImage();
+            int correctionIndex = _playerInventory.InventoryCapacity + 1;
+            
+            _playerInventoryView.PlayerInventorySlots[correctionIndex].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
         }
 
         public async void TakeItemAsync(IGivable givable)
@@ -161,6 +159,7 @@ namespace Sources.Controllers.Player
                     if (_playerInventory.Items[i].GetType() == item.GetType())
                     {
                         backGroundImage = _playerInventoryView.PlayerInventorySlots[i].BackgroundImage;
+                        
                         await backGroundImage.FillMoveTowardsAsync(
                             _playerInventoryView.FillingRate, cancellationToken);
 

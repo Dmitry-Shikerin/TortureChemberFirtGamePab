@@ -33,7 +33,6 @@ namespace Sources.Controllers.Player
             UpdateCurrentLevelUpgrade();
         }
 
-        //TODO порефакторить
         public void Upgrade()
         {
             try
@@ -44,8 +43,6 @@ namespace Sources.Controllers.Player
                     _upgrader.Upgrade();
                     UpdatePricePerUpgrade();
                     UpdateCurrentLevelUpgrade();
-                    // _playerUpgradeView.SetCurrentLevelUpgrade(
-                    //     $"{_upgrader.CurrentLevelUpgrade.StringValue} уровень");
                 }
 
                 UpdatePricePerUpgrade();
@@ -53,7 +50,6 @@ namespace Sources.Controllers.Player
             }
             catch (InvalidOperationException exception)
             {
-                //TODO сделать кнопку не активной
                 Debug.Log(exception.Message);
             }
         }

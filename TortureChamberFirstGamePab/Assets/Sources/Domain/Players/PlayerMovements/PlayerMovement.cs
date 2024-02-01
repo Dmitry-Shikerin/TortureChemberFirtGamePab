@@ -23,7 +23,6 @@ namespace Sources.Domain.Players.PlayerMovements
         {
         }
         
-        private readonly IUpgradeble _upgradeble;
         private readonly PlayerMovementCharacteristic _characteristic;
         
         public float RotationAngle { get; set; }

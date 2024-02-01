@@ -31,23 +31,17 @@ namespace Sources.Presentation.Views.Player
             _walletTrigger.Exited -= OnExit;
         }
 
-        private void OnEnter(ICoinAnimationView coinAnimationView)
-        {
+        private void OnEnter(ICoinAnimationView coinAnimationView) => 
             Presenter.AddCoins(coinAnimationView);
-        }
 
         private void OnExit(ICoinAnimationView coinAnimationView)
         {
         }
 
-        public void Add(int quantity)
-        {
+        public void Add(int quantity) => 
             Presenter.Add(quantity);
-        }
 
-        public void Remove(int quantity)
-        {
+        public void Remove(int quantity) => 
             Presenter.Remove(quantity);
-        }
     }
 }

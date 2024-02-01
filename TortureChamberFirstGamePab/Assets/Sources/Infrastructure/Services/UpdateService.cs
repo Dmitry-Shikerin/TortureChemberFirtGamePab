@@ -17,7 +17,6 @@ namespace Sources.Infrastructure.Services
         public event Action<float> ChangedFixedUpdate;
         public event Action<float> ChangedLateUpdate;
 
-        //Todo сделать булочку на остановку 
         public void Update(float deltaTime)
         {
             if(_pauseService.IsPaused)

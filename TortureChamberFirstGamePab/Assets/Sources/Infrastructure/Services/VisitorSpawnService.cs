@@ -12,6 +12,7 @@ using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
@@ -23,6 +24,7 @@ namespace Sources.Infrastructure.Services
     public class VisitorSpawnService
     {
         private readonly VisitorCounter _visitorCounter;
+        private readonly IPauseService _pauseService;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
         private readonly VisitorViewFactory _visitorViewFactory;
@@ -36,6 +38,7 @@ namespace Sources.Infrastructure.Services
 
         public VisitorSpawnService
         (
+            IPauseService pauseService,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
@@ -43,15 +46,13 @@ namespace Sources.Infrastructure.Services
             CollectionRepository collectionRepository
         )
         {
-            if (tavernProvider == null) 
-                throw new ArgumentNullException(nameof(tavernProvider));
-            //TODO Нет проверок на нулл
             _visitorCounter = new VisitorCounter();
-            
+
+            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorViewFactory = visitorViewFactory ?? throw new ArgumentNullException(nameof(visitorViewFactory));
-            _tavernProvider = tavernProvider;
+            _tavernProvider = tavernProvider ?? throw new ArgumentNullException(nameof(tavernProvider));
             _collectionRepository = collectionRepository ?? 
                                     throw new ArgumentNullException(nameof(collectionRepository));
         }
@@ -78,12 +79,16 @@ namespace Sources.Infrastructure.Services
             {
                 if (CanSpawn())
                 {
+                    //TODO возможно подправить
+                    await _pauseService.Yield(_cancellationTokenSource.Token);
                     await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
                         cancellationToken: _cancellationTokenSource.Token);
-
+                    await _pauseService.Yield(_cancellationTokenSource.Token);
+                    
                     Spawn();
                 }
 
+                await _pauseService.Yield(_cancellationTokenSource.Token);
                 await UniTask.Yield(_cancellationTokenSource.Token);
             }
         }
