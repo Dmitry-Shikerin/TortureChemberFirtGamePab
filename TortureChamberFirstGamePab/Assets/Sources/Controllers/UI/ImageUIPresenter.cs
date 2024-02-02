@@ -56,7 +56,6 @@ namespace Sources.Controllers.UI
 
                 _imageUI.SetFillAmount(fill);
                 
-                await UniTask.Yield(cancellationToken);
                 await _pauseService.Yield(cancellationToken);
             }
 

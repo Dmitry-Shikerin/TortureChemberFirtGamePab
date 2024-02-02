@@ -21,14 +21,14 @@ namespace Sources.Infrastructure.Factories.Views.Players
                                             throw new ArgumentNullException(nameof(playerCameraPresenterFactory));
         }
         
-        public IPlayerCameraView Create(PlayerCamera playerCamera)
+        public IPlayerCameraView Create(PlayerCamera playerCamera, PlayerCameraView playerCameraView)
         {
             if (playerCamera == null)
                 throw new ArgumentNullException(nameof(playerCamera));
-
-            //TODO таким образом мы не получаем вью снаружи и не даем возможность переиспользовать фабрику?
-            PlayerCameraView playerCameraView = Object.FindObjectOfType<PlayerCameraView>();
             
+            if (playerCameraView == null) 
+                throw new ArgumentNullException(nameof(playerCameraView));
+
             PlayerCameraPresenter playerCameraPresenter =
                 _playerCameraPresenterFactory.Create(playerCamera, playerCameraView);
             playerCameraView.Construct(playerCameraPresenter);

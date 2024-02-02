@@ -60,7 +60,6 @@ namespace Sources.Controllers.Player
         {
             HideSlots();
             _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
-            //TODO сделать обновление по подписке
             //tODO ИСПРАВИТЬ
             for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
             {

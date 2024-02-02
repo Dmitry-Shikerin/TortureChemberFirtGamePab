@@ -61,9 +61,6 @@ namespace Sources.Controllers.Visitors.States
             while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
-                //TODO проверить эти записи
-                await UniTask.Yield();
-
                 if (_pauseService.IsPaused)
                 {
                     _visitorView.StopMove();
@@ -71,6 +68,7 @@ namespace Sources.Controllers.Visitors.States
                 }
                     
                 await _pauseService.Yield(cancellationTokenSource.Token);
+                
                 _visitorView.Move();
                 _visitorAnimation.PlayWalk();
             }

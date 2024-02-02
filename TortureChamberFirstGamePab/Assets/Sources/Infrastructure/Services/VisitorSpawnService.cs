@@ -89,7 +89,6 @@ namespace Sources.Infrastructure.Services
                 }
 
                 await _pauseService.Yield(_cancellationTokenSource.Token);
-                await UniTask.Yield(_cancellationTokenSource.Token);
             }
         }
 

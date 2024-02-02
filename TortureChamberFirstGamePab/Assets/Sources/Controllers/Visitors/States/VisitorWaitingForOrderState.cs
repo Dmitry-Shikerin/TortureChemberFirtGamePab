@@ -75,7 +75,6 @@ namespace Sources.Controllers.Visitors.States
             _visitorInventory.SetTargetItem(null);
         }
 
-        //TODO плохо делать вилку за счет трай кетча
         private async void WaitAsync()
         {
             try
@@ -85,8 +84,6 @@ namespace Sources.Controllers.Visitors.States
                     Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token,
                     () =>
                     {
-                        //TODO вот таакие костыли
-                        // _visitorAnimation.PlayIdle();
                         _visitorView.StopMove();
                         _visitorAnimation.PlaySeatIdle();
                     });

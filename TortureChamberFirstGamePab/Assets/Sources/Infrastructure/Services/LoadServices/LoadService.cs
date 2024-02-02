@@ -15,6 +15,7 @@ using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
@@ -30,6 +31,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public LoadService
         (
+            PlayerCameraView playerCameraView,
             IPauseService pauseService,
             PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
@@ -57,6 +59,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                playerCameraView,
                 pauseService,
                 pauseMenuService,
                 collectionRepository,

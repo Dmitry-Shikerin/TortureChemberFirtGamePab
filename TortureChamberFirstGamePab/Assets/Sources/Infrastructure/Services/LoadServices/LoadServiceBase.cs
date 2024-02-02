@@ -42,6 +42,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly IPrefabFactory _prefabFactory;
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
+        private readonly PlayerCameraView _playerCameraView;
         private readonly IPauseService _pauseService;
         private readonly PauseMenuService _pauseMenuService;
         private readonly CollectionRepository _collectionRepository;
@@ -66,6 +67,7 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected LoadServiceBase
         (
+            PlayerCameraView playerCameraView,
             IPauseService pauseService,
             PauseMenuService pauseMenuService,
             CollectionRepository collectionRepository,
@@ -95,6 +97,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _rootGamePoints = rootGamePoints ? rootGamePoints : 
                 throw new ArgumentNullException(nameof(rootGamePoints));
+            _playerCameraView = playerCameraView ?? throw new ArgumentNullException(nameof(playerCameraView));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _collectionRepository = collectionRepository ?? 
@@ -198,7 +201,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             
             //PlayerCameraView
             PlayerCamera playerCamera = new PlayerCamera();
-            IPlayerCameraView playerCameraView = _playerCameraViewFactory.Create(playerCamera);
+            IPlayerCameraView playerCameraView = _playerCameraViewFactory.Create(playerCamera, _playerCameraView);
             playerCameraView.SetTargetTransform(playerMovementView.Transform);
             
             //PlayerInventory
@@ -231,7 +234,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                 _pauseService.Pause();
             });
             
-            //TODO обратить внимание, подправить
             _buttonUIFactory.Create(_hud.PauseMenuWindow.QuitButton, () => Application.Quit());
             _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, () =>
             {
