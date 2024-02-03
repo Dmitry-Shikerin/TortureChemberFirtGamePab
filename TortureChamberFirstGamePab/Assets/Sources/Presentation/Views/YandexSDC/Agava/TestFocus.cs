@@ -12,6 +12,7 @@ namespace Sources.Presentation.Views.YandexSDC
         private void OnEnable()
         {
             Application.focusChanged += OnInBackgroundChangeApp;
+            //TODO нет статического метода WebApplication
         }
 
         //TODO добавить в этот сервис PauseService
