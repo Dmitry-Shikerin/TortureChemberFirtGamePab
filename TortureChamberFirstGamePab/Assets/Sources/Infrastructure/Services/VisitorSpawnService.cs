@@ -2,10 +2,8 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using ModestTree;
 using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
-using Sources.Domain.Points;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Views.Visitors;
@@ -17,7 +15,6 @@ using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
 using Sources.Utils.Repositoryes.CollectionRepository;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {

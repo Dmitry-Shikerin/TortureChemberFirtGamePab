@@ -7,6 +7,7 @@ namespace Sources.Presentation.Views.Applications
     {
         [SerializeField] private AudioSource _audioSource;
 
+        //TODO возможно переделать на энтер и эксит и вызывать их в стейте
         private void OnEnable()
         {
             _audioSource.Play();
