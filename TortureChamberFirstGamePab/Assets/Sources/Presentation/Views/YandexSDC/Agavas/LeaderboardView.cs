@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.YandexSDC
 {
-    //TODO может быть сделать сервисом
     public class LeaderboardView : View
     {
         [SerializeField] private Transform _container;
@@ -12,7 +11,6 @@ namespace Sources.Presentation.Views.YandexSDC
 
         private List<LeaderboardElement> _spawnElements = new List<LeaderboardElement>();
 
-        //TODO откуда берутся эти модели?
         public void ConstructLeaderboard(List<LeaderboardPlayer> leaderboardPlayers)
         {
             ClearLeaderboard();

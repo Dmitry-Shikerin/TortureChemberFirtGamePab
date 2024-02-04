@@ -9,20 +9,17 @@ namespace Sources.Presentation.Views.YandexSDC
     {
         private int _money;
 
-        //TOdo вынести стаатику
         public void Show()
         {
-            Agava.YandexGames.VideoAd.Show(OnOpenCallback, OnRewardCallback, OnCloseCallback);
+            // Agava.YandexGames.VideoAd.Show(OnOpenCallback, OnRewardCallback, OnCloseCallback);
         }
 
         private void OnOpenCallback()
         {
-            //TODO прокинуть сюда пауз сервис
             Time.timeScale = 0;
             AudioListener.volume = 0f;
         }
 
-        //TODO прокинуть сюда кошелек
         private void OnRewardCallback()
         {
             _money++;

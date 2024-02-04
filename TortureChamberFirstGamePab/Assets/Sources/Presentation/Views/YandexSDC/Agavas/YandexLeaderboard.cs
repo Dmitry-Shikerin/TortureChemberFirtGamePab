@@ -3,7 +3,7 @@ using Agava.YandexGames;
 using Sources.Domain.YandexSDC;
 using UnityEngine;
 
-namespace Sources.Presentation.Views.YandexSDC
+namespace Sources.Presentation.Views.YandexSDC.Agava
 {
     public class YandexLeaderboard : MonoBehaviour
     {
@@ -16,11 +16,9 @@ namespace Sources.Presentation.Views.YandexSDC
 
         public void SetPlayerScore(int score)
         {
-            //TODO вынести эту статику в зенжект
             if(PlayerAccount.IsAuthorized == false)
                 return;
             
-            //TODO вынести этут статику
             Leaderboard.GetPlayerEntry(LeaderboardName, (result) =>
             {
                 if(result.score < score)

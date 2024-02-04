@@ -15,6 +15,7 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
@@ -48,6 +49,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly CollectionRepository _collectionRepository;
         private readonly EatPointViewFactory _eatPointViewFactory;
         private readonly SeatPointViewFactory _seatPointViewFactory;
+        private readonly IPlayerProviderSetter _playerProviderSetter;
         private readonly ITavernProviderSetter _tavernProviderSetter;
         private readonly IUpgradeProviderSetter _upgradeProviderSetter;
         private readonly TavernFoodPickUpPointViewFactory _tavernFoodPickUpPointViewFactory;
@@ -74,6 +76,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             EatPointViewFactory eatPointViewFactory,
             SeatPointViewFactory seatPointViewFactory,
             RootGamePoints rootGamePoints,
+            IPlayerProviderSetter playerProviderSetter,
             ITavernProviderSetter tavernProviderSetter,
             IUpgradeProviderSetter upgradeProviderSetter,
             TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
@@ -106,6 +109,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                                    throw new ArgumentNullException(nameof(eatPointViewFactory));
             _seatPointViewFactory = seatPointViewFactory ??
                                     throw new ArgumentNullException(nameof(seatPointViewFactory));
+            _playerProviderSetter = playerProviderSetter ?? throw new ArgumentNullException(nameof(playerProviderSetter));
             _tavernProviderSetter = tavernProviderSetter ??
                                     throw new ArgumentNullException(nameof(tavernProviderSetter));
             _upgradeProviderSetter = upgradeProviderSetter ?? 

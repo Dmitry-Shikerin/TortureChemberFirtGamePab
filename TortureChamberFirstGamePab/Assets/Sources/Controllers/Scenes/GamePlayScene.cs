@@ -9,6 +9,7 @@ using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Stores;
 using Sources.Infrastructure.Services.UpgradeServices;
+using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Voids;
@@ -19,6 +20,8 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
+        private readonly LocalizationService _localizationService;
+        private readonly FocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly IInputService _inputService;
         private readonly IUpdateService _updateService;
@@ -30,6 +33,8 @@ namespace Sources.Controllers.Scenes
 
         public GamePlayScene
         (
+            LocalizationService localizationService,
+            FocusService focusService,
             HUD hud,
             ButtonUIFactory buttonUIFactory,
             IInputService inputService,
@@ -38,10 +43,12 @@ namespace Sources.Controllers.Scenes
             TavernUpgradePointService tavernUpgradePointService,
             GamePlayService gamePlayService,
             PauseMenuService pauseMenuService,
-            ILoadService loadService
-        )
+            ILoadService loadService)
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _localizationService = localizationService ??
+                                   throw new ArgumentNullException(nameof(localizationService));
+            _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
@@ -64,6 +71,10 @@ namespace Sources.Controllers.Scenes
             _gamePlayService.Start();
             _visitorSpawnService.SpawnVisitorAsync();
             _pauseMenuService.Enter();
+
+            //SDCServices
+            // _localizationService.Enter();
+            // _focusService.Enter();
         }
 
         public void Exit()
@@ -73,6 +84,9 @@ namespace Sources.Controllers.Scenes
             _gamePlayService.Exit();
             _visitorSpawnService.Cancel();
             _pauseMenuService.Exit();
+
+            //SDCServices
+            // _focusService.Exit();
         }
 
         public void Update(float deltaTime)

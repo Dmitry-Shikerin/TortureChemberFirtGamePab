@@ -15,6 +15,7 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
+using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
@@ -31,8 +32,6 @@ namespace Sources.Infrastructure.Services.LoadServices
 {
     public class CreateService : LoadServiceBase
     {
-        private readonly PauseMenuService _pauseMenuService;
-
         public CreateService
         (
             PlayerCameraView playerCameraView,
@@ -42,6 +41,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             EatPointViewFactory eatPointViewFactory,
             SeatPointViewFactory seatPointViewFactory,
             RootGamePoints rootGamePoints,
+            IPlayerProviderSetter playerProviderSetter,
             ITavernProviderSetter tavernProviderSetter,
             IUpgradeProviderSetter upgradeProviderSetter,
             TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
@@ -52,7 +52,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
             PlayerInventoryViewFactory playerInventoryViewFactory,
-            PlayerWalletViewFactory playerWalletViewFactory, 
+            PlayerWalletViewFactory playerWalletViewFactory,
             TextUIFactory textUIFactory,
             ButtonUIFactory buttonUIFactory,
             IDataService<Player> playerDataService,
@@ -70,6 +70,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                 eatPointViewFactory,
                 seatPointViewFactory,
                 rootGamePoints,
+                playerProviderSetter,
                 tavernProviderSetter,
                 upgradeProviderSetter,
                 tavernFoodPickUpPointViewFactory,
@@ -78,21 +79,19 @@ namespace Sources.Infrastructure.Services.LoadServices
                 hud,
                 itemProvider,
                 playerMovementViewFactory,
-                playerCameraViewFactory, 
+                playerCameraViewFactory,
                 playerInventoryViewFactory,
-                playerWalletViewFactory, 
-                textUIFactory, 
-                buttonUIFactory, 
+                playerWalletViewFactory,
+                textUIFactory,
+                buttonUIFactory,
                 playerDataService,
-                playerUpgradeDataService, 
+                playerUpgradeDataService,
                 tavernDataService,
                 imageUIFactory,
                 prefabFactory
-            )
-        {
-            _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
-        }
-
+            ) 
+        {}
+        
         protected override Player CreatePlayer()
         {
             PlayerMovement playerMovement = new PlayerMovement();

@@ -6,12 +6,16 @@ using Sources.Domain.Players.Data;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
+using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
 
 namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly YandexLeaderboardInitializeService _yandexLeaderboardInitializeService;
+        private readonly FocusService _focusService;
+        private readonly SDKInitializeService _sdkInitializeService;
         private readonly SceneService _sceneService;
         private readonly IDataService<Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
@@ -21,12 +25,21 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
+            FocusService focusService,
+            SDKInitializeService sdkInitializeService,
             SceneService sceneService,
             IDataService<Player> dataService,
             MainMenuHUD mainMenuHUD,
             ButtonUIFactory buttonUIFactory
         )
         {
+            _yandexLeaderboardInitializeService =
+                yandexLeaderboardInitializeService ??
+                throw new ArgumentNullException(nameof(yandexLeaderboardInitializeService));
+            _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
+            _sdkInitializeService = sdkInitializeService ?? 
+                                    throw new ArgumentNullException(nameof(sdkInitializeService));
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
@@ -38,6 +51,9 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _yandexLeaderboardInitializeService,
+                _focusService,
+                _sdkInitializeService,
                 _mainMenuHUD,
                 _dataService,
                 _buttonUIFactory,

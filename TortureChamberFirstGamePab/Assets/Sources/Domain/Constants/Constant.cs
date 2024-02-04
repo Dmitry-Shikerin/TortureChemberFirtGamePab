@@ -100,7 +100,29 @@ namespace Sources.Domain.Constants
         public static class SceneNames
         {
             public const string MainMenu = "MainMenu";
-            public const string GamePlay = "GamePlay";
+            public const string Gameplay = "GamePlay";
+        }
+
+        public static class Localization
+        {
+            public const string EnglishCode = "English";
+            public const string RussianCode = "Russian";
+            public const string TurkishCode = "Turkish";
+            public const string Turkish = "tr";
+            public const string Russian = "ru";
+            public const string English = "en";
+        }
+
+        public static class TimeScaleValue
+        {
+            public const float Min = 0;
+            public const float Max = 1;
+        }
+        
+        public static class LeaderboardNames
+        {
+            public const string LeaderboardName = "Leaderboard";
+            public const string AnonymousName = "Anonymous";
         }
     }
 }

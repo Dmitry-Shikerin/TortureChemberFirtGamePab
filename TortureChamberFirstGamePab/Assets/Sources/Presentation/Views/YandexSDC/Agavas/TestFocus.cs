@@ -2,6 +2,7 @@
 using UnityEngine;
 using Agava.YandexGames;
 using Agava.YandexGames.Utility;
+using Agava.WebUtility;
 
 namespace Sources.Presentation.Views.YandexSDC
 {
@@ -12,7 +13,7 @@ namespace Sources.Presentation.Views.YandexSDC
         private void OnEnable()
         {
             Application.focusChanged += OnInBackgroundChangeApp;
-            //TODO нет статического метода WebApplication
+            WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
         }
 
         //TODO добавить в этот сервис PauseService

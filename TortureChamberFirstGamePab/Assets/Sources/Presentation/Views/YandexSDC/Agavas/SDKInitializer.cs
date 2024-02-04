@@ -11,7 +11,6 @@ namespace Sources.Presentation.Views.YandexSDC
     {
         private void Awake()
         {
-            //Todo вынести статику
             YandexGamesSdk.CallbackLogging = true;
         }
 
@@ -37,6 +36,7 @@ namespace Sources.Presentation.Views.YandexSDC
         //TODO статика
         //На первой игровой сцене, в своём классе вызываем данную функцию и это необходимо по новым правилам
         //модерации яндекс. Она необходима для метрик платформы.
+        //TODO это в энтере в конце всего
         public void OnCallGameReadyButtonClick()
         {
             YandexGamesSdk.GameReady();

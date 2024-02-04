@@ -20,6 +20,7 @@ namespace Sources.Presentation.Views.YandexSDC
 
         private void Awake()
         {
+            //TODO почему горит серым?
 #if UNITY_WEBGL && !UNITY_EDITOR
             ChangeLanguage();
 #endif

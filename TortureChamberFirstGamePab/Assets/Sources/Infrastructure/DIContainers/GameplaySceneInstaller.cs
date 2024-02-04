@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Constants;
+﻿using Lean.Localization;
+using Sources.Domain.Constants;
 using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.Domain.Taverns.Data;
@@ -32,9 +33,11 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.PauseServices;
+using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.Providers.Upgrades;
 using Sources.Infrastructure.Services.UpgradeServices;
+using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Triggers.Taverns;
@@ -61,6 +64,7 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
+        [SerializeField] private LeanLocalization _leanLocalization;
         
         public override void InstallBindings()
         {
@@ -74,6 +78,11 @@ namespace Sources.Infrastructure.DIContainers
             HUD hud = Object.Instantiate(hudPrefab);
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
+            //SDKServices
+            Container.Bind<VideoAdService>().AsSingle();
+            Container.Bind<LeanLocalization>().FromInstance(_leanLocalization).AsSingle();
+            Container.Bind<LocalizationService>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
@@ -81,7 +90,8 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<HudTextUIContainer>().FromInstance(hud.TextUIContainer).AsSingle();
 
             Container.Bind<CollectionRepository>().AsSingle();
-            
+
+            Container.BindInterfacesAndSelfTo<PlayerProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradeProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<TavernProvider>().AsSingle();
 

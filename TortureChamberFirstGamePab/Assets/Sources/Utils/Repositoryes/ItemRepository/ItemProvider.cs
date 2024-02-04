@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Sources.Utils.Repositoryes.ItemRepository
 {
-    public class ItemProvider<T1>
+    public class ItemProvider<T1> : IItemProvider<T1>
     {
         private Dictionary<Type, T1> _repositoryes =
             new Dictionary<Type, T1>();
@@ -63,16 +65,19 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             _repositoryes[typeof(T2)] = @object;
         }
 
-        public IEnumerable<T1> GetAll()
+        public IReadOnlyCollection<T1> GetAll()
         {
-            List<T1> items = new List<T1>();
-
-            foreach (KeyValuePair<Type, T1> repository in _repositoryes)
-            {
-                items.Add(repository.Value);
-            }
-            
-            return items;
+            // List<T1> items = new List<T1>();
+            //
+            // foreach (KeyValuePair<Type, T1> repository in _repositoryes)
+            // {
+            //     items.Add(repository.Value);
+            // }
+            //
+            //TODO проверить работает ли?
+            return _repositoryes.Select(item => item.Value).ToList();
+            //
+            // return items;
         }
 
         public void AddCollection(IEnumerable<T1> items)

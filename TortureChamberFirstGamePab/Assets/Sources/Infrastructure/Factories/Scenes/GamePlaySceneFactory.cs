@@ -8,6 +8,7 @@ using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.UpgradeServices;
+using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Voids;
@@ -18,6 +19,8 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
+        private readonly LocalizationService _localizationService;
+        private readonly FocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly SceneService _sceneService;
         private readonly IInputService _inputService;
@@ -32,6 +35,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public GamePlaySceneFactory
         (
+            LocalizationService localizationService,
+            FocusService focusService,
             HUD hud,
             ButtonUIFactory buttonUIFactory,
             UpdateService updateService,
@@ -46,6 +51,9 @@ namespace Sources.Infrastructure.Factories.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _localizationService = localizationService ??
+                                   throw new ArgumentNullException(nameof(localizationService));
+            _focusService = focusService;
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _sceneService = sceneService ??
                             throw new ArgumentNullException(nameof(sceneService));
@@ -63,6 +71,8 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new GamePlayScene
             (
+                _localizationService,
+                _focusService,
                 _hud,
                 _buttonUIFactory,
                 _inputService,

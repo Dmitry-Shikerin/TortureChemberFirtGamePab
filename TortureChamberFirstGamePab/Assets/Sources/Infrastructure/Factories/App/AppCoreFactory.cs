@@ -18,6 +18,8 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
             
+            
+            
             //TODO исправить курточку загораживает рейкасты
             // CurtainView curtainView =
             //     Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
@@ -29,7 +31,7 @@ namespace Sources.Infrastructure.Factories.App
 
             sceneStates[Constant.SceneNames.MainMenu] = (payload, sceneContext) =>
                 sceneContext.Container.Resolve<MainMenuSceneFactory>().Create(payload);
-            sceneStates[Constant.SceneNames.GamePlay] = (payload, sceneContext) =>
+            sceneStates[Constant.SceneNames.Gameplay] = (payload, sceneContext) =>
                 sceneContext.Container.Resolve<GamePlaySceneFactory>().Create(payload);
 
             //Todo сделать курточку здесь
