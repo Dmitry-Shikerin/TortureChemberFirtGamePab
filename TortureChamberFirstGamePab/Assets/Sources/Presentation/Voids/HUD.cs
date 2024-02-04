@@ -1,4 +1,5 @@
 using System;
+using Lean.Localization;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
@@ -23,11 +24,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public PauseMenuWindow PauseMenuWindow { get; private set; }
         [field: SerializeField] public ImageUI TavernMoodImageUI { get; private set; }
         [field: SerializeField] public ButtonUI PauseMenuButton { get; private set; }
+        [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
 
-    private void OnValidate()
-        {
-            if (TextUIContainer == null)
-                throw new NullReferenceException(nameof(TextUIContainer));
-        }
     }
 }

@@ -39,6 +39,7 @@ namespace Sources.Infrastructure.Factories.Views.YandexSDC
 
             return leaderboardElementView;
         }
+        
         public ILeaderboardElementView Create(LeaderboardPlayer leaderboardPlayer, 
             LeaderboardElementView leaderboardElementView)
         {

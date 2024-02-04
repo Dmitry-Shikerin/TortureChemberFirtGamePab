@@ -3,7 +3,9 @@ using Cysharp.Threading.Tasks;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Players.Data;
+using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
@@ -13,6 +15,9 @@ namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
+        private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
+        private readonly FormService _formService;
         private readonly YandexLeaderboardInitializeService _yandexLeaderboardInitializeService;
         private readonly FocusService _focusService;
         private readonly SDKInitializeService _sdkInitializeService;
@@ -25,6 +30,9 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
+            MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
+            FormService formService,
             YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
             FocusService focusService,
             SDKInitializeService sdkInitializeService,
@@ -34,6 +42,13 @@ namespace Sources.Infrastructure.Factories.Scenes
             ButtonUIFactory buttonUIFactory
         )
         {
+            _leaderboardFormPresenterFactory = 
+                leaderboardFormPresenterFactory ?? 
+                throw new ArgumentNullException(nameof(leaderboardFormPresenterFactory));
+            _mainMenuFormPresenterFactory = 
+                mainMenuFormPresenterFactory ?? 
+                throw new ArgumentNullException(nameof(mainMenuFormPresenterFactory));
+            _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _yandexLeaderboardInitializeService =
                 yandexLeaderboardInitializeService ??
                 throw new ArgumentNullException(nameof(yandexLeaderboardInitializeService));
@@ -51,6 +66,9 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _leaderboardFormPresenterFactory,
+                _mainMenuFormPresenterFactory,
+                _formService,
                 _yandexLeaderboardInitializeService,
                 _focusService,
                 _sdkInitializeService,

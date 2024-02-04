@@ -6,6 +6,6 @@ namespace Sources.Presentation.UI.Conteiners.MainMenu
     {
         [field: SerializeField] public ButtonUI ContinueGameButton { get; private set; }
         [field: SerializeField] public ButtonUI NewGameButton { get; private set; }
-        [field: SerializeField] public ButtonUI OptionsButton { get; private set; }
+        [field: SerializeField] public ButtonUI LeaderboardButton { get; private set; }
     }
 }

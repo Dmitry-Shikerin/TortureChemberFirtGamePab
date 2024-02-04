@@ -2943,6 +2943,7 @@ GameObject:
   - component: {fileID: 1516806083957893211}
   - component: {fileID: 2457689345921289745}
   - component: {fileID: 1790518852072667884}
+  - component: {fileID: 6123048502063247845}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -3070,6 +3071,7 @@ MonoBehaviour:
   <PauseMenuWindow>k__BackingField: {fileID: 3651685648389997478}
   <TavernMoodImageUI>k__BackingField: {fileID: 8783510849449996861}
   <PauseMenuButton>k__BackingField: {fileID: 6434161877828684243}
+  <LeanLocalization>k__BackingField: {fileID: 6123048502063247845}
 --- !u!114 &1790518852072667884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3084,6 +3086,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <SystemErrorsText>k__BackingField: {fileID: 7887093946123869524}
   <PlayerWalletText>k__BackingField: {fileID: 3286002013122433044}
+--- !u!114 &6123048502063247845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064872053500847710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLanguage: 
+  detectLanguage: 1
+  defaultLanguage: 
+  saveLoad: 1
+  prefabs: []
 --- !u!1 &5346939215460464418
 GameObject:
   m_ObjectHideFlags: 0

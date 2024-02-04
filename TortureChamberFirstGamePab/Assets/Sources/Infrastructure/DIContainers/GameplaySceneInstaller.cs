@@ -14,7 +14,6 @@ using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Domains.Items;
-using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Repositoryes;
 using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
@@ -32,13 +31,11 @@ using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
 using Sources.Infrastructure.Services.ObjectPools;
-using Sources.Infrastructure.Services.PauseServices;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.Providers.Upgrades;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
-using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.Conteiners;
@@ -64,7 +61,6 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
-        [SerializeField] private LeanLocalization _leanLocalization;
         
         public override void InstallBindings()
         {
@@ -80,10 +76,8 @@ namespace Sources.Infrastructure.DIContainers
 
             //SDKServices
             Container.Bind<VideoAdService>().AsSingle();
-            Container.Bind<LeanLocalization>().FromInstance(_leanLocalization).AsSingle();
+            Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();
             Container.Bind<LocalizationService>().AsSingle();
-            
-            Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
             
@@ -119,8 +113,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<SeatPointViewFactory>().AsSingle();
 
             Container.Bind<UpdateService>().AsSingle();
-
-            Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();
 
             Container.Bind<CameraDirectionService>().AsSingle();
 

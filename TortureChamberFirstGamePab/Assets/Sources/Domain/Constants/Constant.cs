@@ -124,5 +124,11 @@ namespace Sources.Domain.Constants
             public const string LeaderboardName = "Leaderboard";
             public const string AnonymousName = "Anonymous";
         }
+        
+        public static class Forms
+        {
+            //TODO перенести в константы и дабавить эту папку
+            public const string PrefabPath = "Views/Forms";
+        }
     }
 }
