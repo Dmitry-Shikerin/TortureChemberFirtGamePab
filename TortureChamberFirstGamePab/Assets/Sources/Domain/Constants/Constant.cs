@@ -17,6 +17,11 @@ namespace Sources.Domain.Constants
         {
             public const int MaxCollidersValue = 32;
         }
+
+        public static class ImageRotate
+        {
+            public const float Speed = 1f;
+        }
         
         public static class FillingAmount
         {
@@ -129,6 +134,11 @@ namespace Sources.Domain.Constants
         {
             //TODO перенести в константы и дабавить эту папку
             public const string PrefabPath = "Views/Forms";
+        }
+
+        public static class AdvertisingReward
+        {
+            public const int CoinsAmount = 10;
         }
     }
 }

@@ -65,7 +65,6 @@ namespace Sources.Controllers.Player
             {
                 UpdateAvailableSlot(i);
             }
-            Debug.Log(_upgradeble.CurrentLevelUpgrade.GetValue);
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
             _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
         }

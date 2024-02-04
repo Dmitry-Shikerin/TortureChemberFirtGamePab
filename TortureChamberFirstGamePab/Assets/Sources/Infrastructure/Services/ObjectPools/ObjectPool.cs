@@ -29,7 +29,6 @@ namespace Sources.Infrastructure.Services.ObjectPools
                 return null;
 
             @object.transform.SetParent(null);
-            Debug.Log("Get from pool");
             ObjectCountChanged?.Invoke(_objects.Count);
             
             @object.gameObject.SetActive(true);
@@ -39,12 +38,10 @@ namespace Sources.Infrastructure.Services.ObjectPools
 
         public void Return(PoolableObject poolableObject)
         {
-            Debug.Log($"PoolableObject : {poolableObject.GetComponent<T>()}");
             if(poolableObject.TryGetComponent(out T @object) == false)
                 return;
             
             poolableObject.transform.SetParent(_parent);
-            Debug.Log($"Дабавлен в паренты {_parent}");
             _objects.Enqueue(@object);
             ObjectCountChanged?.Invoke(_objects.Count);
         }

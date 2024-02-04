@@ -5,12 +5,11 @@ using Sources.Domain.Constants;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    //TODO оставить его монобехом или сделать сервисом?
-    //TODO вынести его в projectContext?
     public class LocalizationService
     {
         private readonly LeanLocalization _leanLanguage;
 
+        //TODO Доделать локализацию
         public LocalizationService(LeanLocalization leanLanguage)
         {
             _leanLanguage = leanLanguage 

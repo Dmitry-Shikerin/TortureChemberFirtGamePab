@@ -32,7 +32,7 @@ namespace Sources.Controllers.Scenes
         public MainMenuScene
         (
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
-            MainMenuFormPresenterFactory mainMenuFormPresenterFactory, 
+            MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
             FormService formService,
             YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
             FocusService focusService,
@@ -40,18 +40,19 @@ namespace Sources.Controllers.Scenes
             MainMenuHUD hud,
             IDataService<Domain.Players.Data.Player> dataService,
             ButtonUIFactory buttonUIFactory,
-            SceneService sceneService)
+            SceneService sceneService
+        )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
-            _leaderboardFormPresenterFactory = 
-                leaderboardFormPresenterFactory ?? 
+            _leaderboardFormPresenterFactory =
+                leaderboardFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(leaderboardFormPresenterFactory));
-            _mainMenuFormPresenterFactory = 
+            _mainMenuFormPresenterFactory =
                 mainMenuFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(mainMenuFormPresenterFactory));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
-            _yandexLeaderboardInitializeService = 
-                yandexLeaderboardInitializeService ?? 
+            _yandexLeaderboardInitializeService =
+                yandexLeaderboardInitializeService ??
                 throw new ArgumentNullException(nameof(yandexLeaderboardInitializeService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
             _sdkInitializeService = sdkInitializeService ??
@@ -67,20 +68,20 @@ namespace Sources.Controllers.Scenes
         {
             //TODO куда это все вынести?
             //TODO сделать остальные формочки по аналогии
-            Form<MainMenuFormView, MainMenuFormPresenter> mainMenuFormView = 
+            Form<MainMenuFormView, MainMenuFormPresenter> mainMenuFormView =
                 new Form<MainMenuFormView, MainMenuFormPresenter>(
-                _mainMenuFormPresenterFactory.Create, 
-                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView);
-            
+                    _mainMenuFormPresenterFactory.Create,
+                    _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView);
+
             _formService.Add(mainMenuFormView);
 
-            Form<LeaderboardFormView, LeaderboardFormPresenter> leaderboardFormView = 
+            Form<LeaderboardFormView, LeaderboardFormPresenter> leaderboardFormView =
                 new Form<LeaderboardFormView, LeaderboardFormPresenter>(
-                _leaderboardFormPresenterFactory.Create, 
-                _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView);
-            
+                    _leaderboardFormPresenterFactory.Create,
+                    _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView);
+
             _formService.Add(leaderboardFormView);
-            
+
             IButtonUI continueGameButton = _buttonUIFactory.Create(
                 _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
@@ -92,6 +93,8 @@ namespace Sources.Controllers.Scenes
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton,
                 _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard);
+            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,
+                _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView.ShowMainMenu);
 
             if (_dataService.CanLoad == false)
                 continueGameButton.Disable();

@@ -10,13 +10,11 @@ namespace Sources.Infrastructure.Services.PauseServices
     {
         public bool IsPaused { get; private set; }
 
-        //TODO убрать магические числа
         public void Pause()
         {
             IsPaused = true;
             Time.timeScale = Constant.TimeScaleValue.Min;
             AudioListener.pause = true;
-            Debug.Log("Pause");
         }
 
         public void Continue()
@@ -24,7 +22,6 @@ namespace Sources.Infrastructure.Services.PauseServices
             IsPaused = false;
             Time.timeScale = Constant.TimeScaleValue.Max;
             AudioListener.pause = false;
-            Debug.Log("Continue");
         }
         
         public async UniTask Yield(CancellationToken cancellationToken)

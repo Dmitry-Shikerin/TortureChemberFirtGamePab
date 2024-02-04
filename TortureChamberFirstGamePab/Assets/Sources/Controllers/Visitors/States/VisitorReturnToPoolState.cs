@@ -29,7 +29,6 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            Debug.Log("Посетитель в состоянии возврата в пул");
             _visitor.FinishEating();
             _visitor.SetHappy();
             _visitor.SetIdle();

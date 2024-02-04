@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Bootstrap
 {
-    public class CurtainView : MonoBehaviour
+    public class CurtainView : View
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _duration = 1;
@@ -29,11 +29,17 @@ namespace Sources.Presentation.Views.Bootstrap
             _canvasGroup.alpha = 0;
         }
 
-        public async UniTask Show() => 
+        public async UniTask ShowCurtain()
+        {
+            Show();
             await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Maximum);
+        }
 
-        public async UniTask Hide() => 
+        public async UniTask HideCurtain()
+        {
             await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Minimum);
+            Hide();
+        }
 
         private async UniTask Fade(float startAlpha, float endAlpha)
         {

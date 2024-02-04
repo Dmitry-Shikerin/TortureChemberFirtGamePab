@@ -1,4 +1,5 @@
 ﻿using System;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
@@ -26,16 +27,11 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
         //TODO гдето вызывать этот метод 
-        public void Show()
-        {
+        public void Show() =>
             Agava.YandexGames.VideoAd.Show(_pauseService.Pause,
                 OnRewardCallback, _pauseService.Continue);
-        }
 
-        private void OnRewardCallback()
-        {
-            //TODO ввынести в константу или конфиг
-            PlayerWallet.Add(10);
-        }
+        private void OnRewardCallback() => 
+            PlayerWallet.Add(Constant.AdvertisingReward.CoinsAmount);
     }
 }

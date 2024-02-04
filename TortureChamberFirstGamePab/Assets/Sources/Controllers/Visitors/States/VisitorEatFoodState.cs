@@ -73,7 +73,6 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _visitor.SetUnSeat();
             itemView.Destroy();
-            Debug.Log("Здесь должно добавиться настроение");
             _tavernMood.AddTavernMood();
         }
     }
