@@ -23,10 +23,7 @@ namespace Sources.Controllers.Player
             _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
             _playerUpgradeView = playerUpgradeView ?? throw new ArgumentNullException(nameof(playerUpgradeView));
         }
-
-        private bool CanUpgrade => _playerWallet.Coins.GetValue >
-                                   _upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue];
-
+        
         public override void Enable()
         {
             UpdatePricePerUpgrade();
@@ -37,7 +34,7 @@ namespace Sources.Controllers.Player
         {
             try
             {
-                if (UpgradeAvailability())
+                if (CanUpgrade())
                 {
                     _playerWallet.Remove(_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]);
                     _upgrader.Upgrade();
@@ -54,7 +51,7 @@ namespace Sources.Controllers.Player
             }
         }
 
-        private bool UpgradeAvailability()
+        private bool CanUpgrade()
         {
             if (_upgrader.CurrentLevelUpgrade.GetValue >= _upgrader.MoneyPerUpgrades.Count)
                 return false;
@@ -79,10 +76,8 @@ namespace Sources.Controllers.Player
                 $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
 
-        private void UpdateCurrentLevelUpgrade()
-        {
+        private void UpdateCurrentLevelUpgrade() =>
             _playerUpgradeView.SetCurrentLevelUpgrade(
                 $"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
-        }
     }
 }

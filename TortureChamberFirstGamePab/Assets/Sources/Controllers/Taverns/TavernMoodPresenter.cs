@@ -43,14 +43,10 @@ namespace Sources.Controllers.Taverns
             _upgradeble.CurrentLevelUpgrade.Changed += OnAddedAmountUpgradeChanged;
         }
 
-        private void OnAddedAmountUpgradeChanged()
-        {
+        private void OnAddedAmountUpgradeChanged() => 
             _tavernMood.AddedAmountUpgrade = _upgradeble.AddedAmountUpgrade;
-        }
 
-        private void OnTavernMoodValueChanged()
-        {
+        private void OnTavernMoodValueChanged() => 
             _imageUI.SetFillAmount(_tavernMood.TavernMoodValue);
-        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Sources.App.Bootstrap;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Scenes;

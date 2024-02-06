@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sources.Utils.Repositoryes.Containers;
 using Sources.Utils.Repositoryes.ContainersInterfaces;
 
@@ -7,18 +8,18 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
 {
     public class CollectionRepository
     {
-        private Dictionary<Type, ICollectionContainer> _repositoryes = 
+        private Dictionary<Type, ICollectionContainer> _repositoryes =
             new Dictionary<Type, ICollectionContainer>();
 
-        public IEnumerable<T> Get<T>()
+        public IReadOnlyList<T> Get<T>()
         {
             if (_repositoryes.ContainsKey(typeof(T)) == false)
                 throw new InvalidOperationException();
 
-            if (_repositoryes[typeof(T)] is CollectionContainerGeneric<T> concrete)
-                return concrete.Get();
-
-            throw new InvalidOperationException(nameof(T));
+            if (_repositoryes[typeof(T)] is not CollectionContainerGeneric<T> concrete)
+                throw new InvalidOperationException(nameof(T));
+            
+            return concrete.Get().ToList();
         }
 
         public void Add<T>(IEnumerable<T> objects)
@@ -26,10 +27,10 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
             if (_repositoryes.ContainsKey(typeof(T)))
                 throw new InvalidOperationException();
 
-            CollectionContainerGeneric<T> containerGenericCollection = 
+            CollectionContainerGeneric<T> containerGenericCollection =
                 new CollectionContainerGeneric<T>();
             containerGenericCollection.Set(objects);
-            
+
             _repositoryes[typeof(T)] = containerGenericCollection;
         }
     }

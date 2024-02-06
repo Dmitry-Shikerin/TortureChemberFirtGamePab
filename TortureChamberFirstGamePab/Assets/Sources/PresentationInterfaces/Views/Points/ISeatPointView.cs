@@ -1,4 +1,5 @@
-﻿using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+﻿using Sources.Presentation.Views.GamePoints.VisitorsPoints;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 
 namespace Sources.PresentationInterfaces.Views.Points
 {

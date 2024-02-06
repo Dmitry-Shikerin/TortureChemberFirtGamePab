@@ -1,7 +1,6 @@
 ﻿using System;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Taverns;
-using Sources.Domain.Taverns.Data;
 
 namespace Sources.Infrastructure.Services.Providers.Taverns
 {

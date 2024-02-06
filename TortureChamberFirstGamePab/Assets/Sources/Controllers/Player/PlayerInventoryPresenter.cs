@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using Sources.Domain.Constants;
 using Sources.Domain.Exceptions.Inventorys;
 using Sources.Domain.Players;
@@ -9,7 +8,6 @@ using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Presentation.UI;
-using Sources.Presentation.Views.Items;
 using Sources.Presentation.Views.Items.Common;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.PresentationInterfaces.UI;
@@ -18,7 +16,6 @@ using Sources.PresentationInterfaces.Views.Interactions.Get;
 using Sources.PresentationInterfaces.Views.Interactions.Givable;
 using Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Sources.Controllers.Player
 {
@@ -53,43 +50,23 @@ namespace Sources.Controllers.Player
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
         }
-
-        public int MaxCapacity => _playerInventory.MaxCapacity;
-
+        
         public override void Enable()
         {
             HideSlots();
             _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
-            //tODO ИСПРАВИТЬ
+            
             for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
             {
                 UpdateAvailableSlot(i);
             }
+            
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
             _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
         }
 
-        public override void Disable()
-        {
+        public override void Disable() => 
             _upgradeble.CurrentLevelUpgrade.Changed -= ShowAvailableSlot;
-        }
-
-        private void ShowAvailableSlot()
-        {
-            _playerInventory.IncreaseCapacity();
-            
-            int index = _playerInventory.InventoryCapacity - 1;
-            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
-        }
-        
-        private void UpdateAvailableSlot(int index)
-        {
-            int correctionIndex = _playerInventory.InventoryCapacity + 1;
-            
-            _playerInventoryView.PlayerInventorySlots[correctionIndex].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
-        }
 
         public async void TakeItemAsync(IGivable givable)
         {
@@ -97,29 +74,6 @@ namespace Sources.Controllers.Player
 
             IItem item = await givable.GiveItemAsync(_cancellationTokenSource.Token);
             Take(item);
-        }
-
-        private void Take(IItem item)
-        {
-            try
-            {
-                if (item == null)
-                    return;
-
-                if (_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
-                    RemoveItem(_playerInventoryView.PlayerInventorySlots[Constant.Inventory.FirstItemIndex]
-                        .BackgroundImage, Constant.Inventory.FirstItemIndex);
-
-                _playerInventory.Add(item);
-                IItemView itemView = _itemViewFactory.Create(item);
-                item.SetItemView(itemView);
-
-                SetInventoryViewPosition(item);
-            }
-            catch (InventoryFullException exception)
-            {
-                _textUI.SetText(exception.Message);
-            }
         }
 
         public async void GiveItemAsync(ITakeble takeble)
@@ -143,6 +97,29 @@ namespace Sources.Controllers.Player
 
         public void Cancel() =>
             _cancellationTokenSource.Cancel();
+
+        private void Take(IItem item)
+        {
+            try
+            {
+                if (item == null)
+                    return;
+
+                if (_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
+                    RemoveItem(_playerInventoryView.PlayerInventorySlots[Constant.Inventory.FirstItemIndex]
+                        .BackgroundImage, Constant.Inventory.FirstItemIndex);
+
+                _playerInventory.Add(item);
+                IItemView itemView = _itemViewFactory.Create(item);
+                item.SetItemView(itemView);
+
+                SetInventoryViewPosition(item);
+            }
+            catch (InventoryFullException exception)
+            {
+                _textUI.SetText(exception.Message);
+            }
+        }
 
         private async UniTask<IItem> GiveAsync(IItem item, CancellationToken cancellationToken)
         {
@@ -186,7 +163,6 @@ namespace Sources.Controllers.Player
             backgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
             _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
-            // backgroundImage.SetFillAmount(Constant.FillingAmount.Minimum);
             IItem targetItem = _playerInventory.Items[index];
             targetItem.ItemView.Destroy();
             _playerInventory.RemoveItem(targetItem);
@@ -196,6 +172,23 @@ namespace Sources.Controllers.Player
             _playerInventory.SetGiveAbility();
 
             return targetItem;
+        }
+
+        private void ShowAvailableSlot()
+        {
+            _playerInventory.IncreaseCapacity();
+            
+            int index = _playerInventory.InventoryCapacity - 1;
+            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+        }
+        
+        private void UpdateAvailableSlot(int index)
+        {
+            int correctionIndex = _playerInventory.InventoryCapacity + 1;
+            
+            _playerInventoryView.PlayerInventorySlots[correctionIndex].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
         }
 
         private void UpdateViewPosition()

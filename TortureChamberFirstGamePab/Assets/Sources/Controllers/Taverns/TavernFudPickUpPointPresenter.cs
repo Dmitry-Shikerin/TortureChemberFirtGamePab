@@ -36,10 +36,8 @@ namespace Sources.Controllers.Taverns
         }
 
 
-        public override void Enable()
-        {
+        public override void Enable() => 
             _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
-        }
 
         public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
         {

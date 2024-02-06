@@ -32,10 +32,8 @@ namespace Sources.Controllers.Items
 
         public IEatPointView EatPointView => _garbage.EatPointView;
 
-        public override void Enable()
-        {
+        public override void Enable() => 
             _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-        }
 
         public async void CleanUpAsync()
         {
@@ -51,7 +49,7 @@ namespace Sources.Controllers.Items
             }
             catch (OperationCanceledException)
             {
-                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             }
         }
 

@@ -1,8 +1,8 @@
 ﻿using Lean.Localization;
 using Sources.Domain.Constants;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
+using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
-using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;

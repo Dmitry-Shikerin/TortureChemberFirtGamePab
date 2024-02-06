@@ -1,6 +1,7 @@
 ﻿using Sources.Domain.GamePlays;
+using Sources.Domain.Taverns;
 
-namespace Sources.Domain.Taverns.Data
+namespace Sources.Domain.Datas.Taverns
 {
     public class Tavern
     {
@@ -10,7 +11,7 @@ namespace Sources.Domain.Taverns.Data
             GamePlay = gamePlay;
         }
         
-        public TavernMood TavernMood { get; private set; }
-        public GamePlay GamePlay { get; private set; }
+        public TavernMood TavernMood { get; }
+        public GamePlay GamePlay { get; }
     }
 }

@@ -48,14 +48,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 {
                     for (int i = 0; i < _leaderboardElementViewContainer.LeaderboardElementViews.Count; i++)
                     {
-                        int rank = result.entries[i].rank;
-                        int score = result.entries[i].score;
-                        string name = result.entries[i].player.publicName;
-
-                        if (string.IsNullOrEmpty(name))
-                            name = Constant.LeaderboardNames.AnonymousName;
-
-                        _leaderboardElementViewFactory.Create(new LeaderboardPlayer(rank, name, score),
+                        _leaderboardElementViewFactory.Create(new LeaderboardPlayer(result.entries[i]),
                             _leaderboardElementViewContainer.LeaderboardElementViews[i]);
                     }
                 });

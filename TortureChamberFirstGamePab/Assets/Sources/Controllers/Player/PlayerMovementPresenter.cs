@@ -22,9 +22,6 @@ namespace Sources.Controllers.Player
         private readonly PlayerInventory _playerInventory;
         private readonly PlayerMovementService _playerMovementService;
 
-        private float _runInput;
-        private Vector2 _movementInput;
-
         public PlayerMovementPresenter
         (
             IPlayerMovementView playerMovementView,
@@ -54,20 +51,13 @@ namespace Sources.Controllers.Player
 
         public override void Enable()
         {
-            _inputService.MovementAxisChanged += OnMovementAxis;
-            _inputService.RunAxisChanged += OnRunAxis;
             _updateService.ChangedUpdate += OnUpdate;
             _playerMovementView.SetPosition(_playerMovement.Position);
             _playerMovementView.SetAngle(_playerMovement.RotationAngle);
         }
 
-        public override void Disable()
-        {
-            _inputService.MovementAxisChanged -= OnMovementAxis;
-            _inputService.RunAxisChanged -= OnRunAxis;
+        public override void Disable() => 
             _updateService.ChangedUpdate -= OnUpdate;
-        }
-
 
         private void OnUpdate(float deltaTime)
         {
@@ -97,11 +87,5 @@ namespace Sources.Controllers.Player
             _playerMovement.Position = _playerMovementView.Position;
             _playerMovement.RotationAngle = _playerMovementView.RotationAngle;
         }
-
-        private void OnRunAxis(float runInput) =>
-            _runInput = runInput;
-
-        private void OnMovementAxis(Vector2 movementInput) =>
-            _movementInput = movementInput;
     }
 }

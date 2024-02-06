@@ -36,14 +36,10 @@ namespace Sources.Domain.Taverns
             }
         }
 
-        public void AddTavernMood()
-        {
+        public void AddTavernMood() => 
             TavernMoodValue += AddedAmountUpgrade;
-        }
 
-        public void RemoveTavernMood()
-        {
+        public void RemoveTavernMood() => 
             TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
-        }
     }
 }

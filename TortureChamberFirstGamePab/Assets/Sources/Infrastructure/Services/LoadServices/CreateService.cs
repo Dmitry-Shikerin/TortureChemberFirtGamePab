@@ -1,11 +1,11 @@
 ﻿using System;
 using Sources.Domain.Constants;
+using Sources.Domain.Datas.Players;
+using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Players;
-using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Domain.Taverns;
-using Sources.Domain.Taverns.Data;
 using Sources.Domain.Upgrades;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.Items;

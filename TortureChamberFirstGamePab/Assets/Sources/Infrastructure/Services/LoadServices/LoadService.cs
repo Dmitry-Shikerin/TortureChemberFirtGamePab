@@ -1,7 +1,7 @@
 ﻿using System;
+using Sources.Domain.Datas.Players;
+using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players;
-using Sources.Domain.Players.Data;
-using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Prefabs;

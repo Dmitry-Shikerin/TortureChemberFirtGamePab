@@ -1,8 +1,8 @@
 using Sources.Controllers.Points;
-using Sources.Presentation.Views;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using UnityEngine;
 
-namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
+namespace Sources.Presentation.Views.GamePoints.VisitorsPoints
 {
     public class EatPointView : PresentableView<EatPointPresenter>, IEatPointView
     {

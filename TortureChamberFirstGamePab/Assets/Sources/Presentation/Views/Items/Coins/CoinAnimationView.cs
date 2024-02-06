@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Items.Coins
 {
-    public class CoinAnimationView : PresentableView<CoinAnimationPresenter>, ICoinAnimationView
+    public class CoinAnimationView : PresentableView<CoinPresenter>, ICoinAnimationView
     {
         [SerializeField] private float _rotationSpeed;
         

@@ -10,27 +10,16 @@ namespace Sources.Domain.Players
     {
         private List<IItem> _items = new List<IItem>();
 
-        public PlayerInventory(PlayerInventoryData playerInventoryData)
-        {
-        }
-        public PlayerInventory()
-        {
-        }
-        
         public int MaxCapacity { get; set; }
         public int InventoryCapacity { get; set; }
         public bool CanGet { get; private set; } = true;
         public IReadOnlyList<IItem> Items => _items;
 
-        public void SetGiveAbility()
-        {
+        public void SetGiveAbility() => 
             CanGet = true;
-        }
 
-        public void LockGiveAbility()
-        {
+        public void LockGiveAbility() => 
             CanGet = false;
-        }
 
         public void Add(IItem item)
         {
@@ -43,14 +32,13 @@ namespace Sources.Domain.Players
         public void RemoveItem(IItem item)
         {
             if (_items.Contains(item) == false)
-                throw new NullItemException("В инвентаре нет необходимого предмета", nameof(PlayerInventory));
+                throw new NullItemException("В инвентаре нет необходимого предмета", 
+                    nameof(PlayerInventory));
             
             _items.Remove(item);
         }
 
-        public void IncreaseCapacity()
-        {
+        public void IncreaseCapacity() => 
             InventoryCapacity++;
-        }
     }
 }

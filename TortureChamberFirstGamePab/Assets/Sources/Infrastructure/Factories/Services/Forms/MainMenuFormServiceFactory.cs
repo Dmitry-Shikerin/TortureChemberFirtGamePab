@@ -1,7 +1,7 @@
 ﻿using System;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.Constants;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.Forms;

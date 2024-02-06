@@ -1,6 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Forms.Gameplays;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -59,6 +59,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             
             _formService.Add(pauseForm);
 
+            //TODO зарегать эту формочку на триггер
             Form<UpgradeFormView, UpgradeFormPresenter> upgradeForm = 
                 new Form<UpgradeFormView, UpgradeFormPresenter>(
                 _upgradeFormPresenterFactory.Create, hud.GameplayFormsContainer.UpgradeFormView);

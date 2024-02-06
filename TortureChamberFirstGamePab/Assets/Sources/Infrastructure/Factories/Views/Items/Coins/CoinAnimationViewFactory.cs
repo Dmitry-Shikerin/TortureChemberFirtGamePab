@@ -27,21 +27,21 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
         }
 
-        public ICoinAnimationView Create(CoinAnimation coinAnimation, CoinAnimationView coinAnimationView)
+        public ICoinAnimationView Create(Coin coin, CoinAnimationView coinAnimationView)
         {
-            CoinAnimationPresenter coinAnimationPresenter =
-                _coinAnimationPresenterFactory.Create(coinAnimationView, coinAnimation);
+            CoinPresenter coinPresenter =
+                _coinAnimationPresenterFactory.Create(coinAnimationView, coin);
             
-            coinAnimationView.Construct(coinAnimationPresenter);
+            coinAnimationView.Construct(coinPresenter);
 
             return coinAnimationView;
         }
 
-        public ICoinAnimationView Create(CoinAnimation coinAnimation)
+        public ICoinAnimationView Create(Coin coin)
         {
             CoinAnimationView coinAnimationView = CreateView();
 
-            return Create(coinAnimation, coinAnimationView);
+            return Create(coin, coinAnimationView);
         }
 
         private CoinAnimationView CreateView() =>

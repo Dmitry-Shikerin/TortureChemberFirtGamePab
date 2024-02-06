@@ -9,6 +9,6 @@ namespace Sources.Domain.Players.Inputs
             Direction = direction;
         }
 
-        public Vector2 Direction { get; set; }
+        public Vector2 Direction { get; }
     }
 }

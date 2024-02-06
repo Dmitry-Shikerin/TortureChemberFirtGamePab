@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Constants;
+using Sources.Domain.Datas.Players;
+using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
-using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerCameras;
-using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
@@ -201,9 +201,8 @@ namespace Sources.Infrastructure.Services.LoadServices
             
             //PlayerMovementView
             PlayerView playerView = _prefabFactory.Create<PlayerView>(Constant.PrefabPaths.PlayerView);
-            PlayerMovementView playerMovementView = 
-                _playerMovementViewFactory.Create(_player.Movement, _player.Inventory, 
-                    playerView.Movement, playerView.Animation);
+            PlayerMovementView playerMovementView = _playerMovementViewFactory.Create(
+                _player.Movement, _player.Inventory, playerView.Movement, playerView.Animation);
             
             //PlayerWalletView
             PlayerWalletView playerWalletView = 

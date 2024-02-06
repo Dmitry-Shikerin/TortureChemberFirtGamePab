@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Sources.Domain.Constants;
+using Sources.Domain.Datas.Players;
 using Sources.Domain.Players;
-using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Extensions.Domain;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;

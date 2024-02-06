@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Sources.Domain.Constants;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData;
 using UnityEngine;

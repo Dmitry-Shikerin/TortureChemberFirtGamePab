@@ -22,9 +22,7 @@ namespace Sources.Domain.GamePlays
         
         public int MaximumVisitorsCapacity { get; private set; }
 
-        public void AddMaximumVisitorsCapacity()
-        {
+        public void AddMaximumVisitorsCapacity() => 
             MaximumVisitorsCapacity++;
-        }
     }
 }

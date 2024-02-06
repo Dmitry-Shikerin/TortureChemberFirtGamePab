@@ -51,7 +51,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
-            // Debug.Log("Посетитель в состоянии движения к выходу");
+            
             MovingAsync();
         }
 

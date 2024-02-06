@@ -1,6 +1,6 @@
 ﻿using Sources.Domain.Upgrades;
 
-namespace Sources.Domain.Players.Data
+namespace Sources.Domain.Datas.Players
 {
     public class PlayerUpgrade
     {

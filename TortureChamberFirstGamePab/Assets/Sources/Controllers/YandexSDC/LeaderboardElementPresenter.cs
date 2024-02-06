@@ -26,9 +26,5 @@ namespace Sources.Controllers.YandexSDC
             _leaderboardElementView.SetRank(_leaderboardPlayer.Rank.ToString());
             _leaderboardElementView.SetScore(_leaderboardPlayer.Score.ToString());
         }
-
-        public override void Disable()
-        {
-        }
     }
 }

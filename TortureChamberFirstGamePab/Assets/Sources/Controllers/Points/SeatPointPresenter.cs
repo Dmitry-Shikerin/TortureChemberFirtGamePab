@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Domain;
 using Sources.Domain.Points;
 using Sources.PresentationInterfaces.Views.Points;
 

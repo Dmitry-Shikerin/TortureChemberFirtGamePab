@@ -1,6 +1,7 @@
 using System;
 using Sources.Controllers.Points;
 using Sources.Presentation.Views;
+using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Views.Points;
 using UnityEngine;

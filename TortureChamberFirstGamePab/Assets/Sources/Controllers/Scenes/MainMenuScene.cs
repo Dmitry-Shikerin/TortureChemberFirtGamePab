@@ -22,12 +22,9 @@ namespace Sources.Controllers.Scenes
 
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
-        private readonly FormService _formService;
         private readonly YandexLeaderboardInitializeService _yandexLeaderboardInitializeService;
         private readonly FocusService _focusService;
         private readonly SDKInitializeService _sdkInitializeService;
-        private readonly IDataService<Domain.Players.Data.Player> _dataService;
-        private readonly ButtonUIFactory _buttonUIFactory;
         private readonly SceneService _sceneService;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
 
@@ -35,13 +32,10 @@ namespace Sources.Controllers.Scenes
         (
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
-            FormService formService,
             YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
             FocusService focusService,
             SDKInitializeService sdkInitializeService,
             MainMenuHUD hud,
-            IDataService<Domain.Players.Data.Player> dataService,
-            ButtonUIFactory buttonUIFactory,
             SceneService sceneService,
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
@@ -53,15 +47,12 @@ namespace Sources.Controllers.Scenes
             _mainMenuFormPresenterFactory =
                 mainMenuFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(mainMenuFormPresenterFactory));
-            _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _yandexLeaderboardInitializeService =
                 yandexLeaderboardInitializeService ??
                 throw new ArgumentNullException(nameof(yandexLeaderboardInitializeService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
             _sdkInitializeService = sdkInitializeService ??
                                     throw new ArgumentNullException(nameof(sdkInitializeService));
-            _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
-            _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
             _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
                                           throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));

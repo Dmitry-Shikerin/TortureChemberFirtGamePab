@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
-using Sources.Domain.Players.Data;
+using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -73,13 +73,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             (
                 _leaderboardFormPresenterFactory,
                 _mainMenuFormPresenterFactory,
-                _formService,
                 _yandexLeaderboardInitializeService,
                 _focusService,
                 _sdkInitializeService,
                 _mainMenuHUD,
-                _dataService,
-                _buttonUIFactory,
                 _sceneService,
                 _mainMenuFormServiceFactory
             );

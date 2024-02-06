@@ -6,9 +6,7 @@ namespace Sources.Domain.Items.Garbages
     {
         public IEatPointView EatPointView { get; private set; }
         
-        public void SetEatPointView(IEatPointView eatPointView)
-        {
+        public void SetEatPointView(IEatPointView eatPointView) => 
             EatPointView = eatPointView;
-        }
     }
 }

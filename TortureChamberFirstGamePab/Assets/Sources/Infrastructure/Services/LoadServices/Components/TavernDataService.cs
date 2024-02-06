@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Sources.Domain.Constants;
+using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Taverns;
-using Sources.Domain.Taverns.Data;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
 using UnityEngine;
 

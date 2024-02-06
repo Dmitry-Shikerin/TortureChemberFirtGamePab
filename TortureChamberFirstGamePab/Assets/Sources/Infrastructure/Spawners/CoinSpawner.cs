@@ -25,19 +25,19 @@ namespace Sources.Infrastructure.Builders
 
         public ICoinAnimationView Spawn()
         {
-            CoinAnimation coinAnimation = new CoinAnimation();
+            Coin coin = new Coin();
 
-            return CreateFromPool(coinAnimation) ?? _coinAnimationViewFactory.Create(coinAnimation);
+            return CreateFromPool(coin) ?? _coinAnimationViewFactory.Create(coin);
         }
 
-        private ICoinAnimationView CreateFromPool(CoinAnimation coinAnimation)
+        private ICoinAnimationView CreateFromPool(Coin coin)
         {
             CoinAnimationView coinAnimationView = _objectPool.Get<CoinAnimationView>();
 
             if (coinAnimationView == null)
                 return null;
 
-            return _coinAnimationViewFactory.Create(coinAnimation, coinAnimationView);
+            return _coinAnimationViewFactory.Create(coin, coinAnimationView);
         }
     }
 }

@@ -16,17 +16,6 @@ namespace Sources.Controllers.Player
             _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
         }
 
-
-        public override void Enable()
-        {
-            
-        }
-
-        public override void Disable()
-        {
-            
-        }
-
         public void Add(int quantity) => 
             _playerWallet.Add(quantity);
 

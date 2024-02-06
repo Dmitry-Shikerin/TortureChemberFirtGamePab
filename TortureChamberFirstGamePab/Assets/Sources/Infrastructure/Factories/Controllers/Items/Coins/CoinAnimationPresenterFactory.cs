@@ -15,9 +15,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Items.Coins
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public CoinAnimationPresenter Create(ICoinAnimationView coinAnimationView, CoinAnimation coinAnimation)
+        public CoinPresenter Create(ICoinAnimationView coinAnimationView, Coin coin)
         {
-            return new CoinAnimationPresenter(coinAnimationView, coinAnimation, _pauseService);
+            return new CoinPresenter(coinAnimationView, coin, _pauseService);
         }
     }
 }
