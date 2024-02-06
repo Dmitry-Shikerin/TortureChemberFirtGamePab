@@ -51,8 +51,6 @@ namespace Sources.Infrastructure.Services
 
             while (visitorsCount <= _maximumSetPointsCapacity)
             {
-                //TODO возможно подправить
-                await _pauseService.Yield(_cancellationTokenSource.Token);
                 await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
                     cancellationToken: _cancellationTokenSource.Token);
                 await _pauseService.Yield(_cancellationTokenSource.Token);

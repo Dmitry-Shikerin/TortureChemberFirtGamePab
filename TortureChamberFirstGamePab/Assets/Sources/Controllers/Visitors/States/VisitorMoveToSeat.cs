@@ -61,16 +61,18 @@ namespace Sources.Controllers.Visitors.States
             while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
-                if (_pauseService.IsPaused)
-                {
-                    _visitorView.StopMove();
-                    _visitorAnimation.PlayIdle();
-                }
-                    
-                await _pauseService.Yield(cancellationTokenSource.Token);
-                
-                _visitorView.Move();
-                _visitorAnimation.PlayWalk();
+                // if (_pauseService.IsPaused)
+                // {
+                //     _visitorView.StopMove();
+                //     _visitorAnimation.PlayIdle();
+                // }
+                //     
+                // await _pauseService.Yield(cancellationTokenSource.Token);
+                //
+                // _visitorView.Move();
+                // _visitorAnimation.PlayWalk();
+
+                await UniTask.Yield();
             }
         }
     }

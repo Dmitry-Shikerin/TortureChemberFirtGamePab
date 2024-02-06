@@ -25,8 +25,6 @@ namespace Sources.Presentation.Animations
             if(_animator.GetBool(IsIdle))
                 return;
             
-            //TODO попробовать сделать аниматор.Speed
-            
             _animator.SetBool(IsIdle, true);
         }
 

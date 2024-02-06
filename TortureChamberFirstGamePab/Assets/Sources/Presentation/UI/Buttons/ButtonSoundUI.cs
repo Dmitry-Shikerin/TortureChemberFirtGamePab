@@ -3,21 +3,17 @@ using UnityEngine;
 
 namespace Sources.Presentation.UI.Conteiners
 {
-    //TODO доделать
     public class ButtonSoundUI : ButtonUI
     {
         [SerializeField] private AudioSource _audioSource;
 
-        private void Awake()
-        {
+        protected override void OnAfterEnable() => 
             AddListener(OnClick);
-        }
 
-        private void OnClick()
-        {
+        protected override void OnAfterDisable() => 
+            RemoveListener(OnClick);
+
+        private void OnClick() => 
             _audioSource.Play();
-        }
-        
-        //TODO сделать сервис для музыки он будет монобехом
     }
 }

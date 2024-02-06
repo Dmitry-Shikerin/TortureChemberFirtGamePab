@@ -26,7 +26,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
-        //TODO гдето вызывать этот метод 
         public void Show() =>
             Agava.YandexGames.VideoAd.Show(_pauseService.Pause,
                 OnRewardCallback, _pauseService.Continue);

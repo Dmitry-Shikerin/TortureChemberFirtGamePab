@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Views.Player
 {
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : View
     {
         [field: SerializeField] public PlayerMovementView Movement { get; private set; }
         [field: SerializeField] public PlayerAnimation Animation { get; private set; }

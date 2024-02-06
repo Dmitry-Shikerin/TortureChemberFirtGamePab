@@ -18,7 +18,7 @@ namespace Sources.Infrastructure.Factories.Domains.Items
         }
 
         private Dictionary<Type, IItem> Items => _items ??=
-            _itemProvider.GetAll()
+            _itemProvider.Collection
                 .ToDictionary(item => item.GetType(), item => item);
         
         public IItem Create<T>() where T : IItem

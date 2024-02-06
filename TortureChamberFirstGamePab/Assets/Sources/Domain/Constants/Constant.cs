@@ -6,6 +6,12 @@ namespace Sources.Domain.Constants
     {
         public const float Epsilon = 0.01f;
 
+        public static class Volume
+        {
+            public const float Min = 0;
+            public const float Max = 1;
+        }
+        
         public static class Inventory
         {
             public const int FirstItemIndex = 0;
@@ -20,7 +26,7 @@ namespace Sources.Domain.Constants
 
         public static class ImageRotate
         {
-            public const float Speed = 1f;
+            public const float Speed = -1f;
         }
         
         public static class FillingAmount
@@ -64,6 +70,7 @@ namespace Sources.Domain.Constants
             public const string GarbageView = "Prefabs/Garbage";
             public const string ItemView = "Prefabs/ItemViews/";
             public const string VisitorView = "Prefabs/Visitor";
+            public const string PlayerView = "Prefabs/Player";
         }
         
         public static class UpgradeDataKey
@@ -132,7 +139,6 @@ namespace Sources.Domain.Constants
         
         public static class Forms
         {
-            //TODO перенести в константы и дабавить эту папку
             public const string PrefabPath = "Views/Forms";
         }
 

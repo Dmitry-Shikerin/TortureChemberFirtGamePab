@@ -37,7 +37,7 @@ namespace Sources.Presentation.Views.Bootstrap
 
         public async UniTask HideCurtain()
         {
-            await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Minimum);
+            await Fade(Constant.FillingAmount.Maximum, Constant.FillingAmount.Minimum);
             Hide();
         }
 

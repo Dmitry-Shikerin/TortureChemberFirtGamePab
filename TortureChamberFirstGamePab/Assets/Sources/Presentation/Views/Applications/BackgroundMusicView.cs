@@ -8,14 +8,12 @@ namespace Sources.Presentation.Views.Applications
         [SerializeField] private AudioSource _audioSource;
 
         //TODO возможно переделать на энтер и эксит и вызывать их в стейте
-        private void OnEnable()
-        {
+        //TODO как поступить с этим сервисом?
+        //TODO перекидывать его со сцены на сцену?
+        private void OnEnable() => 
             _audioSource.Play();
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() => 
             _audioSource.Stop();
-        }
     }
 }

@@ -5,6 +5,7 @@ using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Builders;
+using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Controllers.Players;
@@ -16,6 +17,7 @@ using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Domains.Items;
 using Sources.Infrastructure.Factories.Repositoryes;
 using Sources.Infrastructure.Factories.Scenes;
+using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
@@ -27,6 +29,7 @@ using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
+using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
@@ -39,6 +42,7 @@ using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.Conteiners;
+using Sources.Presentation.Views;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.Player;
@@ -70,14 +74,22 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
 
-            HUD hudPrefab = Resources.Load<HUD>(Constant.PrefabPaths.HUD);
-            HUD hud = Object.Instantiate(hudPrefab);
+            HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
             //SDKServices
             Container.Bind<VideoAdService>().AsSingle();
-            Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();
-            Container.Bind<LocalizationService>().AsSingle();
+            Container.Bind<LocalizationService>().FromInstance(
+                new LocalizationService(hud.LeanLocalization)).AsSingle();
+
+            Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
+            Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
+
+            Container.Bind<HudFormPresenterFactory>().AsSingle();
+            Container.Bind<PauseMenuFormPresenterFactory>().AsSingle();
+            Container.Bind<UpgradeFormPresenterFactory>().AsSingle();
+            
+            Container.Bind<GameplayFormServiceFactory>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
             

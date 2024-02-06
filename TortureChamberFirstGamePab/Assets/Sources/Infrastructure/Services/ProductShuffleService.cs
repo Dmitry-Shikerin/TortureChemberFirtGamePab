@@ -18,7 +18,7 @@ namespace Sources.Infrastructure.Services
             _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
         }
         
-        private List<IItem> Items => _items ??= new List<IItem>(_itemProvider.GetAll());
+        private List<IItem> Items => _items ??= new List<IItem>(_itemProvider.Collection);
 
         public IItem GetRandomItem()
         {

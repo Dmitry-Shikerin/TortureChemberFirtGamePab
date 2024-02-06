@@ -4,6 +4,7 @@ using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Players.Data;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
+using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -24,6 +25,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         private readonly SceneService _sceneService;
         private readonly IDataService<Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
+        private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
         private readonly MainMenuHUD _mainMenuHUD;
 
         private bool _canLoad;
@@ -39,7 +41,8 @@ namespace Sources.Infrastructure.Factories.Scenes
             SceneService sceneService,
             IDataService<Player> dataService,
             MainMenuHUD mainMenuHUD,
-            ButtonUIFactory buttonUIFactory
+            ButtonUIFactory buttonUIFactory,
+            MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
             _leaderboardFormPresenterFactory = 
@@ -59,6 +62,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                             throw new ArgumentNullException(nameof(sceneService));
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
+            _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
+                                          throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
             _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
@@ -75,7 +80,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                 _mainMenuHUD,
                 _dataService,
                 _buttonUIFactory,
-                _sceneService
+                _sceneService,
+                _mainMenuFormServiceFactory
             );
         }
     }

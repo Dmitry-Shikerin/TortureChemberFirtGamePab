@@ -57,17 +57,10 @@ namespace Sources.Controllers.Player
         private bool UpgradeAvailability()
         {
             if (_upgrader.CurrentLevelUpgrade.GetValue >= _upgrader.MoneyPerUpgrades.Count)
-            {
-                Debug.Log("Улучшение недоступно");
                 return false;
-            }
 
-            //TODO порефакторить
             if (_playerWallet.Coins.GetValue < _upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue])
-            {
-                Debug.Log("Улучшение недоступно");
                 return false;
-            }
 
             return true;
         }
@@ -88,7 +81,6 @@ namespace Sources.Controllers.Player
 
         private void UpdateCurrentLevelUpgrade()
         {
-            Debug.Log($"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
             _playerUpgradeView.SetCurrentLevelUpgrade(
                 $"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
         }

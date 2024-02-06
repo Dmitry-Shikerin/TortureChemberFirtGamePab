@@ -27,7 +27,9 @@ namespace Sources.Presentation.Views.Applications
         {
             while (_isSpinning)
             {
-                _image.rectTransform.Rotate(0, 0 , Constant.ImageRotate.Speed);
+                _image.rectTransform.Rotate(0, 0 ,
+                    Constant.ImageRotate.Speed);
+                
                 await UniTask.Yield();
             }
         }

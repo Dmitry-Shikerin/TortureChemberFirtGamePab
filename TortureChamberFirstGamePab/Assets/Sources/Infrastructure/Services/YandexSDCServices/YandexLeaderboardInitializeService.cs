@@ -25,7 +25,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 : throw new ArgumentNullException(nameof(leaderboardElementViewContainer));
         }
 
-        //TODO где это вызывать?
         public void SetPlayerScore(int score)
         {
             if (PlayerAccount.IsAuthorized == false)

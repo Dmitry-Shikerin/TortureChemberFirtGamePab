@@ -26,20 +26,6 @@ namespace Sources.Infrastructure.Factories.Views.YandexSDC
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
         }
 
-        public ILeaderboardElementView Create(LeaderboardPlayer leaderboardPlayer)
-        {
-            //TODO указать папку префаба
-            LeaderboardElementView leaderboardElementView =
-                _prefabFactory.Create<LeaderboardElementView>();
-
-            LeaderboardElementPresenter leaderboardElementPresenter =
-                _leaderboardElementPresenterFactory.Create(leaderboardPlayer, leaderboardElementView);
-            
-            leaderboardElementView.Construct(leaderboardElementPresenter);
-
-            return leaderboardElementView;
-        }
-        
         public ILeaderboardElementView Create(LeaderboardPlayer leaderboardPlayer, 
             LeaderboardElementView leaderboardElementView)
         {

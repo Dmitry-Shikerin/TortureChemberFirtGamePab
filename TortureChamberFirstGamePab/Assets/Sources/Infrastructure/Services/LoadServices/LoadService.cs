@@ -5,6 +5,7 @@ using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Prefabs;
+using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
@@ -57,7 +58,8 @@ namespace Sources.Infrastructure.Services.LoadServices
             TextUIFactory textUIFactory,
             ButtonUIFactory buttonUIFactory,
             ImageUIFactory imageUIFactory,
-            IPrefabFactory prefabFactory
+            IPrefabFactory prefabFactory,
+            GameplayFormServiceFactory gameplayFormServiceFactory
         ) :
             base
             (
@@ -86,7 +88,8 @@ namespace Sources.Infrastructure.Services.LoadServices
                 playerUpgradeDataService,
                 tavernDataService,
                 imageUIFactory,
-                prefabFactory
+                prefabFactory,
+                gameplayFormServiceFactory
             )
         {
         }

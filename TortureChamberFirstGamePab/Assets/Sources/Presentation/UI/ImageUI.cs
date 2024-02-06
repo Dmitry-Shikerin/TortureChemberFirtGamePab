@@ -32,7 +32,6 @@ namespace Sources.Presentation.UI
             await Presenter.FillMoveTowardsAsync(fillingRate, cancellationToken);
         }
 
-
         public void SetColor(Color color) => 
             _image.color = color;
 

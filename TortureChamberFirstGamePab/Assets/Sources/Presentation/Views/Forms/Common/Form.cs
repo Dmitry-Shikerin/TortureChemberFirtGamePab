@@ -13,6 +13,7 @@ namespace Sources.Presentation.Views.Forms.Common
     {
         private readonly TFormView _formView;
 
+        //TODO расширить реализацию и запросить сюда кнопки
         public Form(Func<TFormView, TFormPresenter> presenterFactory, TFormView formView)
         {
             _formView = formView ? formView : throw new ArgumentNullException(nameof(formView));

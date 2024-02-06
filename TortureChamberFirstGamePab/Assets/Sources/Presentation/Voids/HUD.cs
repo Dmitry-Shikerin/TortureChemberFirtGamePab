@@ -4,6 +4,7 @@ using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views;
+using Sources.Presentation.Views.Forms.Gameplays.Containers;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
@@ -25,6 +26,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public ImageUI TavernMoodImageUI { get; private set; }
         [field: SerializeField] public ButtonUI PauseMenuButton { get; private set; }
         [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
-
+        [field: SerializeField] public GameplayFormsContainer GameplayFormsContainer { get; private set; }
+        [field: SerializeField] public ContainerView ContainerView { get; private set; }
     }
 }

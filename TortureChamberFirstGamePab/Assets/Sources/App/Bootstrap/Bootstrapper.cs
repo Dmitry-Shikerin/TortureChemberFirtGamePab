@@ -14,7 +14,6 @@ namespace Sources.App.Bootstrap
 
         private async void Awake()
         {
-            //TODO как то так
             // _sdkInitializeService.Awake();
             // await _sdkInitializeService.Start();
             _appCore = FindObjectOfType<AppCore>() ?? new AppCoreFactory().Create();

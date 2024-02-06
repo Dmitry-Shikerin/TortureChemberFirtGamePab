@@ -13,6 +13,7 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             new Dictionary<Type, T1>();
 
         public int Count => _repositoryes.Count;
+        public IReadOnlyCollection<T1> Collection => _repositoryes.Values;
 
         public T2 Get<T2>() where T2 : T1
         {
@@ -64,22 +65,7 @@ namespace Sources.Utils.Repositoryes.ItemRepository
 
             _repositoryes[typeof(T2)] = @object;
         }
-
-        public IReadOnlyCollection<T1> GetAll()
-        {
-            // List<T1> items = new List<T1>();
-            //
-            // foreach (KeyValuePair<Type, T1> repository in _repositoryes)
-            // {
-            //     items.Add(repository.Value);
-            // }
-            //
-            //TODO проверить работает ли?
-            return _repositoryes.Select(item => item.Value).ToList();
-            //
-            // return items;
-        }
-
+        
         public void AddCollection(IEnumerable<T1> items)
         {
             foreach (T1 item in items)

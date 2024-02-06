@@ -9,6 +9,7 @@ using Sources.Domain.Players.Data;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns.Data;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
@@ -20,6 +21,7 @@ using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Voids;
@@ -41,6 +43,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         
         private readonly ImageUIFactory _imageUIFactory;
         private readonly IPrefabFactory _prefabFactory;
+        private readonly GameplayFormServiceFactory _gameplayFormServiceFactory;
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
         private readonly PlayerCameraView _playerCameraView;
@@ -94,13 +97,16 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<PlayerUpgrade> playerUpgradeDataService,
             IDataService<Tavern> tavernDataService,
             ImageUIFactory imageUIFactory,
-            IPrefabFactory prefabFactory
+            IPrefabFactory prefabFactory,
+            GameplayFormServiceFactory gameplayFormServiceFactory
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
             _rootGamePoints = rootGamePoints ? rootGamePoints : 
                 throw new ArgumentNullException(nameof(rootGamePoints));
-            _playerCameraView = playerCameraView ?? throw new ArgumentNullException(nameof(playerCameraView));
+            _playerCameraView = playerCameraView 
+                ? playerCameraView 
+                : throw new ArgumentNullException(nameof(playerCameraView));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _collectionRepository = collectionRepository ?? 
@@ -139,6 +145,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernDataService = tavernDataService ?? throw new ArgumentNullException(nameof(tavernDataService));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
+            _gameplayFormServiceFactory = gameplayFormServiceFactory ?? throw new ArgumentNullException(nameof(gameplayFormServiceFactory));
         }
         
         public void Load()
@@ -193,8 +200,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _hud.TextUIContainer.PlayerWalletText.SetText(_player.Wallet.Coins.StringValue);
             
             //PlayerMovementView
-            //TODO исправить
-            PlayerView playerView = Object.FindObjectOfType<PlayerView>();
+            PlayerView playerView = _prefabFactory.Create<PlayerView>(Constant.PrefabPaths.PlayerView);
             PlayerMovementView playerMovementView = 
                 _playerMovementViewFactory.Create(_player.Movement, _player.Inventory, 
                     playerView.Movement, playerView.Animation);
@@ -212,39 +218,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             PlayerInventoryView playerInventoryView =
                 _playerInventoryViewFactory.Create(_player.Inventory, playerView.Inventory);
             
-            //PlayerUpgradeViews
-            IPlayerUpgradeView playerCharismaUpgradeView = 
-                _playerUpgradeViewFactory.Create(_playerUpgrade.CharismaUpgrader, _player.Wallet,
-                _hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
-            IPlayerUpgradeView playerInventoryUpgradeView =
-            _playerUpgradeViewFactory.Create(_playerUpgrade.InventoryUpgrader, _player.Wallet,
-                _hud.PlayerUpgradeViewsContainer.InventoryUpgradeView);
-            IPlayerUpgradeView playerMovementUpgradeView =
-            _playerUpgradeViewFactory.Create(_playerUpgrade.MovementUpgrader, _player.Wallet,
-                _hud.PlayerUpgradeViewsContainer.MovementUpgradeView);
-            
-            //TavernUpgradePointButtons
-            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.CharismaButtonUI,
-                playerCharismaUpgradeView.Upgrade);
-            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.InventoryButtonUI,
-                playerInventoryUpgradeView.Upgrade);
-            _buttonUIFactory.Create(_hud.TavernUpgradePointButtons.MovementButtonUI,
-                playerMovementUpgradeView.Upgrade);
-            
-            //PauseMenuButtons
-            _buttonUIFactory.Create(_hud.PauseMenuButton, () =>
-            {
-                _pauseMenuService.Show();
-                _pauseService.Pause();
-            });
-            
-            _buttonUIFactory.Create(_hud.PauseMenuWindow.QuitButton, () => Application.Quit());
-            _buttonUIFactory.Create(_hud.PauseMenuWindow.CloseButton, () =>
-            {
-                _pauseMenuService.Hide();
-                _pauseService.Continue();
-            });
-
             //TavernMood
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
@@ -255,6 +228,12 @@ namespace Sources.Infrastructure.Services.LoadServices
             _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, meatConfig);
             _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, soupConfig);
             _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, wineConfig);
+            
+            //TODO запускать приходится здесь
+            //FormService
+            _gameplayFormServiceFactory.
+                Create(_playerUpgrade, _player, _hud)
+                .Show<HudFormView>();
         }
 
         public void Save()

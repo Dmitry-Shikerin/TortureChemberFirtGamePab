@@ -3,6 +3,7 @@ using Sources.Controllers.Forms.MainMenus;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.Constants;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
+using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices.Components;
@@ -28,6 +29,7 @@ namespace Sources.Controllers.Scenes
         private readonly IDataService<Domain.Players.Data.Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly SceneService _sceneService;
+        private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
 
         public MainMenuScene
         (
@@ -40,7 +42,8 @@ namespace Sources.Controllers.Scenes
             MainMenuHUD hud,
             IDataService<Domain.Players.Data.Player> dataService,
             ButtonUIFactory buttonUIFactory,
-            SceneService sceneService
+            SceneService sceneService,
+            MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
@@ -60,47 +63,24 @@ namespace Sources.Controllers.Scenes
             _dataService = dataService ?? throw new ArgumentNullException(nameof(dataService));
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
+            _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
+                                          throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
         }
 
         public string Name { get; } = nameof(MainMenuScene);
 
         public void Enter(object payload)
         {
-            //TODO куда это все вынести?
             //TODO сделать остальные формочки по аналогии
-            Form<MainMenuFormView, MainMenuFormPresenter> mainMenuFormView =
-                new Form<MainMenuFormView, MainMenuFormPresenter>(
-                    _mainMenuFormPresenterFactory.Create,
-                    _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView);
+            //TODO сделать MAinMenuFormServiceFactory и ретернуть IFormService
+            //TODO создать его в фабрике мейнмену
 
-            _formService.Add(mainMenuFormView);
-
-            Form<LeaderboardFormView, LeaderboardFormPresenter> leaderboardFormView =
-                new Form<LeaderboardFormView, LeaderboardFormPresenter>(
-                    _leaderboardFormPresenterFactory.Create,
-                    _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView);
-
-            _formService.Add(leaderboardFormView);
-
-            IButtonUI continueGameButton = _buttonUIFactory.Create(
-                _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
-                    await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
-                        new LoadServicePayload(true)));
-
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
-                await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
-                    new LoadServicePayload(false)));
-
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton,
-                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard);
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,
-                _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView.ShowMainMenu);
-
-            if (_dataService.CanLoad == false)
-                continueGameButton.Disable();
-
+            //TODO как то так
+            _mainMenuFormServiceFactory
+                .Create()
+                .Show<MainMenuFormView>();
+            
             _mainMenuHUD.Show();
-            _formService.Show<MainMenuFormView>();
 
             //TODO вроде здесь это должно быть
             // _sdkInitializeService.OnCallGameReadyButtonClick();

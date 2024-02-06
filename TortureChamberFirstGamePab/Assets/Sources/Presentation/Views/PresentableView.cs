@@ -38,11 +38,5 @@ namespace Sources.Presentation.Views
         protected virtual void OnConstructed()
         {
         }
-
-        public void Hide() => 
-            gameObject.SetActive(false);
-
-        public void Show() => 
-            gameObject.SetActive(true);
     }
 }

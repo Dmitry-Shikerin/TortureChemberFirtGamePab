@@ -10,7 +10,7 @@ namespace Sources.Infrastructure.Services.Forms
     public class FormService : IFormService
     {
         private readonly ContainerView _containerView;
-        private Dictionary<string, IForm> _forms = new Dictionary<string, IForm>();
+        private readonly Dictionary<string, IForm> _forms = new Dictionary<string, IForm>();
 
         public FormService(ContainerView containerView)
         {
@@ -19,7 +19,6 @@ namespace Sources.Infrastructure.Services.Forms
                 : throw new ArgumentNullException(nameof(containerView));
         }
 
-        //TODO что здесь значит этот оператор вопроса
         public void Add(IForm formView, string? name = null, bool isSetParent = false)
         {
             if(isSetParent)
@@ -32,7 +31,6 @@ namespace Sources.Infrastructure.Services.Forms
         public void Show<T>() where T : IFormView => 
             Show(typeof(T).Name);
 
-        //TODO в каких случаях доступен форич в линке?
         public void Show(string name)
         {
             if (_forms.ContainsKey(name) == false)

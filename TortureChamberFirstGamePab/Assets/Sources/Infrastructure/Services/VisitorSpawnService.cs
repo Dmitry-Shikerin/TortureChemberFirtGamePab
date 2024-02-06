@@ -71,7 +71,6 @@ namespace Sources.Infrastructure.Services
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            //TODO сделать условие
             while (true)
             {
                 if (CanSpawn())
