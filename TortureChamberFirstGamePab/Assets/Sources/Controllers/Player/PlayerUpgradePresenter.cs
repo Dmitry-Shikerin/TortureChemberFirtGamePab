@@ -30,6 +30,7 @@ namespace Sources.Controllers.Player
             UpdateCurrentLevelUpgrade();
         }
 
+        //TODO добавить плагин для иерархии
         public void Upgrade()
         {
             try
@@ -67,17 +68,17 @@ namespace Sources.Controllers.Player
             if (_upgrader.CurrentLevelUpgrade.GetValue >= _upgrader.MoneyPerUpgrades.Count)
             {
                 _playerUpgradeView.SetPriceNextUpgrade(
-                    $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue - 1]}");
+                    $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue - 1]}");
                 
                 return;
             }
                 
             _playerUpgradeView.SetPriceNextUpgrade(
-                $"Цена {_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
+                $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
 
         private void UpdateCurrentLevelUpgrade() =>
             _playerUpgradeView.SetCurrentLevelUpgrade(
-                $"{_upgrader.CurrentLevelUpgrade.StringValue} лвл");
+                $"{_upgrader.CurrentLevelUpgrade.StringValue}");
     }
 }
