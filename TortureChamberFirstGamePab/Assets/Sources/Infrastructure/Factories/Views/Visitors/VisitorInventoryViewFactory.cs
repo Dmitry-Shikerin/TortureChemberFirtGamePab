@@ -13,9 +13,11 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
     {
         private readonly VisitorInventoryPresenterFactory _visitorInventoryPresenterFactory;
 
-        public VisitorInventoryViewFactory()
+        public VisitorInventoryViewFactory(VisitorInventoryPresenterFactory visitorInventoryPresenterFactory)
         {
-            _visitorInventoryPresenterFactory = new VisitorInventoryPresenterFactory();
+            _visitorInventoryPresenterFactory = 
+                visitorInventoryPresenterFactory ?? 
+                throw new ArgumentNullException(nameof(visitorInventoryPresenterFactory));
         }
 
         public IVisitorInventoryView Create(VisitorInventoryView visitorInventoryView,

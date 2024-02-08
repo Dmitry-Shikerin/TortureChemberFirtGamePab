@@ -10,7 +10,7 @@ using Zenject;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerInventoryViewFactory : InfrastructureInterfaces.Factories.IFactory<IView>
+    public class PlayerInventoryViewFactory
     {
         private readonly PlayerInventoryPresenterFactory _playerInventoryPresenterFactory;
         private readonly ImageUIFactory _imageUIFactory;

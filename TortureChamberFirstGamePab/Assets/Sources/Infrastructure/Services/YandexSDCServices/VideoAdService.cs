@@ -3,11 +3,12 @@ using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class VideoAdService
+    public class VideoAdService : IVideoAdService
     {
         private readonly IPauseService _pauseService;
         private readonly IPlayerProvider _playerProvider;

@@ -23,6 +23,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public PauseMenuFormPresenter Create(IPauseMenuFormView pauseMenuFormView)
         {
+            if (pauseMenuFormView == null) 
+                throw new ArgumentNullException(nameof(pauseMenuFormView));
+            
             return new PauseMenuFormPresenter(pauseMenuFormView, _formService, _pauseService);
         }
     }

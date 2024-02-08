@@ -36,6 +36,7 @@ namespace Sources.Presentation.Views.Visitors
             Hide();
         }
 
+        //TODO исправить это безобразие
         public void Update() =>
             Presenter?.Update();
 

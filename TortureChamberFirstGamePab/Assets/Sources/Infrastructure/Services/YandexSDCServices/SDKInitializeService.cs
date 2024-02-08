@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class SDKInitializeService
+    public class SDKInitializeService : IInitializeService
     {
-        public void OnCallGameReadyButtonClick() => 
+        public void GameReady() => 
             YandexGamesSdk.GameReady();
 
-        public void Awake() => 
+        public void Register() => 
             YandexGamesSdk.CallbackLogging = true;
 
-        public async UniTask Start() => 
+        public async UniTask Initialize() => 
             await YandexGamesSdk.Initialize();
     }
 }

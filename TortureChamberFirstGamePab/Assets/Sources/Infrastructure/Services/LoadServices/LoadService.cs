@@ -5,6 +5,7 @@ using Sources.Domain.Players;
 using Sources.DomainInterfaces.Items;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Factories.Prefabs;
+using Sources.Infrastructure.Factories.Repositoryes;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
@@ -59,7 +60,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             ButtonUIFactory buttonUIFactory,
             ImageUIFactory imageUIFactory,
             IPrefabFactory prefabFactory,
-            GameplayFormServiceFactory gameplayFormServiceFactory
+            GameplayFormServiceFactory gameplayFormServiceFactory,
+            VisitorPointsRepositoryFactory visitorPointsRepositoryFactory,
+            PlayerViewFactory playerViewFactory
         ) :
             base
             (
@@ -89,7 +92,9 @@ namespace Sources.Infrastructure.Services.LoadServices
                 tavernDataService,
                 imageUIFactory,
                 prefabFactory,
-                gameplayFormServiceFactory
+                gameplayFormServiceFactory,
+                visitorPointsRepositoryFactory,
+                playerViewFactory
             )
         {
         }

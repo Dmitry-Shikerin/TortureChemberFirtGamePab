@@ -10,7 +10,9 @@ using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
+using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Voids;
 using Zenject;
 
@@ -19,32 +21,31 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
-        private readonly LocalizationService _localizationService;
-        private readonly FocusService _focusService;
+        private readonly ILocalizationService _localizationService;
+        private readonly IFocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly SceneService _sceneService;
         private readonly IInputService _inputService;
-        private readonly UpdateService _updateService;
+        private readonly IUpdateService _updateService;
         private readonly VisitorSpawnService _visitorSpawnService;
         private readonly TavernUpgradePointService _tavernUpgradePointService;
-        private readonly GamePlayService _gamePlayService;
+        private readonly IQuantityService _visitorQuantityService;
         private readonly PauseMenuService _pauseMenuService;
         private readonly CreateService _createService;
         private readonly LoadService _loadService;
-        private SceneContext _sceneContext;
 
         public GamePlaySceneFactory
         (
-            LocalizationService localizationService,
-            FocusService focusService,
+            ILocalizationService localizationService,
+            IFocusService focusService,
             HUD hud,
             ButtonUIFactory buttonUIFactory,
-            UpdateService updateService,
+            IUpdateService updateService,
             SceneService sceneService,
             IInputService inputService,
             VisitorSpawnService visitorSpawnService,
             TavernUpgradePointService tavernUpgradePointService,
-            GamePlayService gamePlayService,
+            IQuantityService visitorQuantityService,
             PauseMenuService pauseMenuService,
             CreateService createService,
             LoadService loadService
@@ -61,7 +62,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
             _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
             _tavernUpgradePointService = tavernUpgradePointService ?? throw new ArgumentNullException(nameof(tavernUpgradePointService));
-            _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            _visitorQuantityService = visitorQuantityService ?? throw new ArgumentNullException(nameof(visitorQuantityService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _createService = createService ?? throw new ArgumentNullException(nameof(createService));
             _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
@@ -79,7 +80,7 @@ namespace Sources.Infrastructure.Factories.Scenes
                 _updateService,
                 _visitorSpawnService,
                 _tavernUpgradePointService,
-                _gamePlayService,
+                _visitorQuantityService,
                 _pauseMenuService,
                 CreateLoadService(payload)
             );

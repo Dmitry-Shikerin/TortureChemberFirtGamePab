@@ -5,11 +5,10 @@ using Sources.Domain.Constants;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class LocalizationService
+    public class LocalizationService : ILocalizationService
     {
         private readonly LeanLocalization _leanLanguage;
 
-        //TODO Доделать локализацию
         public LocalizationService(LeanLocalization leanLanguage)
         {
             _leanLanguage = leanLanguage 
@@ -17,7 +16,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 : throw new ArgumentNullException(nameof(leanLanguage));
         }
 
-        public void Enter()
+        public void Enter(object payload = null)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
             ChangeLanguage();

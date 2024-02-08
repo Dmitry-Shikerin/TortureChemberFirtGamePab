@@ -12,6 +12,7 @@ using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Voids;
 using UnityEngine;
 
@@ -20,28 +21,28 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
-        private readonly LocalizationService _localizationService;
-        private readonly FocusService _focusService;
+        private readonly ILocalizationService _localizationService;
+        private readonly IFocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly IInputService _inputService;
         private readonly IUpdateService _updateService;
         private readonly VisitorSpawnService _visitorSpawnService;
         private readonly TavernUpgradePointService _tavernUpgradePointService;
-        private readonly GamePlayService _gamePlayService;
+        private readonly IQuantityService _visitorQuantityService;
         private readonly ILoadService _loadService;
         private readonly PauseMenuService _pauseMenuService;
 
         public GamePlayScene
         (
-            LocalizationService localizationService,
-            FocusService focusService,
+            ILocalizationService localizationService,
+            IFocusService focusService,
             HUD hud,
             ButtonUIFactory buttonUIFactory,
             IInputService inputService,
             IUpdateService updateService,
             VisitorSpawnService visitorSpawnService,
             TavernUpgradePointService tavernUpgradePointService,
-            GamePlayService gamePlayService,
+            IQuantityService visitorQuantityService,
             PauseMenuService pauseMenuService,
             ILoadService loadService)
         {
@@ -56,7 +57,7 @@ namespace Sources.Controllers.Scenes
             _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
             _tavernUpgradePointService = tavernUpgradePointService ??
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
-            _gamePlayService = gamePlayService ?? throw new ArgumentNullException(nameof(gamePlayService));
+            _visitorQuantityService = visitorQuantityService ?? throw new ArgumentNullException(nameof(visitorQuantityService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
         }
@@ -68,7 +69,7 @@ namespace Sources.Controllers.Scenes
             _loadService.Load();
             _buttonUIFactory.Create(_hud.PauseMenuWindow.SaveButton, _loadService.Save);
             _tavernUpgradePointService.OnEnable();
-            _gamePlayService.Start();
+            _visitorQuantityService.Enter();
             _visitorSpawnService.SpawnVisitorAsync();
             _pauseMenuService.Enter();
 
@@ -81,7 +82,7 @@ namespace Sources.Controllers.Scenes
         {
             _visitorSpawnService.Cancel();
             _tavernUpgradePointService.OnDisable();
-            _gamePlayService.Exit();
+            _visitorQuantityService.Exit();
             _visitorSpawnService.Cancel();
             _pauseMenuService.Exit();
 
@@ -93,11 +94,6 @@ namespace Sources.Controllers.Scenes
         {
             _inputService.Update(deltaTime);
             _updateService.Update(deltaTime);
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                _loadService.Save();
-            }
         }
 
         public void UpdateLate(float deltaTime)

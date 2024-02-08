@@ -19,9 +19,9 @@ namespace Sources.Domain.Starables
 
         public void Load(IViewFactoryProvider provider)
         {
-            var viewFactory = provider.Get<PlayerInventoryViewFactory>() ??
-                              throw new InvalidOperationException(nameof(PlayerInventoryViewFactory));
-
+            // var viewFactory = provider.Get<PlayerInventoryViewFactory>() ??
+            //                   throw new InvalidOperationException(nameof(PlayerInventoryViewFactory));
+            //
             PlayerInventory = new PlayerInventory();
 
             // viewFactory.Create();

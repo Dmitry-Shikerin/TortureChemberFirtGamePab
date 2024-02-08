@@ -1,11 +1,12 @@
 ﻿using System;
 using Agava.WebUtility;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class FocusService
+    public class FocusService : IFocusService
     {
         private readonly IPauseService _pauseService;
 
@@ -17,7 +18,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public void Enter()
+        public void Enter(object payload = null)
         {
             Application.focusChanged += OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;

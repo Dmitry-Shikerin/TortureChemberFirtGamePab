@@ -35,6 +35,9 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
         {
             if (pickUpPointView == null)
                 throw new ArgumentNullException(nameof(pickUpPointView));
+            
+            if (itemConfig == null) 
+                throw new ArgumentNullException(nameof(itemConfig));
 
             PickUpPointUIImages pickUpPointUIImages = pickUpPointView.PickUpPointUIImages;
             

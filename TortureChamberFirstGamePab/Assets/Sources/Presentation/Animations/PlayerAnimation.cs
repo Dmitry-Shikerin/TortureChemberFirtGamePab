@@ -7,7 +7,7 @@ namespace Sources.Presentation.Animations
     [RequireComponent(typeof(Animator))]
     public class PlayerAnimation : MonoBehaviour, IPlayerAnimation
     {
-        private readonly int _speed = Animator.StringToHash("Speed");
+        private readonly int Speed = Animator.StringToHash(nameof(Speed));
 
         private Animator _animator;
 
@@ -19,7 +19,7 @@ namespace Sources.Presentation.Animations
 
         public void PlayMovementAnimation(float speed)
         {
-            _animator.SetFloat(_speed, speed);
+            _animator.SetFloat(Speed, speed);
         }
     }
 }

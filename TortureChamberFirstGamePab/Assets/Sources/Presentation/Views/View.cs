@@ -17,7 +17,7 @@ namespace Sources.Presentation.Views
         public void SetPosition(Transform parentTransform) => 
             transform.position = parentTransform.position;
 
-        public void Destroy() =>
+        public virtual void Destroy() =>
             Destroy(gameObject);
     }
 }

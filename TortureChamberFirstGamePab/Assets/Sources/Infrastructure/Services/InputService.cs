@@ -8,8 +8,6 @@ namespace Sources.Infrastructure.Services
 {
     public class InputService : IInputService
     {
-        public event Action<Vector2> MovementAxisChanged;
-        public event Action<float> RunAxisChanged;
         public event Action<bool, bool> RotationChanged;
         public event Action PauseButtonChanged;
         
@@ -18,7 +16,6 @@ namespace Sources.Infrastructure.Services
         public void Update(float deltaTime)
         {
             UpdateMovementAxis();
-            UpdateRunAxis();
             UpdatePauseInput();
         }
 
@@ -37,13 +34,6 @@ namespace Sources.Infrastructure.Services
             float verticalInput = Input.GetAxis(Constant.Input.Vertical);
 
             PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
-        }
-
-        private void UpdateRunAxis()
-        {
-            float runInput = Input.GetAxis(Constant.Input.Run);
-        
-            RunAxisChanged?.Invoke(runInput);
         }
 
         private void UpdateRotation()

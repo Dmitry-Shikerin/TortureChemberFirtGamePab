@@ -2,12 +2,13 @@
 using Sources.Domain.Players.Inputs;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
+using Sources.InfrastructureInterfaces.Services.Movement;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Movement
 {
-    public class PlayerMovementService
+    public class PlayerMovementService : IMovementService
     {
         private IUpgradeble _upgradeble;
         private readonly IUpgradeProvider _upgradeProvider;
@@ -26,7 +27,6 @@ namespace Sources.Infrastructure.Services.Movement
         }
 
         private IUpgradeble Upgradeble => _upgradeble ??= _upgradeProvider.Movement;
-
 
         private float MovementSpeed => Upgradeble.AddedAmountUpgrade;
 

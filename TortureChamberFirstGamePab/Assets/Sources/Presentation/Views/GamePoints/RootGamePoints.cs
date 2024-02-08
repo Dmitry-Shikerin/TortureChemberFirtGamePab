@@ -15,5 +15,6 @@ namespace Sources.Presentation.Voids.GamePoints
         [field: SerializeField] public SoupPickUpPointView SoupPickUpPointView { get; private set; }
         [field: SerializeField] public MeatPickUpPointView MeatPickUpPointView { get; private set; }
         [field: SerializeField] public TavernUpgradeTrigger TavernUpgradeTrigger { get; private set; }
+        //TODO куда поместить этот скрипт
     }
 }

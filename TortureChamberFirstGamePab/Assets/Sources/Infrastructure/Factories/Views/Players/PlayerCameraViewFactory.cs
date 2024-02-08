@@ -11,7 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerCameraViewFactory : IFactory<IView>
+    public class PlayerCameraViewFactory
     {
         private readonly PlayerCameraPresenterFactory _playerCameraPresenterFactory;
 

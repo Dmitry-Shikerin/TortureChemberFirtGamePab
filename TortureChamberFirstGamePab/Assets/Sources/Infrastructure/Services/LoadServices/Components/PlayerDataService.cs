@@ -14,7 +14,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.DataKey.MovementKey);
 
-        public Player Load() => 
+        public Player Load() =>
             new(LoadMovement(), LoadInventory(), LoadWallet());
 
         public void Save(Player player)
@@ -25,10 +25,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Save(player.Wallet);
         }
 
-        public void Clear()
-        {
+        public void Clear() =>
             PlayerPrefs.DeleteAll();
-        }
 
         private PlayerMovement LoadMovement()
         {
@@ -68,17 +66,12 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void Save(PlayerInventory inventory)
         {
-            
         }
 
         private void Save(PlayerWallet wallet)
         {
-            PlayerWalletData walletData = new PlayerWalletData()
-            {
-                Coins = wallet.Coins.GetValue,
-            };
-            
-            string json = JsonConvert.SerializeObject(walletData);
+            string json = JsonConvert.SerializeObject(
+                new PlayerWalletData() { Coins = wallet.Coins.GetValue });
             PlayerPrefs.SetString(Constant.DataKey.WalletKey, json);
         }
     }

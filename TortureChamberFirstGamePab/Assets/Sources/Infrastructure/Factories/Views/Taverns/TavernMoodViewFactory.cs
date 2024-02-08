@@ -17,12 +17,25 @@ namespace Sources.Infrastructure.Factories.Views.Taverns
             _tavernMoodPresenterFactory = tavernMoodPresenterFactory ??
                                           throw new ArgumentNullException(nameof(tavernMoodPresenterFactory));
         }
-        
-        public ITavernMoodView Create(TavernMoodView tavernMoodView, TavernMood tavernMood,
-            IImageUI imageUI)
+
+        public ITavernMoodView Create
+        (
+            TavernMoodView tavernMoodView,
+            TavernMood tavernMood,
+            IImageUI imageUI
+        )
         {
-            TavernMoodPresenter tavernMoodPresenter = 
-                _tavernMoodPresenterFactory.Create(tavernMood,tavernMoodView, imageUI);
+            if (tavernMoodView == null)
+                throw new ArgumentNullException(nameof(tavernMoodView));
+
+            if (tavernMood == null)
+                throw new ArgumentNullException(nameof(tavernMood));
+
+            if (imageUI == null)
+                throw new ArgumentNullException(nameof(imageUI));
+
+            TavernMoodPresenter tavernMoodPresenter =
+                _tavernMoodPresenterFactory.Create(tavernMood, tavernMoodView, imageUI);
             tavernMoodView.Construct(tavernMoodPresenter);
 
             return tavernMoodView;

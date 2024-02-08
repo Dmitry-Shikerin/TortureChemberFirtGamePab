@@ -18,22 +18,31 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         private readonly VisitorPresenterFactory _visitorPresenterFactory;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
+        private readonly VisitorInventoryViewFactory _visitorInventoryViewFactory;
 
         public VisitorViewFactory
         (
             VisitorPresenterFactory visitorPresenterFactory,
             IPrefabFactory prefabFactory,
-            ObjectPool<VisitorView> objectPool
+            ObjectPool<VisitorView> objectPool,
+            VisitorInventoryViewFactory visitorInventoryViewFactory
         )
         {
             _visitorPresenterFactory = visitorPresenterFactory ??
                                        throw new ArgumentNullException(nameof(visitorPresenterFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
+            _visitorInventoryViewFactory = visitorInventoryViewFactory ??
+                                           throw new ArgumentNullException(nameof(visitorInventoryViewFactory));
         }
 
-        public IVisitorView Create(Visitor visitor,
-            TavernMood tavernMood, VisitorCounter visitorCounter, VisitorView visitorView)
+        public IVisitorView Create
+        (
+            Visitor visitor,
+            TavernMood tavernMood,
+            VisitorCounter visitorCounter,
+            VisitorView visitorView
+        )
         {
             VisitorInventory visitorInventory = CreateInventory(visitorView);
 
@@ -46,8 +55,12 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
             return visitorView;
         }
 
-        public IVisitorView Create(Visitor visitor,
-            TavernMood tavernMood, VisitorCounter visitorCounter)
+        public IVisitorView Create
+        (
+            Visitor visitor,
+            TavernMood tavernMood,
+            VisitorCounter visitorCounter
+        )
         {
             VisitorView visitorView = CreateView();
 
@@ -66,8 +79,7 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         private VisitorInventory CreateInventory(VisitorView visitorView)
         {
             VisitorInventory visitorInventory = new VisitorInventory();
-            VisitorInventoryViewFactory visitorInventoryViewFactory = new VisitorInventoryViewFactory();
-            visitorInventoryViewFactory.Create(visitorView.Inventory, visitorInventory);
+            _visitorInventoryViewFactory.Create(visitorView.Inventory, visitorInventory);
 
             return visitorInventory;
         }

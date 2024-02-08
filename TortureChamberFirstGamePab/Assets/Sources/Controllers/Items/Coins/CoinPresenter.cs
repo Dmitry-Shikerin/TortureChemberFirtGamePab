@@ -13,18 +13,18 @@ namespace Sources.Controllers.Items.Coins
     {
         private const float TargetDistance = 1f;
 
-        private readonly ICoinAnimationView _coinAnimationView;
+        private readonly ICoinView _coinView;
         private readonly Coin _coin;
         private readonly IPauseService _pauseService;
 
         public CoinPresenter
         (
-            ICoinAnimationView coinAnimationView,
+            ICoinView coinView,
             Coin coin,
             IPauseService pauseService
         )
         {
-            _coinAnimationView = coinAnimationView ?? throw new ArgumentNullException(nameof(coinAnimationView));
+            _coinView = coinView ?? throw new ArgumentNullException(nameof(coinView));
             _coin = coin ?? throw new ArgumentNullException(nameof(coin));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
@@ -58,7 +58,7 @@ namespace Sources.Controllers.Items.Coins
                 await RotateCoinAsync();
                 await MoveToPlayerAsync();
                 await AddCoinsAsync();
-                _coinAnimationView.Destroy();
+                _coinView.Destroy();
             }
             catch (OperationCanceledException e)
             {
@@ -76,7 +76,7 @@ namespace Sources.Controllers.Items.Coins
         {
             while (_coin.CanMove == false)
             {
-                _coinAnimationView.Rotate();
+                _coinView.Rotate();
                 await UniTask.Yield(_cancellationTokenSource.Token);
                 await _pauseService.Yield(_cancellationTokenSource.Token);
             }
@@ -84,17 +84,17 @@ namespace Sources.Controllers.Items.Coins
 
         private async UniTask MoveToPlayerAsync()
         {
-            while (Vector3.Distance(_coinAnimationView.Position,
+            while (Vector3.Distance(_coinView.Position,
                        _coin.PlayerWalletView.Position) > TargetDistance)
             {
                 _currentTime += Time.deltaTime;
 
-                _coinAnimationView.SetTransformPosition(Vector3.MoveTowards(_coinAnimationView.Position,
+                _coinView.SetTransformPosition(Vector3.MoveTowards(_coinView.Position,
                     new Vector3(_coin.PlayerWalletView.Position.x,
                         _coin.PlayerWalletView.Position.y +
-                        _coinAnimationView.AnimationCurve.Evaluate(_currentTime),
+                        _coinView.AnimationCurve.Evaluate(_currentTime),
                         _coin.PlayerWalletView.Position.z),
-                    _coinAnimationView.MovementSpeed * Time.deltaTime));
+                    _coinView.MovementSpeed * Time.deltaTime));
 
                 await UniTask.Yield(_cancellationTokenSource.Token);
                 await _pauseService.Yield(_cancellationTokenSource.Token);

@@ -3,6 +3,7 @@ using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 
 namespace Sources.Controllers.Player
 {
@@ -11,14 +12,14 @@ namespace Sources.Controllers.Player
         private readonly PlayerCamera _playerCamera;
         private readonly IPlayerCameraView _playerCameraView;
         private readonly IInputService _inputService;
-        private readonly IUpdateService _updateService;
+        private readonly IUpdateServiceChanger _updateService;
 
         public PlayerCameraPresenter
         (
             PlayerCamera playerCamera,
             IPlayerCameraView playerCameraView,
             IInputService inputService,
-            IUpdateService updateService
+            IUpdateServiceChanger updateService
         )
         {
             _playerCamera = playerCamera ?? 

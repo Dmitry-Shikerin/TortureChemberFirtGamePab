@@ -19,6 +19,12 @@ namespace Sources.Infrastructure.Factories.Views.UI
 
         public ITextUI Create(TextUI textUI, IObservableProperty observableProperty)
         {
+            if (textUI == null) 
+                throw new ArgumentNullException(nameof(textUI));
+            
+            if (observableProperty == null) 
+                throw new ArgumentNullException(nameof(observableProperty));
+            
             TextUIPresenter textUIPresenter = _textUIPresenterFactory.Create(textUI, observableProperty);
             
             textUI.Construct(textUIPresenter);

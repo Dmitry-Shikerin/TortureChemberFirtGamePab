@@ -9,7 +9,7 @@ namespace Sources.Controllers.Points
         private readonly ISeatPointView _seatPointView;
         private readonly SeatPoint _seatPoint;
 
-        public SeatPointPresenter(ISeatPointView seatPointView, SeatPoint seatPoint)
+        public SeatPointPresenter(SeatPoint seatPoint, ISeatPointView seatPointView)
         {
             _seatPointView = seatPointView ?? throw new ArgumentNullException(nameof(seatPointView));
             _seatPoint = seatPoint ?? throw new ArgumentNullException(nameof(seatPoint));

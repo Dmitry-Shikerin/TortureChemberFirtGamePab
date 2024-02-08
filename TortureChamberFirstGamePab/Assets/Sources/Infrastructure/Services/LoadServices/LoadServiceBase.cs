@@ -9,6 +9,7 @@ using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Repositoryes;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
@@ -44,6 +45,8 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly ImageUIFactory _imageUIFactory;
         private readonly IPrefabFactory _prefabFactory;
         private readonly GameplayFormServiceFactory _gameplayFormServiceFactory;
+        private readonly VisitorPointsRepositoryFactory _visitorPointsRepositoryFactory;
+        private readonly PlayerViewFactory _playerViewFactory;
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
         private readonly PlayerCameraView _playerCameraView;
@@ -98,7 +101,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<Tavern> tavernDataService,
             ImageUIFactory imageUIFactory,
             IPrefabFactory prefabFactory,
-            GameplayFormServiceFactory gameplayFormServiceFactory
+            GameplayFormServiceFactory gameplayFormServiceFactory,
+            VisitorPointsRepositoryFactory visitorPointsRepositoryFactory,
+            PlayerViewFactory playerViewFactory
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
@@ -115,7 +120,8 @@ namespace Sources.Infrastructure.Services.LoadServices
                                    throw new ArgumentNullException(nameof(eatPointViewFactory));
             _seatPointViewFactory = seatPointViewFactory ??
                                     throw new ArgumentNullException(nameof(seatPointViewFactory));
-            _playerProviderSetter = playerProviderSetter ?? throw new ArgumentNullException(nameof(playerProviderSetter));
+            _playerProviderSetter = playerProviderSetter ??
+                                    throw new ArgumentNullException(nameof(playerProviderSetter));
             _tavernProviderSetter = tavernProviderSetter ??
                                     throw new ArgumentNullException(nameof(tavernProviderSetter));
             _upgradeProviderSetter = upgradeProviderSetter ?? 
@@ -145,7 +151,12 @@ namespace Sources.Infrastructure.Services.LoadServices
             TavernDataService = tavernDataService ?? throw new ArgumentNullException(nameof(tavernDataService));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
-            _gameplayFormServiceFactory = gameplayFormServiceFactory ?? throw new ArgumentNullException(nameof(gameplayFormServiceFactory));
+            _gameplayFormServiceFactory = gameplayFormServiceFactory ??
+                                          throw new ArgumentNullException(nameof(gameplayFormServiceFactory));
+            _visitorPointsRepositoryFactory = visitorPointsRepositoryFactory ?? 
+                                              throw new ArgumentNullException(nameof(visitorPointsRepositoryFactory));
+            _playerViewFactory = playerViewFactory ?? 
+                                 throw new ArgumentNullException(nameof(playerViewFactory));
         }
         
         public void Load()
@@ -160,73 +171,43 @@ namespace Sources.Infrastructure.Services.LoadServices
             _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
             
             _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
-            _tavernProviderSetter.SetGameplay(_tavern.GamePlay);
+            _tavernProviderSetter.SetGameplay(_tavern.VisitorQuantity);
             
             //Items
-            ItemConfig beerConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Beer);
-            ItemConfig breadConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Bread);
-            ItemConfig meatConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Meat);
-            ItemConfig soupConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Soup);
-            ItemConfig wineConfig = Resources.Load<ItemConfig>(Constant.ItemConfigPath.Wine);
+            ItemConfigContainer container = Resources
+                .Load<ItemConfigContainer>(Constant.PrefabPaths.ItemConfigContainer);
 
             IItem[] items = new IItem[]
             {
-                new Beer(beerConfig),
-                new Bread(breadConfig),
-                new Meat(meatConfig),
-                new Soup(soupConfig),
-                new Wine(wineConfig)
+                new Beer(container.Beer),
+                new Bread(container.Bread),
+                new Meat(container.Meat),
+                new Soup(container.Soup),
+                new Wine(container.Wine)
             };
             
             _itemProvider.AddCollection(items);
 
             //EatAndSeatGamePoints
-            List<SeatPointView> seatPoints = new List<SeatPointView>();
-            
-            foreach (SeatPointView seatPointView in _rootGamePoints.GetComponentsInChildren<SeatPointView>())
-            {
-                _seatPointViewFactory.Create(seatPointView);
-                _eatPointViewFactory.Create(seatPointView.EatPointView);
-                seatPoints.Add(seatPointView);
-            }
-
-            List<OutDoorPoint> outDoorPoints = _rootGamePoints.GetComponentsInChildren<OutDoorPoint>().ToList();
-            
-            _collectionRepository.Add(seatPoints);
-            _collectionRepository.Add(outDoorPoints);
+            _visitorPointsRepositoryFactory.Create();
             
             //HudText
             _textUIFactory.Create(_hud.TextUIContainer.PlayerWalletText, _player.Wallet.Coins);
             _hud.TextUIContainer.PlayerWalletText.SetText(_player.Wallet.Coins.StringValue);
             
-            //PlayerMovementView
-            PlayerView playerView = _prefabFactory.Create<PlayerView>(Constant.PrefabPaths.PlayerView);
-            PlayerMovementView playerMovementView = _playerMovementViewFactory.Create(
-                _player.Movement, _player.Inventory, playerView.Movement, playerView.Animation);
-            
-            //PlayerWalletView
-            PlayerWalletView playerWalletView = 
-                _playerWalletViewFactory.Create(_player.Wallet, playerView.Wallet);
-            
-            //PlayerCameraView
-            PlayerCamera playerCamera = new PlayerCamera();
-            IPlayerCameraView playerCameraView = _playerCameraViewFactory.Create(playerCamera, _playerCameraView);
-            playerCameraView.SetTargetTransform(playerMovementView.Transform);
-            
-            //PlayerInventory
-            PlayerInventoryView playerInventoryView =
-                _playerInventoryViewFactory.Create(_player.Inventory, playerView.Inventory);
+            //PlayerView
+            _playerViewFactory.Create(_player, _playerCameraView);
             
             //TavernMood
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
             
             //TavernPickUpPoints
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BeerPickUpPointView, beerConfig);
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BreadPickUpPointView, breadConfig);
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, meatConfig);
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, soupConfig);
-            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, wineConfig);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BeerPickUpPointView, container.Beer);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.BreadPickUpPointView, container.Bread);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.MeatPickUpPointView, container.Meat);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.SoupPickUpPointView, container.Soup);
+            _tavernFoodPickUpPointViewFactory.Create(_rootGamePoints.WinePickUpPointView, container.Wine);
             
             //TODO запускать приходится здесь
             //FormService

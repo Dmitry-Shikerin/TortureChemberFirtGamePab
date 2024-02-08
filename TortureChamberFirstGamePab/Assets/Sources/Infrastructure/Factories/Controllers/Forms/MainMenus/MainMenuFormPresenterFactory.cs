@@ -16,6 +16,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
 
         public MainMenuFormPresenter Create(IMainMenuFormView mainMenuFormView)
         {
+            if (mainMenuFormView == null) 
+                throw new ArgumentNullException(nameof(mainMenuFormView));
+            
             return new MainMenuFormPresenter(mainMenuFormView, _formService);
         }
     }

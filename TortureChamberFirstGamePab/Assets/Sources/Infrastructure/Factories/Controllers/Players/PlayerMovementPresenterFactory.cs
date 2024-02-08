@@ -6,7 +6,10 @@ using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.PresentationInterfaces.Animations;
 
 namespace Sources.Infrastructure.Factories.Controllers.Players
@@ -14,16 +17,16 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
     public class PlayerMovementPresenterFactory
     {
         private readonly IInputService _inputService;
-        private readonly UpdateService _updateService;
-        private readonly CameraDirectionService _cameraDirectionService;
-        private readonly PlayerMovementService _playerMovementService;
+        private readonly IUpdateServiceChanger _updateService;
+        private readonly ICameraDirectionService _cameraDirectionService;
+        private readonly IMovementService _playerMovementService;
 
         public PlayerMovementPresenterFactory
         (
             IInputService inputService,
-            UpdateService updateService,
-            CameraDirectionService cameraDirectionService,
-            PlayerMovementService playerMovementService
+            IUpdateServiceChanger updateService,
+            ICameraDirectionService cameraDirectionService,
+            IMovementService playerMovementService
         )
         {
             _inputService = inputService ??
@@ -46,8 +49,10 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
         {
             if (playerMovement == null)
                 throw new ArgumentNullException(nameof(playerMovement));
+            
             if (playerMovementView == null)
                 throw new ArgumentNullException(nameof(playerMovementView));
+            
             if (playerAnimation == null)
                 throw new ArgumentNullException(nameof(playerAnimation));
 

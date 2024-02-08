@@ -53,7 +53,7 @@ namespace Sources.Infrastructure.Services.Stores
 
             var dataModels = storables.Select(storable => new DataModel()
             {
-                Type = storables.GetType().FullName,
+                Type = storable.GetType().FullName,
                 Data = JsonConvert.SerializeObject(storable)
             });
             

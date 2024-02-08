@@ -11,23 +11,19 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
     public class TavernDataService : IDataService<Tavern>
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.TavernDataKey.TavernMoodKey);
-        
-        public Tavern Load()
-        {
-            return new Tavern(LoadTavernMood(), LoadGamePlay());
-        }
+
+        public Tavern Load() =>
+            new(LoadTavernMood(), LoadGamePlay());
 
         public void Save(Tavern @object)
         {
             Save(@object.TavernMood);
-            Save(@object.GamePlay);
+            Save(@object.VisitorQuantity);
         }
 
-        public void Clear()
-        {
+        public void Clear() =>
             PlayerPrefs.DeleteAll();
-        }
-        
+
         private TavernMood LoadTavernMood()
         {
             string json = PlayerPrefs.GetString(Constant.TavernDataKey.TavernMoodKey, string.Empty);
@@ -36,33 +32,25 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             return new TavernMood(moodData);
         }
 
-        private GamePlay LoadGamePlay()
+        private VisitorQuantity LoadGamePlay()
         {
             string json = PlayerPrefs.GetString(Constant.TavernDataKey.GameplayKey, string.Empty);
             GameplayData gameplayData = JsonConvert.DeserializeObject<GameplayData>(json);
-            
-            return new GamePlay(gameplayData);
+
+            return new VisitorQuantity(gameplayData);
         }
 
         private void Save(TavernMood tavernMood)
         {
-            TavernMoodData tavernMoodData = new TavernMoodData()
-            {
-                MoodValue = tavernMood.TavernMoodValue,
-            };
-            
-            string json = JsonConvert.SerializeObject(tavernMoodData);
+            string json = JsonConvert.SerializeObject(
+                new TavernMoodData() { MoodValue = tavernMood.TavernMoodValue });
             PlayerPrefs.SetString(Constant.TavernDataKey.TavernMoodKey, json);
         }
 
-        private void Save(GamePlay gamePlay)
+        private void Save(VisitorQuantity visitorQuantity)
         {
-            GameplayData gameplayData = new GameplayData()
-            {
-                MaximumVisitorsCapacity = gamePlay.MaximumVisitorsCapacity,
-            };
-            
-            string json = JsonConvert.SerializeObject(gameplayData);
+            string json = JsonConvert.SerializeObject(
+                new GameplayData() { MaximumVisitorsCapacity = visitorQuantity.MaximumVisitorsQuantity });
             PlayerPrefs.SetString(Constant.TavernDataKey.GameplayKey, json);
         }
     }

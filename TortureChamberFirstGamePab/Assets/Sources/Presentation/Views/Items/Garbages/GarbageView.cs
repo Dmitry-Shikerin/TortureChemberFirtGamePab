@@ -4,7 +4,7 @@ using Sources.Controllers.Items;
 using Sources.Presentation.Triggers.Items;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.PresentationInterfaces.Views.Garbages;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.Items.Garbages

@@ -8,5 +8,6 @@ namespace Sources.Presentation.UI.Conteiners.MainMenu
         [field: SerializeField] public ButtonUI NewGameButton { get; private set; }
         [field: SerializeField] public ButtonUI LeaderboardButton { get; private set; }
         [field: SerializeField] public ButtonUI BackToMainMenuButton { get; private set; }
+        //TODO в какую папку положить контейнеры?
     }
 }

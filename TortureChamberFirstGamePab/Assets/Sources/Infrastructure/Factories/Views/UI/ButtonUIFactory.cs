@@ -18,6 +18,12 @@ namespace Sources.Infrastructure.Factories.Views.UI
 
         public IButtonUI Create(ButtonUI buttonUI, Action action)
         {
+            if (buttonUI == null)
+                throw new ArgumentNullException(nameof(buttonUI));
+            
+            if (action == null) 
+                throw new ArgumentNullException(nameof(action));
+            
             ButtonUIPresenter buttonUIPresenter = _buttonUIPresenterFactory.Create(buttonUI, action);
             buttonUI.Construct(buttonUIPresenter);
 

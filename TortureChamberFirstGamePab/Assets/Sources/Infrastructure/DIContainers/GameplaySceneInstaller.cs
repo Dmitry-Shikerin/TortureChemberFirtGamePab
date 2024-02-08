@@ -4,7 +4,6 @@ using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Items;
-using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
@@ -37,9 +36,17 @@ using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.Providers.Upgrades;
+using Sources.Infrastructure.Services.ShuffleServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.Infrastructure.Spawners;
+using Sources.InfrastructureInterfaces.Services;
+using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.ShuffleServices;
+using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views;
@@ -53,6 +60,8 @@ using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.PresentationInterfaces.Views.Items.Coins;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
@@ -78,8 +87,8 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
             //SDKServices
-            Container.Bind<VideoAdService>().AsSingle();
-            Container.Bind<LocalizationService>().FromInstance(
+            Container.Bind<IVideoAdService>().To<VideoAdService>().AsSingle();
+            Container.Bind<ILocalizationService>().To<LocalizationService>().FromInstance(
                 new LocalizationService(hud.LeanLocalization)).AsSingle();
 
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
@@ -101,19 +110,19 @@ namespace Sources.Infrastructure.DIContainers
             Container.BindInterfacesAndSelfTo<UpgradeProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<TavernProvider>().AsSingle();
 
-            Container.Bind<GamePlayService>().AsSingle();
+            Container.Bind<IQuantityService>().To<VisitorQuantityService>().AsSingle();
 
             Container.Bind<VisitorSpawnService>().AsSingle();
 
             Container.Bind<IInputService>().To<InputService>().AsSingle();
 
-            Container.Bind<VisitorPointRepositoryFactory>().AsSingle();
+            Container.Bind<VisitorPointsRepositoryFactory>().AsSingle();
 
             Container.Bind<ItemProvider<IItem>>().AsSingle();
 
             Container.Bind<ItemsFactory>().AsSingle();
 
-            Container.Bind<ProductShuffleService>().AsSingle();
+            Container.Bind<IShuffleService<IItem>>().To<ItemShuffleService>().AsSingle();
 
             Container.Bind<PlayerUpgradePresenterFactory>().AsSingle();
             Container.Bind<PlayerUpgradeViewFactory>().AsSingle();
@@ -124,9 +133,9 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<SeatPointPresenterFactory>().AsSingle();
             Container.Bind<SeatPointViewFactory>().AsSingle();
 
-            Container.Bind<UpdateService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<UpdateService>().AsSingle();
 
-            Container.Bind<CameraDirectionService>().AsSingle();
+            Container.Bind<ICameraDirectionService>().To<CameraDirectionService>().AsSingle();
 
             Container.Bind<ItemViewFactory>().AsSingle();
 
@@ -139,10 +148,10 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<TextUIPresenterFactory>().AsSingle();
             Container.Bind<TextUIFactory>().AsSingle();
 
-            Container.Bind<ObjectPool<CoinAnimationView>>().AsSingle();
-            Container.Bind<CoinAnimationPresenterFactory>().AsSingle();
-            Container.Bind<CoinAnimationViewFactory>().AsSingle();
-            Container.Bind<CoinSpawner>().AsSingle();
+            Container.Bind<ObjectPool<CoinView>>().AsSingle();
+            Container.Bind<CoinPresenterFactory>().AsSingle();
+            Container.Bind<CoinViewFactory>().AsSingle();
+            Container.Bind<ISpawner<ICoinView>>().To<CoinSpawner>().AsSingle();
 
             Container.Bind<TavernMoodPresenterFactory>().AsSingle();
             Container.Bind<TavernMoodViewFactory>().AsSingle();
@@ -150,9 +159,11 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<ObjectPool<GarbageView>>().AsSingle();
             Container.Bind<GarbagePresenterFactory>().AsSingle();
             Container.Bind<GarbageViewFactory>().AsSingle();
-            Container.Bind<GarbageSpawner>().AsSingle();
+            Container.Bind<ISpawner<IGarbageView>>().To<GarbageSpawner>().AsSingle();
 
             Container.Bind<ObjectPool<VisitorView>>().AsSingle();
+            Container.Bind<VisitorInventoryPresenterFactory>().AsSingle();
+            Container.Bind<VisitorInventoryViewFactory>().AsSingle();
             Container.Bind<VisitorPresenterFactory>().AsSingle();
             Container.Bind<VisitorViewFactory>().AsSingle();
 
@@ -168,9 +179,11 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<PlayerMovementCharacteristic>().FromResource(
                 Constant.PrefabPaths.PlayerMovementCharacteristic);
-            Container.Bind<PlayerMovementService>().AsSingle();
+            Container.Bind<IMovementService>().To<PlayerMovementService>().AsSingle();
             Container.Bind<PlayerMovementPresenterFactory>().AsSingle();
             Container.Bind<PlayerMovementViewFactory>().AsSingle();
+
+            Container.Bind<PlayerViewFactory>().AsSingle();
 
             Container.Bind<TavernPickUpPointPresenterFactory>().AsSingle();
             Container.Bind<TavernFoodPickUpPointViewFactory>().AsSingle();

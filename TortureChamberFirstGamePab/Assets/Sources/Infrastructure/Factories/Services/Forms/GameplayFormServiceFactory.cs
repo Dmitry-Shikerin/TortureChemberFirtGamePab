@@ -59,7 +59,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             
             _formService.Add(pauseForm);
 
-            //TODO зарегать эту формочку на триггер
             Form<UpgradeFormView, UpgradeFormPresenter> upgradeForm = 
                 new Form<UpgradeFormView, UpgradeFormPresenter>(
                 _upgradeFormPresenterFactory.Create, hud.GameplayFormsContainer.UpgradeFormView);

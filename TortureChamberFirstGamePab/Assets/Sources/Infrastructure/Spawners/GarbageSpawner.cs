@@ -2,19 +2,21 @@
 using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Factories.Views.Items.Garbeges;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Items.Garbages;
-using Sources.PresentationInterfaces.Views.Garbages;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 
-namespace Sources.Infrastructure.Builders
+namespace Sources.Infrastructure.Spawners
 {
-    public class GarbageSpawner
+    public class GarbageSpawner : ISpawner<IGarbageView>
     {
         private readonly GarbageViewFactory _garbageViewFactory;
         private readonly ObjectPool<GarbageView> _objectPool;
 
         public GarbageSpawner(GarbageViewFactory garbageViewFactory, ObjectPool<GarbageView> objectPool)
         {
-            _garbageViewFactory = garbageViewFactory ?? throw new ArgumentNullException(nameof(garbageViewFactory));
+            _garbageViewFactory = garbageViewFactory ?? 
+                                  throw new ArgumentNullException(nameof(garbageViewFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
         }
         

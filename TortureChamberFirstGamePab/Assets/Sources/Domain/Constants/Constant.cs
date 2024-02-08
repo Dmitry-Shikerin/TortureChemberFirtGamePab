@@ -56,7 +56,7 @@ namespace Sources.Domain.Constants
         public static class Visitors
         {
             public const float SpawnDelay = 5f;
-            public const int MaximumCapacity = 2;
+            public const int MaximumQuantity = 2;
             public const float EatFillingRate = 0.2f;
             public const float WaitingEatFillingRate = 0.02f;
         }
@@ -71,6 +71,8 @@ namespace Sources.Domain.Constants
             public const string ItemView = "Prefabs/ItemViews/";
             public const string VisitorView = "Prefabs/Visitor";
             public const string PlayerView = "Prefabs/Player";
+            public const string ItemConfigContainer = "Configs/Items/Containers/ItemConfigContainer";
+            public const string UpgradeConfigContainer = "Configs/Upgrades/Containers/UpgradeConfigContainer";
         }
         
         public static class UpgradeDataKey

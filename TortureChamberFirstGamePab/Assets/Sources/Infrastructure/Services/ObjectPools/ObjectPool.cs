@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sources.InfrastructureInterfaces.Services.ObjectPolls;
+using Sources.Presentation.Views;
 using Sources.Presentation.Views.ObjectPolls;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.ObjectPools
 {
-    public class ObjectPool<T> : IObjectPool where T : MonoBehaviour
+    public class ObjectPool<T> : IObjectPool where T : View
     {
         private readonly Queue<T> _objects = new Queue<T>();
         private readonly Transform _parent;
@@ -20,7 +21,7 @@ namespace Sources.Infrastructure.Services.ObjectPools
             _parent = new GameObject($"Pool of {typeof(T).Name}").transform;
         }
         
-        public TType Get<TType>() where TType : MonoBehaviour
+        public TType Get<TType>() where TType : View
         {
             if (_objects.Count == 0)
                 return null;

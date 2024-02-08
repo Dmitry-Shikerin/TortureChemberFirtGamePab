@@ -3,13 +3,14 @@ using System.Threading;
 using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Builders;
 using Sources.Infrastructure.Factories.Views.Items.Common;
+using Sources.Infrastructure.Spawners;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
-using Sources.PresentationInterfaces.Views.Garbages;
 using Sources.PresentationInterfaces.Views.Items.Coins;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -20,8 +21,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly VisitorInventory _visitorInventory;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly TavernMood _tavernMood;
-        private readonly GarbageSpawner _garbageSpawner;
-        private readonly CoinSpawner _coinSpawner;
+        private readonly ISpawner<IGarbageView> _garbageSpawner;
+        private readonly ISpawner<ICoinView> _coinSpawner;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         public VisitorEatFoodState
@@ -31,8 +32,8 @@ namespace Sources.Controllers.Visitors.States
             VisitorImageUIContainer visitorImageUIContainer,
             ItemViewFactory itemViewFactory,
             TavernMood tavernMood,
-            GarbageSpawner garbageSpawner,
-            CoinSpawner coinSpawner
+            ISpawner<IGarbageView> garbageSpawner,
+            ISpawner<ICoinView> coinSpawner
         )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -61,9 +62,9 @@ namespace Sources.Controllers.Visitors.States
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
             _visitor.SeatPointView.EatPointView.GetDirty();
-            ICoinAnimationView coinAnimationView = _coinSpawner.Spawn();
-            coinAnimationView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
-            coinAnimationView.SetCoinAmount(_visitorInventory.Item.Price);
+            ICoinView coinView = _coinSpawner.Spawn();
+            coinView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
+            coinView.SetCoinAmount(_visitorInventory.Item.Price);
         }
 
         private async void Eat(IItemView itemView)

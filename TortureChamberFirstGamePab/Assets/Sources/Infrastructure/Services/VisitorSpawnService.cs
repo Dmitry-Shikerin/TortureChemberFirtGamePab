@@ -29,14 +29,14 @@ namespace Sources.Infrastructure.Services
         private readonly CollectionRepository _collectionRepository;
 
         private TavernMood _tavernMood;
-        private GamePlay _gamePlay;
+        private VisitorQuantity _visitorQuantity;
 
         private CancellationTokenSource _cancellationTokenSource;
 
         public VisitorSpawnService
         (
             IPauseService pauseService,
-            IPrefabFactory prefabFactory,
+            IPrefabFactory prefabFactory, 
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
             ITavernProvider tavernProvider,
@@ -54,19 +54,9 @@ namespace Sources.Infrastructure.Services
                                     throw new ArgumentNullException(nameof(collectionRepository));
         }
 
-        private GamePlay GamePlay => _gamePlay ??= _tavernProvider.GamePlay;
+        private VisitorQuantity VisitorQuantity => _visitorQuantity ??= _tavernProvider.VisitorQuantity;
         private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
-        
-        private bool CanSpawn()
-        {
-            int freeSeatPoints = _collectionRepository
-                .Get<SeatPointView>()
-                .Count(seatPoint => seatPoint.IsOccupied == false);
-            
-            return _visitorCounter.ActiveVisitorsCount < GamePlay.MaximumVisitorsCapacity &&
-                   _visitorCounter.ActiveVisitorsCount < freeSeatPoints;
-        }
-        
+
         public async void SpawnVisitorAsync()
         {
             _cancellationTokenSource = new CancellationTokenSource();
@@ -86,6 +76,16 @@ namespace Sources.Infrastructure.Services
 
                 await _pauseService.Yield(_cancellationTokenSource.Token);
             }
+        }
+
+        private bool CanSpawn()
+        {
+            int freeSeatPoints = _collectionRepository
+                .Get<SeatPointView>()
+                .Count(seatPoint => seatPoint.IsOccupied == false);
+            
+            return _visitorCounter.ActiveVisitorsCount < VisitorQuantity.MaximumVisitorsQuantity &&
+                   _visitorCounter.ActiveVisitorsCount < freeSeatPoints;
         }
 
         public void Cancel() =>

@@ -9,6 +9,7 @@ using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using UnityEngine;
 using Zenject;
 
@@ -24,8 +25,8 @@ namespace Sources.Infrastructure.DIContainers
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();
             
-            Container.Bind<SDKInitializeService>().AsSingle();
-            Container.Bind<FocusService>().AsSingle();
+            Container.Bind<IInitializeService>().To<SDKInitializeService>().AsSingle();
+            Container.Bind<IFocusService>().To<FocusService>().AsSingle();
         }
     }
 }

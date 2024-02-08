@@ -6,6 +6,6 @@ namespace Sources.Infrastructure.Services.Providers.Taverns
     public interface ITavernProviderSetter
     {
         void SetTavernMood(TavernMood tavernMood);
-        void SetGameplay(GamePlay gamePlay);
+        void SetGameplay(VisitorQuantity visitorQuantity);
     }
 }

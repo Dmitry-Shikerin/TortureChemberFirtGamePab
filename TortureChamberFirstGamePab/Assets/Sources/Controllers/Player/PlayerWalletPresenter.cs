@@ -22,10 +22,10 @@ namespace Sources.Controllers.Player
         public void Remove(int quantity) => 
             _playerWallet.Remove(quantity);
 
-        public void AddCoins(ICoinAnimationView coinAnimationView)
+        public void AddCoins(ICoinView coinView)
         {
-            coinAnimationView.SetPlayerWalletView(_playerWalletView);
-            coinAnimationView.SetCanMove();
+            coinView.SetPlayerWalletView(_playerWalletView);
+            coinView.SetCanMove();
         }
     }
 }

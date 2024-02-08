@@ -9,6 +9,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI
     {
         public ButtonUIPresenter Create(IButtonUI buttonUI ,Action action)
         {
+            if (buttonUI == null) 
+                throw new ArgumentNullException(nameof(buttonUI));
+            
+            if (action == null) 
+                throw new ArgumentNullException(nameof(action));
+            
             return new ButtonUIPresenter(buttonUI ,action);
         }
     }

@@ -8,7 +8,9 @@ using Sources.Domain.Players.PlayerMovements;
 using Sources.Domain.Taverns;
 using Sources.Domain.Upgrades;
 using Sources.Domain.Upgrades.Configs;
+using Sources.Domain.Upgrades.Configs.Containers;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Repositoryes;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.Points;
@@ -61,7 +63,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             IDataService<Tavern> tavernDataService,
             ImageUIFactory imageUIFactory,
             IPrefabFactory prefabFactory,
-            GameplayFormServiceFactory gameplayFormServiceFactory
+            GameplayFormServiceFactory gameplayFormServiceFactory,
+            VisitorPointsRepositoryFactory visitorPointsRepositoryFactory,
+            PlayerViewFactory playerViewFactory
         ) :
             base
             (
@@ -91,7 +95,9 @@ namespace Sources.Infrastructure.Services.LoadServices
                 tavernDataService,
                 imageUIFactory,
                 prefabFactory,
-                gameplayFormServiceFactory
+                gameplayFormServiceFactory,
+                visitorPointsRepositoryFactory,
+                playerViewFactory
             ) 
         {}
         
@@ -108,16 +114,12 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected override PlayerUpgrade CreatePlayerUpgrade()
         {
-            UpgradeConfig charismaUpgradeConfig =
-                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Charisma);
-            UpgradeConfig inventoryUpgradeConfig =
-                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Inventory);
-            UpgradeConfig movementUpgradeConfig =
-                Resources.Load<UpgradeConfig>(Constant.UpgradeConfigPath.Movement);
+            UpgradeConfigContainer container = Resources
+                .Load<UpgradeConfigContainer>(Constant.PrefabPaths.UpgradeConfigContainer);
 
-            Upgrader charismaUpgrader = new Upgrader(charismaUpgradeConfig);
-            Upgrader inventoryUpgrader = new Upgrader(inventoryUpgradeConfig);
-            Upgrader movementUpgrader = new Upgrader(movementUpgradeConfig);
+            Upgrader charismaUpgrader = new Upgrader(container.Charisma);
+            Upgrader inventoryUpgrader = new Upgrader(container.Inventory);
+            Upgrader movementUpgrader = new Upgrader(container.Movement);
 
             PlayerUpgrade playerUpgrade = new PlayerUpgrade(charismaUpgrader,
                 inventoryUpgrader, movementUpgrader);
@@ -128,9 +130,9 @@ namespace Sources.Infrastructure.Services.LoadServices
         protected override Tavern CreateTavern()
         {
             TavernMood tavernMood = new TavernMood();
-            GamePlay gamePlay = new GamePlay();
+            VisitorQuantity visitorQuantity = new VisitorQuantity();
             
-            Tavern tavern = new Tavern(tavernMood, gamePlay);
+            Tavern tavern = new Tavern(tavernMood, visitorQuantity);
 
             return tavern;
         }

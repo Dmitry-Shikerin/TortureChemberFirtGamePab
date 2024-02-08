@@ -5,7 +5,9 @@ using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Services;
+using Sources.Infrastructure.Services.ShuffleServices;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
@@ -16,7 +18,7 @@ namespace Sources.Controllers.Visitors.States
     {
         private readonly Visitor _visitor;
         private readonly VisitorInventory _visitorInventory;
-        private readonly ProductShuffleService _productShuffleService;
+        private readonly IShuffleService<IItem> _shuffleService;
         private readonly TavernMood _tavernMood;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly IVisitorView _visitorView;
@@ -29,7 +31,7 @@ namespace Sources.Controllers.Visitors.States
             Visitor visitor,
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
-            ProductShuffleService productShuffleService,
+            IShuffleService<IItem> shuffleService,
             TavernMood tavernMood,
             IVisitorAnimation visitorAnimation,
             IVisitorView visitorView
@@ -38,8 +40,8 @@ namespace Sources.Controllers.Visitors.States
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ??
                                 throw new ArgumentNullException(nameof(visitorInventory));
-            _productShuffleService = productShuffleService ??
-                                     throw new ArgumentNullException(nameof(productShuffleService));
+            _shuffleService = shuffleService ??
+                                     throw new ArgumentNullException(nameof(shuffleService));
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _visitorAnimation = visitorAnimation ?? throw new ArgumentNullException(nameof(visitorAnimation));
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
@@ -51,7 +53,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            IItem item = _productShuffleService.GetRandomItem();
+            IItem item = _shuffleService.GetRandomItem();
 
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();

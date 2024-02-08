@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Player;
+using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Factories.Controllers.Players;
@@ -13,7 +14,7 @@ using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
-    public class PlayerMovementViewFactory : IFactory<IView>
+    public class PlayerMovementViewFactory
     {
         private readonly PlayerMovementPresenterFactory _playerMovementPresenterFactory;
         private readonly IPrefabFactory _prefabFactory;
@@ -75,14 +76,10 @@ namespace Sources.Infrastructure.Factories.Views.Players
                 throw new ArgumentNullException(nameof(playerAnimation));
 
             PlayerMovementView playerMovementView = 
-                _prefabFactory.Create<PlayerMovementView>("Prefabs/Player");
+                _prefabFactory.Create<PlayerMovementView>(Constant.PrefabPaths.PlayerView);
+
+            Create(playerMovement, playerInventory, playerAnimation);
             
-            PlayerMovementPresenter playerMovementPresenter =
-                _playerMovementPresenterFactory.Create(playerMovement,
-                    playerMovementView, playerAnimation, playerInventory);
-
-            playerMovementView.Construct(playerMovementPresenter);
-
             return playerMovementView;
         }
     }

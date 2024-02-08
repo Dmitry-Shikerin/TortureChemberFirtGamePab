@@ -2,42 +2,44 @@
 using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Views.Items.Coins;
 using Sources.Infrastructure.Services.ObjectPools;
+using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 
-namespace Sources.Infrastructure.Builders
+namespace Sources.Infrastructure.Spawners
 {
-    public class CoinSpawner
+    //TODO можно обобщить эти спавнеры
+    public class CoinSpawner : ISpawner<ICoinView>
     {
-        private readonly CoinAnimationViewFactory _coinAnimationViewFactory;
-        private readonly ObjectPool<CoinAnimationView> _objectPool;
+        private readonly CoinViewFactory _coinViewFactory;
+        private readonly ObjectPool<CoinView> _objectPool;
 
         public CoinSpawner
         (
-            CoinAnimationViewFactory coinAnimationViewFactory,
-            ObjectPool<CoinAnimationView> objectPool
+            CoinViewFactory coinViewFactory,
+            ObjectPool<CoinView> objectPool
         )
         {
-            _coinAnimationViewFactory = coinAnimationViewFactory ??
-                                        throw new ArgumentNullException(nameof(coinAnimationViewFactory));
+            _coinViewFactory = coinViewFactory ??
+                                        throw new ArgumentNullException(nameof(coinViewFactory));
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
         }
 
-        public ICoinAnimationView Spawn()
+        public ICoinView Spawn()
         {
             Coin coin = new Coin();
 
-            return CreateFromPool(coin) ?? _coinAnimationViewFactory.Create(coin);
+            return CreateFromPool(coin) ?? _coinViewFactory.Create(coin);
         }
 
-        private ICoinAnimationView CreateFromPool(Coin coin)
+        private ICoinView CreateFromPool(Coin coin)
         {
-            CoinAnimationView coinAnimationView = _objectPool.Get<CoinAnimationView>();
+            CoinView coinView = _objectPool.Get<CoinView>();
 
-            if (coinAnimationView == null)
+            if (coinView == null)
                 return null;
 
-            return _coinAnimationViewFactory.Create(coin, coinAnimationView);
+            return _coinViewFactory.Create(coin, coinView);
         }
     }
 }

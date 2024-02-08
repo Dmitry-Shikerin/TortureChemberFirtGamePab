@@ -41,8 +41,8 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<LeaderboardElementViewContainer>()
                 .FromInstance(_mainMenuHUD.LeaderboardElementViewContainer).AsSingle();
-            Container.Bind<YandexLeaderboardInitializeService>().AsSingle();
-            Container.Bind<LocalizationService>().FromInstance
+            Container.Bind<ILeaderboardInitializeService>().To<YandexLeaderboardInitializeService>().AsSingle();
+            Container.Bind<ILocalizationService>().To<LocalizationService>().FromInstance
                 (new LocalizationService(_mainMenuHUD.LeanLocalization)).AsSingle();
 
             Container.Bind<MainMenuFormServiceFactory>().AsSingle();

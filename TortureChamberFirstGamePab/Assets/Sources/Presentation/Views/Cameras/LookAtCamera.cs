@@ -9,6 +9,7 @@ namespace Sources.Presentation.Views.Cameras
         private void Start() =>
             _mainCamera = Camera.main;
 
+        //TODO исправить это безобразие
         private void Update()
         {
             Quaternion rotation = _mainCamera.transform.rotation;

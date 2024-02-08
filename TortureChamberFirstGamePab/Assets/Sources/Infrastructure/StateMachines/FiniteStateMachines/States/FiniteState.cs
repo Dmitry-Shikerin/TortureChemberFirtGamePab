@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
+using Sources.InfrastructureInterfaces.StateMachines.FiniteStateMachinew.Transitions;
 
 namespace Sources.Infrastructure.StateMachines.FiniteStateMachines.States
 {

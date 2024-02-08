@@ -7,7 +7,7 @@ using Sources.Presentation.Views.YandexSDC.MyVariant;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class YandexLeaderboardInitializeService
+    public class YandexLeaderboardInitializeService : ILeaderboardInitializeService
     {
         private readonly LeaderboardElementViewFactory _leaderboardElementViewFactory;
         private readonly LeaderboardElementViewContainer _leaderboardElementViewContainer;

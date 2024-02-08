@@ -1,11 +1,12 @@
 ﻿using System;
 using MyProject.Sources.Presentation.Views;
+using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.Presentation.Views.Player;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Cameras
 {
-    public class CameraDirectionService
+    public class CameraDirectionService : ICameraDirectionService
     {
         private readonly PlayerCameraView _playerCameraView;
 

@@ -11,6 +11,8 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
+using Sources.InfrastructureInterfaces.Services.ScenServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 
 namespace Sources.Infrastructure.Factories.Scenes
 {
@@ -19,10 +21,10 @@ namespace Sources.Infrastructure.Factories.Scenes
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
         private readonly FormService _formService;
-        private readonly YandexLeaderboardInitializeService _yandexLeaderboardInitializeService;
-        private readonly FocusService _focusService;
-        private readonly SDKInitializeService _sdkInitializeService;
-        private readonly SceneService _sceneService;
+        private readonly ILeaderboardInitializeService _yandexLeaderboardInitializeService;
+        private readonly IFocusService _focusService;
+        private readonly IInitializeService _sdkInitializeService;
+        private readonly ISceneService _sceneService;
         private readonly IDataService<Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
@@ -35,10 +37,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
             FormService formService,
-            YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
-            FocusService focusService,
-            SDKInitializeService sdkInitializeService,
-            SceneService sceneService,
+            ILeaderboardInitializeService yandexLeaderboardInitializeService,
+            IFocusService focusService,
+            IInitializeService sdkInitializeService,
+            ISceneService sceneService,
             IDataService<Player> dataService,
             MainMenuHUD mainMenuHUD,
             ButtonUIFactory buttonUIFactory,
@@ -67,6 +69,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
+        //TODO пробежатся по желтым варнингам
         public async UniTask<IScene> Create(object payload)
         {
             return new MainMenuScene

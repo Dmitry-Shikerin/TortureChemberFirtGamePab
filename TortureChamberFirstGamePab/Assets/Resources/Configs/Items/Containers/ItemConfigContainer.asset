@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0375f172ee6c41a3a4f779b169ae7b15, type: 3}
+  m_Name: ItemConfigContainer
+  m_EditorClassIdentifier: 
+  <Beer>k__BackingField: {fileID: 11400000, guid: 818c56004c2282d418bb47c6d2d5276e, type: 2}
+  <Bread>k__BackingField: {fileID: 11400000, guid: 2f2f96a32630de844afc7d073867dfce, type: 2}
+  <Meat>k__BackingField: {fileID: 11400000, guid: fa4b6dc2c8d3cec478feb87237979eff, type: 2}
+  <Soup>k__BackingField: {fileID: 11400000, guid: e82414bdf7c6f0b40b59791203aaf175, type: 2}
+  <Wine>k__BackingField: {fileID: 11400000, guid: e2f02b1d14e1b7c48b0832a8ae967993, type: 2}

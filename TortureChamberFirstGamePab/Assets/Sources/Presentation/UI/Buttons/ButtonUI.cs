@@ -17,14 +17,10 @@ namespace Sources.Presentation.UI
         public void RemoveListener(UnityAction action) =>
             _button.onClick.RemoveListener(action);
 
-        public void Enable()
-        {
+        public void Enable() => 
             _button.enabled = true;
-        }
 
-        public void Disable()
-        {
+        public void Disable() => 
             _button.enabled = false;
-        }
     }
 }

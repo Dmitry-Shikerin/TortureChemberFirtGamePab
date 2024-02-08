@@ -1,25 +1,24 @@
 ﻿using System;
 using MyProject.Sources.PresentationInterfaces.Views;
+using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.Presentation.Triggers.Taverns;
-using Sources.Presentation.Views.Taverns;
-using Sources.Presentation.Views.Taverns.UpgradePoints;
+using Sources.Presentation.Views.Forms.Gameplays;
 
 namespace Sources.Infrastructure.Services.UpgradeServices
 {
     public class TavernUpgradePointService
     {
-        private readonly TavernUpgradeTrigger _triggerUpgradeTrigger;
-        private readonly TavernUpgradePointView _tavernUpgradePointView;
+        private readonly IFormService _formService;
+        private readonly UpgradeFormView _upgradeFormView;
 
-        public TavernUpgradePointService(TavernUpgradeTrigger tavernUpgradeTrigger,
-            TavernUpgradePointView tavernUpgradePointView)
+        private readonly TavernUpgradeTrigger _triggerUpgradeTrigger;
+
+        public TavernUpgradePointService(TavernUpgradeTrigger tavernUpgradeTrigger, IFormService formService)
         {
+            _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _triggerUpgradeTrigger = tavernUpgradeTrigger
                 ? tavernUpgradeTrigger
                 : throw new ArgumentNullException(nameof(tavernUpgradeTrigger));
-            _tavernUpgradePointView = tavernUpgradePointView
-                ? tavernUpgradePointView
-                : throw new ArgumentNullException(nameof(tavernUpgradePointView));
         }
 
         public void OnEnable()
@@ -34,10 +33,11 @@ namespace Sources.Infrastructure.Services.UpgradeServices
             _triggerUpgradeTrigger.Exited -= OnExit;
         }
 
+        //TODO вот таак вот сжулил
         private void OnEnter(IPlayerMovementView playerMovementView) => 
-            _tavernUpgradePointView.Show();
+            _formService.Show<UpgradeFormView>();
 
-        private void OnExit(IPlayerMovementView playerMovementView) =>
-            _tavernUpgradePointView.Hide();
+        private void OnExit(IPlayerMovementView playerMovementView) => 
+            _formService.Show<HudFormView>();
     }
 }

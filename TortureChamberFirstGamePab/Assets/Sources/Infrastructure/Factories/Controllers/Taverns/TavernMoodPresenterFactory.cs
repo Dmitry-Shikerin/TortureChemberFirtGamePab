@@ -15,14 +15,31 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
 
         public TavernMoodPresenterFactory(IUpgradeProvider upgradeProvider)
         {
-            _upgradeProvider = upgradeProvider ?? throw new ArgumentNullException(nameof(upgradeProvider));
+            _upgradeProvider = upgradeProvider ??
+                               throw new ArgumentNullException(nameof(upgradeProvider));
         }
-        
-        
-        
-        public TavernMoodPresenter Create(TavernMood tavernMood, ITavernMoodView tavernMoodView, IImageUI imageUI)
+
+
+        public TavernMoodPresenter Create
+        (
+            TavernMood tavernMood,
+            ITavernMoodView tavernMoodView,
+            IImageUI imageUI
+        )
         {
-            return new TavernMoodPresenter(tavernMood, tavernMoodView, imageUI, _upgradeProvider.Charisma);
+            if (tavernMood == null)
+                throw new ArgumentNullException(nameof(tavernMood));
+
+            if (tavernMoodView == null)
+                throw new ArgumentNullException(nameof(tavernMoodView));
+
+            return new TavernMoodPresenter
+            (
+                tavernMood,
+                tavernMoodView,
+                imageUI,
+                _upgradeProvider.Charisma
+            );
         }
     }
 }

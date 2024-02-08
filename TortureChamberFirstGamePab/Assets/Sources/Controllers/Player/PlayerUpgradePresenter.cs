@@ -30,7 +30,6 @@ namespace Sources.Controllers.Player
             UpdateCurrentLevelUpgrade();
         }
 
-        //TODO добавить плагин для иерархии
         public void Upgrade()
         {
             try

@@ -6,15 +6,16 @@ using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Factories.Views;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
-using Sources.PresentationInterfaces.Views.Garbages;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Unity.VisualScripting;
 
 namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
 {
-    public class GarbageViewFactory
+    public class GarbageViewFactory : IViewFactory<IGarbageView, GarbageView, Garbage>
     {
         private readonly GarbagePresenterFactory _garbagePresenterFactory;
         private readonly ObjectPool<GarbageView> _objectPool;

@@ -2,6 +2,6 @@
 {
     public interface IEnterable
     {
-        void Enter(object payload);
+        void Enter(object payload = null);
     }
 }

@@ -540,7 +540,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294604660}
-  - component: {fileID: 294604661}
   m_Layer: 5
   m_Name: LeaderboardForm
   m_TagString: Untagged
@@ -570,14 +569,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &294604661
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 294604659}
-  m_CullTransparentMesh: 1
 --- !u!114 &477035584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,7 +1024,7 @@ GameObject:
   m_Component:
   - component: {fileID: 958991945}
   m_Layer: 5
-  m_Name: TranslationsTexts
+  m_Name: TranslationsTexts_Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2440,7 +2431,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1517449536}
-  - component: {fileID: 1517449537}
   m_Layer: 5
   m_Name: MainMenuForm
   m_TagString: Untagged
@@ -2470,14 +2460,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1517449537
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517449535}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1545899794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2943,9 +2925,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1683253994}
-  - component: {fileID: 1683253995}
   m_Layer: 5
-  m_Name: Lenguages
+  m_Name: Lenguages_Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2973,14 +2954,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1683253995
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1683253993}
-  m_CullTransparentMesh: 1
 --- !u!1 &1747606710
 GameObject:
   m_ObjectHideFlags: 0
@@ -4576,7 +4549,7 @@ GameObject:
   - component: {fileID: 1672572091483884230}
   - component: {fileID: 882409211918961602}
   m_Layer: 5
-  m_Name: Background_frame
+  m_Name: BackgroundFrame_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4739,7 +4712,7 @@ GameObject:
   - component: {fileID: 2696665612258725134}
   - component: {fileID: 477035584}
   m_Layer: 5
-  m_Name: BackGround_Panel
+  m_Name: BackGround_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5991,8 +5964,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1908402450}
-  - {fileID: 1768317248}
-  - {fileID: 1801229016915488092}
-  - {fileID: 1545899794}
-  - {fileID: 3140302801735914346}
   - {fileID: 758797649}
+  - {fileID: 1768317248}
+  - {fileID: 1545899794}
+  - {fileID: 1801229016915488092}
+  - {fileID: 3140302801735914346}

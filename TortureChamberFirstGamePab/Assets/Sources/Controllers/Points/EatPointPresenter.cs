@@ -9,7 +9,7 @@ namespace Sources.Controllers.Points
         private readonly IEatPointView _eatPointView;
         private readonly EatPoint _eatPoint;
 
-        public EatPointPresenter(IEatPointView eatPointView, EatPoint eatPoint)
+        public EatPointPresenter(EatPoint eatPoint, IEatPointView eatPointView)
         {
             _eatPointView = eatPointView ?? throw new ArgumentNullException(nameof(eatPointView));
             _eatPoint = eatPoint ?? throw new ArgumentNullException(nameof(eatPoint));

@@ -20,7 +20,7 @@ namespace Sources.Infrastructure.Factories.Views.Points
         public ISeatPointView Create(SeatPointView seatPointView)
         {
             SeatPoint seatPoint = new SeatPoint();
-            SeatPointPresenter seatPointPresenter = _seatPointPresenterFactory.Create(seatPointView, seatPoint);
+            SeatPointPresenter seatPointPresenter = _seatPointPresenterFactory.Create(seatPoint, seatPointView);
             
             seatPointView.Construct(seatPointPresenter);
 

@@ -35,6 +35,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
         {
             if (playerInventoryView == null)
                 throw new ArgumentNullException(nameof(playerInventoryView));
+            
             if (playerInventory == null)
                 throw new ArgumentNullException(nameof(playerInventory));
 

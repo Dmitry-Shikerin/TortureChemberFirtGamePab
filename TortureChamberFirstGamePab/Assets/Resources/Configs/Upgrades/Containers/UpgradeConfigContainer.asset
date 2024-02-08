@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c763d8da74d64a2fbe35afb154f8da40, type: 3}
+  m_Name: UpgradeConfigContainer
+  m_EditorClassIdentifier: 
+  <Charisma>k__BackingField: {fileID: 11400000, guid: a28f9d4133720ab4ba9ca988940c3dc0, type: 2}
+  <Inventory>k__BackingField: {fileID: 11400000, guid: e4784bd2fcde1704081bc0a19ad1f66d, type: 2}
+  <Movement>k__BackingField: {fileID: 11400000, guid: b882d3e9125eb7340a41504acdd5eeb8, type: 2}

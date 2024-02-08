@@ -4,7 +4,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Items.Garbages;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.PresentationInterfaces.Views.Garbages;
+using Sources.PresentationInterfaces.Views.Items.Garbages;
 
 namespace Sources.Controllers.Items
 {
@@ -43,7 +43,8 @@ namespace Sources.Controllers.Items
             {
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
                     _garbageView.FillingRate, _cancellationTokenSource.Token);
-                _pickUpPointUIImages.BackgroundImage.SetFillAmount(1);
+                
+                _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
                 _garbageView.Destroy();
                 _garbage.EatPointView.Clean();
             }

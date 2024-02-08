@@ -15,6 +15,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
         {
             if (visitorInventoryView == null)
                 throw new ArgumentNullException(nameof(visitorInventoryView));
+            
             if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
 

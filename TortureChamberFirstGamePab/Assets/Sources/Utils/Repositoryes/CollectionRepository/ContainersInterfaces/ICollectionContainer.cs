@@ -1,4 +1,4 @@
-﻿namespace Sources.Utils.Repositoryes.ContainersInterfaces
+﻿namespace Sources.Utils.Repositoryes.CollectionRepository.ContainersInterfaces
 {
     public interface ICollectionContainer
     {

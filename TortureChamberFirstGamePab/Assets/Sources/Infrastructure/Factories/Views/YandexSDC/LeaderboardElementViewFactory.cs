@@ -29,6 +29,12 @@ namespace Sources.Infrastructure.Factories.Views.YandexSDC
         public ILeaderboardElementView Create(LeaderboardPlayer leaderboardPlayer, 
             LeaderboardElementView leaderboardElementView)
         {
+            if (leaderboardPlayer == null) 
+                throw new ArgumentNullException(nameof(leaderboardPlayer));
+            
+            if (leaderboardElementView == null) 
+                throw new ArgumentNullException(nameof(leaderboardElementView));
+            
             LeaderboardElementPresenter leaderboardElementPresenter =
                 _leaderboardElementPresenterFactory.Create(leaderboardPlayer, leaderboardElementView);
             

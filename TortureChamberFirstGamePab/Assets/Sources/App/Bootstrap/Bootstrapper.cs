@@ -10,7 +10,7 @@ namespace Sources.App.Bootstrap
     public class Bootstrapper : MonoBehaviour
     {
         private AppCore _appCore;
-        private SDKInitializeService _sdkInitializeService;
+        private IInitializeService _sdkInitializeService;
 
         private async void Awake()
         {
@@ -20,7 +20,7 @@ namespace Sources.App.Bootstrap
         }
 
         [Inject]
-        private void Construct(SDKInitializeService sdkInitializeService)
+        private void Construct(IInitializeService sdkInitializeService)
         {
             _sdkInitializeService = sdkInitializeService ??
                                     throw new NullReferenceException(nameof(sdkInitializeService));

@@ -35,7 +35,6 @@ namespace Sources.Controllers.Taverns
             _itemConfig = itemConfig ? itemConfig : throw new ArgumentNullException(nameof(itemConfig));
         }
 
-
         public override void Enable() => 
             _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
 
@@ -45,6 +44,7 @@ namespace Sources.Controllers.Taverns
             {
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
                     _tavernFudPickUpPointView.FillingRate, cancellationToken);
+                
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
                 return _itemsFactory.Create<TItem>();

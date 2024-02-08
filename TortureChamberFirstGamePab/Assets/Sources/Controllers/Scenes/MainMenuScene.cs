@@ -10,6 +10,8 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.InfrastructureInterfaces.Services.ScenServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.MainMenus;
 using Sources.PresentationInterfaces.UI;
@@ -22,21 +24,21 @@ namespace Sources.Controllers.Scenes
 
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
-        private readonly YandexLeaderboardInitializeService _yandexLeaderboardInitializeService;
-        private readonly FocusService _focusService;
-        private readonly SDKInitializeService _sdkInitializeService;
-        private readonly SceneService _sceneService;
+        private readonly ILeaderboardInitializeService _yandexLeaderboardInitializeService;
+        private readonly IFocusService _focusService;
+        private readonly IInitializeService _sdkInitializeService;
+        private readonly ISceneService _sceneService;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
 
         public MainMenuScene
         (
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
-            YandexLeaderboardInitializeService yandexLeaderboardInitializeService,
-            FocusService focusService,
-            SDKInitializeService sdkInitializeService,
+            ILeaderboardInitializeService yandexLeaderboardInitializeService,
+            IFocusService focusService,
+            IInitializeService sdkInitializeService,
             MainMenuHUD hud,
-            SceneService sceneService,
+            ISceneService sceneService,
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
@@ -62,10 +64,6 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
-            //TODO сделать остальные формочки по аналогии
-            //TODO сделать MAinMenuFormServiceFactory и ретернуть IFormService
-            //TODO создать его в фабрике мейнмену
-
             //TODO как то так
             _mainMenuFormServiceFactory
                 .Create()

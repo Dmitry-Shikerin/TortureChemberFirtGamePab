@@ -4,8 +4,10 @@ using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.Movement;
-using Sources.InfrastructureInterfaces.Services;
+using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
+using Sources.InfrastructureInterfaces.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.PresentationInterfaces.Animations;
 using UnityEngine;
 
@@ -17,10 +19,10 @@ namespace Sources.Controllers.Player
         private readonly IPlayerAnimation _playerAnimation;
         private readonly PlayerMovement _playerMovement;
         private readonly IInputService _inputService;
-        private readonly IUpdateService _updateService;
-        private readonly CameraDirectionService _cameraDirectionService;
+        private readonly IUpdateServiceChanger _updateService;
+        private readonly ICameraDirectionService _cameraDirectionService;
         private readonly PlayerInventory _playerInventory;
-        private readonly PlayerMovementService _playerMovementService;
+        private readonly IMovementService _playerMovementService;
 
         public PlayerMovementPresenter
         (
@@ -28,10 +30,10 @@ namespace Sources.Controllers.Player
             IPlayerAnimation playerAnimation,
             PlayerMovement playerMovement,
             IInputService inputService,
-            IUpdateService updateService,
-            CameraDirectionService cameraDirectionService,
+            IUpdateServiceChanger updateService,
+            ICameraDirectionService cameraDirectionService,
             PlayerInventory playerInventory,
-            PlayerMovementService playerMovementService
+            IMovementService playerMovementService
         )
         {
             _playerMovementView = playerMovementView ??

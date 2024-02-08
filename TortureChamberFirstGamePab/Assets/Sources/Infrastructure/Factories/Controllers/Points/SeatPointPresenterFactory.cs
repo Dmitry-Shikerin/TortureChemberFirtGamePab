@@ -8,7 +8,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Points
 {
     public class SeatPointPresenterFactory
     {
-        public SeatPointPresenter Create(ISeatPointView seatPointView, SeatPoint seatPoint)
+        public SeatPointPresenter Create(SeatPoint seatPoint, ISeatPointView seatPointView)
         {
             if (seatPointView == null) 
                 throw new ArgumentNullException(nameof(seatPointView));
@@ -18,8 +18,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Points
             
             return new SeatPointPresenter
             (
-                seatPointView,
-                seatPoint
+                seatPoint,
+                seatPointView
             );
         }
     }

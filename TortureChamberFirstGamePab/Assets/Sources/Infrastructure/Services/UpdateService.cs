@@ -1,10 +1,11 @@
 ﻿using System;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 
 namespace Sources.Infrastructure.Services
 {
-    public class UpdateService : IUpdateService
+    public class UpdateService : IUpdateService, IUpdateServiceChanger
     {
         private readonly IPauseService _pauseService;
 

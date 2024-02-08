@@ -20,7 +20,7 @@ namespace Sources.Infrastructure.Factories.Views.Points
         public IEatPointView Create(EatPointView eatPointView)
         {
             EatPoint eatPoint = new EatPoint();
-            EatPointPresenter eatPointPresenter = new EatPointPresenter(eatPointView, eatPoint);
+            EatPointPresenter eatPointPresenter = _eatPointPresenterFactory.Create(eatPoint, eatPointView);
             
             eatPointView.Construct(eatPointPresenter);
 

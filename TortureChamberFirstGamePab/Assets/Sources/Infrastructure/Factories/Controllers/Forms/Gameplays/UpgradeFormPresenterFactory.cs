@@ -16,6 +16,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public UpgradeFormPresenter Create(IUpgradeFormView upgradeFormView)
         {
+            if (upgradeFormView == null)
+                throw new ArgumentNullException(nameof(upgradeFormView));
+            
             return new UpgradeFormPresenter(upgradeFormView, _formService);
         }
     }
