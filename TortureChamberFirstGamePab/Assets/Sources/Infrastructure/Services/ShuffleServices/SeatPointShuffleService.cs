@@ -18,10 +18,6 @@ namespace Sources.Infrastructure.Services.ShuffleServices
                                     throw new ArgumentNullException(nameof(collectionRepository));
         }
 
-        //TODO что тут за варнинг
-        // protected List<SeatPointView> Items => _items ??= new List<SeatPointView>(
-        //     _collectionRepository.Get<SeatPointView>());
-        //
         protected override List<SeatPointView> GetItems()
         {
             return _items ??= new List<SeatPointView>(_collectionRepository.Get<SeatPointView>());

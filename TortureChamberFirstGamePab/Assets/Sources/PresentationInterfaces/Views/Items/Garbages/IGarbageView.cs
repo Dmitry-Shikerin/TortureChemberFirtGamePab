@@ -1,4 +1,5 @@
 ﻿using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.PresentationInterfaces.Views.Points;
 using UnityEngine;
 
 namespace Sources.PresentationInterfaces.Views.Items.Garbages

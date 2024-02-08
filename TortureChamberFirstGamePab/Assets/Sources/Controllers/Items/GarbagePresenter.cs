@@ -5,6 +5,7 @@ using Sources.Domain.Items.Garbages;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
+using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Controllers.Items
 {

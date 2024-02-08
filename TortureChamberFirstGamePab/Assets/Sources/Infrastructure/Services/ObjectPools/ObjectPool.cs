@@ -29,10 +29,10 @@ namespace Sources.Infrastructure.Services.ObjectPools
             if (_objects.Dequeue() is not TType @object)
                 return null;
 
-            @object.transform.SetParent(null);
+            @object.SetParent(null);
             ObjectCountChanged?.Invoke(_objects.Count);
             
-            @object.gameObject.SetActive(true);
+            @object.Show();
             
             return @object;
         }

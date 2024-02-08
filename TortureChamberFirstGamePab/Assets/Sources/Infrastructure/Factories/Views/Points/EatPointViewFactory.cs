@@ -4,6 +4,7 @@ using Sources.Domain.Points;
 using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Infrastructure.Factories.Views.Points
 {

@@ -1,5 +1,6 @@
 using Sources.Controllers.Points;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.PresentationInterfaces.Views.Points;
 using UnityEngine;
 
 namespace Sources.Presentation.Views.GamePoints.VisitorsPoints
@@ -10,8 +11,8 @@ namespace Sources.Presentation.Views.GamePoints.VisitorsPoints
         public Quaternion Rotation => transform.rotation;
         public bool IsClear => Presenter.IsClear;
         
-        public void GetDirty() => 
-            Presenter.GetDirty();
+        public void SetDirty() => 
+            Presenter.SetDirty();
 
         public void Clean() => 
             Presenter.Clean();

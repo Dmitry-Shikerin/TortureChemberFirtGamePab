@@ -61,7 +61,7 @@ namespace Sources.Controllers.Visitors.States
             IGarbageView garbageView = _garbageSpawner.Spawn();
             garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
-            _visitor.SeatPointView.EatPointView.GetDirty();
+            _visitor.SeatPointView.EatPointView.SetDirty();
             ICoinView coinView = _coinSpawner.Spawn();
             coinView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);

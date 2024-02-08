@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sources.DomainInterfaces.Items;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
-using Sources.Utils.Repositoryes.ItemRepository;
 using Random = UnityEngine.Random;
 
 namespace Sources.Infrastructure.Services.ShuffleServices
@@ -12,10 +10,12 @@ namespace Sources.Infrastructure.Services.ShuffleServices
     {
         protected List<T> Items { get; private set; }
 
+        //TODO возможно переделать на экстеншн
         public T GetRandomItem()
         {
             //TODO как это исправить
-            CheckAvailabilityItems();
+            if (Items == null) 
+                Items = GetItems();
             
             Shuffle();
 
@@ -29,16 +29,8 @@ namespace Sources.Infrastructure.Services.ShuffleServices
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                int randomItem = Random.Range(0 ,Items.Count);
+                int randomItem = Random.Range(0 , Items.Count);
                 (Items[randomItem], Items[i]) = (Items[i], Items[randomItem]);
-            }
-        }
-
-        private void CheckAvailabilityItems()
-        {
-            if (Items == null)
-            {
-                Items = GetItems();
             }
         }
 

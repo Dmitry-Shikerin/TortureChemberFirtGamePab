@@ -14,9 +14,6 @@ namespace Sources.Infrastructure.Services.ShuffleServices
         {
             _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
         }
-
-        //TODO что тут за варнинг
-        // protected List<IItem> Items => _items ??= new List<IItem>(_itemProvider.Collection);
         
         protected override List<IItem> GetItems() => 
             _items ??= new List<IItem>(_itemProvider.Collection);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
+namespace Sources.PresentationInterfaces.Views.Points
 {
     public interface IEatPointView
     {
@@ -9,6 +9,6 @@ namespace Sources.Presentation.Voids.GamePoints.VisitorsPoints
         public bool IsClear { get; }
         
         void Clean();
-        void GetDirty();
+        void SetDirty();
     }
 }

@@ -7,14 +7,14 @@ using Sources.PresentationInterfaces.Views;
 
 namespace Sources.Infrastructure.Spawners.Generic
 {
-    public abstract class SpawnerBase<TViewInterface,TView, TModel> : ISpawner<TViewInterface>
+    public abstract class SpawnerBase<TViewInterface, TView, TModel> : ISpawner<TViewInterface>
         where TView : View, TViewInterface
         where TViewInterface : IView
     {
         private readonly IViewFactory<TViewInterface, TView, TModel> _viewFactory;
         private readonly ObjectPool<TView> _objectPool;
 
-        public SpawnerBase
+        protected SpawnerBase
         (
             IViewFactory<TViewInterface, TView, TModel> viewFactory,
             ObjectPool<TView> objectPool
@@ -39,6 +39,7 @@ namespace Sources.Infrastructure.Spawners.Generic
             if (coinView == null)
                 return null;
 
+            //TODO пришлось скастить иначе не мог вернуть нулл
             return (TView)_viewFactory.Create(model, coinView);
         }
 

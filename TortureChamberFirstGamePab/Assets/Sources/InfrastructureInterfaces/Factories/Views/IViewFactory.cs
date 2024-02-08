@@ -14,7 +14,7 @@ namespace Sources.InfrastructureInterfaces.Factories.Views
         TView Create();
         TView Create(TView view);
     }
-
+    
     public interface IViewFactory<out TViewInterface, in TView, in TModel> : IViewFactory
         where TView : View, TViewInterface
         where TViewInterface : IView

@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Items.Garbages;
+﻿using Sources.Domain.Items.Coins;
+using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Views;
 using Sources.Presentation.Views.Items.Garbages;
@@ -6,9 +7,9 @@ using Sources.PresentationInterfaces.Views.Items.Garbages;
 
 namespace Sources.Infrastructure.Spawners.Generic
 {
-    public class GarbageSpawnerGeneric : SpawnerBase<IGarbageView, GarbageView, Garbage>
+    public class GarbageSpawner : SpawnerBase<IGarbageView, GarbageView, Garbage>
     {
-        public GarbageSpawnerGeneric
+        public GarbageSpawner
         (
             IViewFactory<IGarbageView, GarbageView, Garbage> viewFactory,
             ObjectPool<GarbageView> objectPool

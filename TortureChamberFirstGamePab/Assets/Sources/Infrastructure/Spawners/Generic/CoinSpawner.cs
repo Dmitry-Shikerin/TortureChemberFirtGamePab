@@ -6,9 +6,9 @@ using Sources.PresentationInterfaces.Views.Items.Coins;
 
 namespace Sources.Infrastructure.Spawners.Generic
 {
-    public class CoinSpawnerGeneric : SpawnerBase<ICoinView, CoinView, Coin>
+    public class CoinSpawner : SpawnerBase<ICoinView, CoinView, Coin>
     {
-        public CoinSpawnerGeneric
+        public CoinSpawner
         (
             IViewFactory<ICoinView, CoinView, Coin> viewFactory,
             ObjectPool<CoinView> objectPool

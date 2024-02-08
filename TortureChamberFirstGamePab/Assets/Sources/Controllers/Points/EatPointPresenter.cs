@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.Domain.Points;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Controllers.Points
 {
@@ -20,7 +21,7 @@ namespace Sources.Controllers.Points
         public void Clean() => 
             _eatPoint.Clean();
 
-        public void GetDirty() => 
+        public void SetDirty() => 
             _eatPoint.SetDirty();
     }
 }

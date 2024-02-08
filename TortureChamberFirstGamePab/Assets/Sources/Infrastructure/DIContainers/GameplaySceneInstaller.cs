@@ -40,6 +40,7 @@ using Sources.Infrastructure.Services.ShuffleServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.Infrastructure.Spawners;
+using Sources.Infrastructure.Spawners.Generic;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
@@ -150,7 +151,7 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<ObjectPool<CoinView>>().AsSingle();
             Container.Bind<CoinPresenterFactory>().AsSingle();
-            Container.Bind<CoinViewFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CoinViewFactory>().AsSingle();
             Container.Bind<ISpawner<ICoinView>>().To<CoinSpawner>().AsSingle();
 
             Container.Bind<TavernMoodPresenterFactory>().AsSingle();
@@ -158,7 +159,7 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<ObjectPool<GarbageView>>().AsSingle();
             Container.Bind<GarbagePresenterFactory>().AsSingle();
-            Container.Bind<GarbageViewFactory>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GarbageViewFactory>().AsSingle();
             Container.Bind<ISpawner<IGarbageView>>().To<GarbageSpawner>().AsSingle();
 
             Container.Bind<ObjectPool<VisitorView>>().AsSingle();
