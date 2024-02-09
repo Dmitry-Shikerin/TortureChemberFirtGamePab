@@ -166,9 +166,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             _tavern = CreateTavern();
             
             //UpgradeProviders
-            _upgradeProviderSetter.SetCharisma(_playerUpgrade.CharismaUpgrader);
-            _upgradeProviderSetter.SetInventory(_playerUpgrade.InventoryUpgrader);
-            _upgradeProviderSetter.SetMovement(_playerUpgrade.MovementUpgrader);
+            _upgradeProviderSetter.SetCharisma(_playerUpgrade.Charisma);
+            _upgradeProviderSetter.SetInventory(_playerUpgrade.Inventory);
+            _upgradeProviderSetter.SetMovement(_playerUpgrade.Movement);
             
             _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
             _tavernProviderSetter.SetGameplay(_tavern.VisitorQuantity);

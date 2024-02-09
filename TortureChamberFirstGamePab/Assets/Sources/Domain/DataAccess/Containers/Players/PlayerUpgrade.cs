@@ -4,15 +4,15 @@ namespace Sources.Domain.Datas.Players
 {
     public class PlayerUpgrade
     {
-        public PlayerUpgrade(Upgrader charismaUpgrader, Upgrader inventoryUpgrader, Upgrader movementUpgrader)
+        public PlayerUpgrade(Upgrader charisma, Upgrader inventory, Upgrader movement)
         {
-            CharismaUpgrader = charismaUpgrader;
-            InventoryUpgrader = inventoryUpgrader;
-            MovementUpgrader = movementUpgrader;
+            Charisma = charisma;
+            Inventory = inventory;
+            Movement = movement;
         }
 
-        public Upgrader CharismaUpgrader { get; }
-        public Upgrader InventoryUpgrader { get; }
-        public Upgrader MovementUpgrader { get; }
+        public Upgrader Charisma { get; }
+        public Upgrader Inventory { get; }
+        public Upgrader Movement { get; }
     }
 }

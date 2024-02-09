@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Domain.Upgrades.Configs;
+using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Utils.ObservablePropertyes;
@@ -10,10 +11,12 @@ using UnityEngine;
 
 namespace Sources.Domain.Upgrades
 {
-    public class Upgrader : IUpgradeble
+    public class Upgrader : IUpgradeble, IAudioSourceActivator
     {
         private ObservableProperty<int> _currentLevelUpgrade;
         private float _currentAmountUpgrade;
+        
+        public event Action AudioSourceActivated;
 
         public Upgrader(UpgradeConfig upgradeConfig)
         {
@@ -61,6 +64,8 @@ namespace Sources.Domain.Upgrades
             _currentAmountUpgrade += AddedAmountUpgrade;
             Debug.Log(_currentAmountUpgrade);
             _currentLevelUpgrade.Value++;
+            
+            AudioSourceActivated?.Invoke();
         }
     }
 }

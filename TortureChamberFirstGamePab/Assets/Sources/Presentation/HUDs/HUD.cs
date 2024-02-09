@@ -3,6 +3,7 @@ using Lean.Localization;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
+using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Forms.Gameplays.Containers;
 using Sources.Presentation.Views.Player.Inventory;
@@ -28,5 +29,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
         [field: SerializeField] public GameplayFormsContainer GameplayFormsContainer { get; private set; }
         [field: SerializeField] public ContainerView ContainerView { get; private set; }
+        [field: SerializeField] public CongratulationUpgradeAudioSourceContainer 
+            CongratulationUpgradeAudioSourceContainer { get; private set; }
     }
 }

@@ -18,9 +18,9 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         public void Save(PlayerUpgrade @object)
         {
-            SaveCharisma(@object.CharismaUpgrader);
-            SaveInventory(@object.InventoryUpgrader);
-            SaveMovement(@object.MovementUpgrader);
+            SaveCharisma(@object.Charisma);
+            SaveInventory(@object.Inventory);
+            SaveMovement(@object.Movement);
         }
 
         public void Clear()

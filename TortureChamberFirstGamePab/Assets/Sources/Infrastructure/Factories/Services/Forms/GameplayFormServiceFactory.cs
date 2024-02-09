@@ -4,6 +4,7 @@ using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Infrastructure.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.Presentation.Views.Forms.Common;
@@ -23,6 +24,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
         private readonly UpgradeFormPresenterFactory _upgradeFormPresenterFactory;
         private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
         private readonly ButtonUIFactory _buttonUIFactory;
+        private readonly AudioSourceUIFactory _audioSourceUIFactory;
 
         public GameplayFormServiceFactory
         (
@@ -31,7 +33,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             PauseMenuFormPresenterFactory pauseMenuFormPresenterFactory,
             UpgradeFormPresenterFactory upgradeFormPresenterFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
-            ButtonUIFactory buttonUIFactory
+            ButtonUIFactory buttonUIFactory,
+            AudioSourceUIFactory audioSourceUIFactory
         )
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -44,6 +47,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _playerUpgradeViewFactory = playerUpgradeViewFactory ?? 
                                         throw new ArgumentNullException(nameof(playerUpgradeViewFactory));
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
+            _audioSourceUIFactory = audioSourceUIFactory ?? throw new ArgumentNullException(nameof(audioSourceUIFactory));
         }
 
         public IFormService Create(PlayerUpgrade playerUpgrade, Player player,  HUD hud)
@@ -68,14 +72,22 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             //TODO перетащил сюда потомучто эти вьшки с формочки апгрейда
             //PlayerUpgradeViews
             IPlayerUpgradeView playerCharismaUpgradeView = 
-                _playerUpgradeViewFactory.Create(playerUpgrade.CharismaUpgrader, player.Wallet,
+                _playerUpgradeViewFactory.Create(playerUpgrade.Charisma, player.Wallet,
                     hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
             IPlayerUpgradeView playerInventoryUpgradeView =
-                _playerUpgradeViewFactory.Create(playerUpgrade.InventoryUpgrader, player.Wallet,
+                _playerUpgradeViewFactory.Create(playerUpgrade.Inventory, player.Wallet,
                     hud.PlayerUpgradeViewsContainer.InventoryUpgradeView);
             IPlayerUpgradeView playerMovementUpgradeView =
-                _playerUpgradeViewFactory.Create(playerUpgrade.MovementUpgrader, player.Wallet,
+                _playerUpgradeViewFactory.Create(playerUpgrade.Movement, player.Wallet,
                     hud.PlayerUpgradeViewsContainer.MovementUpgradeView);
+            
+            //UpgradeAudio
+            _audioSourceUIFactory.Create(playerUpgrade.Charisma,
+                hud.CongratulationUpgradeAudioSourceContainer.Charisma);
+            _audioSourceUIFactory.Create(playerUpgrade.Inventory,
+                hud.CongratulationUpgradeAudioSourceContainer.Inventory);
+            _audioSourceUIFactory.Create(playerUpgrade.Movement,
+                hud.CongratulationUpgradeAudioSourceContainer.Movement);
             
             //TavernUpgradePointButtons
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CharismaButtonUI,
