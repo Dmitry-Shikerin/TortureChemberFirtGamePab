@@ -19,8 +19,10 @@ namespace Sources.Infrastructure.Services.SceneServices
         private readonly IReadOnlyDictionary<string, Func<object, SceneContext, UniTask<IScene>>> _sceneFactories;
         private readonly ISceneFactory _sceneFactory;
 
-        public SceneService(IReadOnlyDictionary<string, Func<object, SceneContext,
-            UniTask<IScene>>> sceneFactories)
+        public SceneService
+        (
+            IReadOnlyDictionary<string, Func<object, SceneContext, UniTask<IScene>>> sceneFactories
+        )
         {
             _stateMachine = new StateMachine();
             _sceneFactories = sceneFactories ??

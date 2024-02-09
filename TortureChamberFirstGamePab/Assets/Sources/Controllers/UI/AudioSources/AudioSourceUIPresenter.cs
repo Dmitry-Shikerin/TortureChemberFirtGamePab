@@ -1,8 +1,8 @@
 ﻿using System;
-using Sources.DomainInterfaces.UI;
+using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
-namespace Sources.Controllers.UI.AudioSources.Common
+namespace Sources.Controllers.UI.AudioSources
 {
     public class AudioSourceUIPresenter : PresenterBase
     {

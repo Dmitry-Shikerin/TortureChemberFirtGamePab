@@ -78,6 +78,9 @@ namespace Sources.Infrastructure.Services
             }
         }
 
+        public void Cancel() =>
+            _cancellationTokenSource.Cancel();
+
         private bool CanSpawn()
         {
             int freeSeatPoints = _collectionRepository
@@ -87,9 +90,6 @@ namespace Sources.Infrastructure.Services
             return _visitorCounter.ActiveVisitorsCount < VisitorQuantity.MaximumVisitorsQuantity &&
                    _visitorCounter.ActiveVisitorsCount < freeSeatPoints;
         }
-
-        public void Cancel() =>
-            _cancellationTokenSource.Cancel();
 
         private void Spawn()
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sources.DomainInterfaces.UI
+namespace Sources.DomainInterfaces.UI.AudioSourcesActivators
 {
     public interface IAudioSourceActivator
     {

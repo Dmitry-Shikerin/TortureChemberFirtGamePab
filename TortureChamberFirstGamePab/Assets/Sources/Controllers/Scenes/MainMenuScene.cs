@@ -72,7 +72,7 @@ namespace Sources.Controllers.Scenes
             _mainMenuHUD.Show();
 
             //TODO вроде здесь это должно быть
-            // _sdkInitializeService.OnCallGameReadyButtonClick();
+            // _sdkInitializeService.GameReady();
             // _focusService.Enter();
             // _yandexLeaderboardInitializeService.Fill();
         }

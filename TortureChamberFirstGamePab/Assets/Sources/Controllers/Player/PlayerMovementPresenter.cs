@@ -9,6 +9,7 @@ using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.Movement;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.PresentationInterfaces.Animations;
+using Sources.Utils.Extensions.MovementExtensions;
 using UnityEngine;
 
 namespace Sources.Controllers.Player
@@ -78,7 +79,7 @@ namespace Sources.Controllers.Player
 
             _playerAnimation.PlayMovementAnimation(animationSpeed);
             
-            if (_playerMovement.IsIdle(_inputService.PlayerInput.Direction))
+            if (_inputService.PlayerInput.IsIdle())
                 return;
 
             Quaternion look = _playerMovementService.GetDirectionRotation(cameraDirection);

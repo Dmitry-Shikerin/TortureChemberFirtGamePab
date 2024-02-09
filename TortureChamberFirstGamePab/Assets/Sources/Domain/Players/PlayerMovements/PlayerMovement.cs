@@ -27,8 +27,5 @@ namespace Sources.Domain.Players.PlayerMovements
         
         public float RotationAngle { get; set; }
         public Vector3 Position { get; set; }
-
-        public bool IsIdle(Vector2 moveInput) =>
-            moveInput.x == 0.0f && moveInput.y == 0.0f;
     }
 }
