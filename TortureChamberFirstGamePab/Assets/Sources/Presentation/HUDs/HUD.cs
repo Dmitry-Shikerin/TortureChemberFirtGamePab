@@ -22,7 +22,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public TavernUpgradePointButtons TavernUpgradePointButtons { get; private set; }
         [field: SerializeField] public TavernUpgradePointTextUIs TavernUpgradePointButtonsTextUIs { get; private set; }
         [field: SerializeField] public PlayerUpgradeViewsContainer PlayerUpgradeViewsContainer { get; private set; }
-        [field: SerializeField] public PauseMenuWindow PauseMenuWindow { get; private set; }
+        [field: SerializeField] public PauseMenuButtonContainer PauseMenuButtonContainer { get; private set; }
         [field: SerializeField] public ImageUI TavernMoodImageUI { get; private set; }
         [field: SerializeField] public ButtonUI PauseMenuButton { get; private set; }
         [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }

@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.50652, y: -0.1760006}
+  m_AnchoredPosition: {x: -0.5065155, y: -0.1760006}
   m_SizeDelta: {x: -1.013, y: -0.353}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4873826931616202868
@@ -4219,7 +4219,7 @@ MonoBehaviour:
   <TavernUpgradePointButtons>k__BackingField: {fileID: 5333163749311368824}
   <TavernUpgradePointButtonsTextUIs>k__BackingField: {fileID: 425352009783487407}
   <PlayerUpgradeViewsContainer>k__BackingField: {fileID: 8499432448043416230}
-  <PauseMenuWindow>k__BackingField: {fileID: 3651685648389997478}
+  <PauseMenuButtonContainer>k__BackingField: {fileID: 3651685648389997478}
   <TavernMoodImageUI>k__BackingField: {fileID: 8783510849449996861}
   <PauseMenuButton>k__BackingField: {fileID: 6434161877828684243}
   <LeanLocalization>k__BackingField: {fileID: 6123048502063247845}

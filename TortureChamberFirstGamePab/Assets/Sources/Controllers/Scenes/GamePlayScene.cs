@@ -67,7 +67,7 @@ namespace Sources.Controllers.Scenes
         public void Enter(object payload)
         {
             _loadService.Load();
-            _buttonUIFactory.Create(_hud.PauseMenuWindow.SaveButton, _loadService.Save);
+            _buttonUIFactory.Create(_hud.PauseMenuButtonContainer.SaveButton, _loadService.Save);
             _tavernUpgradePointService.OnEnable();
             _visitorQuantityService.Enter();
             _visitorSpawnService.SpawnVisitorAsync();

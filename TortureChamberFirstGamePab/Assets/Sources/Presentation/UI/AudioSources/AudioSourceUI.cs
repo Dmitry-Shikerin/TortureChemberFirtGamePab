@@ -9,11 +9,8 @@ namespace Sources.Presentation.UI.AudioSources
     [RequireComponent(typeof(AudioSourceView))]
     public class AudioSourceUI : PresentableView<AudioSourceUIPresenter>, IAudioSourceUI
     {
-        public AudioSourceView AudioSourceView { get; private set; }
-
-        private void Awake() => 
-            AudioSourceView = GetComponent<AudioSourceView>();
-
+        [field: SerializeField] public AudioSourceView AudioSourceView { get; private set; }
+        
         //TODO насколько я понимаю обобщаем то што можно обобщить а для остального делаем частные случаи
         //TODO какието модели обобщаем, а для какихто делаем частные случаи
     }

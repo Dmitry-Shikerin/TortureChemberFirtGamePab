@@ -88,9 +88,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             //PauseMenuButtons
             _buttonUIFactory.Create(hud.PauseMenuButton, 
                 hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
-            _buttonUIFactory.Create(hud.PauseMenuWindow.QuitButton, 
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.QuitButton, 
                 () => Application.Quit());
-            _buttonUIFactory.Create(hud.PauseMenuWindow.CloseButton, 
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.CloseButton, 
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowHudFormView);
 
             return _formService;

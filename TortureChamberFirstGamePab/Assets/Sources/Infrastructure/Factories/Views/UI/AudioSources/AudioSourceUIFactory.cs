@@ -1,7 +1,7 @@
 ﻿using System;
 using Sources.Controllers.UI.AudioSources;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
-using Sources.Infrastructure.Factories.Controllers.UI.AudioSourceUIPresenters;
+using Sources.Infrastructure.Factories.Controllers.UI.AudioSources;
 using Sources.Presentation.UI.AudioSources;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
@@ -36,6 +36,12 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             DoubleAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null) 
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null)
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             DoubleAudioSourceUIPresenter audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
 

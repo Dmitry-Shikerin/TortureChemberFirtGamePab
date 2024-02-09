@@ -15,7 +15,7 @@ namespace Sources.Presentation.Views.Player
 
         private void Awake()
         {
-            _walletTrigger = GetComponentInChildren<WalletTrigger>() ??
+            _walletTrigger = GetComponent<WalletTrigger>() ??
                              throw new NullReferenceException(nameof(WalletTrigger));
         }
 

@@ -1,19 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sources.Domain.Exceptions.Inventorys;
 using Sources.DomainInterfaces.Items;
+using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 
 namespace Sources.Domain.Players
 {
-    public class PlayerInventory
+    public class PlayerInventory : IDoubleAudioSourceActivator
     {
         private List<IItem> _items = new List<IItem>();
 
+        public event Action FirstAudioSourceActivated;
+        public event Action SecondAudioSourceActivated;
+        
         public int MaxCapacity { get; set; }
         public int InventoryCapacity { get; set; }
         public bool CanGet { get; private set; } = true;
         public IReadOnlyList<IItem> Items => _items;
+
 
         public void SetGiveAbility() => 
             CanGet = true;
@@ -27,8 +33,9 @@ namespace Sources.Domain.Players
                 throw new InventoryFullException("Инвентарь заполнен", nameof(PlayerInventory));
             
             _items.Add(item);
+            FirstAudioSourceActivated?.Invoke();
         }
-        
+
         public void RemoveItem(IItem item)
         {
             if (_items.Contains(item) == false)
@@ -36,6 +43,7 @@ namespace Sources.Domain.Players
                     nameof(PlayerInventory));
             
             _items.Remove(item);
+            SecondAudioSourceActivated?.Invoke();
         }
 
         public void IncreaseCapacity() => 

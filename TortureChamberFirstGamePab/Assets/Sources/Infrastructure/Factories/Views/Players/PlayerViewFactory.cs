@@ -4,6 +4,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Factories.Prefabs;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Player.Inventory;
@@ -17,6 +18,7 @@ namespace Sources.Infrastructure.Factories.Views.Players
         private readonly PlayerWalletViewFactory _playerWalletViewFactory;
         private readonly PlayerCameraViewFactory _playerCameraViewFactory;
         private readonly PlayerInventoryViewFactory _playerInventoryViewFactory;
+        private readonly AudioSourceUIFactory _audioSourceUIFactory;
 
         public PlayerViewFactory
         (
@@ -24,7 +26,8 @@ namespace Sources.Infrastructure.Factories.Views.Players
             PlayerMovementViewFactory playerMovementViewFactory,
             PlayerWalletViewFactory playerWalletViewFactory,
             PlayerCameraViewFactory playerCameraViewFactory,
-            PlayerInventoryViewFactory playerInventoryViewFactory
+            PlayerInventoryViewFactory playerInventoryViewFactory,
+            AudioSourceUIFactory audioSourceUIFactory
         )
         {
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
@@ -36,6 +39,8 @@ namespace Sources.Infrastructure.Factories.Views.Players
                                        throw new ArgumentNullException(nameof(playerCameraViewFactory));
             _playerInventoryViewFactory = playerInventoryViewFactory ??
                                           throw new ArgumentNullException(nameof(playerInventoryViewFactory));
+            _audioSourceUIFactory = audioSourceUIFactory ?? 
+                                    throw new ArgumentNullException(nameof(audioSourceUIFactory));
         }
 
         public PlayerView Create(Player player, PlayerCameraView playerCameraView)
@@ -48,12 +53,16 @@ namespace Sources.Infrastructure.Factories.Views.Players
             PlayerWalletView playerWalletView =
                 _playerWalletViewFactory.Create(player.Wallet, playerView.Wallet);
 
+            _audioSourceUIFactory.Create(player.Wallet, playerView.AudioSourcesContainer.Wallet);
+
             PlayerCamera playerCamera = new PlayerCamera();
             _playerCameraViewFactory.Create(playerCamera, playerCameraView);
             playerCameraView.SetTargetTransform(playerMovementView.Transform);
 
             PlayerInventoryView playerInventoryView =
                 _playerInventoryViewFactory.Create(player.Inventory, playerView.Inventory);
+
+            _audioSourceUIFactory.Create(player.Inventory, playerView.AudioSourcesContainer.Inventory);
 
             return playerView;
         }

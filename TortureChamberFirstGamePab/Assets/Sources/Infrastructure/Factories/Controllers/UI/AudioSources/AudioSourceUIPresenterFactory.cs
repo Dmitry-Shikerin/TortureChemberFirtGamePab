@@ -1,10 +1,10 @@
 ﻿using Sources.Controllers.UI.AudioSources;
-using Sources.DomainInterfaces.UI;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
-namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSourceUIPresenters
+namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
 {
+    //TODO подумать над обобщением здесь и в презентер фектори
     public class AudioSourceUIPresenterFactory
     {
         public AudioSourceUIPresenter Create

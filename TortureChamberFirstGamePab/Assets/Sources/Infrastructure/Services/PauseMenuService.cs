@@ -12,7 +12,7 @@ namespace Sources.Infrastructure.Services
         private readonly IInputService _inputService;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
-        private readonly PauseMenuWindow _pauseMenuWindow;
+        private readonly PauseMenuButtonContainer _pauseMenuButtonContainer;
 
         public PauseMenuService
         (
@@ -35,7 +35,7 @@ namespace Sources.Infrastructure.Services
         //TODO тут тоже пришлось сжулить
         private void OnPauseButtonChanged()
         {
-            if (_pauseMenuWindow.gameObject.activeSelf == false)
+            if (_pauseMenuButtonContainer.gameObject.activeSelf == false)
             {
                 _formService.Show<PauseMenuFormView>();
                 _pauseService.Pause();

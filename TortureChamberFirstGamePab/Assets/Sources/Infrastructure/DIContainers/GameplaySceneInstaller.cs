@@ -12,6 +12,7 @@ using Sources.Infrastructure.Factories.Controllers.Points;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Controllers.UI;
+using Sources.Infrastructure.Factories.Controllers.UI.AudioSources;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Infrastructure.Factories.Domains.Items;
 using Sources.Infrastructure.Factories.Repositoryes;
@@ -25,6 +26,7 @@ using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
@@ -100,6 +102,9 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<UpgradeFormPresenterFactory>().AsSingle();
             
             Container.Bind<GameplayFormServiceFactory>().AsSingle();
+
+            Container.Bind<AudioSourceUIPresenterFactory>().AsSingle();
+            Container.Bind<AudioSourceUIFactory>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
             
@@ -193,7 +198,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<TavernUpgradePointView>().FromInstance(hud.TavernUpgradePointView).AsSingle();
             Container.Bind<TavernUpgradePointService>().AsSingle();
 
-            Container.Bind<PauseMenuWindow>().FromInstance(hud.PauseMenuWindow);
+            Container.Bind<PauseMenuButtonContainer>().FromInstance(hud.PauseMenuButtonContainer);
             Container.Bind<PauseMenuService>().AsSingle();
 
             Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
