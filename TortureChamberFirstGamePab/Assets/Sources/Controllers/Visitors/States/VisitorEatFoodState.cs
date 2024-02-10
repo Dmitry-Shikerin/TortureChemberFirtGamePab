@@ -11,6 +11,7 @@ using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
+using Sources.Utils.Extensions.ShuffleExtensions;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
@@ -58,10 +59,17 @@ namespace Sources.Controllers.Visitors.States
         {
             _visitor.SeatPointView.UnOccupy();
             _visitor.FinishEating();
-            IGarbageView garbageView = _garbageSpawner.Spawn();
-            garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
-            garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
-            _visitor.SeatPointView.EatPointView.SetDirty();
+
+            //TODO рандомайзер мусора
+            //TODO убрать магические числа
+            if (ShuffleExtension.GetRandomChance(4, 10))
+            {
+                IGarbageView garbageView = _garbageSpawner.Spawn();
+                garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
+                garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
+                _visitor.SeatPointView.EatPointView.SetDirty();
+            }
+            
             ICoinView coinView = _coinSpawner.Spawn();
             coinView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);

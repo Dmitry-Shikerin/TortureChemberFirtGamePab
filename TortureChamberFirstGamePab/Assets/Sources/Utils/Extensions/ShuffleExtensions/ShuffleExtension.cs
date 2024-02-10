@@ -35,5 +35,16 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             
             return enumerable;
         }
+
+        //TODO рандомайзер
+        public static bool GetRandomChance(int positiveRange, int maximumRange)
+        {
+            int result = Random.Range(0, maximumRange);
+
+            if (result <= positiveRange)
+                return true;
+
+            return false;
+        }
     }
 }
