@@ -2,6 +2,7 @@
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Items;
 using Sources.Presentation.Triggers.Items;
+using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
@@ -12,6 +13,7 @@ namespace Sources.Presentation.Views.Items.Garbages
 {
     public class GarbageView : PresentableView<GarbagePresenter>, IGarbageView
     {
+        [field: SerializeField] public AudioSourceUI AudioSourceUI { get; private set; }
         [field: SerializeField] public float FillingRate { get; private set; } = 0.2f;
 
         private GarbageTrigger _garbageTrigger;

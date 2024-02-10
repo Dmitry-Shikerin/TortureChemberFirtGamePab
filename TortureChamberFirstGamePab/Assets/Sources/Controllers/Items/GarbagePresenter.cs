@@ -42,8 +42,12 @@ namespace Sources.Controllers.Items
 
             try
             {
+                _garbage.StartAudioSource();
+                
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
                     _garbageView.FillingRate, _cancellationTokenSource.Token);
+                
+                _garbage.StopAudioSource();
                 
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
                 _garbageView.Destroy();
@@ -51,6 +55,8 @@ namespace Sources.Controllers.Items
             }
             catch (OperationCanceledException)
             {
+                _garbage.StopAudioSource();
+                
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             }
         }

@@ -4,6 +4,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Factories.Views;
@@ -21,13 +22,15 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
         private readonly ObjectPool<GarbageView> _objectPool;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ImageUIFactory _imageUIFactory;
+        private readonly AudioSourceUIFactory _audioSourceUIFactory;
 
         public GarbageViewFactory
         (
             GarbagePresenterFactory garbagePresenterFactory,
             ObjectPool<GarbageView> objectPool,
             IPrefabFactory prefabFactory,
-            ImageUIFactory imageUIFactory
+            ImageUIFactory imageUIFactory,
+            AudioSourceUIFactory audioSourceUIFactory
         )
         {
             _garbagePresenterFactory = garbagePresenterFactory ??
@@ -35,6 +38,8 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
+            _audioSourceUIFactory = audioSourceUIFactory ?? 
+                                    throw new ArgumentNullException(nameof(audioSourceUIFactory));
         }
 
         public IGarbageView Create(Garbage garbage, GarbageView garbageView)
@@ -43,6 +48,8 @@ namespace Sources.Infrastructure.Factories.Views.Items.Garbeges
 
             _imageUIFactory.Create(pickUpPointUIImages.Image);
             _imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
+
+            _audioSourceUIFactory.Create(garbage, garbageView.AudioSourceUI);
 
             GarbagePresenter garbagePresenter = _garbagePresenterFactory.Create(
                 pickUpPointUIImages, garbageView, garbage);

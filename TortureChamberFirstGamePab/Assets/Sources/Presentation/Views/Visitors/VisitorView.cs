@@ -23,7 +23,7 @@ namespace Sources.Presentation.Views.Visitors
             NavMeshAgent = GetComponent<NavMeshAgent>() ??
                            throw new NullReferenceException(nameof(NavMeshAgent));
 
-        public void Destroy()
+        public override void Destroy()
         {
             if (TryGetComponent(out PoolableObject poolableObject) == false)
             {
