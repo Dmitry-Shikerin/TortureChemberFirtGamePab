@@ -6,6 +6,7 @@ using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.Utils.Extensions.ShuffleExtensions;
 using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Controllers.Visitors.States
@@ -18,25 +19,27 @@ namespace Sources.Controllers.Visitors.States
 
         public VisitorInitializeState
         (
-            IVisitorView visitorView, 
+            IVisitorView visitorView,
             Visitor visitor,
-            IVisitorAnimation visitorAnimation, 
+            IVisitorAnimation visitorAnimation,
             CollectionRepository collectionRepository,
             VisitorCounter visitorCounter
-            )
+        )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
-            _collectionRepository = collectionRepository ?? 
-                                   throw new ArgumentNullException(nameof(collectionRepository));
+            _collectionRepository = collectionRepository ??
+                                    throw new ArgumentNullException(nameof(collectionRepository));
             _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
         }
-        
+
         public override void Enter()
         {
+            //TODO рандомайзер работает
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
-                .FirstOrDefault(seatPointView => seatPointView.IsOccupied == false);
-            
+                .Where(seatPointView => seatPointView.IsOccupied == false)
+                .GetRandomItem();
+
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);
             seatPointView.Occupy();

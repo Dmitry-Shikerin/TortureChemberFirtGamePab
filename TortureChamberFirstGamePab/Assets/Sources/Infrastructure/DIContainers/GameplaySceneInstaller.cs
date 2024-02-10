@@ -67,6 +67,7 @@ using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
+using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -126,7 +127,7 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<VisitorPointsRepositoryFactory>().AsSingle();
 
-            Container.Bind<ItemProvider<IItem>>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ItemProvider<IItem>>().AsSingle();
 
             Container.Bind<ItemsFactory>().AsSingle();
 

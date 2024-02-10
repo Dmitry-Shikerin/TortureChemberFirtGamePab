@@ -4,15 +4,17 @@ using System.Linq;
 using Sources.DomainInterfaces.Items;
 using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.ItemRepository;
+using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 
 namespace Sources.Infrastructure.Factories.Domains.Items
 {
     public class ItemsFactory
     {
-        private readonly ItemProvider<IItem> _itemProvider;
+        private readonly IItemProvider<IItem> _itemProvider;
+        
         private Dictionary<Type, IItem> _items;
 
-        public ItemsFactory(ItemProvider<IItem> itemProvider)
+        public ItemsFactory(IItemProvider<IItem> itemProvider)
         {
             _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
         }

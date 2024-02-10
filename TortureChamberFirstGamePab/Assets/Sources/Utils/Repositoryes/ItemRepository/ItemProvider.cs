@@ -41,6 +41,7 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             }
 
             @object = default;
+
             return false;
         }
 
@@ -49,13 +50,10 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             if (_repositoryes.ContainsKey(typeof(T2)) == false)
                 throw new InvalidOperationException();
 
-            if (_repositoryes[typeof(T2)] is T2 concrete)
-            {
-                _repositoryes.Remove(typeof(T2));
-                return;
-            }
+            if (_repositoryes[typeof(T2)] is not T2 concrete)
+                throw new InvalidOperationException(nameof(T2));
 
-            throw new InvalidOperationException(nameof(T2));
+            _repositoryes.Remove(typeof(T2));
         }
 
         public void Add<T2>(T2 @object) where T2 : T1
@@ -65,7 +63,7 @@ namespace Sources.Utils.Repositoryes.ItemRepository
 
             _repositoryes[typeof(T2)] = @object;
         }
-        
+
         public void AddCollection(IEnumerable<T1> items)
         {
             foreach (T1 item in items)

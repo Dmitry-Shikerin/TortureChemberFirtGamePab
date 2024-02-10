@@ -13,13 +13,14 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             if (objects == null) 
                 throw new InvalidOperationException(nameof(objects));
             
-            //TODo куча варнингов
-            if (objects.Any() == false)
+            T[] enumerable = objects as T[] ?? objects.ToArray();
+            
+            if (enumerable.Any() == false)
                 throw new InvalidOperationException(nameof(objects));
             
-            objects.Shuffle();
+            enumerable.Shuffle();
             
-            return objects.First();
+            return enumerable.First();
         }
 
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> objects)

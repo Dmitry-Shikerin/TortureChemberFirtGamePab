@@ -19,6 +19,7 @@ using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Repositoryes.CollectionRepository;
+using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Factories.Controllers.Visitors
@@ -32,6 +33,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
         private readonly ItemViewFactory _itemViewFactory;
         private readonly ISpawner<IGarbageView> _garbageSpawner;
         private readonly ISpawner<ICoinView> _coinSpawner;
+        private readonly IItemProvider<IItem> _itemProvider;
 
         public VisitorPresenterFactory
         (
@@ -41,7 +43,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             ImageUIFactory imageUIFactory,
             ItemViewFactory itemViewFactory,
             ISpawner<IGarbageView> garbageSpawner,
-            ISpawner<ICoinView> coinSpawner
+            ISpawner<ICoinView> coinSpawner,
+            IItemProvider<IItem> itemProvider
         )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
@@ -53,6 +56,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _garbageSpawner = garbageSpawner ?? throw new ArgumentNullException(nameof(garbageSpawner));
             _coinSpawner = coinSpawner ?? throw new ArgumentNullException(nameof(coinSpawner));
+            _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
         }
 
         public VisitorPresenter Create
@@ -67,19 +71,19 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
         {
             if (visitorView == null)
                 throw new ArgumentNullException(nameof(visitorView));
-            
+
             if (visitorAnimation == null)
                 throw new ArgumentNullException(nameof(visitorAnimation));
-            
+
             if (visitor == null)
                 throw new ArgumentNullException(nameof(visitor));
-            
+
             if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
-            
+
             if (tavernMood == null)
                 throw new ArgumentNullException(nameof(tavernMood));
-            
+
             if (visitorCounter == null)
                 throw new ArgumentNullException(nameof(visitorCounter));
 
@@ -101,9 +105,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             VisitorSeatState visitorSeatState = new VisitorSeatState(
                 visitorView, visitor, visitorAnimation, tavernMood);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
-                new VisitorWaitingForOrderState(visitor, visitorInventory, 
-                    visitorImageUIContainer, _shuffleService, tavernMood, 
-                    visitorAnimation, visitorView);
+                new VisitorWaitingForOrderState(visitor, visitorInventory,
+                    visitorImageUIContainer, _shuffleService, tavernMood,
+                    visitorAnimation, visitorView, _itemProvider);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitor, visitorInventory, visitorImageUIContainer, _itemViewFactory,
                 tavernMood, _garbageSpawner, _coinSpawner);

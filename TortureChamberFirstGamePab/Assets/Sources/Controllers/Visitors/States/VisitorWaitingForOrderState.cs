@@ -11,6 +11,9 @@ using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
+using Sources.Utils.Extensions.ShuffleExtensions;
+using Sources.Utils.Repositoryes.ItemRepository;
+using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -22,6 +25,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly TavernMood _tavernMood;
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly IVisitorView _visitorView;
+        private readonly IItemProvider<IItem> _itemProvider;
         private readonly IVisitorImageUI _visitorImageUI;
 
         private CancellationTokenSource _cancellationTokenSource;
@@ -34,8 +38,8 @@ namespace Sources.Controllers.Visitors.States
             IShuffleService<IItem> shuffleService,
             TavernMood tavernMood,
             IVisitorAnimation visitorAnimation,
-            IVisitorView visitorView
-        )
+            IVisitorView visitorView,
+            IItemProvider<IItem> itemProvider)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ??
@@ -45,6 +49,7 @@ namespace Sources.Controllers.Visitors.States
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _visitorAnimation = visitorAnimation ?? throw new ArgumentNullException(nameof(visitorAnimation));
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
+            _itemProvider = itemProvider ?? throw new ArgumentNullException(nameof(itemProvider));
             _visitorImageUI = visitorImageUI ??
                               throw new ArgumentNullException(nameof(visitorImageUI));
         }
@@ -53,7 +58,8 @@ namespace Sources.Controllers.Visitors.States
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            IItem item = _shuffleService.GetRandomItem();
+            //TODO рандомайзер работает
+            IItem item = _itemProvider.Collection.GetRandomItem();
 
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();
