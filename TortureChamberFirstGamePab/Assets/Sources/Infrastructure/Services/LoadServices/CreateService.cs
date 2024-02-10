@@ -17,6 +17,7 @@ using Sources.Infrastructure.Factories.Views.Points;
 using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
@@ -37,6 +38,8 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public CreateService
         (
+            FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
+            AudioSourceUIFactory audioSourceUIFactory,
             PlayerCameraView playerCameraView,
             IPauseService pauseService,
             PauseMenuService pauseMenuService,
@@ -69,6 +72,8 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                foodPickUpPointsViewFactory,
+                audioSourceUIFactory,
                 playerCameraView,
                 pauseService,
                 pauseMenuService,

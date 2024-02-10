@@ -15,6 +15,12 @@ namespace Sources.Presentation.UI.AudioSources
         public void Stop() => 
             _audioSource.Stop();
 
+        public void SetLoop() => 
+            _audioSource.loop = true;
+
+        public void RemoveLoop() => 
+            _audioSource.loop = false;
+
         public void SetVolume(float value)
         {
             value = Mathf.Clamp(value, Constant.Volume.Min, Constant.Volume.Min);

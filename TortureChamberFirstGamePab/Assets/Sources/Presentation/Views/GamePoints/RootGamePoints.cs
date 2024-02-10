@@ -1,4 +1,5 @@
 using Sources.Presentation.Triggers.Taverns;
+using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
@@ -15,6 +16,8 @@ namespace Sources.Presentation.Voids.GamePoints
         [field: SerializeField] public SoupPickUpPointView SoupPickUpPointView { get; private set; }
         [field: SerializeField] public MeatPickUpPointView MeatPickUpPointView { get; private set; }
         [field: SerializeField] public TavernUpgradeTrigger TavernUpgradeTrigger { get; private set; }
+        [field: SerializeField] public UpgradePointsInteractionAudioSourceContainer 
+            UpgradePointsInteractionAudioSourceContainer { get; private set; }
         //TODO куда поместить этот скрипт
     }
 }

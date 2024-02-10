@@ -42,5 +42,14 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
         {
             return new FourthAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
+
+        public DoubleCallbackAudioSourceUIPresenter Create
+        (
+            IDoubleAudioSourceActivator audioSourceActivator,
+            IAudioSourceUI audioSourceUI
+        )
+        {
+            return new DoubleCallbackAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
+        }
     }
 }

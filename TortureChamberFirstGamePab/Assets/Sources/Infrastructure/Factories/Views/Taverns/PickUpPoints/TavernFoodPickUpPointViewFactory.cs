@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.Controllers.Taverns;
 using Sources.Domain.Items.ItemConfigs;
+using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Controllers.Taverns.TavernPickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -29,10 +30,14 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
 
         public ITavernFudPickUpPointView Create<T>
         (
+            FoodPickUpPoint foodPickUpPoint,
             TavernFudPickUpPointView<T> pickUpPointView,
             ItemConfig itemConfig
         ) where T : IItem
         {
+            if (foodPickUpPoint == null) 
+                throw new ArgumentNullException(nameof(foodPickUpPoint));
+            
             if (pickUpPointView == null)
                 throw new ArgumentNullException(nameof(pickUpPointView));
             
@@ -45,8 +50,8 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
             _imageUIFactory.Create(pickUpPointUIImages.BackgroundImage);
 
             TavernFudPickUpPointPresenter tavernPickUpPointPresenterFactory =
-                _tavernPickUpPointPresenterFactory.Create(pickUpPointView,
-                    pickUpPointUIImages, itemConfig);
+                _tavernPickUpPointPresenterFactory.Create(foodPickUpPoint,
+                    pickUpPointView, pickUpPointUIImages, itemConfig);
 
             pickUpPointView.Construct(tavernPickUpPointPresenterFactory);
 

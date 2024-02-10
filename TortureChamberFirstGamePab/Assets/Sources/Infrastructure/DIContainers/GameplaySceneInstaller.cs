@@ -105,6 +105,8 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<AudioSourceUIPresenterFactory>().AsSingle();
             Container.Bind<AudioSourceUIFactory>().AsSingle();
+
+            Container.Bind<FoodPickUpPointsViewFactory>().AsSingle();
             
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
             

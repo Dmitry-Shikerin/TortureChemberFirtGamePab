@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
 using Sources.Domain.Items.ItemConfigs;
+using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Domains.Items;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
@@ -12,6 +13,7 @@ namespace Sources.Controllers.Taverns
 {
     public class TavernFudPickUpPointPresenter : PresenterBase
     {
+        private readonly FoodPickUpPoint _foodPickUpPoint;
         private readonly ITavernFudPickUpPointView _tavernFudPickUpPointView;
         private readonly ItemsFactory _itemsFactory;
         private readonly PickUpPointUIImages _pickUpPointUIImages;
@@ -19,12 +21,14 @@ namespace Sources.Controllers.Taverns
 
         public TavernFudPickUpPointPresenter
         (
+            FoodPickUpPoint foodPickUpPoint,
             ITavernFudPickUpPointView tavernFudPickUpPointView,
             ItemsFactory itemsFactory,
             PickUpPointUIImages pickUpPointUIImages,
             ItemConfig itemConfig
         )
         {
+            _foodPickUpPoint = foodPickUpPoint ?? throw new ArgumentNullException(nameof(foodPickUpPoint));
             _tavernFudPickUpPointView = tavernFudPickUpPointView ??
                                         throw new ArgumentNullException(nameof(tavernFudPickUpPointView));
             _itemsFactory = itemsFactory ??
@@ -42,17 +46,23 @@ namespace Sources.Controllers.Taverns
         {
             try
             {
+                _foodPickUpPoint.StartAudioSource();
+                
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
                     _tavernFudPickUpPointView.FillingRate, cancellationToken);
                 
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
+                _foodPickUpPoint.StopAudioSource();
+                
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)
             {
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
+                _foodPickUpPoint.StopAudioSource();
+                
                 return default;
             }
         }

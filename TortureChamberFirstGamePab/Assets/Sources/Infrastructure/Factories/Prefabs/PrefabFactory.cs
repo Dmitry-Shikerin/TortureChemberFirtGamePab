@@ -19,7 +19,7 @@ namespace Sources.Infrastructure.Factories.Prefabs
 
                 return @object;
             }
-            catch(ArgumentException exception)
+            catch(ArgumentException)
             {
                 throw new NullReferenceException($"Type: {typeof(T)}, prefabPath: {prefabPath}");
             }

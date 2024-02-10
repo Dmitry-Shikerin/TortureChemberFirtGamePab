@@ -4,7 +4,7 @@ using Sources.PresentationInterfaces.UI.AudioSources;
 
 namespace Sources.Controllers.UI.AudioSources
 {
-    public class AudioSourceUIPresenter : PresenterBase
+    public class AudioSourceUIPresenter : AudioSourceUIPresenterBase
     {
         private readonly IAudioSourceActivator _audioSourceActivator;
         private readonly IAudioSourceUI _audioSourceUI;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.UI.AudioSources
 {
-    public class AudioSourceUI : PresentableView<AudioSourceUIPresenter>, IAudioSourceUI
+    public class AudioSourceUI : PresentableView<AudioSourceUIPresenterBase>, IAudioSourceUI
     {
         [field: SerializeField] public AudioSourceView AudioSourceView { get; private set; }
         
