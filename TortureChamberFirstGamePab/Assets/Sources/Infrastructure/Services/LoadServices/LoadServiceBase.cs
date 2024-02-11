@@ -233,7 +233,8 @@ namespace Sources.Infrastructure.Services.LoadServices
 
             //TODO запускать приходится здесь
             //FormService
-            _gameplayFormServiceFactory.Create(_playerUpgrade, _player, _hud)
+            _gameplayFormServiceFactory
+                .Create(_playerUpgrade, _player, _hud)
                 .Show<HudFormView>();
         }
 

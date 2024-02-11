@@ -8,5 +8,8 @@ namespace Sources.Presentation.Views.Forms.Gameplays
     {
         public void ShowHudFormView() => 
             Presenter.ShowHudFormView();
+
+        public void ShowTutorialFormView() => 
+            Presenter.ShowTutorialFormView();
     }
 }

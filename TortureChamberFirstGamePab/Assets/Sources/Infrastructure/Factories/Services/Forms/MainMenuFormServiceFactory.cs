@@ -71,9 +71,13 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
                         new LoadServicePayload(true)));
 
+            //TODO после того как я делаю клеар сбиваются шрифты и выскакивают ошибки
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
+            {
+                _dataService.Clear();
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
-                    new LoadServicePayload(false)));
+                    new LoadServicePayload(false));
+            });
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton,
                 _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard);

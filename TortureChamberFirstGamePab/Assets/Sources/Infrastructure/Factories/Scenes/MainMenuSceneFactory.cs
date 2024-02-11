@@ -24,7 +24,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         private readonly ILeaderboardInitializeService _yandexLeaderboardInitializeService;
         private readonly IFocusService _focusService;
         private readonly IInitializeService _sdkInitializeService;
-        private readonly ISceneService _sceneService;
+        private readonly SceneService _sceneService;
         private readonly IDataService<Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
@@ -40,7 +40,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             ILeaderboardInitializeService yandexLeaderboardInitializeService,
             IFocusService focusService,
             IInitializeService sdkInitializeService,
-            ISceneService sceneService,
+            SceneService sceneService,
             IDataService<Player> dataService,
             MainMenuHUD mainMenuHUD,
             ButtonUIFactory buttonUIFactory,

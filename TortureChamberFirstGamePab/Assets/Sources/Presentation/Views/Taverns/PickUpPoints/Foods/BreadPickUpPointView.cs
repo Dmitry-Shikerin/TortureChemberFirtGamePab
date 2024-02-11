@@ -4,6 +4,5 @@ namespace Sources.Presentation.Views.Taverns.PickUpPoints.Foods
 {
     public class BreadPickUpPointView : TavernFudPickUpPointView<Bread>
     {
-        
     }
 }

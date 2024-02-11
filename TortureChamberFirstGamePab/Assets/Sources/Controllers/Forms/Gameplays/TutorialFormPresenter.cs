@@ -2,23 +2,24 @@
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms.Gameplays;
+using Sources.PresentationInterfaces.Views.Forms.Gameplays;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
-    public class PauseMenuFormPresenter : PresenterBase
+    public class TutorialFormPresenter : PresenterBase
     {
-        private readonly IPauseMenuFormView _pauseMenuFormView;
+        private readonly ITutorialFormView _tutorialFormView;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
 
-        public PauseMenuFormPresenter
+        public TutorialFormPresenter
         (
-            IPauseMenuFormView pauseMenuFormView,
+            ITutorialFormView tutorialFormView,
             IFormService formService,
             IPauseService pauseService
         )
         {
-            _pauseMenuFormView = pauseMenuFormView ?? throw new ArgumentNullException(nameof(pauseMenuFormView));
+            _tutorialFormView = tutorialFormView ?? throw new ArgumentNullException(nameof(tutorialFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
@@ -29,10 +30,7 @@ namespace Sources.Controllers.Forms.Gameplays
         public override void Disable() => 
             _pauseService.Continue();
 
-        public void ShowHudFormView() => 
-            _formService.Show<HudFormView>();
-
-        public void ShowTutorialFormView() => 
-            _formService.Show<TutorialFormView>();
+        public void ShowPauseMenu() => 
+            _formService.Show<PauseMenuFormView>();
     }
 }

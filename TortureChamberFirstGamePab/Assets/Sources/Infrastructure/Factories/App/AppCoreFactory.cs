@@ -21,6 +21,7 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
+            //TODO сделать черный экран перед первым появлением курточки
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
                 throw new NullReferenceException(nameof(CurtainView));

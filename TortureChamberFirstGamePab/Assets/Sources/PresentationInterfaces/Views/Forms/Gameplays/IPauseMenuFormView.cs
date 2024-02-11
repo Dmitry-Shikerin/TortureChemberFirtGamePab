@@ -3,5 +3,6 @@
     public interface IPauseMenuFormView
     {
         void ShowHudFormView();
+        void ShowTutorialFormView();
     }
 }

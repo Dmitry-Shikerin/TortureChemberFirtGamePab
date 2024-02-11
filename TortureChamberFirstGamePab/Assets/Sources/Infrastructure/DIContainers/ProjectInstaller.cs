@@ -21,7 +21,6 @@ namespace Sources.Infrastructure.DIContainers
         {
             Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
 
-            //TODO по хорошему перенести в ProjectContext, убрать из геймпплей сервиса
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();
             

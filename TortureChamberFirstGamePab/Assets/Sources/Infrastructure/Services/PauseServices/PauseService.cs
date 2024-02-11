@@ -15,6 +15,10 @@ namespace Sources.Infrastructure.Services.PauseServices
         {
             IsPaused = true;
             Time.timeScale = Constant.TimeScaleValue.Min;
+        }
+
+        public void PauseSound()
+        {
             AudioListener.pause = true;
         }
 
@@ -22,6 +26,10 @@ namespace Sources.Infrastructure.Services.PauseServices
         {
             IsPaused = false;
             Time.timeScale = Constant.TimeScaleValue.Max;
+        }
+
+        public void ContinueSound()
+        {
             AudioListener.pause = false;
         }
         

@@ -27,11 +27,21 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
-        public void Show() =>
-            Agava.YandexGames.VideoAd.Show(_pauseService.Pause,
-                OnRewardCallback, _pauseService.Continue);
-
-        private void OnRewardCallback() => 
-            PlayerWallet.Add(Constant.AdvertisingReward.CoinsAmount);
+        public void Show()
+        {
+            Agava.YandexGames.VideoAd.Show(
+                () =>
+                {
+                    _pauseService.Pause();
+                    _pauseService.PauseSound();
+                },
+                () =>
+                    PlayerWallet.Add(Constant.AdvertisingReward.CoinsAmount), 
+                () =>
+                {
+                    _pauseService.Continue();
+                    _pauseService.ContinueSound();
+                });
+        }
     }
 }

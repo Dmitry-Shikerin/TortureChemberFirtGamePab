@@ -25,6 +25,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
         private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
+        private readonly TutorialFormPresenterFactory _tutorialFormPresenterFactory;
 
         public GameplayFormServiceFactory
         (
@@ -34,7 +35,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             UpgradeFormPresenterFactory upgradeFormPresenterFactory,
             PlayerUpgradeViewFactory playerUpgradeViewFactory,
             ButtonUIFactory buttonUIFactory,
-            AudioSourceUIFactory audioSourceUIFactory
+            AudioSourceUIFactory audioSourceUIFactory,
+            TutorialFormPresenterFactory tutorialFormPresenterFactory
         )
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -48,6 +50,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                                         throw new ArgumentNullException(nameof(playerUpgradeViewFactory));
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _audioSourceUIFactory = audioSourceUIFactory ?? throw new ArgumentNullException(nameof(audioSourceUIFactory));
+            _tutorialFormPresenterFactory = tutorialFormPresenterFactory ?? throw new ArgumentNullException(nameof(tutorialFormPresenterFactory));
         }
 
         public IFormService Create(PlayerUpgrade playerUpgrade, Player player,  HUD hud)
@@ -68,6 +71,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 _upgradeFormPresenterFactory.Create, hud.GameplayFormsContainer.UpgradeFormView);
             
             _formService.Add(upgradeForm);
+
+            Form<TutorialFormView, TutorialFormPresenter> tutorialForm = 
+                new Form<TutorialFormView, TutorialFormPresenter>(
+                _tutorialFormPresenterFactory.Create, hud.GameplayFormsContainer.TutorialFormView);
+            
+            _formService.Add(tutorialForm);
             
             //TODO перетащил сюда потомучто эти вьшки с формочки апгрейда
             //PlayerUpgradeViews
@@ -104,6 +113,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 () => Application.Quit());
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.CloseButton, 
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowHudFormView);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.TutorialButton,
+                hud.GameplayFormsContainer.PauseMenuFormView.ShowTutorialFormView);
+            
+            //TutorialFormButtons
+            _buttonUIFactory.Create(hud.TutorialFormButtonContainer.CloseButton,
+                hud.GameplayFormsContainer.TutorialFormView.ShowPauseMenu);
 
             return _formService;
         }

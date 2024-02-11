@@ -101,6 +101,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<HudFormPresenterFactory>().AsSingle();
             Container.Bind<PauseMenuFormPresenterFactory>().AsSingle();
             Container.Bind<UpgradeFormPresenterFactory>().AsSingle();
+            Container.Bind<TutorialFormPresenterFactory>().AsSingle();
             
             Container.Bind<GameplayFormServiceFactory>().AsSingle();
 
