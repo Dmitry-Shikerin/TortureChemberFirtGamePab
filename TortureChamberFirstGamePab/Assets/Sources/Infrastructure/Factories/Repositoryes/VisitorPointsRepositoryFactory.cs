@@ -10,7 +10,6 @@ using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Infrastructure.Factories.Repositoryes
 {
-    //TODO спрятать в этот клас создание поинтов
     public class VisitorPointsRepositoryFactory
     {
         private readonly CollectionRepository _collectionRepository;

@@ -402,6 +402,8 @@ MonoBehaviour:
     alignWindowToBar: 1
     windowMode: 0
   _sceneHistory:
+  - name: InitScene
+    path: Assets/Scenes/InitScene.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   - name: GamePlay

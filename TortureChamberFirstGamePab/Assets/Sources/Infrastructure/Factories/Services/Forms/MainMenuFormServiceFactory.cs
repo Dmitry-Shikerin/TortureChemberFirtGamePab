@@ -1,4 +1,5 @@
 ﻿using System;
+using Agava.YandexGames;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
@@ -64,8 +65,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             _formService.Add(leaderboardFormView);
 
-            //TODO закинуть кнопки в фабрику формочки
-            //TODO не получилось
             IButtonUI continueGameButton = _buttonUIFactory.Create(
                 _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
@@ -79,8 +78,22 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                     new LoadServicePayload(false));
             });
 
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton,
-                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard);
+            //TODO будет ли это работать?
+            //TODO исключение
+            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
+            {
+#if UNITY_WEBGL && !UNITY_EDITOR
+                PlayerAccount.Authorize();
+                
+                if(PlayerAccount.IsAuthorized)
+                    PlayerAccount.RequestPersonalProfileDataPermission();
+                
+                if(PlayerAccount.IsAuthorized == false)
+                    return;
+                
+                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
+#endif
+            });
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,
                 _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView.ShowMainMenu);
 

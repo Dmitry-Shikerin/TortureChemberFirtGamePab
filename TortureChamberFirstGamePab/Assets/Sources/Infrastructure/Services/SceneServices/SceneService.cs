@@ -29,7 +29,7 @@ namespace Sources.Infrastructure.Services.SceneServices
                               throw new ArgumentNullException(nameof(sceneFactories));
 
             ProjectContext projectContext = Object.FindObjectOfType<ProjectContext>();
-            projectContext.Container.Bind<SceneService>().FromInstance(this).AsSingle();
+            projectContext.Container.BindInterfacesAndSelfTo<SceneService>().FromInstance(this).AsSingle();
         }
 
         public void AddBeforeSceneChangeHandler(Func<string, UniTask> handler) =>
@@ -62,6 +62,9 @@ namespace Sources.Infrastructure.Services.SceneServices
             foreach (Func<UniTask> exitingHandler in _exitingHandlers)
                 await exitingHandler.Invoke();
         }
+
+        public void Disable() => 
+            _stateMachine.Exit();
 
         public void Update(float deltaTime) =>
             _stateMachine.Update(deltaTime);

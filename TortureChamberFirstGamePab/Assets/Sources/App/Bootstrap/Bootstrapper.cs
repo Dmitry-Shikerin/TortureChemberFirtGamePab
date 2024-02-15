@@ -14,8 +14,12 @@ namespace Sources.App.Bootstrap
 
         private async void Awake()
         {
-            // _sdkInitializeService.Register();
-            // await _sdkInitializeService.Initialize();
+            //TODO исключение
+#if UNITY_WEBGL && !UNITY_EDITOR
+
+            _sdkInitializeService.Register();
+            await _sdkInitializeService.Initialize();
+#endif
             _appCore = FindObjectOfType<AppCore>() ?? new AppCoreFactory().Create();
         }
 

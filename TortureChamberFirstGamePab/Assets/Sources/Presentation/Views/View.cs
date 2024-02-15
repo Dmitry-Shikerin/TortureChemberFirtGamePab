@@ -8,7 +8,7 @@ namespace Sources.Presentation.Views
         public void Hide() => 
             gameObject.SetActive(false);
 
-        public void Show() => 
+        public virtual void Show() => 
             gameObject.SetActive(true);
         
         public void SetParent(Transform parentTransform) => 

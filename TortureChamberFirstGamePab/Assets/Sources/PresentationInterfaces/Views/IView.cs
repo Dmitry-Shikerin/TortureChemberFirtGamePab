@@ -8,6 +8,6 @@ namespace Sources.PresentationInterfaces.Views
         void Hide();
         void SetParent(Transform parentTransform);
         void SetPosition(Transform parentTransform);
-        public void Destroy();
+        void Destroy();
     }
 }

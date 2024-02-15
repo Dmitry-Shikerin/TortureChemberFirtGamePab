@@ -21,7 +21,6 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
-            //TODO сделать черный экран перед первым появлением курточки
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
                 throw new NullReferenceException(nameof(CurtainView));
@@ -42,10 +41,13 @@ namespace Sources.Infrastructure.Factories.App
                 curtainImageLoaderView.PlayTwist();
                 await curtainView.ShowCurtain();
             });
+            
             sceneService.AddBeforeSceneChangeHandler(async sceneName =>
                 await new SceneLoaderService().Load(sceneName));
+            
             sceneService.AddAfterSceneChangeHandler(async () =>
-                await UniTask.Delay(TimeSpan.FromSeconds(1f)));
+                await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainDelay)));
+            
             sceneService.AddAfterSceneChangeHandler(async () =>
             {
                 curtainImageLoaderView.StopTwist();

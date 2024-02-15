@@ -7,6 +7,7 @@ using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.YandexSDC;
+using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.Presentation.Views;
@@ -46,6 +47,8 @@ namespace Sources.Infrastructure.DIContainers
                 (new LocalizationService(_mainMenuHUD.LeanLocalization)).AsSingle();
 
             Container.Bind<MainMenuFormServiceFactory>().AsSingle();
+            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
+                .FromInstance(new BackgroundMusicService(_mainMenuHUD.BackGroundAudioSourceView)).AsSingle();
         }
     }
 }

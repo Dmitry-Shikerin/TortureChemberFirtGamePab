@@ -43,6 +43,8 @@ namespace Sources.Infrastructure.Spawners.Generic
             return (TView)_viewFactory.Create(model, coinView);
         }
 
+        //TODO вместо этого запрашивать фанк в конструктор?
+        //TODO тогда придется в зенжекте делать фромИнстанс
         protected abstract TModel CreateModel();
     }
 }

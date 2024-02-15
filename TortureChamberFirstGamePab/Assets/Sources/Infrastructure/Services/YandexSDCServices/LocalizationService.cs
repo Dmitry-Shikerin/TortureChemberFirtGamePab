@@ -18,9 +18,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Enter(object payload = null)
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
             ChangeLanguage();
-#endif
         }
 
         private void ChangeLanguage()

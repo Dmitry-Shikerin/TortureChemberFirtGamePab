@@ -2,7 +2,6 @@
 {
     public interface ILeaderboardInitializeService
     {
-        void SetPlayerScore(int score);
         void Fill();
     }
 }

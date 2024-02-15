@@ -144,6 +144,11 @@ namespace Sources.Domain.Constants
             public const string PrefabPath = "Views/Forms";
         }
 
+        public static class App
+        {
+            public const double CurtainDelay = 1;
+        }
+        
         public static class AdvertisingReward
         {
             public const int CoinsAmount = 10;
@@ -183,7 +188,6 @@ namespace Sources.Domain.Constants
                                                 "вовремя успеваете обслужить посетителя. Настроение падает если" +
                                                 " вы не успеете вовремя принести ппосетителю заказ а так же сли" +
                                                 " посетитель займет место на котором находится мусор.";
-            //TODO сролл вью не остается на месте
         }
     }
 }

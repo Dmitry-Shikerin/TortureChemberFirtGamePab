@@ -21,6 +21,7 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
+        private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly IFocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
@@ -36,6 +37,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public GamePlaySceneFactory
         (
+            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -52,6 +54,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _backgroundMusicService = backgroundMusicService ?? throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService;
@@ -72,6 +75,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new GamePlayScene
             (
+                _backgroundMusicService,
                 _localizationService,
                 _focusService,
                 _hud,

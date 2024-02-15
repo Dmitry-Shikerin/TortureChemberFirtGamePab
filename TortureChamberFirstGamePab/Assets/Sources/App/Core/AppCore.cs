@@ -1,4 +1,5 @@
 ﻿using System;
+using Sources.Domain.Constants;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,8 +13,12 @@ namespace Sources.App.Core
         private void Awake() => 
             DontDestroyOnLoad(this);
 
-        private async void Start() => 
+        private async void Start()
+        {
+            //TODO потом раскоментировать
             await _sceneService.ChangeSceneAsync(SceneManager.GetActiveScene().name, null);
+            // await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu, null);
+        }
 
         private void Update() => 
             _sceneService?.Update(Time.deltaTime);
@@ -23,6 +28,9 @@ namespace Sources.App.Core
 
         private void LateUpdate() => 
             _sceneService?.UpdateLate(Time.deltaTime);
+
+        private void OnDestroy() => 
+            _sceneService.Disable();
 
         public void Construct(ISceneService sceneService) =>
             _sceneService = sceneService ?? 

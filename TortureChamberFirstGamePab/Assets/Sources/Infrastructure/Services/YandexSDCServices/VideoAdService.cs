@@ -1,4 +1,5 @@
 ﻿using System;
+using Agava.WebUtility;
 using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
@@ -27,8 +28,13 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
+        //TODO сделать рекламу через какойто таймер и предупреждать перед показом
+        //TODO это ревард реклама
         public void Show()
         {
+            if(AdBlock.Enabled)
+                return;
+            
             Agava.YandexGames.VideoAd.Show(
                 () =>
                 {

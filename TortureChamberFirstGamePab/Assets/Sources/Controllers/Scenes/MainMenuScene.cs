@@ -1,20 +1,12 @@
 ﻿using System;
-using Sources.Controllers.Forms.MainMenus;
 using Sources.ControllersInterfaces.Scenes;
-using Sources.Domain.Constants;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
-using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Services.Forms;
-using Sources.Infrastructure.Services.LoadServices.Components;
-using Sources.Infrastructure.Services.LoadServices.Payloads;
-using Sources.Infrastructure.Services.SceneServices;
+using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.MainMenus;
-using Sources.PresentationInterfaces.UI;
 
 namespace Sources.Controllers.Scenes
 {
@@ -22,6 +14,8 @@ namespace Sources.Controllers.Scenes
     {
         private readonly MainMenuHUD _mainMenuHUD;
 
+        private readonly IBackgroundMusicService _backgroundMusicService;
+        private readonly ILocalizationService _localizationService;
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
         private readonly ILeaderboardInitializeService _yandexLeaderboardInitializeService;
@@ -32,6 +26,8 @@ namespace Sources.Controllers.Scenes
 
         public MainMenuScene
         (
+            IBackgroundMusicService backgroundMusicService,
+            ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
             ILeaderboardInitializeService yandexLeaderboardInitializeService,
@@ -43,6 +39,10 @@ namespace Sources.Controllers.Scenes
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _backgroundMusicService = backgroundMusicService ?? 
+                                      throw new ArgumentNullException(nameof(backgroundMusicService));
+            _localizationService = localizationService ?? 
+                                   throw new ArgumentNullException(nameof(localizationService));
             _leaderboardFormPresenterFactory =
                 leaderboardFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(leaderboardFormPresenterFactory));
@@ -70,16 +70,25 @@ namespace Sources.Controllers.Scenes
                 .Show<MainMenuFormView>();
             
             _mainMenuHUD.Show();
+            
+            _backgroundMusicService.Enter();
 
-            //TODO вроде здесь это должно быть
-            // _sdkInitializeService.GameReady();
-            // _focusService.Enter();
-            // _yandexLeaderboardInitializeService.Fill();
+            //TODO исключение
+#if UNITY_WEBGL && !UNITY_EDITOR
+            _sdkInitializeService.GameReady();
+            _focusService.Enter();
+            _localizationService.Enter();
+            _yandexLeaderboardInitializeService.Fill();
+#endif
         }
 
         public void Exit()
         {
+            // _backgroundMusicService.Exit();
+            
+#if UNITY_WEBGL && !UNITY_EDITOR
             // _focusService.Exit();
+#endif
         }
 
         public void Update(float deltaTime)
@@ -89,7 +98,6 @@ namespace Sources.Controllers.Scenes
         public void UpdateLate(float deltaTime)
         {
         }
-
 
         public void UpdateFixed(float fixedDeltaTime)
         {

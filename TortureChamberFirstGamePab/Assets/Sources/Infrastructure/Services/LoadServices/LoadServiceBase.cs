@@ -22,6 +22,7 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.UI.AudioSources;
@@ -185,16 +186,16 @@ namespace Sources.Infrastructure.Services.LoadServices
             _tavernProviderSetter.SetGameplay(_tavern.VisitorQuantity);
 
             //Items
-            ItemConfigContainer container = Resources
+            ItemConfigContainer itemConfigContainer = Resources
                 .Load<ItemConfigContainer>(Constant.PrefabPaths.ItemConfigContainer);
 
             IItem[] items = new IItem[]
             {
-                new Beer(container.Beer),
-                new Bread(container.Bread),
-                new Meat(container.Meat),
-                new Soup(container.Soup),
-                new Wine(container.Wine)
+                new Beer(itemConfigContainer.Beer),
+                new Bread(itemConfigContainer.Bread),
+                new Meat(itemConfigContainer.Meat),
+                new Soup(itemConfigContainer.Soup),
+                new Wine(itemConfigContainer.Wine)
             };
 
             _itemProvider.AddCollection(items);
@@ -214,28 +215,31 @@ namespace Sources.Infrastructure.Services.LoadServices
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
 
             //TavernPickUpPoints
-            FoodPickUpPoint beerPickUpPoint = new FoodPickUpPoint();
-            FoodPickUpPoint breadPickUpPoint = new FoodPickUpPoint();
-            FoodPickUpPoint meatPickUpPoint = new FoodPickUpPoint();
-            FoodPickUpPoint soupPickUpPoint = new FoodPickUpPoint();
-            FoodPickUpPoint winePickUpPoint = new FoodPickUpPoint();
-
             FoodPickUpPointContainer foodPickUpPointContainer = new FoodPickUpPointContainer
             (
-                beerPickUpPoint,
-                breadPickUpPoint,
-                meatPickUpPoint,
-                soupPickUpPoint,
-                winePickUpPoint
+                new FoodPickUpPoint(),
+                new FoodPickUpPoint(),
+                new FoodPickUpPoint(),
+                new FoodPickUpPoint(),
+                new FoodPickUpPoint()
             );
 
-            _foodPickUpPointsViewFactory.Create(foodPickUpPointContainer, container, _rootGamePoints);
+            _foodPickUpPointsViewFactory.Create(foodPickUpPointContainer, itemConfigContainer, _rootGamePoints);
 
             //TODO запускать приходится здесь
+            //TODO пришлось передавать себя
+            //TODO можно передать экшн
             //FormService
-            _gameplayFormServiceFactory
-                .Create(_playerUpgrade, _player, _hud)
-                .Show<HudFormView>();
+            IFormService gameplayFormService = _gameplayFormServiceFactory
+                .Create(_playerUpgrade, _player, _hud, this);
+
+            gameplayFormService.Show<HudFormView>();
+
+            //TOdo исправить эту проверку
+            if (PlayerDataService.CanLoad)
+            {
+                gameplayFormService.Show<LoadFormView>();
+            }
         }
 
         public void Save()

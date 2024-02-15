@@ -51,6 +51,7 @@ using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Triggers.Taverns;
+using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Items.Coins;
@@ -78,6 +79,7 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
+        [SerializeField] private AudioSourceView _backgroundAudioSource;
         
         public override void InstallBindings()
         {
@@ -87,6 +89,9 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
 
+            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
+                .FromInstance(new BackgroundMusicService(_backgroundAudioSource)).AsSingle();
+            
             HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
@@ -94,10 +99,11 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<IVideoAdService>().To<VideoAdService>().AsSingle();
             Container.Bind<ILocalizationService>().To<LocalizationService>().FromInstance(
                 new LocalizationService(hud.LeanLocalization)).AsSingle();
-
+            Container.Bind<ILeaderboardScoreSetter>().To<YandexLeaderboardScoreSetter>().AsSingle();
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
 
+            Container.Bind<LoadFormPresenterFactory>().AsSingle();
             Container.Bind<HudFormPresenterFactory>().AsSingle();
             Container.Bind<PauseMenuFormPresenterFactory>().AsSingle();
             Container.Bind<UpgradeFormPresenterFactory>().AsSingle();

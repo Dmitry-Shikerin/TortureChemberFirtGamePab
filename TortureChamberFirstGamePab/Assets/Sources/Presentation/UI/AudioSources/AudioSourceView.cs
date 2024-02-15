@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Sources.Presentation.UI.AudioSources
 {
-    //TODO как сделать воспроизведение звуков в остальных контроллерах?
     public class AudioSourceView : View
     {
         [SerializeField] private AudioSource _audioSource;

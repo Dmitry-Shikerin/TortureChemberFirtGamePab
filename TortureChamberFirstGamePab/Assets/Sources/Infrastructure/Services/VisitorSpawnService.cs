@@ -33,6 +33,8 @@ namespace Sources.Infrastructure.Services
 
         private CancellationTokenSource _cancellationTokenSource;
 
+        private bool _isSpawn;
+
         public VisitorSpawnService
         (
             IPauseService pauseService,
@@ -60,26 +62,38 @@ namespace Sources.Infrastructure.Services
         public async void SpawnVisitorAsync()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-
-            while (true)
+            
+            _isSpawn = true;
+            
+            //TOdO что сделать с этим трай кетчем?
+            try
             {
-                if (CanSpawn())
+                while (_isSpawn)
                 {
-                    //TODO возможно подправить
-                    await _pauseService.Yield(_cancellationTokenSource.Token);
-                    await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
-                        cancellationToken: _cancellationTokenSource.Token);
-                    await _pauseService.Yield(_cancellationTokenSource.Token);
-                    
-                    Spawn();
-                }
+                    if (CanSpawn())
+                    {
+                        //TODO возможно подправить
+                        await _pauseService.Yield(_cancellationTokenSource.Token);
+                        await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
+                            cancellationToken: _cancellationTokenSource.Token);
+                        await _pauseService.Yield(_cancellationTokenSource.Token);
 
-                await _pauseService.Yield(_cancellationTokenSource.Token);
+                        Spawn();
+                    }
+
+                    await _pauseService.Yield(_cancellationTokenSource.Token);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
 
-        public void Cancel() =>
+        public void Cancel()
+        {
+            _isSpawn = false;
             _cancellationTokenSource.Cancel();
+        }
 
         private bool CanSpawn()
         {

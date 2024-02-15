@@ -20,6 +20,9 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Enter(object payload = null)
         {
+            OnInBackgroundChangeWeb(WebApplication.InBackground);
+            OnInBackgroundChangeApp(Application.isFocused);
+            
             Application.focusChanged += OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
         }
@@ -35,11 +38,13 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (inApp == false)
             {
                 _pauseService.Pause();
+                _pauseService.PauseSound();
                 
                 return;
             }
             
             _pauseService.Continue();
+            _pauseService.PauseSound();
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
@@ -47,11 +52,13 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (isBackground)
             {
                 _pauseService.Pause();
+                _pauseService.PauseSound();
                 
                 return;
             }
             
             _pauseService.Continue();
+            _pauseService.PauseSound();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Lean.Localization;
+using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners.MainMenu;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Forms.MainMenus.Containers;
@@ -13,4 +14,5 @@ public class MainMenuHUD : View
         LeaderboardElementViewContainer { get; private set; }
     [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
     [field: SerializeField] public MainMenuFormsContainer MainMenuFormsContainer { get; private set; }
+    [field: SerializeField] public AudioSourceView BackGroundAudioSourceView { get; private set; }
 }

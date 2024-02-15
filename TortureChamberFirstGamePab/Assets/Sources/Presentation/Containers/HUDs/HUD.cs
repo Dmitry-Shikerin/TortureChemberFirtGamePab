@@ -32,6 +32,7 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public ContainerView ContainerView { get; private set; }
         [field: SerializeField] public CongratulationUpgradeAudioSourceContainer 
             CongratulationUpgradeAudioSourceContainer { get; private set; }
-        [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; } 
+        [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; }
+        [field: SerializeField] public LoadFormButtonContainer LoadFormButtonContainer { get; private set; }
     }
 }

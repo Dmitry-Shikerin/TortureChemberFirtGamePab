@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Agava.YandexGames;
+using Newtonsoft.Json;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Players;
@@ -25,8 +26,15 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Save(player.Wallet);
         }
 
-        public void Clear() =>
+        //TODO заменить на сохранение дефолтных значений и сделать сохранение булки загружать и создать новое
+        public void Clear()
+        {
+            //TODO если сохранять в облако то методы 
+            // PlayerAccount.GetCloudSaveData();
+            // PlayerAccount.SetCloudSaveData();
+            
             PlayerPrefs.DeleteAll();
+        }
 
         private PlayerMovement LoadMovement()
         {

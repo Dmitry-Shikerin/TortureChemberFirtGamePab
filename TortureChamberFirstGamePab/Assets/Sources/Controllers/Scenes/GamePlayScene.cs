@@ -21,6 +21,7 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
+        private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly IFocusService _focusService;
         private readonly ButtonUIFactory _buttonUIFactory;
@@ -34,6 +35,7 @@ namespace Sources.Controllers.Scenes
 
         public GamePlayScene
         (
+            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -44,9 +46,12 @@ namespace Sources.Controllers.Scenes
             TavernUpgradePointService tavernUpgradePointService,
             IQuantityService visitorQuantityService,
             PauseMenuService pauseMenuService,
-            ILoadService loadService)
+            ILoadService loadService
+        )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _backgroundMusicService = backgroundMusicService ??
+                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
@@ -57,7 +62,8 @@ namespace Sources.Controllers.Scenes
             _visitorSpawnService = visitorSpawnService ?? throw new ArgumentNullException(nameof(visitorSpawnService));
             _tavernUpgradePointService = tavernUpgradePointService ??
                                          throw new ArgumentNullException(nameof(tavernUpgradePointService));
-            _visitorQuantityService = visitorQuantityService ?? throw new ArgumentNullException(nameof(visitorQuantityService));
+            _visitorQuantityService =
+                visitorQuantityService ?? throw new ArgumentNullException(nameof(visitorQuantityService));
             _pauseMenuService = pauseMenuService ?? throw new ArgumentNullException(nameof(pauseMenuService));
             _loadService = loadService ?? throw new ArgumentNullException(nameof(loadService));
         }
@@ -67,15 +73,18 @@ namespace Sources.Controllers.Scenes
         public void Enter(object payload)
         {
             _loadService.Load();
-            _buttonUIFactory.Create(_hud.PauseMenuButtonContainer.SaveButton, _loadService.Save);
+            // _buttonUIFactory.Create(_hud.PauseMenuButtonContainer.SaveButton, _loadService.Save);
             _tavernUpgradePointService.OnEnable();
             _visitorQuantityService.Enter();
             _visitorSpawnService.SpawnVisitorAsync();
             _pauseMenuService.Enter();
+            _backgroundMusicService.Enter();
 
-            //SDCServices
+            //TODO исключение
+#if UNITY_WEBGL && !UNITY_EDITOR
             // _localizationService.Enter();
             // _focusService.Enter();
+#endif
         }
 
         public void Exit()
@@ -85,9 +94,11 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Exit();
             _visitorSpawnService.Cancel();
             _pauseMenuService.Exit();
+            _backgroundMusicService.Exit();
 
-            //SDCServices
+#if UNITY_WEBGL && !UNITY_EDITOR
             // _focusService.Exit();
+#endif
         }
 
         public void Update(float deltaTime)

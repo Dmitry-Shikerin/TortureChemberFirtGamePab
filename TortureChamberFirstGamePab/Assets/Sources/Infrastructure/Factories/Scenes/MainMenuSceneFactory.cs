@@ -6,6 +6,7 @@ using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
@@ -18,6 +19,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly IBackgroundMusicService _backgroundMusicService;
+        private readonly ILocalizationService _localizationService;
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
         private readonly FormService _formService;
@@ -34,6 +37,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            IBackgroundMusicService backgroundMusicService,
+            ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
             FormService formService,
@@ -47,6 +52,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
+            _backgroundMusicService = backgroundMusicService ??
+                                      throw new ArgumentNullException(nameof(backgroundMusicService));
+            _localizationService = localizationService ??
+                                   throw new ArgumentNullException(nameof(localizationService));
             _leaderboardFormPresenterFactory = 
                 leaderboardFormPresenterFactory ?? 
                 throw new ArgumentNullException(nameof(leaderboardFormPresenterFactory));
@@ -74,6 +83,8 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _backgroundMusicService,
+                _localizationService,
                 _leaderboardFormPresenterFactory,
                 _mainMenuFormPresenterFactory,
                 _yandexLeaderboardInitializeService,

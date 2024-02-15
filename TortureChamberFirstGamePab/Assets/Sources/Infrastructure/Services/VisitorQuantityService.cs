@@ -47,21 +47,30 @@ namespace Sources.Infrastructure.Services
         private async UniTask IncreaseDifficulty()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-
+            
             int visitorsCount = 0;
 
-            while (visitorsCount <= _maximumSetPointsCapacity)
+            //TODO что сделать с этим трай кетчем
+            try
             {
-                await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
-                    cancellationToken: _cancellationTokenSource.Token);
-                await _pauseService.Yield(_cancellationTokenSource.Token);
-                Debug.Log("увеличино максимальное количество посетителей");
-                visitorsCount++;
-                VisitorQuantity.AddMaximumVisitorsQuantity();
+                while (visitorsCount <= _maximumSetPointsCapacity)
+                {
+                    await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
+                        cancellationToken: _cancellationTokenSource.Token);
+                    await _pauseService.Yield(_cancellationTokenSource.Token);
+                    Debug.Log("увеличино максимальное количество посетителей");
+                    visitorsCount++;
+                    VisitorQuantity.AddMaximumVisitorsQuantity();
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
 
-        public void Exit() =>
+        public void Exit()
+        {
             _cancellationTokenSource.Cancel();
+        }
     }
 }

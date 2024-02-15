@@ -14,11 +14,14 @@ namespace Sources.Infrastructure.StateMachines.StateMachineBase
             if (state == null) 
                 throw new ArgumentNullException(nameof(state));
 
-            _currentState?.Exit();
+            Exit();
             _currentState = state;
             _currentState?.Enter(payload);      
         }
-        
+
+        public void Exit() => 
+            _currentState?.Exit();
+
         public void Update(float deltaTime) => 
             _currentState?.Update(deltaTime);
 
