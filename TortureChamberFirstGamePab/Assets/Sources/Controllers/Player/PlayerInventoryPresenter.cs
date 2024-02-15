@@ -54,12 +54,13 @@ namespace Sources.Controllers.Player
         public override void Enable()
         {
             HideSlots();
-            _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
             
             for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
             {
                 UpdateAvailableSlot(i);
             }
+            
+            _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
             
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
             _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
@@ -106,8 +107,10 @@ namespace Sources.Controllers.Player
                     return;
 
                 if (_playerInventory.Items.Count >= _playerInventory.InventoryCapacity)
+                {
                     RemoveItem(_playerInventoryView.PlayerInventorySlots[Constant.Inventory.FirstItemIndex]
                         .BackgroundImage, Constant.Inventory.FirstItemIndex);
+                }
 
                 _playerInventory.Add(item);
                 IItemView itemView = _itemViewFactory.Create(item);
@@ -221,14 +224,18 @@ namespace Sources.Controllers.Player
 
         private void HideSlots()
         {
-            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
-                BackgroundImage.HideImage();
-            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.SecondItemIndex].
-                Image.HideImage();
-            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
-                BackgroundImage.HideImage();
-            _playerInventoryView.PlayerInventorySlots[Constant.Inventory.ThirdItemIndex].
-                Image.HideImage();
+            int indexFirstSlot = 0;
+            
+            for (int i = 0; i < _playerInventoryView.PlayerInventorySlots.Count; i++)
+            {
+                PlayerInventorySlotView slot = _playerInventoryView.PlayerInventorySlots[i];
+                
+                if(i == indexFirstSlot)
+                    continue;
+                
+                slot.BackgroundImage.HideImage();
+                slot.Image.HideImage();
+            }
         }
 
         private void SetInventoryViewPosition(IItem targetItem)

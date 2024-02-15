@@ -147,6 +147,7 @@ namespace Sources.Domain.Constants
         public static class App
         {
             public const double CurtainDelay = 1;
+            public const double CurtainWaiting = 2;
         }
         
         public static class AdvertisingReward

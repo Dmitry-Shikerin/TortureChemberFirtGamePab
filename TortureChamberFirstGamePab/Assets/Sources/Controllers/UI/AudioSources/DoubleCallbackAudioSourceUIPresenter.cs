@@ -23,6 +23,7 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Enable()
         {
             _audioSourceUI.AudioSourceView.SetLoop();
+            
             _audioSourceActivator.FirstAudioSourceActivated += OnPlaySound;
             _audioSourceActivator.SecondAudioSourceActivated += OnStopSound;
         }
@@ -30,6 +31,7 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Disable()
         {
             _audioSourceUI.AudioSourceView.RemoveLoop();
+            
             _audioSourceActivator.FirstAudioSourceActivated -= OnPlaySound;
             _audioSourceActivator.SecondAudioSourceActivated -= OnStopSound;
         }

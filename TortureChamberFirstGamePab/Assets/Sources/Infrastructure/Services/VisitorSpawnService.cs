@@ -72,16 +72,13 @@ namespace Sources.Infrastructure.Services
                 {
                     if (CanSpawn())
                     {
-                        //TODO возможно подправить
-                        await _pauseService.Yield(_cancellationTokenSource.Token);
                         await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
                             cancellationToken: _cancellationTokenSource.Token);
-                        await _pauseService.Yield(_cancellationTokenSource.Token);
 
                         Spawn();
                     }
 
-                    await _pauseService.Yield(_cancellationTokenSource.Token);
+                    await UniTask.Yield(_cancellationTokenSource.Token);
                 }
             }
             catch (OperationCanceledException)

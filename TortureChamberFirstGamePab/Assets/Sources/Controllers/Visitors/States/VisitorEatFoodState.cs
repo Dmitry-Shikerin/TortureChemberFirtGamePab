@@ -79,6 +79,7 @@ namespace Sources.Controllers.Visitors.States
         {
             await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
                 Constant.Visitors.EatFillingRate, new CancellationTokenSource().Token);
+            
             _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
             _visitor.SetUnSeat();
             itemView.Destroy();

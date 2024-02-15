@@ -2,8 +2,6 @@
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
-using Sources.Infrastructure.Services.Cameras;
-using Sources.Infrastructure.Services.Movement;
 using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.Movement;

@@ -57,7 +57,6 @@ namespace Sources.Infrastructure.Services
                 {
                     await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
                         cancellationToken: _cancellationTokenSource.Token);
-                    await _pauseService.Yield(_cancellationTokenSource.Token);
                     Debug.Log("увеличино максимальное количество посетителей");
                     visitorsCount++;
                     VisitorQuantity.AddMaximumVisitorsQuantity();

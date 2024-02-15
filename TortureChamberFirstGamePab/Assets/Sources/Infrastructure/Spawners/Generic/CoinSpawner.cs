@@ -1,7 +1,7 @@
 ﻿using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Views;
-using Sources.InfrastructureInterfaces.Factories.Views.Generic.Triple;
+using Sources.InfrastructureInterfaces.Factories.Views.ViewFactories.Generic.Triple;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 

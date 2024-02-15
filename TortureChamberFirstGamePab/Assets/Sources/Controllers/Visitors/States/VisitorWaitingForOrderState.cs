@@ -88,13 +88,9 @@ namespace Sources.Controllers.Visitors.States
             try
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
+                
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token,
-                    () =>
-                    {
-                        _visitorView.StopMove();
-                        _visitorAnimation.PlaySeatIdle();
-                    });
+                    Constant.Visitors.WaitingEatFillingRate, _cancellationTokenSource.Token);
                 
                 _visitor.SetUnHappy();
                 _visitor.SeatPointView.UnOccupy();

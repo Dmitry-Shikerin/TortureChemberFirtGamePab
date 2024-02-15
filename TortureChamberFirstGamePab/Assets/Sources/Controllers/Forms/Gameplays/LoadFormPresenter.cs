@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Sources.Domain.Constants;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms.Gameplays;
@@ -27,7 +28,7 @@ namespace Sources.Controllers.Forms.Gameplays
         public override async void Enable()
         {
             //TODO кастылю иначе курточка не пропадает
-            await UniTask.Delay(TimeSpan.FromSeconds(2));
+            await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
             _pauseService.Pause();
         }
 

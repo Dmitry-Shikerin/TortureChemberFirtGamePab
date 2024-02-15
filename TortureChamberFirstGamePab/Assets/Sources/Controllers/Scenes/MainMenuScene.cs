@@ -64,7 +64,6 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
-            //TODO как то так
             _mainMenuFormServiceFactory
                 .Create()
                 .Show<MainMenuFormView>();
@@ -84,7 +83,7 @@ namespace Sources.Controllers.Scenes
 
         public void Exit()
         {
-            // _backgroundMusicService.Exit();
+            _backgroundMusicService.Exit();
             
 #if UNITY_WEBGL && !UNITY_EDITOR
             // _focusService.Exit();

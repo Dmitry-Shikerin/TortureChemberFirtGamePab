@@ -32,8 +32,10 @@ namespace Sources.Controllers.Taverns
         public override void Enable()
         {
             _imageUI.SetFillAmount(Constant.TavernMoodValues.StartValue);
+            
             _tavernMood.TavernMoodValueChanged += OnTavernMoodValueChanged;
             _upgradeble.CurrentLevelUpgrade.Changed += OnAddedAmountUpgradeChanged;
+            
             _tavernMood.AddedAmountUpgrade = _upgradeble.AddedAmountUpgrade;
         }
 

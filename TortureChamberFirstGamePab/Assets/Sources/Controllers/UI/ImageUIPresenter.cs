@@ -38,8 +38,6 @@ namespace Sources.Controllers.UI
                 action.Invoke();
                 
                 //TODO юнитаски ставятся на паузу при Time.timescale = 0;
-                // //TODO сделать поп аналогии
-                // await _pauseService.Yield(cancellationToken);
                 await UniTask.Yield(cancellationToken);
             }
 
@@ -58,7 +56,6 @@ namespace Sources.Controllers.UI
 
                 _imageUI.SetFillAmount(fill);
                 
-                // await _pauseService.Yield(cancellationToken);
                 await UniTask.Yield(cancellationToken);
             }
 

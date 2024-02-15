@@ -18,12 +18,15 @@ namespace Sources.Infrastructure.Services
         (
             IInputService inputService,
             IFormService formService,
-            IPauseService pauseService
+            IPauseService pauseService,
+            PauseMenuButtonContainer pauseMenuButtonContainer
         )
         {
             _inputService = inputService ?? throw new ArgumentNullException(nameof(inputService));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
+            _pauseMenuButtonContainer = pauseMenuButtonContainer ? pauseMenuButtonContainer 
+                : throw new ArgumentNullException(nameof(pauseMenuButtonContainer));
         }
 
         public void Enter() => 
