@@ -8,6 +8,7 @@ using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Factories.Views;
+using Sources.InfrastructureInterfaces.Factories.Views.Generic.Triple;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;

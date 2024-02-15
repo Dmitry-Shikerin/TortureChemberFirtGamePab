@@ -2,6 +2,7 @@
 using Sources.Domain.Items.Garbages;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Views;
+using Sources.InfrastructureInterfaces.Factories.Views.Generic.Triple;
 using Sources.Presentation.Views.Items.Garbages;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 
