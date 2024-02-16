@@ -14,6 +14,7 @@ using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Infrastructure.Services

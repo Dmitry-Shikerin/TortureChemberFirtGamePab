@@ -6,6 +6,7 @@ using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 
 namespace Sources.Controllers.Visitors
 {

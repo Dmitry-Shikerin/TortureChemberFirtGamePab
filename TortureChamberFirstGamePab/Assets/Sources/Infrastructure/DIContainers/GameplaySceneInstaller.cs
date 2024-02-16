@@ -217,9 +217,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<PauseMenuButtonContainer>().FromInstance(hud.PauseMenuButtonContainer);
             Container.Bind<PauseMenuService>().AsSingle();
 
-            Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
-            Container.Bind<IDataService<PlayerUpgrade>>().To<PlayerUpgradeDataService>().AsSingle();
-            Container.Bind<IDataService<Tavern>>().To<TavernDataService>().AsSingle();
             Container.Bind<CreateService>().AsSingle();
             Container.Bind<LoadService>().AsSingle();
         }

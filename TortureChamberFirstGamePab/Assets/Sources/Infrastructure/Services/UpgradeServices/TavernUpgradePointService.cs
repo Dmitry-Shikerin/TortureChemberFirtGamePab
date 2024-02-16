@@ -33,7 +33,6 @@ namespace Sources.Infrastructure.Services.UpgradeServices
             _triggerUpgradeTrigger.Exited -= OnExit;
         }
 
-        //TODO вот таак вот сжулил
         private void OnEnter(IPlayerMovementView playerMovementView) => 
             _formService.Show<UpgradeFormView>();
 

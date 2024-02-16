@@ -38,7 +38,6 @@ namespace Sources.Infrastructure.Services
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
 
-        //TODO протестировать этот сервисс
         public void Enter(object payload = null)
         {
             TavernMood.TavernMoodOver += OnGameOver;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Sources.PresentationInterfaces.Views
+namespace Sources.PresentationInterfaces.Views.Visitors
 {
     public interface IVisitorView
     {

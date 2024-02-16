@@ -19,6 +19,7 @@ using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
+using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 using UnityEngine;
@@ -120,7 +121,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 visitorView, visitor, visitorAnimation, _collectionRepository,
                 visitorInventory, visitorImageUIContainer, _pauseService);
             VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
-                new VisitorNotSatisfiedWithOrderState(visitor);
+                new VisitorNotSatisfiedWithOrderState(visitor, tavernMood);
             VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(
                 visitorView, visitor, visitorCounter);
 

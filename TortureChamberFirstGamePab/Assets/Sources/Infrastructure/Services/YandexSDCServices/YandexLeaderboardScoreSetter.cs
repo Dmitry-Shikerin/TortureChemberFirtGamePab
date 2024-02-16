@@ -5,7 +5,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 {
     public class YandexLeaderboardScoreSetter : ILeaderboardScoreSetter
     {
-        //TODO это вызывать при сохранении ии проигрыше
         public void SetPlayerScore(int score)
         {
             if (PlayerAccount.IsAuthorized == false)

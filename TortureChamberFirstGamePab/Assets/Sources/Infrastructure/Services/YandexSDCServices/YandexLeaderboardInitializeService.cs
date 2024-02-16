@@ -25,7 +25,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 : throw new ArgumentNullException(nameof(leaderboardElementViewContainer));
         }
         
-        //TODO сделать сохранение привыходе из игры, и сохранять игру по таймеру
         //TODo разделить туториал на несколько окошек и переключать их
         //TODO сделать проверку в туториале есть ли у человека какойто скор чтобы не показывать его постоянно
         public void Fill()

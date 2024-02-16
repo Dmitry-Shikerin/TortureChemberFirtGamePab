@@ -3,7 +3,6 @@ using Sources.PresentationInterfaces.UI.AudioSources;
 
 namespace Sources.Controllers.UI.AudioSources
 {
-    //TODO проблему дубляжа контроллеров возможно решить с помощью подмены сервисов
     public class TripleAudioSourceUIPresenter : PresenterBase
     {
         private readonly ITripleAudioSourceActivator _audioSourceActivator;

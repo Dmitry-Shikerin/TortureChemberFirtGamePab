@@ -10,6 +10,7 @@ using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 

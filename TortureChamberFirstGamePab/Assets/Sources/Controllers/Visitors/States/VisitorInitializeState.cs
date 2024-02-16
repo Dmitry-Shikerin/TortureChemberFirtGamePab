@@ -6,6 +6,7 @@ using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Extensions.ShuffleExtensions;
 using Sources.Utils.Repositoryes.CollectionRepository;
 

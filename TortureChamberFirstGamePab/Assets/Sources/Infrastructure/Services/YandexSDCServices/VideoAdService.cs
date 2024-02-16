@@ -1,5 +1,6 @@
 ﻿using System;
 using Agava.WebUtility;
+using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
@@ -28,8 +29,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
-        //TODO сделать рекламу через какойто таймер и предупреждать перед показом
-        //TODO это ревард реклама
         public void Show()
         {
             if(AdBlock.Enabled)
@@ -47,6 +46,26 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 {
                     _pauseService.Continue();
                     _pauseService.ContinueSound();
+                });
+        }
+
+        //TODo позаниматься скором
+        //TODO это интерститиал
+        //TODO сделать таймер перед показом
+        //TODO разделить этот сервис
+        public void InterstitialShow()
+        {
+            Agava.YandexGames.InterstitialAd.Show(
+                () =>
+                {
+                    _pauseService.Pause();
+                    _pauseService.PauseSound();
+                },
+                 (isOpen) =>
+                {
+                    _pauseService.Continue();
+                    _pauseService.ContinueSound();
+
                 });
         }
     }

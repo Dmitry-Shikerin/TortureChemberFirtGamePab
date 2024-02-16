@@ -16,10 +16,5 @@ namespace Sources.Infrastructure.Spawners.Generic
         ) : base(viewFactory, objectPool)
         {
         }
-
-        protected override Coin CreateModel()
-        {
-            return new Coin();
-        }
     }
 }

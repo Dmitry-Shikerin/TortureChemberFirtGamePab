@@ -17,10 +17,5 @@ namespace Sources.Infrastructure.Spawners.Generic
         ) : base(viewFactory, objectPool)
         {
         }
-
-        protected override Garbage CreateModel()
-        {
-            return new Garbage();
-        }
     }
 }

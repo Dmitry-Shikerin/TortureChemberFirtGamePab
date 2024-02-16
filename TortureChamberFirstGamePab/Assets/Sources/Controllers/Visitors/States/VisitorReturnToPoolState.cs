@@ -4,6 +4,7 @@ using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.InfrastructureInterfaces.Services.ObjectPolls;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States

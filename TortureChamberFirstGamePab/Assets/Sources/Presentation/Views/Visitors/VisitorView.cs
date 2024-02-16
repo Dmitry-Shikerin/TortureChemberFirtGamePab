@@ -4,6 +4,7 @@ using Sources.Presentation.Animations;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Visitors.Inventorys;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -46,8 +47,14 @@ namespace Sources.Presentation.Views.Visitors
         public void Move() => 
             NavMeshAgent.isStopped = false;
 
-        public void SetDestination(Vector3 destination) =>
+        public void SetDestination(Vector3 destination)
+        {
+            //TODO инааче при переходе на сцену летят баги
+            if(NavMeshAgent == null)
+                return;
+            
             NavMeshAgent.destination = destination;
+        }
 
         public void SeatDown(Vector3 position, Quaternion look)
         {

@@ -82,7 +82,6 @@ namespace Sources.Controllers.Visitors.States
             _cancellationTokenSource.Cancel();
         }
 
-        //TODO сделать трай кетчи
         private async void Eat(IItemView itemView, CancellationToken cancellationToken)
         {
             try

@@ -35,7 +35,6 @@ namespace Sources.Infrastructure.Services
         public void Exit() => 
             _inputService.PauseButtonChanged -= OnPauseButtonChanged;
 
-        //TODO тут тоже пришлось сжулить
         private void OnPauseButtonChanged()
         {
             if (_pauseMenuButtonContainer.gameObject.activeSelf == false)

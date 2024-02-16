@@ -4,6 +4,7 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States

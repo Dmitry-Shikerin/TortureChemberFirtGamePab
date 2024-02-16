@@ -1,5 +1,6 @@
 ﻿using Sources.App.Bootstrap;
 using Sources.Domain.Datas.Players;
+using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Prefabs;
 using Sources.Infrastructure.Factories.Scenes;
@@ -20,6 +21,8 @@ namespace Sources.Infrastructure.DIContainers
         public override void InstallBindings()
         {
             Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
+            Container.Bind<IDataService<Tavern>>().To<TavernDataService>().AsSingle();
+            Container.Bind<IDataService<PlayerUpgrade>>().To<PlayerUpgradeDataService>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();

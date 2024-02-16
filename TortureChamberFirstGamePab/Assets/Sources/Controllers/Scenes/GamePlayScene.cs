@@ -35,7 +35,6 @@ namespace Sources.Controllers.Scenes
         private readonly ILoadService _loadService;
         private readonly PauseMenuService _pauseMenuService;
 
-        //TODO после запуска мновой игры игра ставится на паузу
         public GamePlayScene
         (
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,

@@ -78,7 +78,6 @@ namespace Sources.Infrastructure.Factories.Scenes
             _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
-        //TODO пробежатся по желтым варнингам
         public async UniTask<IScene> Create(object payload)
         {
             return new MainMenuScene

@@ -173,7 +173,6 @@ namespace Sources.Infrastructure.Services.LoadServices
                                  throw new ArgumentNullException(nameof(playerViewFactory));
         }
 
-        //TODO обьединитиь этот сервис
         public void Load()
         {
             _player = CreatePlayer();
@@ -251,15 +250,15 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         private async void ShowLoadForm(IFormService gameplayFormService)
         {
-            //TOdo исправить эту проверку
-            //TODO кастылю иначе курточка не пропадает
-            if (PlayerDataService.CanLoad)
+            if (CanLoad())
             {
-                Debug.Log("LoadForm Show");
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
 
                 gameplayFormService.Show<LoadFormView>();
             }
         }
+
+        private bool CanLoad() => 
+            PlayerDataService.CanLoad && TavernDataService.CanLoad && PlayerUpgradeDataService.CanLoad;
     }
 }

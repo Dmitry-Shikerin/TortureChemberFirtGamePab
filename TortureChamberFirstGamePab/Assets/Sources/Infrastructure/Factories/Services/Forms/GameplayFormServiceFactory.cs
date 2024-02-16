@@ -13,6 +13,7 @@ using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Voids;
@@ -23,6 +24,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class GameplayFormServiceFactory
     {
+        private readonly IVideoAdService _videoAdService;
         private readonly ILeaderboardScoreSetter _leaderboardScoreSetter;
         private readonly IPauseService _pauseService;
         private readonly SceneService _sceneService;
@@ -39,6 +41,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
         public GameplayFormServiceFactory
         (
+            IVideoAdService videoAdService,
             ILeaderboardScoreSetter leaderboardScoreSetter,
             IPauseService pauseService,
             SceneService sceneService,
@@ -54,6 +57,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             GameOverFormPresenterFactory gameOverFormPresenterFactory
         )
         {
+            _videoAdService = videoAdService ?? throw new ArgumentNullException(nameof(videoAdService));
             _leaderboardScoreSetter = leaderboardScoreSetter ?? 
                                       throw new ArgumentNullException(nameof(leaderboardScoreSetter));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
@@ -142,10 +146,27 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 playerInventoryUpgradeView.Upgrade);
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.MovementButtonUI,
                 playerMovementUpgradeView.Upgrade);
+            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.AdvertisementButtonUI, () =>
+            {
+                //TODO исключение
+                //TODO переместить исключения в сервисы
+#if UNITY_WEBGL && !UNITY_EDITOR
+                _videoAdService.Show();
+#endif
+            });
 
-            //PauseMenuButtons
+            //HudButtons
             _buttonUIFactory.Create(hud.PauseMenuButton, 
                 hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
+            
+            //PauseMenuButtons
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton, () =>
+            {
+                //TODO исключение
+#if UNITY_WEBGL && !UNITY_EDITOR
+                _videoAdService.Show();
+#endif
+            });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
                 _pauseService.Continue();
