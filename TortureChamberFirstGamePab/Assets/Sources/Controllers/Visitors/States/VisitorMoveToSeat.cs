@@ -19,6 +19,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly IVisitorAnimation _visitorAnimation;
         private readonly IPauseService _pauseService;
 
+        private CancellationTokenSource _cancellationTokenSource;
+
         public VisitorMoveToSeat
         (
             IVisitorView visitorView,
@@ -37,30 +39,37 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            MovingAsync();
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            MovingAsync(_cancellationTokenSource.Token);
         }
 
         public override void Exit()
         {
+            _cancellationTokenSource.Cancel();
         }
 
-        private async void MovingAsync()
+        private async void MovingAsync(CancellationToken cancellationToken)
         {
-            _visitorAnimation.PlayWalk();
-            await MoveAsync();
-            _visitor.SetIdle();
+            try
+            {
+                _visitorAnimation.PlayWalk();
+                await MoveAsync(cancellationToken);
+                _visitor.SetIdle();
+            }
+            catch (OperationCanceledException)
+            {
+            }
         }
 
-        private async UniTask MoveAsync()
+        private async UniTask MoveAsync(CancellationToken cancellationToken)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            
             _visitorView.SetDestination(_visitor.SeatPointView.Position);
 
             while (Vector3.Distance(_visitorView.Position, _visitor.SeatPointView.Position) >
                    _visitorView.NavMeshAgent.stoppingDistance)
             {
-                await UniTask.Yield(cancellationTokenSource.Token);
+                await UniTask.Yield(cancellationToken);
             }
         }
     }

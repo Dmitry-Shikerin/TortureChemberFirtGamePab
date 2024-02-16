@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
@@ -34,6 +35,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
         private readonly TutorialFormPresenterFactory _tutorialFormPresenterFactory;
         private readonly LoadFormPresenterFactory _loadFormPresenterFactory;
+        private readonly GameOverFormPresenterFactory _gameOverFormPresenterFactory;
 
         public GameplayFormServiceFactory
         (
@@ -48,7 +50,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             ButtonUIFactory buttonUIFactory,
             AudioSourceUIFactory audioSourceUIFactory,
             TutorialFormPresenterFactory tutorialFormPresenterFactory,
-            LoadFormPresenterFactory loadFormPresenterFactory
+            LoadFormPresenterFactory loadFormPresenterFactory,
+            GameOverFormPresenterFactory gameOverFormPresenterFactory
         )
         {
             _leaderboardScoreSetter = leaderboardScoreSetter ?? 
@@ -71,11 +74,14 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                                             throw new ArgumentNullException(nameof(tutorialFormPresenterFactory));
             _loadFormPresenterFactory = loadFormPresenterFactory ?? 
                                         throw new ArgumentNullException(nameof(loadFormPresenterFactory));
+            _gameOverFormPresenterFactory = gameOverFormPresenterFactory ?? 
+                                            throw new ArgumentNullException(nameof(gameOverFormPresenterFactory));
         }
 
         public IFormService Create(PlayerUpgrade playerUpgrade, Player player, 
-            HUD hud, ILoadService loadServiceBase)
+            HUD hud, Action saveAction)
         {
+            //Forms
             Form<HudFormView, HudFormPresenter> hudForm = new Form<HudFormView, HudFormPresenter>(
                 _hudFormPresenterFactory.Create, hud.GameplayFormsContainer.HudFormView);
             
@@ -103,6 +109,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 _loadFormPresenterFactory.Create, hud.GameplayFormsContainer.LoadFormView);
             
             _formService.Add(loadForm);
+
+            Form<GameOverFormView, GameOverFormPresenter> gameOverForm = 
+                new Form<GameOverFormView, GameOverFormPresenter>(
+                _gameOverFormPresenterFactory.Create, hud.GameplayFormsContainer.GameOverFormView);
+            
+            _formService.Add(gameOverForm);
             
             //PlayerUpgradeViews
             IPlayerUpgradeView playerCharismaUpgradeView = 
@@ -137,19 +149,18 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
                 _pauseService.Continue();
-                loadServiceBase.Save();
+                saveAction.Invoke();
                 //TODO исключение
-                //TODO подправить добавление очков
 #if UNITY_WEBGL && !UNITY_EDITOR
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Coins.GetValue);
+                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score);
 #endif
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
             });
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SaveButton, loadServiceBase.Save);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SaveButton, saveAction.Invoke);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.QuitButton, () =>
                 {
                     _pauseService.Continue();
-                    loadServiceBase.Save();
+                    saveAction.Invoke();
                     //TODO исключение
 #if UNITY_WEBGL && !UNITY_EDITOR
                 _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Coins.GetValue);
@@ -168,6 +179,15 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             //LoadFormButtons
             _buttonUIFactory.Create(hud.LoadFormButtonContainer.CloseButton,
                 hud.GameplayFormsContainer.LoadFormView.ShowHudForm);
+            
+            //GameOverFormButtons
+            _buttonUIFactory.Create(hud.GameOverFormButtonContainer.BackToMainMenuButton,
+                async () =>
+                {
+                    _pauseService.Continue();
+                    
+                    await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
+                });
 
             return _formService;
         }

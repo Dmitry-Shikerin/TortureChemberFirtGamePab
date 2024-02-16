@@ -24,6 +24,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly IPauseService _pauseService;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
+        private CancellationTokenSource _cancellationTokenSource;
+        
         public VisitorMoveToExitState
         (
             IVisitorView visitorView,
@@ -49,6 +51,8 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
             
@@ -57,6 +61,7 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Exit()
         {
+            _cancellationTokenSource.Cancel();
         }
 
         private async void MovingAsync()
@@ -71,16 +76,20 @@ namespace Sources.Controllers.Visitors.States
 
         private async UniTask MoveAsync()
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            
-            IVisitorPoint outDoorPoint = _collectionRepository.Get<OutDoorPoint>().FirstOrDefault();
-
-            _visitorView.SetDestination(outDoorPoint.Position);
-
-            while (Vector3.Distance(_visitorView.Position, outDoorPoint.Position) >
-                   _visitorView.NavMeshAgent.stoppingDistance)
+            try
             {
-                await UniTask.Yield(cancellationTokenSource.Token);
+                IVisitorPoint outDoorPoint = _collectionRepository.Get<OutDoorPoint>().FirstOrDefault();
+
+                _visitorView.SetDestination(outDoorPoint.Position);
+
+                while (Vector3.Distance(_visitorView.Position, outDoorPoint.Position) >
+                       _visitorView.NavMeshAgent.stoppingDistance)
+                {
+                    await UniTask.Yield(_cancellationTokenSource.Token);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
     }

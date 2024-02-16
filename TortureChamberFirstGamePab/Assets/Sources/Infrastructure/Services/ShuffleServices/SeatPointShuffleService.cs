@@ -5,7 +5,6 @@ using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Infrastructure.Services.ShuffleServices
 {
-    //TODO внедрить этот сеервис в логику
     public class SeatPointShuffleService : ShuffleService<SeatPointView>
     {
         private readonly CollectionRepository _collectionRepository;

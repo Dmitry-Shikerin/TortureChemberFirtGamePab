@@ -28,7 +28,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         //TODO сделать сохранение привыходе из игры, и сохранять игру по таймеру
         //TODo разделить туториал на несколько окошек и переключать их
         //TODO сделать проверку в туториале есть ли у человека какойто скор чтобы не показывать его постоянно
-        //TODO разделить этот сервис
         public void Fill()
         {
             if (PlayerAccount.IsAuthorized)

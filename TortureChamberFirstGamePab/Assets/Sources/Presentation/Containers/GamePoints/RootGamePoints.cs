@@ -5,7 +5,7 @@ using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using UnityEngine;
 
-namespace Sources.Presentation.Voids.GamePoints
+namespace Sources.Presentation.Containers.GamePoints
 {
     public class RootGamePoints : View
     {
@@ -18,6 +18,5 @@ namespace Sources.Presentation.Voids.GamePoints
         [field: SerializeField] public TavernUpgradeTrigger TavernUpgradeTrigger { get; private set; }
         [field: SerializeField] public UpgradePointsInteractionAudioSourceContainer 
             UpgradePointsInteractionAudioSourceContainer { get; private set; }
-        //TODO куда поместить этот скрипт
     }
 }

@@ -81,6 +81,8 @@ namespace Sources.Controllers.Visitors.States
         public override void Exit()
         {
             _visitorInventory.SetTargetItem(null);
+            
+            _cancellationTokenSource.Cancel();
         }
 
         private async void WaitAsync()

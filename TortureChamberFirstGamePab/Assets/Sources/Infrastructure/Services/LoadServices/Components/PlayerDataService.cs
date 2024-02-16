@@ -26,14 +26,11 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Save(player.Wallet);
         }
 
-        //TODO заменить на сохранение дефолтных значений и сделать сохранение булки загружать и создать новое
         public void Clear()
         {
-            //TODO если сохранять в облако то методы 
-            // PlayerAccount.GetCloudSaveData();
-            // PlayerAccount.SetCloudSaveData();
-            
-            PlayerPrefs.DeleteAll();
+            PlayerPrefs.DeleteKey(Constant.DataKey.MovementKey);
+            PlayerPrefs.DeleteKey(Constant.DataKey.InventoryKey);
+            PlayerPrefs.DeleteKey(Constant.DataKey.WalletKey);
         }
 
         private PlayerMovement LoadMovement()
@@ -79,7 +76,11 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         private void Save(PlayerWallet wallet)
         {
             string json = JsonConvert.SerializeObject(
-                new PlayerWalletData() { Coins = wallet.Coins.GetValue });
+                new PlayerWalletData()
+                {
+                    Coins = wallet.Coins.GetValue,
+                    Score = wallet.Score
+                });
             PlayerPrefs.SetString(Constant.DataKey.WalletKey, json);
         }
     }

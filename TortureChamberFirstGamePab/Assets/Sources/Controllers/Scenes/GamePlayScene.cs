@@ -21,6 +21,8 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
+        private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
+        private readonly IGameOverService _gameOverService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly IFocusService _focusService;
@@ -33,8 +35,11 @@ namespace Sources.Controllers.Scenes
         private readonly ILoadService _loadService;
         private readonly PauseMenuService _pauseMenuService;
 
+        //TODO после запуска мновой игры игра ставится на паузу
         public GamePlayScene
         (
+            ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
+            IGameOverService gameOverService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
@@ -50,6 +55,9 @@ namespace Sources.Controllers.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
+                                             throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
+            _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
             _backgroundMusicService = backgroundMusicService ??
                                       throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
@@ -78,6 +86,8 @@ namespace Sources.Controllers.Scenes
             _visitorSpawnService.SpawnVisitorAsync();
             _pauseMenuService.Enter();
             _backgroundMusicService.Enter();
+            _gameOverService.Enter();
+            _saveAfterCertainPeriodService.Enter(_loadService);
 
             //TODO исключение
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -88,12 +98,13 @@ namespace Sources.Controllers.Scenes
 
         public void Exit()
         {
-            _visitorSpawnService.Cancel();
             _tavernUpgradePointService.OnDisable();
             _visitorQuantityService.Exit();
             _visitorSpawnService.Cancel();
             _pauseMenuService.Exit();
             _backgroundMusicService.Exit();
+            _gameOverService.Exit();
+            _saveAfterCertainPeriodService.Exit();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             // _focusService.Exit();

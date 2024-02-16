@@ -2,6 +2,7 @@
 using Sources.Domain.Items.ItemConfigs;
 using Sources.Domain.Taverns;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
+using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Voids.GamePoints;
 
 namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints

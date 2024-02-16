@@ -21,6 +21,8 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
+        private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
+        private readonly IGameOverService _gameOverService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly IFocusService _focusService;
@@ -37,6 +39,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public GamePlaySceneFactory
         (
+            ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
+            IGameOverService gameOverService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
@@ -54,6 +58,9 @@ namespace Sources.Infrastructure.Factories.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _saveAfterCertainPeriodService = saveAfterCertainPeriodService ?? 
+                                             throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
+            _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
             _backgroundMusicService = backgroundMusicService ?? throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
@@ -75,6 +82,8 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new GamePlayScene
             (
+                _saveAfterCertainPeriodService,
+                _gameOverService,
                 _backgroundMusicService,
                 _localizationService,
                 _focusService,
@@ -92,6 +101,9 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         private ILoadService CreateLoadService(object payload)
         {
+            if (payload == null)
+                return _createService;
+            
             bool canLoad = payload is LoadServicePayload { CanLoad: true };
             
             if (canLoad == false)

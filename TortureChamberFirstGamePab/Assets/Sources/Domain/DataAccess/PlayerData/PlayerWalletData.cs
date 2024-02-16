@@ -6,5 +6,8 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
     {
         [JsonProperty("coins")]
         public int Coins { get; set; }
+        
+        [JsonProperty("score")]
+        public int Score { get; set; }
     }
 }

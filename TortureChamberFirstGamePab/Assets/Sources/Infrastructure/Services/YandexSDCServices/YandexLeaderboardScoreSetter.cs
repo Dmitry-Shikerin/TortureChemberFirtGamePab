@@ -18,6 +18,5 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                         Leaderboard.SetScore(Constant.LeaderboardNames.LeaderboardName, score);
                 });
         }
-
     }
 }

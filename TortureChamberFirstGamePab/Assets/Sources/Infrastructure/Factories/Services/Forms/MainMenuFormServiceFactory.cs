@@ -74,6 +74,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
             {
                 _dataService.Clear();
+                
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
                     new LoadServicePayload(false));
             });

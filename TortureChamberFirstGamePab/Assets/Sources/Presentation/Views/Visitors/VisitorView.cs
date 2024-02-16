@@ -33,16 +33,10 @@ namespace Sources.Presentation.Views.Visitors
             }
 
             poolableObject.ReturnTooPool();
+            
             Hide();
         }
-
-        //TODO исправить это безобразие
-        public void Update() =>
-            Presenter?.Update();
-
-        protected override void OnConstructed() =>
-            Presenter?.Start();
-
+        
         public void SetPosition(Vector3 position) => 
             transform.position = position;
 

@@ -11,6 +11,9 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
             MoveNextState(startState);
         }
 
+        public void Stop() => 
+            _current.Exit();
+
         public void Update()
         {
             _current.Update();

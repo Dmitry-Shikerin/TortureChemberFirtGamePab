@@ -12,6 +12,7 @@ using Sources.Infrastructure.Spawners;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
+using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Animations;
@@ -26,6 +27,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorPresenterFactory
     {
+        private readonly IUpdateServiceChanger _updateServiceChanger;
         private readonly IPauseService _pauseService;
         private readonly CollectionRepository _collectionRepository;
         private readonly IShuffleService<IItem> _shuffleService;
@@ -37,6 +39,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
 
         public VisitorPresenterFactory
         (
+            IUpdateServiceChanger updateServiceChanger,
             IPauseService pauseService,
             CollectionRepository collectionRepository,
             IShuffleService<IItem> shuffleService,
@@ -47,6 +50,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             IItemProvider<IItem> itemProvider
         )
         {
+            _updateServiceChanger = updateServiceChanger ?? 
+                                    throw new ArgumentNullException(nameof(updateServiceChanger));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -153,7 +158,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 visitorReturnToPoolState, () => visitor.IsIdle);
             visitorMoveToExitState.AddTransition(toReturnToPoolState);
 
-            return new VisitorPresenter(initializeState, visitorView, visitor);
+            return new VisitorPresenter(initializeState, visitorView, visitor, _updateServiceChanger);
         }
     }
 }

@@ -50,6 +50,7 @@ using Sources.InfrastructureInterfaces.Services.Movement;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.InfrastructureInterfaces.Spawners;
+using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners;
@@ -103,11 +104,16 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
 
+            Container.Bind<IGameOverService>().To<GameOverService>().AsSingle();
+
             Container.Bind<LoadFormPresenterFactory>().AsSingle();
             Container.Bind<HudFormPresenterFactory>().AsSingle();
             Container.Bind<PauseMenuFormPresenterFactory>().AsSingle();
             Container.Bind<UpgradeFormPresenterFactory>().AsSingle();
             Container.Bind<TutorialFormPresenterFactory>().AsSingle();
+            Container.Bind<GameOverFormPresenterFactory>().AsSingle();
+
+            Container.Bind<ISaveAfterCertainPeriodService>().To<SaveAfterCertainPeriodService>().AsSingle();
             
             Container.Bind<GameplayFormServiceFactory>().AsSingle();
 

@@ -21,8 +21,11 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Save(@object.VisitorQuantity);
         }
 
-        public void Clear() =>
-            PlayerPrefs.DeleteAll();
+        public void Clear()
+        {
+            PlayerPrefs.DeleteKey(Constant.TavernDataKey.TavernMoodKey);
+            PlayerPrefs.DeleteKey(Constant.TavernDataKey.VisitorQuantityKey);
+        }
 
         private TavernMood LoadTavernMood()
         {
@@ -34,7 +37,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private VisitorQuantity LoadGamePlay()
         {
-            string json = PlayerPrefs.GetString(Constant.TavernDataKey.GameplayKey, string.Empty);
+            string json = PlayerPrefs.GetString(Constant.TavernDataKey.VisitorQuantityKey, string.Empty);
             GameplayData gameplayData = JsonConvert.DeserializeObject<GameplayData>(json);
 
             return new VisitorQuantity(gameplayData);
@@ -51,7 +54,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         {
             string json = JsonConvert.SerializeObject(
                 new GameplayData() { MaximumVisitorsCapacity = visitorQuantity.MaximumVisitorsQuantity });
-            PlayerPrefs.SetString(Constant.TavernDataKey.GameplayKey, json);
+            PlayerPrefs.SetString(Constant.TavernDataKey.VisitorQuantityKey, json);
         }
     }
 }

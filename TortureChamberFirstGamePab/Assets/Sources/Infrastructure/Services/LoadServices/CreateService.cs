@@ -24,6 +24,7 @@ using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Views.Player;
 using Sources.Presentation.Voids;
 using Sources.Presentation.Voids.GamePoints;

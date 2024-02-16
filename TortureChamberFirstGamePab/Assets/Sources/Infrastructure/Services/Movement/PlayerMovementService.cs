@@ -4,6 +4,7 @@ using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.InfrastructureInterfaces.Services.Movement;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Utils.Extensions.MovementExtensions;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.Movement
@@ -53,5 +54,8 @@ namespace Sources.Infrastructure.Services.Movement
 
             return direction;
         }
+        
+        public bool IsIdle(PlayerInput playerInput) => 
+            playerInput.Direction.Approximately();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
@@ -25,6 +26,7 @@ using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Views.Player;
@@ -171,6 +173,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                                  throw new ArgumentNullException(nameof(playerViewFactory));
         }
 
+        //TODO обьединитиь этот сервис
         public void Load()
         {
             _player = CreatePlayer();
@@ -226,20 +229,13 @@ namespace Sources.Infrastructure.Services.LoadServices
 
             _foodPickUpPointsViewFactory.Create(foodPickUpPointContainer, itemConfigContainer, _rootGamePoints);
 
-            //TODO запускать приходится здесь
-            //TODO пришлось передавать себя
-            //TODO можно передать экшн
             //FormService
             IFormService gameplayFormService = _gameplayFormServiceFactory
-                .Create(_playerUpgrade, _player, _hud, this);
+                .Create(_playerUpgrade, _player, _hud, Save);
 
             gameplayFormService.Show<HudFormView>();
-
-            //TOdo исправить эту проверку
-            if (PlayerDataService.CanLoad)
-            {
-                gameplayFormService.Show<LoadFormView>();
-            }
+            
+            ShowLoadForm(gameplayFormService);
         }
 
         public void Save()
@@ -252,5 +248,18 @@ namespace Sources.Infrastructure.Services.LoadServices
         protected abstract Player CreatePlayer();
         protected abstract PlayerUpgrade CreatePlayerUpgrade();
         protected abstract Tavern CreateTavern();
+
+        private async void ShowLoadForm(IFormService gameplayFormService)
+        {
+            //TOdo исправить эту проверку
+            //TODO кастылю иначе курточка не пропадает
+            if (PlayerDataService.CanLoad)
+            {
+                Debug.Log("LoadForm Show");
+                await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
+
+                gameplayFormService.Show<LoadFormView>();
+            }
+        }
     }
 }

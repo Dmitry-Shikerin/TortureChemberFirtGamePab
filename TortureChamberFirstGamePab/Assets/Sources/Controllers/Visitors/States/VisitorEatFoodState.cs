@@ -26,6 +26,8 @@ namespace Sources.Controllers.Visitors.States
         private readonly ISpawner<ICoinView> _coinSpawner;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
+        private CancellationTokenSource _cancellationTokenSource;
+        
         public VisitorEatFoodState
         (
             Visitor visitor,
@@ -50,9 +52,12 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
             IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
             itemView.SetPosition(_visitor.SeatPointView.EatPointView.transform);
-            Eat(itemView);
+            
+            Eat(itemView, _cancellationTokenSource.Token);
         }
 
         public override void Exit()
@@ -61,8 +66,8 @@ namespace Sources.Controllers.Visitors.States
             _visitor.FinishEating();
 
             //TODO рандомайзер мусора
-            //TODO убрать магические числа
-            if (ShuffleExtension.GetRandomChance(4, 10))
+            if (ShuffleExtension.GetRandomChance(Constant.GarbageRandomizer.PositiveRange,
+                    Constant.GarbageRandomizer.MaximumRange))
             {
                 IGarbageView garbageView = _garbageSpawner.Spawn();
                 garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
@@ -73,17 +78,26 @@ namespace Sources.Controllers.Visitors.States
             ICoinView coinView = _coinSpawner.Spawn();
             coinView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);
+            
+            _cancellationTokenSource.Cancel();
         }
 
-        private async void Eat(IItemView itemView)
+        //TODO сделать трай кетчи
+        private async void Eat(IItemView itemView, CancellationToken cancellationToken)
         {
-            await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
-                Constant.Visitors.EatFillingRate, new CancellationTokenSource().Token);
-            
-            _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-            _visitor.SetUnSeat();
-            itemView.Destroy();
-            _tavernMood.AddTavernMood();
+            try
+            {
+                await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
+                    Constant.Visitors.EatFillingRate, cancellationToken);
+
+                _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
+                _visitor.SetUnSeat();
+                itemView.Destroy();
+                _tavernMood.AddTavernMood();
+            }
+            catch (OperationCanceledException)
+            {
+            }
         }
     }
 }

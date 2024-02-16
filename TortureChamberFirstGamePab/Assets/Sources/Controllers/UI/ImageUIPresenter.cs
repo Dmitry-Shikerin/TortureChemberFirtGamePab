@@ -37,7 +37,6 @@ namespace Sources.Controllers.UI
 
                 action.Invoke();
                 
-                //TODO юнитаски ставятся на паузу при Time.timescale = 0;
                 await UniTask.Yield(cancellationToken);
             }
 

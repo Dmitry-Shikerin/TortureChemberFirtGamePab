@@ -1,12 +1,13 @@
 using System;
 using Lean.Localization;
+using Sources.Presentation.Containers.Forms;
+using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.UI.Conteiners.Buttons;
 using Sources.Presentation.Views;
-using Sources.Presentation.Views.Forms.Gameplays.Containers;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
@@ -34,5 +35,6 @@ namespace Sources.Presentation.Voids
             CongratulationUpgradeAudioSourceContainer { get; private set; }
         [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; }
         [field: SerializeField] public LoadFormButtonContainer LoadFormButtonContainer { get; private set; }
+        [field: SerializeField] public GameOverFormButtonContainer GameOverFormButtonContainer { get; private set; }
     }
 }

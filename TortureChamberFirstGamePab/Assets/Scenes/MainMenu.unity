@@ -916,6 +916,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7450364329459799004, guid: a84468ca5e94d984f93850fb6f05a195, type: 3}
+      propertyPath: currentLanguage
+      value: English
+      objectReference: {fileID: 0}
     - target: {fileID: 7946670653314868293, guid: a84468ca5e94d984f93850fb6f05a195, type: 3}
       propertyPath: m_text
       value: "\u041E\u0427\u041A\u0418"
@@ -955,6 +959,10 @@ PrefabInstance:
     - target: {fileID: 9129563901242684253, guid: a84468ca5e94d984f93850fb6f05a195, type: 3}
       propertyPath: m_Name
       value: MainMenuHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 9129563901242684253, guid: a84468ca5e94d984f93850fb6f05a195, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

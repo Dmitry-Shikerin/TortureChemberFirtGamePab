@@ -14489,6 +14489,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 498059083}
     m_Modifications:
+    - target: {fileID: 1267148373061732, guid: 8549abe3859269745a95380e270df83e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1492352555855718, guid: 8549abe3859269745a95380e270df83e, type: 3}
       propertyPath: m_Name
       value: SM_Chr_FortuneTeller_01

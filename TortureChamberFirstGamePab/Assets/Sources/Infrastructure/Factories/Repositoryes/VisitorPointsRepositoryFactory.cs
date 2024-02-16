@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Infrastructure.Factories.Views.Points;
+using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;

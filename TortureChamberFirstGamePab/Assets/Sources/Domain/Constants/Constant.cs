@@ -92,7 +92,7 @@ namespace Sources.Domain.Constants
         public static class TavernDataKey
         {
             public const string TavernMoodKey = "TavernMood";
-            public const string GameplayKey = "GamePlay";
+            public const string VisitorQuantityKey = "GamePlay";
         }
 
         public static class UpgradeConfigPath
@@ -153,6 +153,17 @@ namespace Sources.Domain.Constants
         public static class AdvertisingReward
         {
             public const int CoinsAmount = 10;
+        }
+
+        public static class GarbageRandomizer
+        {
+            public const int PositiveRange = 3;
+            public const int MaximumRange = 10;
+        }
+        
+        public static class SaveService
+        {
+            public const int SaveDelay = 3;
         }
 
         //TODO придумать чтото получше

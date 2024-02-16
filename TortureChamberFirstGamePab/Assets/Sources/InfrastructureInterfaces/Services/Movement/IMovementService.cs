@@ -9,5 +9,6 @@ namespace Sources.InfrastructureInterfaces.Services.Movement
         float GetSpeedRotation();
         float GetMaxSpeed(PlayerInput playerInput, float runInput);
         Vector3 GetDirection(float runInput, Vector3 cameraDirection);
+        bool IsIdle(PlayerInput playerInput);
     }
 }

@@ -77,7 +77,7 @@ namespace Sources.Controllers.Player
 
             _playerAnimation.PlayMovementAnimation(animationSpeed);
             
-            if (_inputService.PlayerInput.IsIdle())
+            if (_playerMovementService.IsIdle(_inputService.PlayerInput))
                 return;
 
             Quaternion look = _playerMovementService.GetDirectionRotation(cameraDirection);
