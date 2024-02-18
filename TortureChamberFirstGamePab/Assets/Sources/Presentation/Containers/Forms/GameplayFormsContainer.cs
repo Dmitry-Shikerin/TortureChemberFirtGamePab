@@ -1,4 +1,5 @@
 ﻿using Sources.Presentation.Views;
+using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Gameplays;
 using UnityEngine;
 
@@ -12,5 +13,6 @@ namespace Sources.Presentation.Containers.Forms
         [field: SerializeField] public TutorialFormView TutorialFormView { get; private set; }
         [field: SerializeField] public LoadFormView LoadFormView { get; private set; }
         [field: SerializeField] public GameOverFormView GameOverFormView { get; private set; }
+        [field: SerializeField] public SettingFormView SettingFormView { get; private set; }
     }
 }

@@ -12,5 +12,6 @@ namespace Sources.Presentation.Views.UIs
         [field: SerializeField] public ButtonUI CloseButton { get; private set; }
         [field: SerializeField] public ButtonSoundUI TutorialButton { get; private set; }
         [field: SerializeField] public ButtonSoundUI AdvertisementButton { get; private set; }
+        [field: SerializeField] public ButtonSoundUI SettingsButton { get; private set; }
     }
 }

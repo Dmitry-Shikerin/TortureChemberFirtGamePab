@@ -4,5 +4,6 @@
     {
         void ShowHudFormView();
         void ShowTutorialFormView();
+        void ShowSettingsFormView();
     }
 }

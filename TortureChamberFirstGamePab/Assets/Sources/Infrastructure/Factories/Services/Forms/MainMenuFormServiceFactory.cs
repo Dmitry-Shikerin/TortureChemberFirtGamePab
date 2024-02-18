@@ -123,7 +123,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             
             //SettingsButton
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.BackToMainMenu,
-                _mainMenuHUD.MainMenuFormsContainer.SettingFormView.BackToMainMenu);
+                _mainMenuHUD.MainMenuFormsContainer.SettingFormView.BackToMainMenu<MainMenuFormView>);
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.IncreaseVolume,
                 _mainMenuHUD.MainMenuFormsContainer.SettingFormView.IncreaseVolume);
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.TornDownVolume,

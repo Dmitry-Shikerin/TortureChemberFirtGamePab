@@ -11,5 +11,8 @@ namespace Sources.Presentation.Views.Forms.Gameplays
 
         public void ShowTutorialFormView() => 
             Presenter.ShowTutorialFormView();
+
+        public void ShowSettingsFormView() => 
+            Presenter.ShowSettingsFormView();
     }
 }

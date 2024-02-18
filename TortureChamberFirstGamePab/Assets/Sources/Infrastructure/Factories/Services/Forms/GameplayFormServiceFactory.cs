@@ -1,8 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
+using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
@@ -14,6 +16,7 @@ using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Voids;
@@ -38,6 +41,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
         private readonly TutorialFormPresenterFactory _tutorialFormPresenterFactory;
         private readonly LoadFormPresenterFactory _loadFormPresenterFactory;
         private readonly GameOverFormPresenterFactory _gameOverFormPresenterFactory;
+        private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
 
         public GameplayFormServiceFactory
         (
@@ -54,7 +58,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             AudioSourceUIFactory audioSourceUIFactory,
             TutorialFormPresenterFactory tutorialFormPresenterFactory,
             LoadFormPresenterFactory loadFormPresenterFactory,
-            GameOverFormPresenterFactory gameOverFormPresenterFactory
+            GameOverFormPresenterFactory gameOverFormPresenterFactory,
+            SettingFormPresenterFactory settingFormPresenterFactory
         )
         {
             _videoAdService = videoAdService ?? throw new ArgumentNullException(nameof(videoAdService));
@@ -80,6 +85,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                                         throw new ArgumentNullException(nameof(loadFormPresenterFactory));
             _gameOverFormPresenterFactory = gameOverFormPresenterFactory ??
                                             throw new ArgumentNullException(nameof(gameOverFormPresenterFactory));
+            _settingFormPresenterFactory = settingFormPresenterFactory ?? 
+                                           throw new ArgumentNullException(nameof(settingFormPresenterFactory));
         }
 
         public IFormService Create(PlayerUpgrade playerUpgrade, Player player,
@@ -119,6 +126,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                     _gameOverFormPresenterFactory.Create, hud.GameplayFormsContainer.GameOverFormView);
 
             _formService.Add(gameOverForm);
+
+            Form<SettingFormView, SettingFormPresenter> settingForm = 
+                new Form<SettingFormView, SettingFormPresenter>(
+                _settingFormPresenterFactory.Create, hud.GameplayFormsContainer.SettingFormView);
+            
+            _formService.Add(settingForm);
 
             //PlayerUpgradeViews
             IPlayerUpgradeView playerCharismaUpgradeView =
@@ -177,6 +190,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowHudFormView);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.TutorialButton,
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowTutorialFormView);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SettingsButton,
+                hud.GameplayFormsContainer.PauseMenuFormView.ShowSettingsFormView);
 
             //TutorialFormButtons
             _buttonUIFactory.Create(hud.TutorialFormButtonContainer.CloseButton,
@@ -194,6 +209,14 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
                 });
+            
+            //SettingsFormButtons
+            _buttonUIFactory.Create(hud.SettingFormButtonContainer.BackToMainMenu,
+                hud.GameplayFormsContainer.SettingFormView.BackToMainMenu<PauseMenuFormView>);
+            _buttonUIFactory.Create(hud.SettingFormButtonContainer.IncreaseVolume,
+                hud.GameplayFormsContainer.SettingFormView.IncreaseVolume);
+            _buttonUIFactory.Create(hud.SettingFormButtonContainer.TornDownVolume,
+                hud.GameplayFormsContainer.SettingFormView.TurnDownVolume);
 
             return _formService;
         }

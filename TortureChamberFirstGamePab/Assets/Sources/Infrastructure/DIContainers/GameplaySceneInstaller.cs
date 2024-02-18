@@ -4,6 +4,7 @@ using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Items;
+using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Garbages;
@@ -119,6 +120,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<UpgradeFormPresenterFactory>().AsSingle();
             Container.Bind<TutorialFormPresenterFactory>().AsSingle();
             Container.Bind<GameOverFormPresenterFactory>().AsSingle();
+            Container.Bind<SettingFormPresenterFactory>().AsSingle();
 
             Container.Bind<ISaveAfterCertainPeriodService>().To<SaveAfterCertainPeriodService>().AsSingle();
             

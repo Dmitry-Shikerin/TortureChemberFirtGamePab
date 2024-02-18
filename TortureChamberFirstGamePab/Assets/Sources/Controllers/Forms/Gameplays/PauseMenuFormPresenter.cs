@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Gameplays;
 
 namespace Sources.Controllers.Forms.Gameplays
@@ -34,5 +35,8 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public void ShowTutorialFormView() => 
             _formService.Show<TutorialFormView>();
+
+        public void ShowSettingsFormView() => 
+            _formService.Show<SettingFormView>();
     }
 }

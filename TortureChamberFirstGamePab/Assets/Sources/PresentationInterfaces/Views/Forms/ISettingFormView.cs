@@ -13,6 +13,6 @@ namespace Sources.PresentationInterfaces.Views.Forms
         
         void IncreaseVolume();
         void TurnDownVolume();
-        void BackToMainMenu();
+        void BackToMainMenu<T>() where T : IFormView;
     }
 }
