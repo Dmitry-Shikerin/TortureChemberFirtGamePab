@@ -51,6 +51,7 @@ using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Containers.GamePoints;
+using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners;
@@ -97,14 +98,20 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
             //SDKServices
-            Container.Bind<IVideoAdService>().To<VideoAdService>().AsSingle();
-            Container.Bind<ILocalizationService>().To<LocalizationService>().FromInstance(
-                new LocalizationService(hud.LeanLocalization)).AsSingle();
+            Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle();
+            Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();
+            Container.Bind<ILocalizationService>().To<LocalizationService>().AsSingle();
             Container.Bind<ILeaderboardScoreSetter>().To<YandexLeaderboardScoreSetter>().AsSingle();
+            
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
 
             Container.Bind<IGameOverService>().To<GameOverService>().AsSingle();
+
+            Container.Bind<AdvertisingAfterCertainPeriodTextContainer>()
+                .FromInstance(hud.AdvertisingAfterCertainPeriodTextContainer);
+            Container.Bind<IAdvertisingAfterCertainPeriodService>()
+                .To<AdvertisingAfterCertainPeriodService>().AsSingle();
 
             Container.Bind<LoadFormPresenterFactory>().AsSingle();
             Container.Bind<HudFormPresenterFactory>().AsSingle();

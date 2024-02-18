@@ -2,6 +2,7 @@
 using Agava.WebUtility;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -9,17 +10,23 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     public class FocusService : IFocusService
     {
         private readonly IPauseService _pauseService;
+        private readonly IWebGlService _webGlService;
 
         public FocusService
         (
-            IPauseService pauseService
+            IPauseService pauseService,
+            IWebGlService webGlService
         )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
+            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
         }
 
         public void Enter(object payload = null)
         {
+            if(_webGlService.IsWebGl == false)
+                return;
+            
             OnInBackgroundChangeWeb(WebApplication.InBackground);
             OnInBackgroundChangeApp(Application.isFocused);
             
@@ -29,6 +36,9 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Exit()
         {
+            if(_webGlService.IsWebGl == false)
+                return;
+            
             Application.focusChanged -= OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
         }

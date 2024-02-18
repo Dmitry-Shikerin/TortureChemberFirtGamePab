@@ -19,7 +19,7 @@ namespace Sources.Infrastructure.Services
 
         private PlayerWallet _playerWallet;
         private TavernMood _tavernMood;
-        
+
         public GameOverService
         (
             ITavernProvider tavernProvider,
@@ -50,10 +50,7 @@ namespace Sources.Infrastructure.Services
 
         private void OnGameOver()
         {
-            //TODO исключение
-#if UNITY_WEBGL && !UNITY_EDITOR
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Coins.GetValue);
-#endif
+            _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Coins.GetValue);
             _formService.Show<GameOverFormView>();
         }
     }

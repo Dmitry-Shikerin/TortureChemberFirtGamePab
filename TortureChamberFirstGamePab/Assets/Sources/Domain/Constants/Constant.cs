@@ -95,6 +95,11 @@ namespace Sources.Domain.Constants
             public const string VisitorQuantityKey = "GamePlay";
         }
 
+        public static class SettingDataKey
+        {
+            public const string VolumeKey = "Volume";
+        }
+
         public static class UpgradeConfigPath
         {
             public const string Charisma = "Configs/Upgrades/CharismaUpgradeConfig";
@@ -155,6 +160,23 @@ namespace Sources.Domain.Constants
             public const int CoinsAmount = 10;
         }
 
+        public static class AdvertisingTimer
+        {
+            public const string ContentText = "Реклама появвится через";
+            public const float Delay = 1.2f;
+        }
+        
+        public static class VolumeValue
+        {
+            public const float BaseValue = 0.2f;
+            public const float MaxValue = 1f;
+            public const float MinValue = 0;
+            public const float VolumeValuePerStep = 0.2f;
+            public const int BaseStep = 1;
+            public const int MinStep = 0;
+            public const int MaxStep = 5;
+        }
+
         public static class GarbageRandomizer
         {
             public const int PositiveRange = 3;
@@ -166,7 +188,12 @@ namespace Sources.Domain.Constants
             public const int SaveDelay = 3;
         }
 
-        //TODO придумать чтото получше
+        //TODO подумать над делеями в сервисах
+        public static class InterstitialService
+        {
+            public const int ShowDelay = 3;
+        }
+
         public static class TutorialContent
         {
             public const string FodPoints = "Для того чтобы добавить еду в инвентарь подойдите к токи отмеченной" +

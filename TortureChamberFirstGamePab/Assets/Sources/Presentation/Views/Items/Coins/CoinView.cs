@@ -34,7 +34,7 @@ namespace Sources.Presentation.Views.Items.Coins
         public void SetCanMove() => 
             Presenter.SetCanMove();
 
-        public void SetTransformPosition(Vector3 position) => 
+        public void SetPosition(Vector3 position) => 
             transform.position = position;
 
         public void SetPlayerWalletView(IPlayerWalletView playerWalletView) => 

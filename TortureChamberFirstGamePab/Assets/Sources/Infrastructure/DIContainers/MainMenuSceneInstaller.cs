@@ -1,5 +1,7 @@
 ﻿using Lean.Localization;
+using Sources.Controllers.Forms;
 using Sources.Domain.Constants;
+using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.YandexSDC;
@@ -36,6 +38,7 @@ namespace Sources.Infrastructure.DIContainers
             //Forms
             Container.Bind<MainMenuFormPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardFormPresenterFactory>().AsSingle();
+            Container.Bind<SettingFormPresenterFactory>().AsSingle();
             
             Container.Bind<LeaderboardElementPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardElementViewFactory>().AsSingle();
@@ -43,8 +46,9 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<LeaderboardElementViewContainer>()
                 .FromInstance(_mainMenuHUD.LeaderboardElementViewContainer).AsSingle();
             Container.Bind<ILeaderboardInitializeService>().To<YandexLeaderboardInitializeService>().AsSingle();
-            Container.Bind<ILocalizationService>().To<LocalizationService>().FromInstance
-                (new LocalizationService(_mainMenuHUD.LeanLocalization)).AsSingle();
+            Container.Bind<LeanLocalization>().FromInstance(_mainMenuHUD.LeanLocalization).AsSingle();
+            Container.Bind<ILocalizationService>().To<LocalizationService>().AsSingle();
+            Container.Bind<IPlayerAccountAuthorizeService>().To<PlayerAccountAuthorizeService>().AsSingle();
 
             Container.Bind<MainMenuFormServiceFactory>().AsSingle();
             Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()

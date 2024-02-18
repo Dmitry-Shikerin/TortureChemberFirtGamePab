@@ -13,6 +13,7 @@ using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
 using Zenject;
 
@@ -21,6 +22,8 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
+        private readonly IVolumeService _volumeService;
+        private readonly IAdvertisingAfterCertainPeriodService _advertisingAfterCertainPeriodService;
         private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
         private readonly IGameOverService _gameOverService;
         private readonly IBackgroundMusicService _backgroundMusicService;
@@ -39,6 +42,8 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public GamePlaySceneFactory
         (
+            IVolumeService volumeService,
+            IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
             IBackgroundMusicService backgroundMusicService,
@@ -58,6 +63,10 @@ namespace Sources.Infrastructure.Factories.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
+            _advertisingAfterCertainPeriodService = 
+                advertisingAfterCertainPeriodService ?? 
+                throw new ArgumentNullException(nameof(advertisingAfterCertainPeriodService));
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ?? 
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
@@ -82,6 +91,8 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new GamePlayScene
             (
+                _volumeService,
+                _advertisingAfterCertainPeriodService,
                 _saveAfterCertainPeriodService,
                 _gameOverService,
                 _backgroundMusicService,

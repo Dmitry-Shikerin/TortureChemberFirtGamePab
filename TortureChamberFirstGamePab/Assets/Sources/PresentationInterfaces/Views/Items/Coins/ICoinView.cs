@@ -14,6 +14,6 @@ namespace Sources.PresentationInterfaces.Views.Items.Coins
         void SetCanMove();
         void SetPlayerWalletView(IPlayerWalletView playerWalletView);
         void Rotate();
-        void SetTransformPosition(Vector3 position);
+        void SetPosition(Vector3 position);
     }
 }

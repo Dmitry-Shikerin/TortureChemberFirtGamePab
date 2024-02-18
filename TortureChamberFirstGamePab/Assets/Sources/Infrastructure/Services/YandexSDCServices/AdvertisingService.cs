@@ -6,31 +6,38 @@ using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
-    public class VideoAdService : IVideoAdService
+    public class AdvertisingService : IVideoAdService, IInterstitialAdService
     {
         private readonly IPauseService _pauseService;
         private readonly IPlayerProvider _playerProvider;
+        private readonly IWebGlService _webGlService;
 
         private PlayerWallet _playerWallet;
 
-        public VideoAdService
+        public AdvertisingService
         (
             IPauseService pauseService,
-            IPlayerProvider playerProvider
+            IPlayerProvider playerProvider,
+            IWebGlService webGlService
         )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _playerProvider = playerProvider ?? throw new ArgumentNullException(nameof(playerProvider));
+            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
         }
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
-        public void Show()
+        public void ShowVideo()
         {
+            if(_webGlService.IsWebGl == false)
+                return;
+            
             if(AdBlock.Enabled)
                 return;
             
@@ -50,11 +57,14 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         }
 
         //TODo позаниматься скором
-        //TODO это интерститиал
-        //TODO сделать таймер перед показом
-        //TODO разделить этот сервис
-        public void InterstitialShow()
+        public void ShowInterstitial()
         {
+            if(_webGlService.IsWebGl == false)
+                return;
+            
+            if(AdBlock.Enabled)
+                return;
+            
             Agava.YandexGames.InterstitialAd.Show(
                 () =>
                 {

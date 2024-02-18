@@ -2,6 +2,7 @@ using System;
 using Lean.Localization;
 using Sources.Presentation.Containers.Forms;
 using Sources.Presentation.Containers.UI.Buttons;
+using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.Conteiners;
@@ -36,5 +37,8 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; }
         [field: SerializeField] public LoadFormButtonContainer LoadFormButtonContainer { get; private set; }
         [field: SerializeField] public GameOverFormButtonContainer GameOverFormButtonContainer { get; private set; }
+        [field: SerializeField] public AdvertisingAfterCertainPeriodTextContainer
+            AdvertisingAfterCertainPeriodTextContainer { get; private set; }
+        
     }
 }

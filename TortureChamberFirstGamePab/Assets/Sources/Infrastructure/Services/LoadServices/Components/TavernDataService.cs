@@ -4,6 +4,7 @@ using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Taverns;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components

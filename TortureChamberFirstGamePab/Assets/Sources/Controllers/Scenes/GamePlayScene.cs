@@ -13,6 +13,7 @@ using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
+        private readonly IVolumeService _volumeService;
+        private readonly IAdvertisingAfterCertainPeriodService _advertisingAfterCertainPeriodService;
         private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
         private readonly IGameOverService _gameOverService;
         private readonly IBackgroundMusicService _backgroundMusicService;
@@ -37,6 +40,8 @@ namespace Sources.Controllers.Scenes
 
         public GamePlayScene
         (
+            IVolumeService volumeService,
+            IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
             IBackgroundMusicService backgroundMusicService,
@@ -54,6 +59,10 @@ namespace Sources.Controllers.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
+            _advertisingAfterCertainPeriodService = 
+                advertisingAfterCertainPeriodService ?? 
+                throw new ArgumentNullException(nameof(advertisingAfterCertainPeriodService));
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
@@ -87,12 +96,11 @@ namespace Sources.Controllers.Scenes
             _backgroundMusicService.Enter();
             _gameOverService.Enter();
             _saveAfterCertainPeriodService.Enter(_loadService);
+            _advertisingAfterCertainPeriodService.Enter();
+            _volumeService.Enter();
 
-            //TODO исключение
-#if UNITY_WEBGL && !UNITY_EDITOR
-            // _localizationService.Enter();
-            // _focusService.Enter();
-#endif
+            _localizationService.Enter();
+            _focusService.Enter();
         }
 
         public void Exit()
@@ -104,10 +112,10 @@ namespace Sources.Controllers.Scenes
             _backgroundMusicService.Exit();
             _gameOverService.Exit();
             _saveAfterCertainPeriodService.Exit();
+            _advertisingAfterCertainPeriodService.Exit();
+            _volumeService.Exit();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-            // _focusService.Exit();
-#endif
+            _focusService.Exit();
         }
 
         public void Update(float deltaTime)

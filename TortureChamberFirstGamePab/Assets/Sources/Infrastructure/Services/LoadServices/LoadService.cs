@@ -17,6 +17,7 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Containers.GamePoints;

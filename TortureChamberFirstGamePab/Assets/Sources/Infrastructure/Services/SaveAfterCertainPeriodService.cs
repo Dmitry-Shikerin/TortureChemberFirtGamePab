@@ -10,8 +10,6 @@ namespace Sources.Infrastructure.Services
     public class SaveAfterCertainPeriodService : ISaveAfterCertainPeriodService
     {
         private CancellationTokenSource _cancellationTokenSource;
-
-        private bool _isPlaying;
         
         public async void Enter(object payload = null)
         {
@@ -23,28 +21,24 @@ namespace Sources.Infrastructure.Services
 
             _cancellationTokenSource = new CancellationTokenSource();
             
-            await SaveAsync(loadService.Save);
+            await SaveAsync(loadService.Save, _cancellationTokenSource.Token);
         }
 
         public void Exit()
         {
-            _isPlaying = false;
-            
             _cancellationTokenSource.Cancel();
         }
 
-        private async UniTask SaveAsync(Action saveAction)
+        private async UniTask SaveAsync(Action saveAction, CancellationToken cancellationToken)
         {
-            _isPlaying = true;
-
-            //TODO как избавится от этого трай кетча?
-            //TODO будут ли поломки если его не будет?
             try
             {
-                while (_isPlaying)
+                //TODO сделать по аналогии
+                while (cancellationToken.IsCancellationRequested == false)
                 {
+                    //TODo закешировать тайм спан
                     await UniTask.Delay(TimeSpan.FromMinutes(Constant.SaveService.SaveDelay),
-                        cancellationToken: _cancellationTokenSource.Token);
+                        cancellationToken: cancellationToken);
 
                     saveAction.Invoke();
                 }

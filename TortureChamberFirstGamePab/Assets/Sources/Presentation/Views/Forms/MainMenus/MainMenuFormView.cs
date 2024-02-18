@@ -8,5 +8,8 @@ namespace Sources.Presentation.Views.Forms.MainMenus
     {
         public void ShowLeaderboard() => 
             Presenter.ShowLeaderBoard();
+
+        public void ShowSetting() => 
+            Presenter.ShowSetting();
     }
 }

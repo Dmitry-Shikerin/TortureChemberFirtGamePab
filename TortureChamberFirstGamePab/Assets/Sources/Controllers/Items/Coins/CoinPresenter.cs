@@ -89,7 +89,7 @@ namespace Sources.Controllers.Items.Coins
             {
                 _currentTime += Time.deltaTime;
 
-                _coinView.SetTransformPosition(Vector3.MoveTowards(_coinView.Position,
+                _coinView.SetPosition(Vector3.MoveTowards(_coinView.Position,
                     new Vector3(_coin.PlayerWalletView.Position.x,
                         _coin.PlayerWalletView.Position.y +
                         _coinView.AnimationCurve.Evaluate(_currentTime),

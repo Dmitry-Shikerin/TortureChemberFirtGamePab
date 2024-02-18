@@ -5,6 +5,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components

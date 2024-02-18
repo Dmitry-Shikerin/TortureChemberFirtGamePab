@@ -2,6 +2,6 @@
 {
     public interface IVideoAdService
     {
-        void Show();
+        void ShowVideo();
     }
 }

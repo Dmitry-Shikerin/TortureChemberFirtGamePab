@@ -6,6 +6,7 @@ using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Views.Forms.MainMenus;
 
 namespace Sources.Controllers.Scenes
@@ -14,6 +15,7 @@ namespace Sources.Controllers.Scenes
     {
         private readonly MainMenuHUD _mainMenuHUD;
 
+        private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
@@ -26,6 +28,7 @@ namespace Sources.Controllers.Scenes
 
         public MainMenuScene
         (
+            IVolumeService volumeService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
@@ -39,6 +42,7 @@ namespace Sources.Controllers.Scenes
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _backgroundMusicService = backgroundMusicService ?? 
                                       throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ?? 
@@ -71,23 +75,20 @@ namespace Sources.Controllers.Scenes
             _mainMenuHUD.Show();
             
             _backgroundMusicService.Enter();
+            _volumeService.Enter();
 
-            //TODO исключение
-#if UNITY_WEBGL && !UNITY_EDITOR
             _sdkInitializeService.GameReady();
             _focusService.Enter();
             _localizationService.Enter();
             _yandexLeaderboardInitializeService.Fill();
-#endif
         }
 
         public void Exit()
         {
             _backgroundMusicService.Exit();
+            _volumeService.Exit();
             
-#if UNITY_WEBGL && !UNITY_EDITOR
-            // _focusService.Exit();
-#endif
+            _focusService.Exit();
         }
 
         public void Update(float deltaTime)

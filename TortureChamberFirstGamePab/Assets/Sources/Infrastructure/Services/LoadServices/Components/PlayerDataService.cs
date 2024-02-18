@@ -7,6 +7,7 @@ using Sources.Domain.Players.PlayerMovements;
 using Sources.Extensions.Domain;
 using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components

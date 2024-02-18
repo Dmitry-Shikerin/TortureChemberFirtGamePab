@@ -1,6 +1,5 @@
 ﻿using System;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
-using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
@@ -33,6 +32,9 @@ namespace Sources.Domain.Players
 
         public void Add(int quantity)
         {
+            if(quantity <= 0)
+                return;
+            
             _coins.Value += quantity;
             Score += quantity;
             

@@ -12,13 +12,16 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 
 namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
@@ -37,6 +40,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            IVolumeService volumeService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
@@ -52,6 +56,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _backgroundMusicService = backgroundMusicService ??
                                       throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
@@ -82,6 +87,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _volumeService,
                 _backgroundMusicService,
                 _localizationService,
                 _leaderboardFormPresenterFactory,

@@ -7,7 +7,6 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
 {
     public static partial class ShuffleExtension
     {
-        //TODO вот такой экстеншн
         public static T GetRandomItem<T>(this IEnumerable<T> objects)
         {
             if (objects == null) 
@@ -22,7 +21,7 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             
             return enumerable.First();
         }
-
+        
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> objects)
         {
             T[] enumerable = objects as T[] ?? objects.ToArray();
@@ -36,15 +35,9 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             return enumerable;
         }
 
-        //TODO рандомайзер
-        public static bool GetRandomChance(int positiveRange, int maximumRange)
-        {
-            int result = Random.Range(0, maximumRange);
+        public static bool GetRandomChance(int positiveRange, int maximumRange) => 
+            positiveRange >= Random.Range(0, maximumRange);
 
-            if (result <= positiveRange)
-                return true;
-
-            return false;
-        }
+        //TODO сделать рандомайзер
     }
 }

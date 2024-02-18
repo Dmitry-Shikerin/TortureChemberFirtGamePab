@@ -42,7 +42,6 @@ namespace Sources.Infrastructure.Spawners.Generic
             if (coinView == null)
                 return null;
 
-            //TODO пришлось скастить иначе не мог вернуть нулл
             return (TView)_viewFactory.Create(model, coinView);
         }
     }

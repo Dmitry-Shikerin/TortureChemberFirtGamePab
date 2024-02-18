@@ -65,7 +65,6 @@ namespace Sources.Controllers.Visitors.States
             _visitor.SeatPointView.UnOccupy();
             _visitor.FinishEating();
 
-            //TODO рандомайзер мусора
             if (ShuffleExtension.GetRandomChance(Constant.GarbageRandomizer.PositiveRange,
                     Constant.GarbageRandomizer.MaximumRange))
             {
@@ -76,7 +75,7 @@ namespace Sources.Controllers.Visitors.States
             }
             
             ICoinView coinView = _coinSpawner.Spawn();
-            coinView.SetTransformPosition(_visitor.SeatPointView.EatPointView.Position);
+            coinView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);
             
             _cancellationTokenSource.Cancel();

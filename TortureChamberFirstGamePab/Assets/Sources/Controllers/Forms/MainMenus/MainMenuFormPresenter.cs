@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.InfrastructureInterfaces.Services.Forms;
+using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.MainMenus;
 using Sources.PresentationInterfaces.Views.Forms.MainMenus;
 
@@ -18,5 +19,8 @@ namespace Sources.Controllers.Forms.MainMenus
 
         public void ShowLeaderBoard() => 
             _formService.Show<LeaderboardFormView>();
+
+        public void ShowSetting() => 
+            _formService.Show<SettingFormView>();
     }
 }
