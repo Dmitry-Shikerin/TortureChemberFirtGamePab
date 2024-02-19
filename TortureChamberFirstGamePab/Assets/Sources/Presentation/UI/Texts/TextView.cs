@@ -7,7 +7,6 @@ namespace Sources.Presentation.UI.Texts
     {
         [SerializeField] private TextMeshProUGUI _text;
         
-        //TODO добавить возможность прятать текст
         public virtual void SetText(string text) => 
             _text.text = text;
 

@@ -13,7 +13,6 @@ using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
 
@@ -33,8 +32,6 @@ namespace Sources.Infrastructure.Services
         private VisitorQuantity _visitorQuantity;
 
         private CancellationTokenSource _cancellationTokenSource;
-
-        private bool _isSpawn;
 
         public VisitorSpawnService
         (
@@ -64,12 +61,9 @@ namespace Sources.Infrastructure.Services
         {
             _cancellationTokenSource = new CancellationTokenSource();
             
-            _isSpawn = true;
-            
-            //TOdO что сделать с этим трай кетчем?
             try
             {
-                while (_isSpawn)
+                while (_cancellationTokenSource.Token.IsCancellationRequested == false)
                 {
                     if (CanSpawn())
                     {
@@ -87,11 +81,8 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        public void Cancel()
-        {
-            _isSpawn = false;
+        public void Cancel() => 
             _cancellationTokenSource.Cancel();
-        }
 
         private bool CanSpawn()
         {

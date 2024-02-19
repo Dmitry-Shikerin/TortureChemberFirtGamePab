@@ -32,6 +32,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteKey(Constant.DataKey.MovementKey);
             PlayerPrefs.DeleteKey(Constant.DataKey.InventoryKey);
             PlayerPrefs.DeleteKey(Constant.DataKey.WalletKey);
+            Debug.Log("PlayerDataService Clear");
         }
 
         private PlayerMovement LoadMovement()

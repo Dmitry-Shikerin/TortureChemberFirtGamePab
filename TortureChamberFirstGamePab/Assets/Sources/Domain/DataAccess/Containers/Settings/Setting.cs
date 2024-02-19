@@ -5,9 +5,9 @@ namespace Sources.Domain.DataAccess.Containers.Settings
 {
     public class Setting
     {
-        public Setting(Volume volume)
+        public Setting()
         {
-            Volume = volume ?? throw new ArgumentNullException(nameof(volume));
+            Volume = new Volume();
         }
 
         public Volume Volume { get; }

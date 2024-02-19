@@ -16,13 +16,5 @@ namespace Sources.Controllers.Forms.Gameplays
                                    throw new ArgumentNullException(nameof(leaderboardFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
         }
-
-        public override void Enable()
-        {
-        }
-
-        public override void Disable()
-        {
-        }
     }
 }

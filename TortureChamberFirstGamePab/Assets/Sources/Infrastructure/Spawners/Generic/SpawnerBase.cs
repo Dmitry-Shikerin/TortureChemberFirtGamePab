@@ -8,7 +8,6 @@ using Sources.PresentationInterfaces.Views;
 
 namespace Sources.Infrastructure.Spawners.Generic
 {
-    //TODO в целом можно этот класс сделать реализуемым
     public abstract class SpawnerBase<TViewInterface, TView, TModel> : ISpawner<TViewInterface>
         where TView : View, TViewInterface
         where TViewInterface : IView

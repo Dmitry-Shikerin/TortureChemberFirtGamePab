@@ -4,7 +4,6 @@ using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Views.Items.Common;
-using Sources.Infrastructure.Spawners;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Visitors;
@@ -12,7 +11,6 @@ using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Extensions.ShuffleExtensions;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {

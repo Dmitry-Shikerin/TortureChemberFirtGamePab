@@ -22,15 +22,10 @@ namespace Sources.Infrastructure.Services.VolumeServices
             _volume.VolumeChanged += OnVolumeChanged;
         }
 
-        public void Exit()
-        {
+        public void Exit() => 
             _volume.VolumeChanged -= OnVolumeChanged;
-        }
 
-        private void OnVolumeChanged()
-        {
+        private void OnVolumeChanged() => 
             AudioListener.volume = _volume.VolumeValue;
-            Debug.Log($"Громкость аудиолистенера {AudioListener.volume}");
-        }
     }
 }

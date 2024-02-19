@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
-using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Constants;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Items;
 using Sources.Domain.Items.ItemConfigs;
-using Sources.Domain.Players.PlayerCameras;
 using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Repositoryes;
@@ -19,7 +15,6 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
-using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
@@ -28,19 +23,12 @@ using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.Presentation.Containers.GamePoints;
-using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Views.Player;
-using Sources.Presentation.Views.Player.Inventory;
-using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids;
-using Sources.Presentation.Voids.GamePoints;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.PresentationInterfaces.Views.Players;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Services.LoadServices
 {
@@ -257,6 +245,8 @@ namespace Sources.Infrastructure.Services.LoadServices
 
                 gameplayFormService.Show<LoadFormView>();
             }
+            
+            Debug.Log(CanLoad());
         }
 
         private bool CanLoad() => 

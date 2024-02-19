@@ -29,6 +29,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteKey(Constant.UpgradeDataKey.CharismaKey);
             PlayerPrefs.DeleteKey(Constant.UpgradeDataKey.InventoryKey);
             PlayerPrefs.DeleteKey(Constant.UpgradeDataKey.MovementKey);
+            Debug.Log("PlayerUpgradeDataService Clear");
         }
 
         private Upgrader LoadCharismaUpgrader()

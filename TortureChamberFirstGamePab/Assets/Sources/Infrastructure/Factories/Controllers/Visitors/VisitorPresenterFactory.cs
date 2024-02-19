@@ -6,9 +6,6 @@ using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Views.Items.Common;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Services;
-using Sources.Infrastructure.Services.ShuffleServices;
-using Sources.Infrastructure.Spawners;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.ShuffleServices;
@@ -16,7 +13,6 @@ using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Views.Visitors;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.PresentationInterfaces.Views.Visitors;
@@ -31,7 +27,6 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
         private readonly IUpdateServiceChanger _updateServiceChanger;
         private readonly IPauseService _pauseService;
         private readonly CollectionRepository _collectionRepository;
-        private readonly IShuffleService<IItem> _shuffleService;
         private readonly ImageUIFactory _imageUIFactory;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly ISpawner<IGarbageView> _garbageSpawner;
@@ -43,7 +38,6 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             IUpdateServiceChanger updateServiceChanger,
             IPauseService pauseService,
             CollectionRepository collectionRepository,
-            IShuffleService<IItem> shuffleService,
             ImageUIFactory imageUIFactory,
             ItemViewFactory itemViewFactory,
             ISpawner<IGarbageView> garbageSpawner,
@@ -56,8 +50,6 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
-            _shuffleService =
-                shuffleService ?? throw new ArgumentNullException(nameof(shuffleService));
             _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _itemViewFactory = itemViewFactory ?? throw new ArgumentNullException(nameof(itemViewFactory));
             _garbageSpawner = garbageSpawner ?? throw new ArgumentNullException(nameof(garbageSpawner));
@@ -112,7 +104,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 visitorView, visitor, visitorAnimation, tavernMood);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
                 new VisitorWaitingForOrderState(visitor, visitorInventory,
-                    visitorImageUIContainer, _shuffleService, tavernMood,
+                    visitorImageUIContainer, tavernMood,
                     visitorAnimation, visitorView, _itemProvider);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
                 visitor, visitorInventory, visitorImageUIContainer, _itemViewFactory,

@@ -16,7 +16,6 @@ namespace Sources.App.Bootstrap
 
         private async void Awake()
         {
-            //TODO проверка на веб
             _webGlService.Enter();
 
             _sdkInitializeService.Register();

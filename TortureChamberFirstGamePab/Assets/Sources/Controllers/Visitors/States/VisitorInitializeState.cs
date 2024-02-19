@@ -35,7 +35,6 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            //TODO рандомайзер работает
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false)

@@ -8,11 +8,7 @@ namespace Sources.Infrastructure.Services.Providers.Settings
     {
         public Volume Volume { get; private set; }
         
-        public void SetVolume(Volume volume)
-        {
+        public void SetVolume(Volume volume) => 
             Volume = volume ?? throw new ArgumentNullException(nameof(volume));
-            
-            return;
-        }
     }
 }

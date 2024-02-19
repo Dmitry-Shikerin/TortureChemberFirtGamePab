@@ -34,19 +34,19 @@ namespace Sources.Controllers.Visitors
         public void Enable()
         {
             _updateService.ChangedUpdate += OnUpdate;
+            
             Start();
         }
 
         public void Disable()
         {
             _updateService.ChangedUpdate -= OnUpdate;
+            
             Stop();
         }
 
-        private void Start()
-        {
+        private void Start() => 
             Start(_firstState);
-        }
 
         private void OnUpdate(float deltaTime) => 
             Update();

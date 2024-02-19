@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sources.ControllersInterfaces.Scenes;
-using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
-using Sources.Infrastructure.Repositories;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.LoadServices;
-using Sources.Infrastructure.Services.LoadServices.Components;
-using Sources.Infrastructure.Services.Stores;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
@@ -15,7 +10,6 @@ using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
-using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {

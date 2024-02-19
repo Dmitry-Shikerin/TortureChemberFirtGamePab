@@ -19,10 +19,8 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 : throw new ArgumentNullException(nameof(leanLanguage));
         }
 
-        public void Enter(object payload = null)
-        {
+        public void Enter(object payload = null) => 
             ChangeLanguage();
-        }
 
         private void ChangeLanguage()
         {

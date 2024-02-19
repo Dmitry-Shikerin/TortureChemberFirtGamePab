@@ -17,10 +17,8 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Min;
         }
 
-        public void PauseSound()
-        {
+        public void PauseSound() => 
             AudioListener.pause = true;
-        }
 
         public void Continue()
         {
@@ -28,11 +26,9 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Max;
         }
 
-        public void ContinueSound()
-        {
+        public void ContinueSound() => 
             AudioListener.pause = false;
-        }
-        
+
         public async UniTask Yield(CancellationToken cancellationToken)
         {
             do

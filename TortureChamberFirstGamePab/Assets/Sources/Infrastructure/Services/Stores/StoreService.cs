@@ -58,7 +58,6 @@ namespace Sources.Infrastructure.Services.Stores
             });
             
             _dataSource.Save(dataModels);
-            Debug.Log("Игра сохранена");
         }
     }
 }

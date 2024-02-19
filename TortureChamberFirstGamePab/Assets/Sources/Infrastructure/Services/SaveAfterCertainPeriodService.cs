@@ -10,6 +10,7 @@ namespace Sources.Infrastructure.Services
     public class SaveAfterCertainPeriodService : ISaveAfterCertainPeriodService
     {
         private CancellationTokenSource _cancellationTokenSource;
+        private TimeSpan _timeSpan;
         
         public async void Enter(object payload = null)
         {
@@ -20,6 +21,7 @@ namespace Sources.Infrastructure.Services
                 throw new InvalidOperationException(nameof(payload));
 
             _cancellationTokenSource = new CancellationTokenSource();
+            _timeSpan = TimeSpan.FromMinutes(Constant.SaveService.SaveDelay);
             
             await SaveAsync(loadService.Save, _cancellationTokenSource.Token);
         }
@@ -33,11 +35,10 @@ namespace Sources.Infrastructure.Services
         {
             try
             {
-                //TODO сделать по аналогии
                 while (cancellationToken.IsCancellationRequested == false)
                 {
-                    //TODo закешировать тайм спан
-                    await UniTask.Delay(TimeSpan.FromMinutes(Constant.SaveService.SaveDelay),
+                    //TODo закешировать тайм спан везде
+                    await UniTask.Delay(_timeSpan,
                         cancellationToken: cancellationToken);
 
                     saveAction.Invoke();

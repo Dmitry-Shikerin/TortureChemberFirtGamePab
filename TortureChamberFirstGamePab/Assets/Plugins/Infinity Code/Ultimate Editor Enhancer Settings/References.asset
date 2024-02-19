@@ -402,9 +402,11 @@ MonoBehaviour:
     alignWindowToBar: 1
     windowMode: 0
   _sceneHistory:
-  - name: InitScene
-    path: Assets/Scenes/InitScene.unity
+  - name: DemoScene
+    path: Assets/Downloads/GUI Kit DarkStone/Scenes/DemoScene.unity
   - name: MainMenu
     path: Assets/Scenes/MainMenu.unity
   - name: GamePlay
     path: Assets/Scenes/GamePlay.unity
+  - name: InitScene
+    path: Assets/Scenes/InitScene.unity

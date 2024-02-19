@@ -11,6 +11,11 @@ namespace Sources.Domain.Constants
             public const float Min = 0;
             public const float Max = 1;
         }
+
+        public static class Coin
+        {
+            public const float TargetDistance = 1f;
+        }
         
         public static class Inventory
         {
@@ -63,7 +68,7 @@ namespace Sources.Domain.Constants
 
         public static class PrefabPaths
         {
-            public const string HUD = "Prefabs/HUD";
+            public const string HUD = "Prefabs/UI/HUD";
             public const string PlayerMovementCharacteristic = "Configs/PlayerMovementCharacteristics";
             public const string Curtain = "Views/Bootstrap/CurtainView";
             public const string CoinView = "Views/Coin";

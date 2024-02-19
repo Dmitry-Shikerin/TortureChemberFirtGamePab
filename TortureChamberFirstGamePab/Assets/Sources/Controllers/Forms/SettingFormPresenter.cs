@@ -7,6 +7,7 @@ using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms.MainMenus;
 using Sources.PresentationInterfaces.Views.Forms;
+using UnityEngine;
 
 namespace Sources.Controllers.Forms
 {
@@ -39,14 +40,14 @@ namespace Sources.Controllers.Forms
         public override void Enable()
         {
             _pauseService.Pause();
-            
+
             ShowSprites(Volume.Step);
         }
 
         public override void Disable()
         {
             _pauseService.Continue();
-            
+
             _settingDataService.Save(_setting);
         }
 
@@ -62,23 +63,20 @@ namespace Sources.Controllers.Forms
             ShowSprites(Volume.Step);
         }
 
-        public void BackToMainMenu<T>() where T : IFormView
-        {
+        public void BackToMainMenu<T>() where T : IFormView => 
             _formService.Show<T>();
-        }
 
         private void ShowSprites(int currentStep)
         {
-            for (int i = 0; i < _view.Images.Count; i++)
+            SetSpriteInRange(0, currentStep, _view.FilledSprite);
+            SetSpriteInRange(currentStep, _view.Images.Count, _view.VoidSprite);
+        }
+
+        private void SetSpriteInRange(int from, int to, Sprite sprite)
+        {
+            for (int i = from; i < to; i++)
             {
-                if (i < currentStep)
-                {
-                    _view.Images[i].SetSprite(_view.FilledSprite);
-
-                    continue;
-                }
-
-                _view.Images[i].SetSprite(_view.VoidSprite);
+                _view.Images[i].SetSprite(sprite);
             }
         }
     }

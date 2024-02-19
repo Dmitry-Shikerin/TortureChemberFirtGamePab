@@ -5,9 +5,7 @@ using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
-using Sources.Utils.Repositoryes;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
 

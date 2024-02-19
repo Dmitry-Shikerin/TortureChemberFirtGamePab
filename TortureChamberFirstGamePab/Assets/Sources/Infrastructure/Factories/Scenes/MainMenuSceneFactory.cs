@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
+using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
@@ -21,6 +22,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
@@ -40,6 +42,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            IDataService<Setting> settingDataService,
             IVolumeService volumeService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
@@ -56,6 +59,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
+            _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _backgroundMusicService = backgroundMusicService ??
                                       throw new ArgumentNullException(nameof(backgroundMusicService));
@@ -87,6 +91,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _settingDataService,
                 _volumeService,
                 _backgroundMusicService,
                 _localizationService,

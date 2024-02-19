@@ -20,9 +20,7 @@ namespace Sources.Presentation.Views.Forms
         public void TurnDownVolume() => 
             Presenter.TurnDownVolume();
 
-        public void BackToMainMenu<T>() where T : IFormView
-        {
+        public void BackToMainMenu<T>() where T : IFormView => 
             Presenter.BackToMainMenu<T>();
-        }
     }
 }

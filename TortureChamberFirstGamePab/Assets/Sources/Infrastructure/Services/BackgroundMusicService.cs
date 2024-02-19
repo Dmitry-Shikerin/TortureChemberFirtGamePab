@@ -13,11 +13,8 @@ namespace Sources.Infrastructure.Services
                 throw new ArgumentNullException(nameof(audioSourceView));
         }
 
-        //TODO сделать изменение громкости
-        public void Enter(object payload = null)
-        {
+        public void Enter(object payload = null) => 
             _audioSourceView.Play();
-        }
 
         public void Exit()
         {

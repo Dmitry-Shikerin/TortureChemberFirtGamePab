@@ -1,6 +1,4 @@
 ﻿using Lean.Localization;
-using Sources.Controllers.Forms;
-using Sources.Domain.Constants;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Controllers.UI;
@@ -12,6 +10,7 @@ using Sources.Infrastructure.Factories.Views.YandexSDC;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.YandexSDC.MyVariant;
 using UnityEngine;
@@ -35,7 +34,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<ContainerView>().FromInstance(_mainMenuHUD.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
             
-            //Forms
             Container.Bind<MainMenuFormPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardFormPresenterFactory>().AsSingle();
             Container.Bind<SettingFormPresenterFactory>().AsSingle();

@@ -1,5 +1,6 @@
 ﻿using System;
 using Agava.YandexGames;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -30,11 +31,5 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
             return true;
         }
-    }
-
-    //TODO переместить
-    public interface IPlayerAccountAuthorizeService
-    {
-        bool IsAuthorized();
     }
 }

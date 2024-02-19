@@ -9,7 +9,6 @@ using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints.Interfaces;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using UnityEngine;
@@ -57,7 +56,7 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
             
-            MovingAsync();
+            MovingAsync(_cancellationTokenSource.Token);
         }
 
         public override void Exit()
@@ -65,17 +64,19 @@ namespace Sources.Controllers.Visitors.States
             _cancellationTokenSource.Cancel();
         }
 
-        private async void MovingAsync()
+        private async void MovingAsync(CancellationToken cancellationToken)
         {
             _visitor.SetMove();
             _visitorAnimation.PlayStandUp();
             _visitorAnimation.PlayWalk();
-            await MoveAsync();
+            
+            await MoveAsync(cancellationToken);
+            
             _visitor.SetIdle();
             _visitorView.StopMove();
         }
 
-        private async UniTask MoveAsync()
+        private async UniTask MoveAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -86,7 +87,7 @@ namespace Sources.Controllers.Visitors.States
                 while (Vector3.Distance(_visitorView.Position, outDoorPoint.Position) >
                        _visitorView.NavMeshAgent.stoppingDistance)
                 {
-                    await UniTask.Yield(_cancellationTokenSource.Token);
+                    await UniTask.Yield(cancellationToken);
                 }
             }
             catch (OperationCanceledException)

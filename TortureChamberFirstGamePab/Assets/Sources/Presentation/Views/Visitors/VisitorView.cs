@@ -41,8 +41,13 @@ namespace Sources.Presentation.Views.Visitors
         public void SetPosition(Vector3 position) => 
             transform.position = position;
 
-        public void StopMove() => 
+        public void StopMove()
+        {
+            if(NavMeshAgent == null)
+                return;
+            
             NavMeshAgent.isStopped = true;
+        }
 
         public void Move() => 
             NavMeshAgent.isStopped = false;

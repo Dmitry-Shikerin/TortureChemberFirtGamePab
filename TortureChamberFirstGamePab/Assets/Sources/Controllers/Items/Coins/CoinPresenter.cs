@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Sources.Presentation.Views;
+using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.PresentationInterfaces.Views.Items.Coins;
@@ -11,8 +12,6 @@ namespace Sources.Controllers.Items.Coins
 {
     public class CoinPresenter : PresenterBase
     {
-        private const float TargetDistance = 1f;
-
         private readonly ICoinView _coinView;
         private readonly Coin _coin;
         private readonly IPauseService _pauseService;
@@ -34,8 +33,12 @@ namespace Sources.Controllers.Items.Coins
 
         private float _currentTime;
 
-        public override void Enable() =>
-            CollectAsync();
+        public override void Enable()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+            
+            CollectAsync(_cancellationTokenSource.Token);
+        }
 
         public override void Disable() =>
             _cancellationTokenSource.Cancel();
@@ -49,43 +52,42 @@ namespace Sources.Controllers.Items.Coins
         public void SetCanMove() =>
             _coin.SetCanMove();
 
-        private async void CollectAsync()
+        private async void CollectAsync(CancellationToken cancellationToken)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-
             try
             {
-                await RotateCoinAsync();
-                await MoveToPlayerAsync();
-                await AddCoinsAsync();
+                await RotateCoinAsync(cancellationToken);
+                await MoveToPlayerAsync(cancellationToken);
+                await AddCoinsAsync(cancellationToken);
+                
                 _coinView.Destroy();
             }
             catch (OperationCanceledException e)
             {
-                Debug.Log(e.Message);
             }
         }
 
-        private async UniTask AddCoinsAsync()
+        private async UniTask AddCoinsAsync(CancellationToken cancellationToken)
         {
             _coin.PlayerWalletView.Add(_coin.CoinAmount);
-            await UniTask.Yield(_cancellationTokenSource.Token);
+            
+            await UniTask.Yield(cancellationToken);
         }
 
-        private async UniTask RotateCoinAsync()
+        private async UniTask RotateCoinAsync(CancellationToken cancellationToken)
         {
             while (_coin.CanMove == false)
             {
                 _coinView.Rotate();
                 
-                await UniTask.Yield(_cancellationTokenSource.Token);
+                await UniTask.Yield(cancellationToken);
             }
         }
 
-        private async UniTask MoveToPlayerAsync()
+        private async UniTask MoveToPlayerAsync(CancellationToken cancellationToken)
         {
             while (Vector3.Distance(_coinView.Position,
-                       _coin.PlayerWalletView.Position) > TargetDistance)
+                       _coin.PlayerWalletView.Position) > Constant.Coin.TargetDistance)
             {
                 _currentTime += Time.deltaTime;
 
@@ -96,7 +98,7 @@ namespace Sources.Controllers.Items.Coins
                         _coin.PlayerWalletView.Position.z),
                     _coinView.MovementSpeed * Time.deltaTime));
 
-                await UniTask.Yield(_cancellationTokenSource.Token);
+                await UniTask.Yield(cancellationToken);
             }
         }
     }

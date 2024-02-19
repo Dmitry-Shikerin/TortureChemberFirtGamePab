@@ -19,10 +19,8 @@ namespace Sources.Infrastructure.Services
             UpdatePauseInput();
         }
 
-        public void UpdateLate(float deltaTime)
-        {
+        public void UpdateLate(float deltaTime) => 
             UpdateRotation();
-        }
 
         public void UpdateFixed(float fixedDeltaTime)
         {

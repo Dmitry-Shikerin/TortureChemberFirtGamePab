@@ -1,7 +1,5 @@
 ﻿using Lean.Localization;
 using Sources.Domain.Constants;
-using Sources.Domain.Datas.Players;
-using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players.PlayerMovements.PlayerMovementCharacteristics;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Controllers.Forms;
@@ -33,23 +31,18 @@ using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Cameras;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.LoadServices;
-using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.Movement;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.Infrastructure.Services.Providers.Upgrades;
-using Sources.Infrastructure.Services.ShuffleServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
-using Sources.Infrastructure.Spawners;
 using Sources.Infrastructure.Spawners.Generic;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.Movement;
-using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Containers.UI.Texts;
@@ -65,16 +58,13 @@ using Sources.Presentation.Views.Taverns.UpgradePoints;
 using Sources.Presentation.Views.UIs;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids;
-using Sources.Presentation.Voids.GamePoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Repositoryes.CollectionRepository;
 using Sources.Utils.Repositoryes.ItemRepository;
-using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.DIContainers
 {
@@ -98,7 +88,6 @@ namespace Sources.Infrastructure.DIContainers
             HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
-            //SDKServices
             Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle();
             Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();
             Container.Bind<ILocalizationService>().To<LocalizationService>().AsSingle();
@@ -152,9 +141,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.BindInterfacesAndSelfTo<ItemProvider<IItem>>().AsSingle();
 
             Container.Bind<ItemsFactory>().AsSingle();
-
-            Container.Bind<IShuffleService<IItem>>().To<ItemShuffleService>().AsSingle();
-
+            
             Container.Bind<PlayerUpgradePresenterFactory>().AsSingle();
             Container.Bind<PlayerUpgradeViewFactory>().AsSingle();
 

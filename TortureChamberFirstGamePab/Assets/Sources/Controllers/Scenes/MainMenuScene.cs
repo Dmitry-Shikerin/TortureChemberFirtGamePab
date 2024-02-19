@@ -1,9 +1,11 @@
 ﻿using System;
 using Sources.ControllersInterfaces.Scenes;
+using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
@@ -15,6 +17,7 @@ namespace Sources.Controllers.Scenes
     {
         private readonly MainMenuHUD _mainMenuHUD;
 
+        private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
         private readonly ILocalizationService _localizationService;
@@ -28,6 +31,7 @@ namespace Sources.Controllers.Scenes
 
         public MainMenuScene
         (
+            IDataService<Setting> settingDataService,
             IVolumeService volumeService,
             IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
@@ -42,6 +46,7 @@ namespace Sources.Controllers.Scenes
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _backgroundMusicService = backgroundMusicService ?? 
                                       throw new ArgumentNullException(nameof(backgroundMusicService));
@@ -68,6 +73,8 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
+            _settingDataService.Load();
+            
             _mainMenuFormServiceFactory
                 .Create()
                 .Show<MainMenuFormView>();

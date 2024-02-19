@@ -16,8 +16,6 @@ namespace Sources.Infrastructure.Services
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        private bool _isPlaying;
-
         public AdvertisingAfterCertainPeriodService
         (
             IInterstitialAdService interstitialAdService,
@@ -37,36 +35,27 @@ namespace Sources.Infrastructure.Services
 
             DisableTimer();
             
-            await ShowInterstitialAsync();
+            await ShowInterstitialAsync(_cancellationTokenSource.Token);
         }
 
-        public void Exit()
-        {
-            _isPlaying = false;
-
+        public void Exit() => 
             _cancellationTokenSource.Cancel();
-        }
 
-        private async UniTask ShowInterstitialAsync()
+        private async UniTask ShowInterstitialAsync(CancellationToken cancellationToken)
         {
-            _isPlaying = true;
-
-            Debug.Log("AdvertisingService start");
-
-            //TODO как избавится от этого трай кетча?
             try
             {
-                while (_isPlaying)
+                while (cancellationToken.IsCancellationRequested == false)
                 {
                     //TODO потом раскоментировать
                     // await UniTask.Delay(TimeSpan.FromMinutes(Constant.InterstitialService.ShowDelay),
                     //     cancellationToken: _cancellationTokenSource.Token);
                     await UniTask.Delay(TimeSpan.FromSeconds(10),
-                        cancellationToken: _cancellationTokenSource.Token);
+                        cancellationToken: cancellationToken);
 
                     EnableTimer();
                     
-                    await ShowTimer();
+                    await ShowTimer(cancellationToken);
 
                     DisableTimer();
                 }
@@ -76,23 +65,21 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        private async UniTask ShowTimer()
+        private async UniTask ShowTimer(CancellationToken cancellationToken)
         {
             _viewTextContainer.Title.SetText(Constant.AdvertisingTimer.ContentText);
             _viewTextContainer.Timer.SetText("3");
 
             await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
-                cancellationToken: _cancellationTokenSource.Token);
+                cancellationToken: cancellationToken);
             _viewTextContainer.Timer.SetText("2");
 
             await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
-                cancellationToken: _cancellationTokenSource.Token);
+                cancellationToken: cancellationToken);
             _viewTextContainer.Timer.SetText("1");
 
             await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
-                cancellationToken: _cancellationTokenSource.Token);
-
-            Debug.Log("Show Advertising");
+                cancellationToken: cancellationToken);
 
             _interstitialAdService.ShowInterstitial();
         }

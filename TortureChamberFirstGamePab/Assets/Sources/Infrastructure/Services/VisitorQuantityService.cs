@@ -21,6 +21,7 @@ namespace Sources.Infrastructure.Services
         private VisitorQuantity _visitorQuantity;
 
         private CancellationTokenSource _cancellationTokenSource;
+        private TimeSpan _timeSpan;
 
         public VisitorQuantityService
         (
@@ -41,23 +42,23 @@ namespace Sources.Infrastructure.Services
         
         public async void Enter(object payload = null)
         {
-            await IncreaseDifficulty();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _timeSpan = TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay);
+            
+            await IncreaseDifficulty(_cancellationTokenSource.Token);
         }
         
-        private async UniTask IncreaseDifficulty()
+        private async UniTask IncreaseDifficulty(CancellationToken cancellationToken)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            
             int visitorsCount = 0;
 
-            //TODO что сделать с этим трай кетчем
             try
             {
                 while (visitorsCount <= _maximumSetPointsCapacity)
                 {
-                    await UniTask.Delay(TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay),
-                        cancellationToken: _cancellationTokenSource.Token);
-                    Debug.Log("увеличино максимальное количество посетителей");
+                    await UniTask.Delay(_timeSpan,
+                        cancellationToken: cancellationToken);
+                    
                     visitorsCount++;
                     VisitorQuantity.AddMaximumVisitorsQuantity();
                 }
@@ -67,9 +68,7 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        public void Exit()
-        {
+        public void Exit() => 
             _cancellationTokenSource.Cancel();
-        }
     }
 }

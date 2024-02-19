@@ -7,71 +7,39 @@ namespace Sources.Domain.Settings
 {
     public class Volume
     {
+        private int _step;
+        
         public event Action VolumeChanged;
         
-        //TODO сменить магические числа
-        public Volume(VolumeData volumeData) : this(volumeData.VolumeValue, volumeData.Step)
+        public Volume(VolumeData volumeData) : this(volumeData.Step)
         {
         }
         
-        public Volume() : this(Constant.VolumeValue.BaseValue, Constant.VolumeValue.BaseStep)
+        public Volume() : this(Constant.VolumeValue.BaseStep)
         {
         }
         
-        private Volume(float volumeValue, int step)
+        private Volume(int step)
         {
-            VolumeValue = volumeValue;
             Step = step;
         }
         
-        public float VolumeValue { get; private set; }
-        
-        public int Step { get; private set; }
-
-        //TODO Заменить магические числа
-        public void Increase()
+        public float VolumeValue => Step * Constant.VolumeValue.VolumeValuePerStep;
+        public int Step
         {
-            if (VolumeValue >= Constant.VolumeValue.MaxValue)
+            get => _step;
+            set
             {
-                VolumeValue = Constant.VolumeValue.MaxValue;
-                return;
+                _step = Mathf.Clamp(value, 0, Constant.VolumeValue.MaxStep);
+                
+                VolumeChanged?.Invoke();
             }
-            
-            VolumeValue += Constant.VolumeValue.VolumeValuePerStep;
+        }
+
+        public void Increase() => 
             Step++;
-            
-            VolumeChanged?.Invoke();
-            
-            if (VolumeValue >= Constant.VolumeValue.MaxValue)
-            {
-                VolumeValue = Constant.VolumeValue.MaxValue;
-            }
-            Debug.Log($"Volume Increase {VolumeValue}");
-        }
 
-        public void TurnDown()
-        {
-            if (VolumeValue <= Constant.VolumeValue.MinValue)
-            {
-                VolumeValue = Constant.VolumeValue.MinValue;
-                return;
-            }
-
-            if (Step <= Constant.VolumeValue.MinStep)
-            {
-                return;
-            }
-            
-            VolumeValue -= Constant.VolumeValue.VolumeValuePerStep;
+        public void TurnDown() => 
             Step--;
-            
-            VolumeChanged?.Invoke();
-            
-            if (VolumeValue <= Constant.VolumeValue.MinValue)
-            {
-                VolumeValue = Constant.VolumeValue.MinValue;
-            }
-            Debug.Log($"Volume TornDown {VolumeValue}");
-        }
     }
 }

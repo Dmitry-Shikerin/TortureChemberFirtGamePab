@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.DataAccess.SettingData;
-using Sources.Domain.Players.PlayerMovements;
 using Sources.Domain.Settings;
-using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
@@ -12,10 +11,24 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 {
     public class SettingDataService : IDataService<Setting>
     {
+        private readonly Setting _setting;
+
+        public SettingDataService(Setting setting)
+        {
+            _setting = setting ?? throw new ArgumentNullException(nameof(setting));
+        }
+
         public bool CanLoad => PlayerPrefs.HasKey(Constant.SettingDataKey.VolumeKey);
+
         public Setting Load()
         {
-            return new Setting(LoadVolume());
+            if (CanLoad == false)
+                return null;
+
+            var volume = LoadVolume();
+            _setting.Volume.Step = volume.Step;
+
+            return null;
         }
 
         public void Save(Setting @object)
@@ -26,6 +39,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         public void Clear()
         {
             PlayerPrefs.DeleteKey(Constant.SettingDataKey.VolumeKey);
+            Debug.Log("SettingDataService Clear");
         }
 
         private Volume LoadVolume()
@@ -40,7 +54,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         {
             VolumeData volumeData = new VolumeData()
             {
-                VolumeValue = volume.VolumeValue,
                 Step = volume.Step
             };
 

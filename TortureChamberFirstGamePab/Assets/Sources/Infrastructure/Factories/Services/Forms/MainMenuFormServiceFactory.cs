@@ -17,6 +17,7 @@ using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
+using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.MainMenus;
@@ -111,7 +112,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
             {
-                if (_playerAccountAuthorizeService.IsAuthorized())
+                //TODO закоментировал проверку лидерборда
+                // if (_playerAccountAuthorizeService.IsAuthorized())
                     _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
             });
             

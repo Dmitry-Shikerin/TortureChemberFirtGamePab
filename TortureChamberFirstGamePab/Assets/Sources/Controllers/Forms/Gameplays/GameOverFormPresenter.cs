@@ -26,7 +26,7 @@ namespace Sources.Controllers.Forms.Gameplays
             IDataService<Domain.Datas.Players.Player> playerDataService,
             IDataService<Tavern> tavernDataService,
             IDataService<PlayerUpgrade> upgradeDataService
-            )
+        )
         {
             _gameOverFormView = gameOverFormView ?? throw new ArgumentNullException(nameof(gameOverFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -36,16 +36,10 @@ namespace Sources.Controllers.Forms.Gameplays
             _upgradeDataService = upgradeDataService ?? throw new ArgumentNullException(nameof(upgradeDataService));
         }
 
-        public override void Enable()
-        {
-            _playerDataService.Clear();
-            _tavernDataService.Clear();
-            _upgradeDataService.Clear();
-            
+        public override void Enable() =>
             _pauseService.Pause();
-        }
 
-        public override void Disable() => 
+        public override void Disable() =>
             _pauseService.Continue();
     }
 }
