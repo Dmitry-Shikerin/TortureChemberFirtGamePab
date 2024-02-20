@@ -35,6 +35,7 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
+            //todo ВЫЛЕТАЕТ ОШИБКА С ИНДЕКСОМ
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false)

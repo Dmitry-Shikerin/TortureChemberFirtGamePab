@@ -9,6 +9,6 @@ namespace Sources.Presentation.UI.Conteiners.AudioSources
         [field: SerializeField] public AudioSourceUI Charisma { get; private set; }
         [field: SerializeField] public AudioSourceUI Inventory { get; private set; }
         [field: SerializeField] public AudioSourceUI Movement { get; private set; }
-        [field: SerializeField] public AudioSourceUI Advertisement { get; private set; }
+        // [field: SerializeField] public AudioSourceUI Advertisement { get; private set; }
     }
 }

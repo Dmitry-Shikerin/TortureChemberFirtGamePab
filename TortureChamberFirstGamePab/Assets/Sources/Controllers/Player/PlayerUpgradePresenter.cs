@@ -24,8 +24,11 @@ namespace Sources.Controllers.Player
             _playerUpgradeView = playerUpgradeView ?? throw new ArgumentNullException(nameof(playerUpgradeView));
         }
         
+        //TODO подправить логику
         public override void Enable()
         {
+            HideLevelImages();
+            ShowLevelImages();
             UpdatePricePerUpgrade();
             UpdateCurrentLevelUpgrade();
         }
@@ -76,8 +79,27 @@ namespace Sources.Controllers.Player
                 $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
 
-        private void UpdateCurrentLevelUpgrade() =>
-            _playerUpgradeView.SetCurrentLevelUpgrade(
-                $"{_upgrader.CurrentLevelUpgrade.StringValue}");
+        // private void UpdateCurrentLevelUpgrade() =>
+        //     _playerUpgradeView.SetCurrentLevelUpgrade(
+        //         $"{_upgrader.CurrentLevelUpgrade.StringValue}");
+        private void UpdateCurrentLevelUpgrade()
+        {
+            ShowLevelImages();
+        }
+
+        public void ShowLevelImages()
+        {
+            for (int i = 0; i < _upgrader.CurrentLevelUpgrade.GetValue; i++)
+            {
+                _playerUpgradeView.ImageViews[i].Show();
+            }
+        }
+        public void HideLevelImages()
+        {
+            for (int i = 0; i < _playerUpgradeView.ImageViews.Count; i++)
+            {
+                _playerUpgradeView.ImageViews[i].Hide();
+            }
+        }
     }
 }

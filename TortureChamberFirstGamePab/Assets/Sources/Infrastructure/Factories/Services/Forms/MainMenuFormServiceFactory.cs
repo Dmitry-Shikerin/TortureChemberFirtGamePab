@@ -131,6 +131,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.TornDownVolume,
                 _mainMenuHUD.MainMenuFormsContainer.SettingFormView.TurnDownVolume);
 
+            //TODO кнопка не активна если перехожу из геймплея
             if (CanLoad() == false)
                 continueGameButton.Disable();
 
