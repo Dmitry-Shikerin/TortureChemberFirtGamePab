@@ -9,6 +9,7 @@ using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Extensions.ShuffleExtensions;
 using Sources.Utils.Repositoryes.CollectionRepository;
+using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -36,10 +37,15 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             //todo ВЫЛЕТАЕТ ОШИБКА С ИНДЕКСОМ
-            SeatPointView seatPointView = _collectionRepository
+            IEnumerable<SeatPointView> seatPointsView = _collectionRepository
                 .Get<SeatPointView>()
-                .Where(seatPointView => seatPointView.IsOccupied == false)
-                .GetRandomItem();
+                .Where(seatPointView => seatPointView.IsOccupied == false);
+                // .GetRandomItem();
+
+            Debug.Log(seatPointsView.Count());
+                
+                // var seatPointView = seatPointsView.GetRandomItem();
+                var seatPointView = seatPointsView.GetRandomItem();
 
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);

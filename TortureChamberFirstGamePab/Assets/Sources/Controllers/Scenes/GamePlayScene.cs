@@ -85,7 +85,7 @@ namespace Sources.Controllers.Scenes
             _loadService.Load();
             _tavernUpgradePointService.OnEnable();
             _visitorQuantityService.Enter();
-            _visitorSpawnService.SpawnVisitorAsync();
+            _visitorSpawnService.Enter();
             _pauseMenuService.Enter();
             _backgroundMusicService.Enter();
             _gameOverService.Enter();
@@ -101,7 +101,7 @@ namespace Sources.Controllers.Scenes
         {
             _tavernUpgradePointService.OnDisable();
             _visitorQuantityService.Exit();
-            _visitorSpawnService.Cancel();
+            _visitorSpawnService.Exit();
             _pauseMenuService.Exit();
             _backgroundMusicService.Exit();
             _gameOverService.Exit();

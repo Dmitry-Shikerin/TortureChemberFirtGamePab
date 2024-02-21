@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Sources.Utils.Extensions.ShuffleExtensions
@@ -29,11 +30,22 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
                 throw new InvalidOperationException(nameof(objects));
             
             T[] enumerable = objects as T[] ?? objects.ToArray();
+
+            if (enumerable.Length == 0)
+                throw new Exception("нечего перемешивать");
             
+            if(enumerable.Any(@object => @object == null))
+                throw new InvalidOperationException(nameof(enumerable));
+
             //TODO сделал коррекцию
             //TODO maxExclude берется включительно?
-            int index = Random.Range(0, enumerable.Length - 1);
+            int index = Random.Range(0, enumerable.Length);
 
+            // Debug.Log(index);
+            
+            if (enumerable[index] == null)
+                throw new InvalidOperationException(nameof(enumerable));
+            
             return enumerable[index];
         }
         

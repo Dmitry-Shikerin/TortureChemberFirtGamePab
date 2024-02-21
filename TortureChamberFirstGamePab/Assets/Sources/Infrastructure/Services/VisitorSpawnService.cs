@@ -10,6 +10,7 @@ using Sources.Infrastructure.Factories.Views.Visitors;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
+using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
@@ -18,7 +19,7 @@ using Sources.Utils.Repositoryes.CollectionRepository;
 
 namespace Sources.Infrastructure.Services
 {
-    public class VisitorSpawnService
+    public class VisitorSpawnService : IVisitorSpawnService
     {
         private readonly VisitorCounter _visitorCounter;
         private readonly IPauseService _pauseService;
@@ -32,11 +33,12 @@ namespace Sources.Infrastructure.Services
         private VisitorQuantity _visitorQuantity;
 
         private CancellationTokenSource _cancellationTokenSource;
+        private TimeSpan _timeSpan;
 
         public VisitorSpawnService
         (
             IPauseService pauseService,
-            IPrefabFactory prefabFactory, 
+            IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
             ITavernProvider tavernProvider,
@@ -50,30 +52,40 @@ namespace Sources.Infrastructure.Services
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorViewFactory = visitorViewFactory ?? throw new ArgumentNullException(nameof(visitorViewFactory));
             _tavernProvider = tavernProvider ?? throw new ArgumentNullException(nameof(tavernProvider));
-            _collectionRepository = collectionRepository ?? 
+            _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
         }
 
         private VisitorQuantity VisitorQuantity => _visitorQuantity ??= _tavernProvider.VisitorQuantity;
         private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
 
-        public async void SpawnVisitorAsync()
+        public void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            
+            _timeSpan = TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay);
+
+            SpawnVisitorAsync(_cancellationTokenSource.Token);
+        }
+
+        public void Exit() =>
+            _cancellationTokenSource.Cancel();
+
+        private async void SpawnVisitorAsync(CancellationToken cancellationToken)
+        {
             try
             {
-                while (_cancellationTokenSource.Token.IsCancellationRequested == false)
+                while (cancellationToken.IsCancellationRequested == false)
                 {
                     if (CanSpawn())
                     {
-                        await UniTask.Delay(TimeSpan.FromSeconds(Constant.Visitors.SpawnDelay),
-                            cancellationToken: _cancellationTokenSource.Token);
+                        await UniTask.Delay(_timeSpan,
+                            cancellationToken: cancellationToken);
 
-                        Spawn();
+                        if (CanSpawn())
+                            Spawn();
                     }
 
-                    await UniTask.Yield(_cancellationTokenSource.Token);
+                    await UniTask.Yield(cancellationToken);
                 }
             }
             catch (OperationCanceledException)
@@ -81,15 +93,12 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        public void Cancel() => 
-            _cancellationTokenSource.Cancel();
-
         private bool CanSpawn()
         {
             int freeSeatPoints = _collectionRepository
                 .Get<SeatPointView>()
                 .Count(seatPoint => seatPoint.IsOccupied == false);
-            
+
             return _visitorCounter.ActiveVisitorsCount < VisitorQuantity.MaximumVisitorsQuantity &&
                    _visitorCounter.ActiveVisitorsCount < freeSeatPoints;
         }
