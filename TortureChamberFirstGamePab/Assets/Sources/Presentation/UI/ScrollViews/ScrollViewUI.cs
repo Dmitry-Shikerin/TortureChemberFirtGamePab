@@ -1,4 +1,5 @@
-﻿using Sources.Presentation.Views;
+﻿using System;
+using Sources.Presentation.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -11,15 +12,23 @@ namespace Sources.Presentation.UI.ScrollViews
     public class ScrollViewUI : View
     {
         [SerializeField] private ScrollRect _scrollRect;
-        // [SerializeField] private PointerEventData _pointerEventData;
-        [SerializeField] private Button _button;
+        [SerializeField] private Button _upButton;
+        [SerializeField] private Button _downButton;
 
-        public void Change()
+        //TODO перенести это в туториал форм
+        private void Awake()
         {
-            // _scrollView.nestedInteractionKind = ScrollView.NestedInteractionKind.ForwardScrolling;
-            // _scrollView.nestedInteractionKind = ScrollView.NestedInteractionKind.StopScrolling;
-            // PointerEventData pointerEventData = new PointerEventData();
-            //
+            _downButton.onClick.AddListener(DownScroll);
+            _upButton.onClick.AddListener(UpScroll);
+        }
+
+        public void DownScroll()
+        {
+            _scrollRect.verticalNormalizedPosition -= 0.1f;
+        }
+        public void UpScroll()
+        {
+            _scrollRect.verticalNormalizedPosition += 0.1f;
         }
     }
 }

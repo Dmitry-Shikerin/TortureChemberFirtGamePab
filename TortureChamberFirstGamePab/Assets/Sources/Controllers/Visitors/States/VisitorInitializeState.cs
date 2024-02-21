@@ -40,12 +40,10 @@ namespace Sources.Controllers.Visitors.States
             IEnumerable<SeatPointView> seatPointsView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false);
-                // .GetRandomItem();
 
             Debug.Log(seatPointsView.Count());
-                
-                // var seatPointView = seatPointsView.GetRandomItem();
-                var seatPointView = seatPointsView.GetRandomItem();
+
+            var seatPointView = seatPointsView.GetRandomItem();
 
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);

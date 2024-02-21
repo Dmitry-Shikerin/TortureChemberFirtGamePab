@@ -75,7 +75,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 {
                     _pauseService.Continue();
                     _pauseService.ContinueSound();
-
                 });
         }
     }

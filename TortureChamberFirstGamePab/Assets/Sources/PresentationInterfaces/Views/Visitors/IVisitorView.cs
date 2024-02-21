@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sources.Presentation.Views.Visitors;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Sources.PresentationInterfaces.Views.Visitors
@@ -7,6 +8,7 @@ namespace Sources.PresentationInterfaces.Views.Visitors
     {
         Vector3 Position { get; }
         NavMeshAgent NavMeshAgent { get; }
+        VisitorImageUIContainer VisitorImageUIContainer { get; }
 
         void Move();
         void StopMove();

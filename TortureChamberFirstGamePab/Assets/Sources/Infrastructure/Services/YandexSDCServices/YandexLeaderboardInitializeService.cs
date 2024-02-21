@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Agava.YandexGames;
 using Sources.Domain.Constants;
 using Sources.Domain.YandexSDC;
@@ -28,21 +29,26 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 ? leaderboardElementViewContainer
                 : throw new ArgumentNullException(nameof(leaderboardElementViewContainer));
         }
-        
+
         //TODo разделить туториал на несколько окошек и переключать их
         //TODO сделать проверку в туториале есть ли у человека какойто скор чтобы не показывать его постоянно
+        //TODO добавить булку пройдено лли обучение
         public void Fill()
         {
-            if(_webGlService.IsWebGl == false)
+            if (_webGlService.IsWebGl == false)
                 return;
-            
+
             if (PlayerAccount.IsAuthorized)
                 return;
-            
+
             Leaderboard.GetEntries(Constant.LeaderboardNames.LeaderboardName,
                 (result) =>
                 {
-                    for (int i = 0; i < _leaderboardElementViewContainer.LeaderboardElementViews.Count; i++)
+                    int count = result.entries.Length < _leaderboardElementViewContainer.LeaderboardElementViews.Count
+                        ? result.entries.Length
+                        : _leaderboardElementViewContainer.LeaderboardElementViews.Count;
+
+                    for (int i = 0; i < count; i++)
                     {
                         _leaderboardElementViewFactory.Create(new LeaderboardPlayer(result.entries[i]),
                             _leaderboardElementViewContainer.LeaderboardElementViews[i]);

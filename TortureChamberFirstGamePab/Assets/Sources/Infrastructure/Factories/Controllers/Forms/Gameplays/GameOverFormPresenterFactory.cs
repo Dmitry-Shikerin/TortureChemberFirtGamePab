@@ -25,7 +25,6 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
             IDataService<Player> playerDataService,
             IDataService<Tavern> tavernDataService,
             IDataService<PlayerUpgrade> upgradeDataService
-
         )
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));

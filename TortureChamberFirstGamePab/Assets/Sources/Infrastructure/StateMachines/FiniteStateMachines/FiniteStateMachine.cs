@@ -1,4 +1,5 @@
 ﻿using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using UnityEngine;
 
 namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
 {
@@ -31,6 +32,8 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
             _current?.Exit();
             _current = nextState;
             _current.Enter();
+                        
+            Debug.Log(_current.GetType());
         }
     }
 }

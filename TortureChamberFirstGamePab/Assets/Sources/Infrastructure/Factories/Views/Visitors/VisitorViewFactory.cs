@@ -4,6 +4,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
+using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.ObjectPolls;
@@ -20,13 +21,15 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
         private readonly VisitorInventoryViewFactory _visitorInventoryViewFactory;
+        private readonly ImageUIFactory _imageUIFactory;
 
         public VisitorViewFactory
         (
             VisitorPresenterFactory visitorPresenterFactory,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
-            VisitorInventoryViewFactory visitorInventoryViewFactory
+            VisitorInventoryViewFactory visitorInventoryViewFactory,
+            ImageUIFactory imageUIFactory
         )
         {
             _visitorPresenterFactory = visitorPresenterFactory ??
@@ -35,6 +38,7 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
             _objectPool = objectPool ?? throw new ArgumentNullException(nameof(objectPool));
             _visitorInventoryViewFactory = visitorInventoryViewFactory ??
                                            throw new ArgumentNullException(nameof(visitorInventoryViewFactory));
+            _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
         }
 
         public IVisitorView Create
@@ -47,6 +51,9 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         {
             VisitorInventory visitorInventory = CreateInventory(visitorView);
 
+            _imageUIFactory.Create(visitorView.VisitorImageUIContainer.OrderImage);
+            _imageUIFactory.Create(visitorView.VisitorImageUIContainer.BackGroundImage);
+            
             VisitorPresenter visitorPresenter = _visitorPresenterFactory.Create(
                 visitorView, visitorView.Animation, visitor,
                 visitorInventory, tavernMood, visitorCounter);

@@ -81,8 +81,7 @@ namespace Sources.Infrastructure.Services
                         await UniTask.Delay(_timeSpan,
                             cancellationToken: cancellationToken);
 
-                        if (CanSpawn())
-                            Spawn();
+                        Spawn();
                     }
 
                     await UniTask.Yield(cancellationToken);

@@ -33,7 +33,7 @@ namespace Sources.Controllers.Visitors.States
             _visitor.FinishEating();
             _visitor.SetHappy();
             _visitor.SetIdle();
-            _visitor.SetSeatPoint(null);
+            // _visitor.SetSeatPoint(null);
             _visitor.SetUnSeat();
 
             _visitorCounter.RemoveActiveVisitor();

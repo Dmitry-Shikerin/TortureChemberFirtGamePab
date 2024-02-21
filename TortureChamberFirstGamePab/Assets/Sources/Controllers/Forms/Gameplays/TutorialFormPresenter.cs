@@ -24,13 +24,31 @@ namespace Sources.Controllers.Forms.Gameplays
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public override void Enable() => 
+        public override void Enable()
+        {
             _pauseService.Pause();
+            _tutorialFormView.DownScrollButton.AddClickListener(DownScroll);
+            _tutorialFormView.UpScrollButton.AddClickListener(UpScroll);
+        }
 
-        public override void Disable() => 
+        public override void Disable()
+        {
             _pauseService.Continue();
+            _tutorialFormView.DownScrollButton.RemoveClickListener(DownScroll);
+            _tutorialFormView.UpScrollButton.RemoveClickListener(UpScroll);
+        }
 
         public void ShowPauseMenu() => 
             _formService.Show<PauseMenuFormView>();
+
+        private void DownScroll()
+        {
+            _tutorialFormView.DownScroll(_tutorialFormView.ScrollStep);
+        }
+
+        private void UpScroll()
+        {
+            _tutorialFormView.UpScroll(_tutorialFormView.ScrollStep);
+        }
     }
 }

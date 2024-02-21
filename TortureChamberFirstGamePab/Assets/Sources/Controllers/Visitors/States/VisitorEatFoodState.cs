@@ -87,9 +87,9 @@ namespace Sources.Controllers.Visitors.States
                     Constant.Visitors.EatFillingRate, cancellationToken);
 
                 _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-                _visitor.SetUnSeat();
                 itemView.Destroy();
                 _tavernMood.AddTavernMood();
+                _visitor.SetUnSeat();
             }
             catch (OperationCanceledException)
             {

@@ -13,7 +13,7 @@ namespace Sources.Presentation.Views.Visitors
     public class VisitorView : PresentableView<VisitorPresenter>, IVisitorView
     {
         [field: SerializeField] public VisitorAnimation Animation { get; private set; }
-        [field: SerializeField] public VisitorImageUIContainer ImageUIContainer { get; private set; }
+        [field: SerializeField] public VisitorImageUIContainer VisitorImageUIContainer { get; private set; }
         [field: SerializeField] public VisitorInventoryView Inventory { get; private set; }
 
         public NavMeshAgent NavMeshAgent { get; private set; }
@@ -23,6 +23,17 @@ namespace Sources.Presentation.Views.Visitors
         public void Awake() =>
             NavMeshAgent = GetComponent<NavMeshAgent>() ??
                            throw new NullReferenceException(nameof(NavMeshAgent));
+
+        // public void Start()
+        // {
+        //     //TODO приходится запускать здесь
+        //     Presenter?.Start();
+        // }
+
+        // private void Update()
+        // {
+        //     Presenter?.Update();
+        // }
 
         public override void Destroy()
         {

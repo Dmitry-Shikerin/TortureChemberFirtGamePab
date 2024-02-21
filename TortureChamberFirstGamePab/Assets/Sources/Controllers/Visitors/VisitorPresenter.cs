@@ -33,9 +33,10 @@ namespace Sources.Controllers.Visitors
 
         public void Enable()
         {
-            _updateService.ChangedUpdate += OnUpdate;
-            
+            //TODO два раза входит в инит стейт
             Start();
+            
+            _updateService.ChangedUpdate += OnUpdate;
         }
 
         public void Disable()
@@ -45,10 +46,10 @@ namespace Sources.Controllers.Visitors
             Stop();
         }
 
-        private void Start() => 
+        public void Start() => 
             Start(_firstState);
 
-        private void OnUpdate(float deltaTime) => 
+        public void OnUpdate(float deltaTime) => 
             Update();
     }
 }

@@ -41,6 +41,5 @@ namespace Sources.Presentation.Voids
             AdvertisingAfterCertainPeriodTextContainer { get; private set; }
         [field: SerializeField] public SettingFormButtonContainer
             SettingFormButtonContainer { get; private set; }
-        
     }
 }

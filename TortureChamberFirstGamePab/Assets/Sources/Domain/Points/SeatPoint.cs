@@ -14,7 +14,7 @@ namespace Sources.Domain.Points
 
         public void UnOccupy()
         {
-            Debug.Log("место свободно");
+            // Debug.Log("место свободно");
             IsOccupied = false;
         }
     }

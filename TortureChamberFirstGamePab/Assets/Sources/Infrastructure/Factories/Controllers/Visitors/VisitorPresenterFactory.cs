@@ -85,14 +85,14 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             if (visitorCounter == null)
                 throw new ArgumentNullException(nameof(visitorCounter));
 
-            VisitorImageUIContainer visitorImageUIContainer = null;
-
-            if (visitorView is VisitorView concrete)
-                visitorImageUIContainer = concrete.GetComponentInChildren<VisitorImageUIContainer>();
-
-            _imageUIFactory.Create(visitorImageUIContainer.OrderImage);
-            _imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
-
+            // VisitorImageUIContainer visitorImageUIContainer = null;
+            //
+            // if (visitorView is VisitorView concrete)
+            //     visitorImageUIContainer = concrete.GetComponentInChildren<VisitorImageUIContainer>();
+            //
+            // _imageUIFactory.Create(visitorImageUIContainer.OrderImage);
+            // _imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
+            //
             VisitorInitializeState initializeState = new VisitorInitializeState(
                 visitorView, visitor, visitorAnimation, _collectionRepository, visitorCounter);
             VisitorIdleState idleState = new VisitorIdleState(
@@ -104,14 +104,14 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 visitorView, visitor, visitorAnimation, tavernMood);
             VisitorWaitingForOrderState visitorWaitingForOrderState =
                 new VisitorWaitingForOrderState(visitor, visitorInventory,
-                    visitorImageUIContainer, tavernMood,
+                    visitorView.VisitorImageUIContainer, tavernMood,
                     visitorAnimation, visitorView, _itemProvider);
             VisitorEatFoodState visitorEatFoodState = new VisitorEatFoodState(
-                visitor, visitorInventory, visitorImageUIContainer, _itemViewFactory,
+                visitor, visitorInventory, visitorView.VisitorImageUIContainer, _itemViewFactory,
                 tavernMood, _garbageSpawner, _coinSpawner);
             VisitorMoveToExitState visitorMoveToExitState = new VisitorMoveToExitState(
                 visitorView, visitor, visitorAnimation, _collectionRepository,
-                visitorInventory, visitorImageUIContainer, _pauseService);
+                visitorInventory, visitorView.VisitorImageUIContainer, _pauseService);
             VisitorNotSatisfiedWithOrderState visitorNotSatisfiedWithOrderState =
                 new VisitorNotSatisfiedWithOrderState(visitor, tavernMood);
             VisitorReturnToPoolState visitorReturnToPoolState = new VisitorReturnToPoolState(

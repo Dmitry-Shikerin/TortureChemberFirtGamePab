@@ -22,6 +22,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (PlayerAccount.IsAuthorized == false)
                 return;
 
+            //TODO это запись чисто игрока
             Leaderboard.GetPlayerEntry(Constant.LeaderboardNames.LeaderboardName,
                 (result) =>
                 {
