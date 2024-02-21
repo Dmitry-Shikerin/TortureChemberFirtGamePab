@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Items;
@@ -46,6 +47,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
         private readonly PlayerCameraView _playerCameraView;
+        private readonly Setting _setting;
         private readonly FoodPickUpPointsViewFactory _foodPickUpPointsViewFactory;
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
         private readonly IPauseService _pauseService;
@@ -73,6 +75,7 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected LoadServiceBase
         (
+            Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
             PlayerCameraView playerCameraView,
@@ -111,6 +114,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _playerCameraView = playerCameraView
                 ? playerCameraView
                 : throw new ArgumentNullException(nameof(playerCameraView));
+            _setting = setting ?? throw new ArgumentNullException(nameof(setting));
             _foodPickUpPointsViewFactory = foodPickUpPointsViewFactory ??
                                            throw new ArgumentNullException(nameof(foodPickUpPointsViewFactory));
             _audioSourceUIFactory =
@@ -239,13 +243,24 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         private async void ShowLoadForm(IFormService gameplayFormService)
         {
+            //TODO загрузка туториала работает
+            if (_setting.Tutorial.HasCompleted == false)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
+                
+                gameplayFormService.Show<TutorialFormView>();
+
+                return;
+            }
+            
             if (CanLoad())
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
 
                 gameplayFormService.Show<LoadFormView>();
+                
+                return;
             }
-            
             Debug.Log(CanLoad());
         }
 

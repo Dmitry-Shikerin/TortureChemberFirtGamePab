@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Datas.Players;
+﻿using Sources.Domain.DataAccess.Containers.Settings;
+using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.Factories.Repositoryes;
@@ -28,6 +29,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public LoadService
         (
+            Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
             PlayerCameraView playerCameraView,
@@ -62,6 +64,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                setting,
                 foodPickUpPointsViewFactory,
                 audioSourceUIFactory,
                 playerCameraView,

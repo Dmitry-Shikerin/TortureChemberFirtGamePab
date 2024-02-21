@@ -6,6 +6,12 @@ namespace Sources.Domain.Constants
     {
         public const float Epsilon = 0.01f;
 
+        
+        public static class ScrollRect
+        {
+            public const float MaxValue = 1;
+        }
+        
         public static class Volume
         {
             public const float Min = 0;
@@ -103,6 +109,7 @@ namespace Sources.Domain.Constants
         public static class SettingDataKey
         {
             public const string VolumeKey = "Volume";
+            public const string TutorialKey = "Tutorial";
         }
 
         public static class UpgradeConfigPath

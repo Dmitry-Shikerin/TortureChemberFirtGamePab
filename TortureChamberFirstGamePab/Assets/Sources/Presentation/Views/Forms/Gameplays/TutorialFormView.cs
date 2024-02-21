@@ -1,4 +1,6 @@
-﻿using Sources.Controllers.Forms.Gameplays;
+﻿using System;
+using ModestTree.Util;
+using Sources.Controllers.Forms.Gameplays;
 using Sources.Presentation.UI.Buttons;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
@@ -13,6 +15,11 @@ namespace Sources.Presentation.Views.Forms.Gameplays
         [field: SerializeField] public ButtonView UpScrollButton { get; private set; }
         [field: SerializeField] public ButtonView DownScrollButton { get; private set; }
         [field: SerializeField] public ScrollRect ScrollRect { get; private set; }
+
+        public void ClearTutorial()
+        {
+            
+        }
         
         public void ShowPauseMenu() => 
             Presenter?.ShowPauseMenu();

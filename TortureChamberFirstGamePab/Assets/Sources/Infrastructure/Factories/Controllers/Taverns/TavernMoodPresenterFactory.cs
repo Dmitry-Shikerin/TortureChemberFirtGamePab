@@ -32,6 +32,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
 
             if (tavernMoodView == null)
                 throw new ArgumentNullException(nameof(tavernMoodView));
+            
+            if (imageUI == null) 
+                throw new ArgumentNullException(nameof(imageUI));
 
             return new TavernMoodPresenter
             (

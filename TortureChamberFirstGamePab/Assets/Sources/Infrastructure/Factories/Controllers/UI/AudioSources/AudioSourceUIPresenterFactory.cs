@@ -1,4 +1,5 @@
-﻿using Sources.Controllers.UI.AudioSources;
+﻿using System;
+using Sources.Controllers.UI.AudioSources;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
@@ -12,6 +13,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null) 
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null) 
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             return new AudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
 
@@ -21,6 +28,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IDoubleAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null)
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null)
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             return new DoubleAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
 
@@ -30,6 +43,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             ITripleAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null)
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null) 
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             return new TripleAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
 
@@ -39,6 +58,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IFourthAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null) 
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null) 
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             return new FourthAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
 
@@ -48,6 +73,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IAudioSourceUI audioSourceUI
         )
         {
+            if (audioSourceActivator == null) 
+                throw new ArgumentNullException(nameof(audioSourceActivator));
+            
+            if (audioSourceUI == null)
+                throw new ArgumentNullException(nameof(audioSourceUI));
+            
             return new DoubleCallbackAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
         }
     }

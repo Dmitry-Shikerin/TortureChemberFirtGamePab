@@ -16,6 +16,7 @@ using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
@@ -120,6 +121,8 @@ namespace Sources.Infrastructure.Services
         private IVisitorView CreateFromPool(Visitor visitor, TavernMood tavernMood, VisitorCounter visitorCounter)
         {
             VisitorView visitorView = _objectPool.Get<VisitorView>();
+            
+            Debug.Log("Get from pool");
 
             if (visitorView == null)
                 return null;

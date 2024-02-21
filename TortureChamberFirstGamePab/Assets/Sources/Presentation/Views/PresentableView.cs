@@ -13,6 +13,9 @@ namespace Sources.Presentation.Views
             OnAfterEnable();
         }
 
+        protected void DestroyPresenter() => 
+            Presenter = default;
+
         protected virtual void OnAfterEnable()
         {
         }

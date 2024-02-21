@@ -7,6 +7,7 @@ using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
+using UnityEngine;
 
 namespace Sources.Controllers.Visitors
 {
@@ -34,9 +35,12 @@ namespace Sources.Controllers.Visitors
         public void Enable()
         {
             //TODO два раза входит в инит стейт
+            //TODO посмотреть остальные презенторы вв пулах
             Start();
             
             _updateService.ChangedUpdate += OnUpdate;
+            
+            Debug.Log("Visitor presenter Enable");
         }
 
         public void Disable()

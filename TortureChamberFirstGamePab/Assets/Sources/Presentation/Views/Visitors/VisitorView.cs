@@ -23,23 +23,13 @@ namespace Sources.Presentation.Views.Visitors
         public void Awake() =>
             NavMeshAgent = GetComponent<NavMeshAgent>() ??
                            throw new NullReferenceException(nameof(NavMeshAgent));
-
-        // public void Start()
-        // {
-        //     //TODO приходится запускать здесь
-        //     Presenter?.Start();
-        // }
-
-        // private void Update()
-        // {
-        //     Presenter?.Update();
-        // }
-
+        
         public override void Destroy()
         {
             if (TryGetComponent(out PoolableObject poolableObject) == false)
             {
                 Destroy(gameObject);
+                DestroyPresenter();
 
                 return;
             }
@@ -47,6 +37,7 @@ namespace Sources.Presentation.Views.Visitors
             poolableObject.ReturnTooPool();
             
             Hide();
+            DestroyPresenter();
         }
         
         public void SetPosition(Vector3 position) => 
@@ -65,7 +56,6 @@ namespace Sources.Presentation.Views.Visitors
 
         public void SetDestination(Vector3 destination)
         {
-            //TODO инааче при переходе на сцену летят баги
             if(NavMeshAgent == null)
                 return;
             

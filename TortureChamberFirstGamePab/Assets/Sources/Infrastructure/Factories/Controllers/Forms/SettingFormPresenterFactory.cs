@@ -1,7 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Forms;
 using Sources.Domain.DataAccess.Containers.Settings;
-using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
@@ -32,6 +31,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms
 
         public SettingFormPresenter Create(ISettingFormView formView)
         {
+            if (formView == null)
+                throw new ArgumentNullException(nameof(formView));
+            
             return new SettingFormPresenter(_setting, formView, _formService, _settingDataService, _pauseService);
         }
     }

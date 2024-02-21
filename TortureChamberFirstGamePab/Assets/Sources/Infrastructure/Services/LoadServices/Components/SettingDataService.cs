@@ -20,25 +20,35 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         public bool CanLoad => PlayerPrefs.HasKey(Constant.SettingDataKey.VolumeKey);
 
+        private bool CanLoadTutorial => PlayerPrefs.HasKey(Constant.SettingDataKey.TutorialKey);
+
         public Setting Load()
         {
             if (CanLoad == false)
-                return null;
+                return _setting;
 
-            var volume = LoadVolume();
+            Volume volume = LoadVolume();
             _setting.Volume.Step = volume.Step;
 
-            return null;
+            if (CanLoadTutorial == false)
+                return _setting;
+            
+            Tutorial tutorial = LoadTutorial();
+            _setting.Tutorial.HasCompleted = tutorial.HasCompleted;
+
+            return _setting;
         }
 
         public void Save(Setting @object)
         {
             SaveVolume(@object.Volume);
+            SaveTutorial(@object.Tutorial);
         }
 
         public void Clear()
         {
             PlayerPrefs.DeleteKey(Constant.SettingDataKey.VolumeKey);
+            PlayerPrefs.DeleteKey(Constant.SettingDataKey.TutorialKey);
             Debug.Log("SettingDataService Clear");
         }
 
@@ -49,15 +59,35 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
             return new Volume(volumeData);
         }
+        
+        private Tutorial LoadTutorial()
+        {
+            string json = PlayerPrefs.GetString(Constant.SettingDataKey.TutorialKey, string.Empty);
+            TutorialData tutorialData = JsonConvert.DeserializeObject<TutorialData>(json);
+
+            return new Tutorial(tutorialData);
+        }
 
         private void SaveVolume(Volume volume)
         {
             VolumeData volumeData = new VolumeData()
             {
-                Step = volume.Step
+                Step = volume.Step,
             };
 
             string json = JsonConvert.SerializeObject(volumeData);
+            PlayerPrefs.SetString(Constant.SettingDataKey.VolumeKey, json);
+        }
+
+        //TODO сделать туториал дата и сохранять в нем булку пройдено ли обучение
+        private void SaveTutorial(Tutorial tutorial)
+        {
+            TutorialData tutorialData = new TutorialData()
+            {
+                 HasCompleted = tutorial.HasCompleted,
+            };
+
+            string json = JsonConvert.SerializeObject(tutorialData);
             PlayerPrefs.SetString(Constant.SettingDataKey.VolumeKey, json);
         }
     }

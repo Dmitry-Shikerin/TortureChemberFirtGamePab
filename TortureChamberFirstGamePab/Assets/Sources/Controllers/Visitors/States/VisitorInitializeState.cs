@@ -36,14 +36,10 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            //todo ВЫЛЕТАЕТ ОШИБКА С ИНДЕКСОМ
-            IEnumerable<SeatPointView> seatPointsView = _collectionRepository
+            SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
-                .Where(seatPointView => seatPointView.IsOccupied == false);
-
-            Debug.Log(seatPointsView.Count());
-
-            var seatPointView = seatPointsView.GetRandomItem();
+                .Where(seatPointView => seatPointView.IsOccupied == false)
+                .GetRandomItem();
 
             _visitor.SetTargetPosition(seatPointView.Position);
             _visitor.SetSeatPoint(seatPointView);

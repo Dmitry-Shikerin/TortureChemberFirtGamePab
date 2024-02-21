@@ -55,6 +55,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
             
             if (playerAnimation == null)
                 throw new ArgumentNullException(nameof(playerAnimation));
+            
+            if (playerInventory == null)
+                throw new ArgumentNullException(nameof(playerInventory));
 
             return new PlayerMovementPresenter
             (

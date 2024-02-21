@@ -33,11 +33,17 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
             ITextUI textUI
         )
         {
+            if (playerInventorySlotsImages == null) 
+                throw new ArgumentNullException(nameof(playerInventorySlotsImages));
+            
             if (playerInventoryView == null)
                 throw new ArgumentNullException(nameof(playerInventoryView));
             
             if (playerInventory == null)
                 throw new ArgumentNullException(nameof(playerInventory));
+            
+            if (textUI == null)
+                throw new ArgumentNullException(nameof(textUI));
 
             return new PlayerInventoryPresenter
             (

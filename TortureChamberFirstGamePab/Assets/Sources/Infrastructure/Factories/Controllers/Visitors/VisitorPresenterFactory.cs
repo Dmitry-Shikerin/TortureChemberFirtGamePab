@@ -85,14 +85,6 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
             if (visitorCounter == null)
                 throw new ArgumentNullException(nameof(visitorCounter));
 
-            // VisitorImageUIContainer visitorImageUIContainer = null;
-            //
-            // if (visitorView is VisitorView concrete)
-            //     visitorImageUIContainer = concrete.GetComponentInChildren<VisitorImageUIContainer>();
-            //
-            // _imageUIFactory.Create(visitorImageUIContainer.OrderImage);
-            // _imageUIFactory.Create(visitorImageUIContainer.BackGroundImage);
-            //
             VisitorInitializeState initializeState = new VisitorInitializeState(
                 visitorView, visitor, visitorAnimation, _collectionRepository, visitorCounter);
             VisitorIdleState idleState = new VisitorIdleState(

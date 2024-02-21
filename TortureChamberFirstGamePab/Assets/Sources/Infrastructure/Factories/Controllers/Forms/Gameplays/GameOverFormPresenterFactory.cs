@@ -36,6 +36,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public GameOverFormPresenter Create(IGameOverFormView gameOverFormView)
         {
+            if (gameOverFormView == null) 
+                throw new ArgumentNullException(nameof(gameOverFormView));
+            
             return new GameOverFormPresenter(gameOverFormView, _formService, _pauseService,
                 _playerDataService, _tavernDataService, _upgradeDataService);
         }

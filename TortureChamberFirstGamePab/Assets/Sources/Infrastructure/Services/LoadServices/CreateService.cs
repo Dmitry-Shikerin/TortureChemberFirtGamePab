@@ -1,4 +1,5 @@
 ﻿using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
@@ -35,6 +36,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public CreateService
         (
+            Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
             PlayerCameraView playerCameraView,
@@ -69,6 +71,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                setting,
                 foodPickUpPointsViewFactory,
                 audioSourceUIFactory,
                 playerCameraView,
