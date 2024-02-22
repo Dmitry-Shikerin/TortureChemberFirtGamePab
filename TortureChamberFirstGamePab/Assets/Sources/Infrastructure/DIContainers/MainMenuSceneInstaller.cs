@@ -37,6 +37,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<MainMenuFormPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardFormPresenterFactory>().AsSingle();
             Container.Bind<SettingFormPresenterFactory>().AsSingle();
+            Container.Bind<AuthorizationFormPresenterFactory>().AsSingle();
             
             Container.Bind<LeaderboardElementPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardElementViewFactory>().AsSingle();

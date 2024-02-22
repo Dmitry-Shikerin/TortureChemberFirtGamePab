@@ -1,33 +1,28 @@
 ﻿using System;
-using Agava.YandexGames;
 using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.Constants;
-using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
-using Sources.Domain.Settings;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services.Forms;
-using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.LoadServices.Payloads;
 using Sources.Infrastructure.Services.SceneServices;
-using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.MainMenus;
-using Sources.Presentation.Voids;
 using Sources.PresentationInterfaces.UI;
 
 namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class MainMenuFormServiceFactory
     {
+        private readonly AuthorizationFormPresenterFactory _authorizationFormPresenterFactory;
         private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
         private readonly FormService _formService;
@@ -42,6 +37,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
         public MainMenuFormServiceFactory
         (
+            AuthorizationFormPresenterFactory authorizationFormPresenterFactory,
             SettingFormPresenterFactory settingFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
             MainMenuHUD mainMenuHUD,
@@ -55,7 +51,10 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             IPlayerAccountAuthorizeService playerAccountAuthorizeService
         )
         {
-            _settingFormPresenterFactory = settingFormPresenterFactory ?? 
+            _authorizationFormPresenterFactory =
+                authorizationFormPresenterFactory ??
+                throw new ArgumentNullException(nameof(authorizationFormPresenterFactory));
+            _settingFormPresenterFactory = settingFormPresenterFactory ??
                                            throw new ArgumentNullException(nameof(settingFormPresenterFactory));
             _mainMenuFormPresenterFactory = mainMenuFormPresenterFactory ??
                                             throw new ArgumentNullException(nameof(mainMenuFormPresenterFactory));
@@ -92,8 +91,15 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             Form<SettingFormView, SettingFormPresenter> settingForm =
                 new Form<SettingFormView, SettingFormPresenter>(
                     _settingFormPresenterFactory.Create, _mainMenuHUD.MainMenuFormsContainer.SettingFormView);
-            
+
             _formService.Add(settingForm);
+
+            Form<AuthorizationFormView, AuthorizationFormPresenter> authorizationForm =
+                new Form<AuthorizationFormView, AuthorizationFormPresenter>(
+                    _authorizationFormPresenterFactory.Create,
+                    _mainMenuHUD.MainMenuFormsContainer.AuthorizationFormView);
+
+            _formService.Add(authorizationForm);
 
             IButtonUI continueGameButton = _buttonUIFactory.Create(
                 _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
@@ -112,17 +118,23 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
             {
-                //TODO закоментировал проверку лидерборда
-                // if (_playerAccountAuthorizeService.IsAuthorized())
-                    _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
+                //TODO пока есть эта проверка постоянно показывается формочка авторизации
+                if (_playerAccountAuthorizeService.IsAuthorized() == false)
+                {
+                    _formService.Show<AuthorizationFormView>();
+                    
+                    return;
+                }
+
+                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
             });
-            
+
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,
                 _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView.ShowMainMenu);
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingButton,
                 _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowSetting);
-            
+
             //SettingsButton
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.BackToMainMenu,
                 _mainMenuHUD.MainMenuFormsContainer.SettingFormView.BackToMainMenu<MainMenuFormView>);

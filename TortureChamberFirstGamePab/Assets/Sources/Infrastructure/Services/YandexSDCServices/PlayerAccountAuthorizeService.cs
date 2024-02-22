@@ -14,32 +14,31 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
         }
 
-        //TODO будет ли это работать?
-        //TODO вопрос славе
+        //TODO пойдет ли так?
         //TODO сделать форму запроса авторизации
         public bool IsAuthorized()
         {
+            //TODO пока не вебе постоянно будет показывать окошко
             if (_webGlService.IsWebGl == false)
                 return false;
-
-            if (PlayerAccount.IsAuthorized == false)
-            {
-                //TODO вызвать фомучку спросить хотите ли авторизоваться?
-                //TODO если соглашается
-                PlayerAccount.Authorize();
-                //TODO закрываю окошко
-            }
-            
-            // PlayerAccount.Authorize();
-                
-            //TODO можно не делать вызывается только один раз
-            // if(PlayerAccount.IsAuthorized)
-            //     PlayerAccount.RequestPersonalProfileDataPermission();
 
             if (PlayerAccount.IsAuthorized == false)
                 return false;
 
             return true;
+        }
+
+        //TODO вызвать фомучку спросить хотите ли авторизоваться?
+        //TODO если соглашается
+        public void Authorize(Action onSuccessCallback)
+        {            
+            if (_webGlService.IsWebGl == false)
+                return;
+
+            if(PlayerAccount.IsAuthorized)
+                return;
+            
+            PlayerAccount.Authorize();
         }
     }
 }

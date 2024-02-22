@@ -154,13 +154,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 270312853}
+  - component: {fileID: 270312854}
   m_Layer: 5
   m_Name: AuthorizationFormView_Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &270312853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -183,6 +184,20 @@ RectTransform:
   m_AnchoredPosition: {x: -0.022460938, y: 0.22302246}
   m_SizeDelta: {x: -0.099975586, y: 0.19995117}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &270312854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270312852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a60cafce7b445cc9cc058f5c5e0109c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BackToMainMenuButton>k__BackingField: {fileID: 8634481024536836689}
+  <AuthorizationButton>k__BackingField: {fileID: 412698851}
 --- !u!1 &310609070
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,6 +333,7 @@ GameObject:
   - component: {fileID: 412698850}
   - component: {fileID: 412698849}
   - component: {fileID: 412698848}
+  - component: {fileID: 412698851}
   m_Layer: 5
   m_Name: Authorization_Button
   m_TagString: Untagged
@@ -426,6 +442,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412698846}
   m_CullTransparentMesh: 1
+--- !u!114 &412698851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412698846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15c7174e3e7444db478a7cbaf244dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 412698848}
+  _audioSource: {fileID: 31033111243534117}
 --- !u!1 &424033259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,6 +3883,7 @@ MonoBehaviour:
   <MainMenuFormView>k__BackingField: {fileID: 3805412552192689037}
   <LeaderboardFormView>k__BackingField: {fileID: 361550175265589989}
   <SettingFormView>k__BackingField: {fileID: 1945148288}
+  <AuthorizationFormView>k__BackingField: {fileID: 270312854}
 --- !u!1 &1534789999175496326
 GameObject:
   m_ObjectHideFlags: 0
@@ -6776,7 +6807,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!224 &5927014273313812678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8662,6 +8693,7 @@ GameObject:
   - component: {fileID: 2534390873254673183}
   - component: {fileID: 6838440459097562435}
   - component: {fileID: 3299480556797094578}
+  - component: {fileID: 8634481024536836689}
   m_Layer: 5
   m_Name: BackToMainMenu_Button
   m_TagString: Untagged
@@ -8669,6 +8701,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8634481024536836689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634481024536836688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15c7174e3e7444db478a7cbaf244dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 3299480556797094578}
+  _audioSource: {fileID: 31033111243534117}
 --- !u!114 &8637181259356682678
 MonoBehaviour:
   m_ObjectHideFlags: 0

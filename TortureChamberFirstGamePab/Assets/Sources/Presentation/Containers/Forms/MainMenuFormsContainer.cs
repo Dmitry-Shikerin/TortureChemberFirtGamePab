@@ -8,5 +8,6 @@ namespace Sources.Presentation.Views.Forms.MainMenus.Containers
         [field: SerializeField] public MainMenuFormView MainMenuFormView { get; private set; }
         [field: SerializeField] public LeaderboardFormView LeaderboardFormView { get; private set; }
         [field: SerializeField] public SettingFormView SettingFormView { get; private set; }
+        [field: SerializeField] public AuthorizationFormView AuthorizationFormView { get; private set; }
     }
 }
