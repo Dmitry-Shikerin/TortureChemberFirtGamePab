@@ -93,6 +93,7 @@ namespace Sources.Controllers.Forms.Gameplays
             HideDownButton();
         }
 
+        //TODO поправить скрывание кнопок
         private void UpScroll()
         {
             _tutorialFormView.UpScroll(_tutorialFormView.ScrollStep);
@@ -102,6 +103,10 @@ namespace Sources.Controllers.Forms.Gameplays
             HideUpButton();
         }
 
+        //TODO добавить туториал для сложности
+        //TODO добавить туториал для рекламы
+        //TODO добавить туториал для управления
+        //TODO добавить туториал для сохранений
         //TODO порефакторить
         private void HideUpButton()
         {
@@ -121,7 +126,6 @@ namespace Sources.Controllers.Forms.Gameplays
                 _tutorial.HasCompleted = true;
                 
                 _settingDataService.Save(_setting);
-                Debug.Log($"Tutorial HasCompleted {_tutorial.HasCompleted}");
             }
         }
         

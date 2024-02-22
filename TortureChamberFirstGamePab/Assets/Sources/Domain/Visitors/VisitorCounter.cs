@@ -18,7 +18,6 @@ namespace Sources.Domain.Visitors
                 throw new InvalidOperationException(nameof(ActiveVisitorsCount));
             
             ActiveVisitorsCount--;
-            Debug.Log($"Активных посетителей {ActiveVisitorsCount}");
         }
     }
 }

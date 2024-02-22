@@ -20720,9 +20720,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 498059083}
     m_Modifications:
+    - target: {fileID: 1437055375145280, guid: 24e2f7a008fde164698a13a05b6918f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1793230569793294, guid: 24e2f7a008fde164698a13a05b6918f5, type: 3}
       propertyPath: m_Name
       value: SM_Chr_Jester_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952506901253162, guid: 24e2f7a008fde164698a13a05b6918f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4454599636911048, guid: 24e2f7a008fde164698a13a05b6918f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27183,7 +27191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5299628350084475713, guid: bdac0bf320bc06d4e8cb18dbba8c056b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7413834966445295202, guid: bdac0bf320bc06d4e8cb18dbba8c056b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -39123,7 +39131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5299628350084475713, guid: bdac0bf320bc06d4e8cb18dbba8c056b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

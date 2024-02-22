@@ -57,8 +57,11 @@ namespace Sources.Infrastructure.Services
         public void Exit() => 
             TavernMood.TavernMoodOver -= OnGameOver;
 
+        //TODO проверить все локализации
+        //TODO протестить GAmeOverService
         private void OnGameOver()
         {
+            //TODO гдето здесь вылетает ошибка
             _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Coins.GetValue);
             _formService.Show<GameOverFormView>();
             _playerDataService.Clear();

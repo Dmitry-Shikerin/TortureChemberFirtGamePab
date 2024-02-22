@@ -46,14 +46,15 @@ namespace Sources.Infrastructure.Services
             bool isLeftRotation = Input.GetKey(KeyCode.Q);
             bool isRightRotation = Input.GetKey(KeyCode.E);
 
-            if (isLeftRotation == false && isRightRotation == false)
+            // if (isLeftRotation == false && isRightRotation == false)
+            if (SimpleInput.GetAxisSnapValue)
             {
                 float rotation = SimpleInput.GetAxis(Constant.Input.Rotation);
                 
-                if (rotation > 0)
+                if (rotation > 0.1f)
                     isLeftRotation = true;
                 
-                if (rotation < 0)
+                if (rotation < -0.1f)
                     isRightRotation = true;
             }
 

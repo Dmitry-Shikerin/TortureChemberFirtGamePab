@@ -243,7 +243,6 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         private async void ShowLoadForm(IFormService gameplayFormService)
         {
-            //TODO загрузка туториала работает
             if (_setting.Tutorial.HasCompleted == false)
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
@@ -258,10 +257,7 @@ namespace Sources.Infrastructure.Services.LoadServices
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainWaiting));
 
                 gameplayFormService.Show<LoadFormView>();
-                
-                return;
             }
-            Debug.Log(CanLoad());
         }
 
         private bool CanLoad() => 

@@ -47,7 +47,6 @@ namespace Sources.Domain.Players
                 throw new InvalidOperationException("в кошельке недостаточно денег");
             
             _coins.Value -= quantity;
-            Debug.Log(_coins.Value);
         }
     }
 }

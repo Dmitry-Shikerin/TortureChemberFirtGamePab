@@ -45,6 +45,8 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
             
+            //TODO добавить логику смены меша
+            
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false)
