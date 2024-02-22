@@ -31,6 +31,13 @@ namespace Sources.Infrastructure.Services
             float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
             float verticalInput = Input.GetAxis(Constant.Input.Vertical);
 
+            //TODO доделать
+            if (SimpleInput.GetAxisSnapValue)
+            {
+                horizontalInput = SimpleInput.GetAxis(Constant.Input.Horizontal);
+                verticalInput = SimpleInput.GetAxis(Constant.Input.Vertical);
+            }
+
             PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
         }
 
@@ -38,7 +45,18 @@ namespace Sources.Infrastructure.Services
         {
             bool isLeftRotation = Input.GetKey(KeyCode.Q);
             bool isRightRotation = Input.GetKey(KeyCode.E);
-        
+
+            if (isLeftRotation == false && isRightRotation == false)
+            {
+                float rotation = SimpleInput.GetAxis(Constant.Input.Rotation);
+                
+                if (rotation > 0)
+                    isLeftRotation = true;
+                
+                if (rotation < 0)
+                    isRightRotation = true;
+            }
+
             RotationChanged?.Invoke(isLeftRotation, isRightRotation);
         }
 

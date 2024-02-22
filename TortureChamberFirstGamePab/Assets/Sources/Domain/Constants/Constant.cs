@@ -62,6 +62,7 @@ namespace Sources.Domain.Constants
             public const string Horizontal = "Horizontal";
             public const string Vertical = "Vertical";
             public const string Run = "Run";
+            public const string Rotation = "Rotation";
         }
         
         public static class Visitors
