@@ -86,7 +86,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Visitors
                 throw new ArgumentNullException(nameof(visitorCounter));
 
             VisitorInitializeState initializeState = new VisitorInitializeState(
-                visitorView, visitor, visitorAnimation, _collectionRepository, visitorCounter);
+                visitorView, visitor, visitorAnimation, _collectionRepository, 
+                visitorCounter, visitorView.VisitorImageUIContainer);
             VisitorIdleState idleState = new VisitorIdleState(
                 visitor, visitorAnimation);
             VisitorMoveToSeat moveToSeatState = new VisitorMoveToSeat(

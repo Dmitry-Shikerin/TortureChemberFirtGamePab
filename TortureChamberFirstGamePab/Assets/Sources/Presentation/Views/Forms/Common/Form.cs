@@ -36,8 +36,8 @@ namespace Sources.Presentation.Views.Forms.Common
         public void SetParent(Transform parentTransform) =>
             _formView.SetParent(parentTransform);
 
-        public void SetPosition(Transform position) =>
-            _formView.SetPosition(position);
+        public void SetTransformPosition(Transform position) =>
+            _formView.SetTransformPosition(position);
 
         public void Destroy() =>
             _formView.Destroy();

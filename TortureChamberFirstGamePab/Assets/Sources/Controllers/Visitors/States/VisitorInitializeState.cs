@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
+using Sources.Presentation.Views.Visitors;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views;
@@ -18,6 +19,7 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly CollectionRepository _collectionRepository;
         private readonly VisitorCounter _visitorCounter;
+        private readonly VisitorImageUIContainer _visitorImageUIContainer;
 
         public VisitorInitializeState
         (
@@ -25,17 +27,24 @@ namespace Sources.Controllers.Visitors.States
             Visitor visitor,
             IVisitorAnimation visitorAnimation,
             CollectionRepository collectionRepository,
-            VisitorCounter visitorCounter
+            VisitorCounter visitorCounter,
+            VisitorImageUIContainer visitorImageUIContainer
         )
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
             _visitorCounter = visitorCounter ?? throw new ArgumentNullException(nameof(visitorCounter));
+            _visitorImageUIContainer = visitorImageUIContainer 
+                ? visitorImageUIContainer 
+                : throw new ArgumentNullException(nameof(visitorImageUIContainer));
         }
 
         public override void Enter()
         {
+            _visitorImageUIContainer.BackGroundImage.HideImage();
+            _visitorImageUIContainer.OrderImage.HideImage();
+            
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false)

@@ -2,6 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Controllers.UI;
+using Sources.Domain.Constants;
 using Sources.Presentation.Views;
 using Sources.PresentationInterfaces.UI;
 using UnityEngine;
@@ -36,9 +37,9 @@ namespace Sources.Presentation.UI
             _image.color = color;
 
         public void HideImage() => 
-            SetColor(Color.clear);
+            _image.fillAmount = Constant.FillingAmount.Minimum;
 
         public void ShowImage() => 
-            SetColor(Color.white);
+            _image.fillAmount = Constant.FillingAmount.Maximum;
     }
 }

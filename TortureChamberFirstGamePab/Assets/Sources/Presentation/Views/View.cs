@@ -14,7 +14,7 @@ namespace Sources.Presentation.Views
         public void SetParent(Transform parentTransform) => 
             transform.SetParent(parentTransform);
         
-        public void SetPosition(Transform parentTransform) => 
+        public void SetTransformPosition(Transform parentTransform) => 
             transform.position = parentTransform.position;
 
         public virtual void Destroy() =>

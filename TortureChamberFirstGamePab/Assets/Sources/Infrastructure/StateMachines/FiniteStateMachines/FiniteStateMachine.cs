@@ -32,8 +32,6 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
             _current?.Exit();
             _current = nextState;
             _current.Enter();
-                        
-            Debug.Log(_current.GetType());
         }
     }
 }

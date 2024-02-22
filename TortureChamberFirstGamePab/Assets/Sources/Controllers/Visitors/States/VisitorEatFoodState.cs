@@ -11,6 +11,7 @@ using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Items.Coins;
 using Sources.PresentationInterfaces.Views.Items.Garbages;
 using Sources.Utils.Extensions.ShuffleExtensions;
+using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
@@ -54,7 +55,7 @@ namespace Sources.Controllers.Visitors.States
             
             _visitorImageUIContainer.OrderImage.SetSprite(_visitorImageUIContainer.EatSprite);
             IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
-            itemView.SetPosition(_visitor.SeatPointView.EatPointView.transform);
+            itemView.SetTransformPosition(_visitor.SeatPointView.EatPointView.transform);
             
             Eat(itemView, _cancellationTokenSource.Token);
         }
@@ -74,7 +75,13 @@ namespace Sources.Controllers.Visitors.States
             }
             
             ICoinView coinView = _coinSpawner.Spawn();
-            coinView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
+
+            //TODO убрать магическое число
+            Vector3 coinPosition = new Vector3(_visitor.SeatPointView.EatPointView.Position.x,
+                _visitor.SeatPointView.EatPointView.Position.y + 0.3f, 
+                _visitor.SeatPointView.EatPointView.Position.z);
+            
+            coinView.SetPosition(coinPosition);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);
             
             _cancellationTokenSource.Cancel();

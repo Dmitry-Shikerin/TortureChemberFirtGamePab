@@ -164,7 +164,7 @@ namespace Sources.Controllers.Player
         private IItem RemoveItem(IImageUI backgroundImage, int index)
         {
             backgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
-            _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
+            // _playerInventoryView.PlayerInventorySlots[index].Image.SetSprite(null);
             _playerInventoryView.PlayerInventorySlots[index].Image.HideImage();
             IItem targetItem = _playerInventory.Items[index];
             targetItem.ItemView.Destroy();
@@ -183,7 +183,7 @@ namespace Sources.Controllers.Player
             
             int index = _playerInventory.InventoryCapacity - 1;
             _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+            // _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
         }
         
         private void UpdateAvailableSlot(int index)
@@ -191,7 +191,7 @@ namespace Sources.Controllers.Player
             int correctionIndex = _playerInventory.InventoryCapacity + 1;
             
             _playerInventoryView.PlayerInventorySlots[correctionIndex].BackgroundImage.ShowImage();
-            _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
+            // _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
         }
 
         private void UpdateViewPosition()
@@ -202,7 +202,7 @@ namespace Sources.Controllers.Player
                 Transform slotTransform = _playerInventoryView.PlayerInventorySlots[i].transform;
                 ImageUI imageUI = _playerInventoryView.PlayerInventorySlots[i].Image;
 
-                item.ItemView.SetPosition(slotTransform);
+                item.ItemView.SetTransformPosition(slotTransform);
                 item.ItemView.SetParent(slotTransform);
                 imageUI.ShowImage();
                 imageUI.SetSprite(item.Icon);
@@ -217,7 +217,7 @@ namespace Sources.Controllers.Player
                         .GetComponentInChildren<FoodView>() == null)
                 {
                     _playerInventoryView.PlayerInventorySlots[i].Image.HideImage();
-                    _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
+                    // _playerInventoryView.PlayerInventorySlots[i].Image.SetSprite(null);
                 }
             }
         }
@@ -229,9 +229,13 @@ namespace Sources.Controllers.Player
             for (int i = 0; i < _playerInventoryView.PlayerInventorySlots.Count; i++)
             {
                 PlayerInventorySlotView slot = _playerInventoryView.PlayerInventorySlots[i];
-                
-                if(i == indexFirstSlot)
+
+                if (i == indexFirstSlot)
+                {
+                    slot.Image.HideImage();
+                    
                     continue;
+                }
                 
                 slot.BackgroundImage.HideImage();
                 slot.Image.HideImage();
@@ -248,7 +252,7 @@ namespace Sources.Controllers.Player
 
                 if (item == targetItem)
                 {
-                    item.ItemView.SetPosition(slotTransform);
+                    item.ItemView.SetTransformPosition(slotTransform);
                     item.ItemView.SetParent(slotTransform);
                     imageUI.ShowImage();
                     imageUI.SetSprite(item.Icon);

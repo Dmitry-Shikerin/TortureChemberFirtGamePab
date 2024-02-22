@@ -34,13 +34,9 @@ namespace Sources.Controllers.Visitors
 
         public void Enable()
         {
-            //TODO два раза входит в инит стейт
-            //TODO посмотреть остальные презенторы вв пулах
             Start();
             
             _updateService.ChangedUpdate += OnUpdate;
-            
-            Debug.Log("Visitor presenter Enable");
         }
 
         public void Disable()

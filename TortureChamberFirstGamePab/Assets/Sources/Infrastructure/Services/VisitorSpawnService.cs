@@ -122,8 +122,6 @@ namespace Sources.Infrastructure.Services
         {
             VisitorView visitorView = _objectPool.Get<VisitorView>();
             
-            Debug.Log("Get from pool");
-
             if (visitorView == null)
                 return null;
 
