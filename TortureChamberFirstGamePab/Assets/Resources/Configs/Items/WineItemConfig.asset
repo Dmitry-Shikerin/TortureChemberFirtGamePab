@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b1ab9f225483393f5d8e5d381b4f1, type: 3}
   m_Name: WineItemConfig
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: 36af130d6741ab149bdfbd57b35ea496, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: e421515b2edb7054dbbea09fe4d72bbe, type: 3}
   <Title>k__BackingField: Wine
   <Price>k__BackingField: 3
   <WaitingTime>k__BackingField: 30

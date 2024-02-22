@@ -8,5 +8,7 @@ namespace Sources.Presentation.Views.Forms.Gameplays
 {
     public class UpgradeFormView : FormBase<UpgradeFormPresenter>, IUpgradeFormView
     {
+        public void ShowHudForm() => 
+            Presenter.ShowHudForm();
     }
 }

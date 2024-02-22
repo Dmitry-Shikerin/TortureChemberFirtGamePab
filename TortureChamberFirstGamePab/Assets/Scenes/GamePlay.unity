@@ -38141,6 +38141,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7591988116016614103, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
     - target: {fileID: 8509906446649514862, guid: dd9f7950c78d337418e0bd32f19d6c90, type: 3}
       propertyPath: m_Name
       value: MeatPickUpPoint
@@ -38272,6 +38276,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2667617633311383128, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
     - target: {fileID: 2964559089615445339, guid: 5656bb8962f66104da5aae90f111729c, type: 3}
       propertyPath: <FillingRate>k__BackingField
       value: 0.3
@@ -38644,6 +38652,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 410569840}
     m_Modifications:
+    - target: {fileID: 1551923793129405212, guid: e2090158fd23bf64397707407f47b231, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
     - target: {fileID: 1673275012866310938, guid: e2090158fd23bf64397707407f47b231, type: 3}
       propertyPath: m_Name
       value: WinePickUpPoint
@@ -38666,7 +38678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7619218049112520690, guid: e2090158fd23bf64397707407f47b231, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.97
+      value: -13.775
       objectReference: {fileID: 0}
     - target: {fileID: 7619218049112520690, guid: e2090158fd23bf64397707407f47b231, type: 3}
       propertyPath: m_LocalRotation.w
@@ -38851,6 +38863,10 @@ PrefabInstance:
       propertyPath: <PickUpPointUIImages>k__BackingField
       value: 
       objectReference: {fileID: 6775408891672319386}
+    - target: {fileID: 9048373017368144026, guid: 344cad7f7a7d19347a6bab91ce8aceca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38980,6 +38996,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 410569840}
     m_Modifications:
+    - target: {fileID: 2271141033395950785, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: efcdae98bc1492845a0ed68adb7098a3, type: 3}
     - target: {fileID: 2991594829659170113, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: _tavernUpgradePointView
       value: 
@@ -38988,9 +39008,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 6198110364079707734, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
+    - target: {fileID: 6198110364079707734, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198110364079707734, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198110364079707734, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.5976124
+      value: 6.307
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38998,7 +39034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.674356
+      value: -11.1
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39006,15 +39042,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -39022,7 +39058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 6510719581239881570, guid: a225dfd4c0921294e8f97ea5cec6d0db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -39102,6 +39138,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 410569840}
     m_Modifications:
+    - target: {fileID: 897422798730436597, guid: a65b063c475ad5246b6283d23981202a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
     - target: {fileID: 1151540355252877796, guid: a65b063c475ad5246b6283d23981202a, type: 3}
       propertyPath: <FillingRate>k__BackingField
       value: 0.3

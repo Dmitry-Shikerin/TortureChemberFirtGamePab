@@ -3,6 +3,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Settings;
 using Sources.InfrastructureInterfaces.Services.Forms;
+using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
@@ -14,6 +15,8 @@ namespace Sources.Controllers.Forms.Gameplays
 {
     public class TutorialFormPresenter : PresenterBase
     {
+        private readonly IDataService<Setting> _settingDataService;
+        private readonly Setting _setting;
         private readonly ITutorialFormView _tutorialFormView;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
@@ -21,12 +24,15 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public TutorialFormPresenter
         (
+            IDataService<Setting> settingDataService,
             Setting setting,
             ITutorialFormView tutorialFormView,
             IFormService formService,
             IPauseService pauseService
         )
         {
+            _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
+            _setting = setting ?? throw new ArgumentNullException(nameof(setting));
             _tutorialFormView = tutorialFormView ?? throw new ArgumentNullException(nameof(tutorialFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
@@ -53,8 +59,20 @@ namespace Sources.Controllers.Forms.Gameplays
             HideUpButton();
             
             _tutorialFormView.ScrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
+            
+            _settingDataService.Save(_setting);
         }
 
+        //TODO временное решение
+        public void ClearCompleteTutorial()
+        {
+            _setting.Tutorial.HasCompleted = false;
+            
+            _settingDataService.Save(_setting);
+            
+            Debug.Log("Tutorial очищен");
+        }
+        
         private void OnScrollValueChanged(Vector2 value)
         {
             ShowDownButton();
@@ -97,7 +115,12 @@ namespace Sources.Controllers.Forms.Gameplays
             {
                 _tutorialFormView.DownScrollButton.Hide();
                 
+                if(_tutorial.HasCompleted)
+                    return;
+                    
                 _tutorial.HasCompleted = true;
+                
+                _settingDataService.Save(_setting);
                 Debug.Log($"Tutorial HasCompleted {_tutorial.HasCompleted}");
             }
         }

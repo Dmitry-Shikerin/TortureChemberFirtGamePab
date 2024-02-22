@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b1ab9f225483393f5d8e5d381b4f1, type: 3}
   m_Name: BeerItemConfig
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: b532528e547d27447a3bd9749e857bc5, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: fbe4d300da8e3e946a4edba801ab23cf, type: 3}
   <Title>k__BackingField: Beer
   <Price>k__BackingField: 3
   <WaitingTime>k__BackingField: 30

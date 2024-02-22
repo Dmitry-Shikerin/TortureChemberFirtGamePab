@@ -8,5 +8,6 @@ namespace Sources.Presentation.Views.Visitors
     {
         [field: SerializeField] public ImageUI BackGroundImage { get; private set; }
         [field: SerializeField] public ImageUI OrderImage { get; private set; }
+        [field: SerializeField] public Sprite EatSprite { get; private set; }
     }
 }

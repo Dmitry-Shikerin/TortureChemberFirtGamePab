@@ -30,5 +30,8 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public override void Disable() => 
             _pauseService.Continue();
+
+        public void ShowHudForm() => 
+            _formService.Show<HudFormView>();
     }
 }

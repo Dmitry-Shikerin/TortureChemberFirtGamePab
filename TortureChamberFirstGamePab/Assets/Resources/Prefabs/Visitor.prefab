@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &4100669746083744153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BackGroundImage>k__BackingField: {fileID: 1736523884646789327}
   <OrderImage>k__BackingField: {fileID: 165513900991651766}
+  <EatSprite>k__BackingField: {fileID: 21300000, guid: b39cfc6fda3b1634b9122c44d6179e61, type: 3}
 --- !u!1 &277582143194323457
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: b5f8789f36f8d6045940866ac10e4d4a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

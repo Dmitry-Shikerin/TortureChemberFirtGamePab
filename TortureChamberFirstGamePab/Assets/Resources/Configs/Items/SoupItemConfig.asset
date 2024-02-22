@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b1ab9f225483393f5d8e5d381b4f1, type: 3}
   m_Name: SoupItemConfig
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: ae637af9bf8b21643af45b1711209d25, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: ef95c15aa67315a4c84328fabe59bf05, type: 3}
   <Title>k__BackingField: Soup
   <Price>k__BackingField: 3
   <WaitingTime>k__BackingField: 30

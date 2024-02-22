@@ -217,6 +217,10 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.SettingFormView.IncreaseVolume);
             _buttonUIFactory.Create(hud.SettingFormButtonContainer.TornDownVolume,
                 hud.GameplayFormsContainer.SettingFormView.TurnDownVolume);
+            
+            //UpgradeFormButton
+            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI ,
+                hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm);
 
             return _formService;
         }

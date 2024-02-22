@@ -1,5 +1,6 @@
 ﻿using System;
 using ModestTree.Util;
+using Sirenix.OdinInspector;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Presentation.UI.Buttons;
 using Sources.Presentation.Views.Forms.Common;
@@ -16,9 +17,11 @@ namespace Sources.Presentation.Views.Forms.Gameplays
         [field: SerializeField] public ButtonView DownScrollButton { get; private set; }
         [field: SerializeField] public ScrollRect ScrollRect { get; private set; }
 
+        //TODO временное решение
+        [Button(ButtonSizes.Large, ButtonStyle.Box)]
         public void ClearTutorial()
         {
-            
+            Presenter.ClearCompleteTutorial();
         }
         
         public void ShowPauseMenu() => 

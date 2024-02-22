@@ -2,5 +2,6 @@
 {
     public interface IUpgradeFormView
     {
+        void ShowHudForm();
     }
 }

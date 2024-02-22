@@ -52,6 +52,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _cancellationTokenSource = new CancellationTokenSource();
             
+            _visitorImageUIContainer.OrderImage.SetSprite(_visitorImageUIContainer.EatSprite);
             IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
             itemView.SetPosition(_visitor.SeatPointView.EatPointView.transform);
             
