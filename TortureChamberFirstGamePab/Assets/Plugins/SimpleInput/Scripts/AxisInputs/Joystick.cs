@@ -53,6 +53,12 @@ namespace SimpleInputNamespace
 		private Vector2 m_value = Vector2.zero;
 		public Vector2 Value { get { return m_value; } }
 
+		public bool IsDynamicJoystick
+		{
+			get => isDynamicJoystick;
+			set => isDynamicJoystick = value;
+		}
+
 		private void Awake()
 		{
 			joystickTR = (RectTransform) transform;

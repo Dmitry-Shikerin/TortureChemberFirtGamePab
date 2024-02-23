@@ -23,6 +23,7 @@ namespace Sources.Infrastructure.Factories.Scenes
     public class GamePlaySceneFactory : ISceneFactory
     {
         private readonly HUD _hud;
+        private readonly IMobilePlatformService _mobilePlatformService;
         private readonly IVolumeService _volumeService;
         private readonly IAdvertisingAfterCertainPeriodService _advertisingAfterCertainPeriodService;
         private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
@@ -43,6 +44,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public GamePlaySceneFactory
         (
+            IMobilePlatformService mobilePlatformService,
             IVolumeService volumeService,
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
@@ -64,6 +66,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _mobilePlatformService = mobilePlatformService ?? throw new ArgumentNullException(nameof(mobilePlatformService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _advertisingAfterCertainPeriodService = 
                 advertisingAfterCertainPeriodService ?? 
@@ -92,6 +95,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new GamePlayScene
             (
+                _mobilePlatformService,
                 _volumeService,
                 _advertisingAfterCertainPeriodService,
                 _saveAfterCertainPeriodService,

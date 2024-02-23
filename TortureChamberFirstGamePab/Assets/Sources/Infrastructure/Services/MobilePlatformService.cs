@@ -1,4 +1,4 @@
-﻿using Sources.InfrastructureInterfaces.StateMachines.SceneStateMachines;
+﻿using Sources.InfrastructureInterfaces.Services;
 using Sources.Presentation.Containers.UI;
 using Sources.Presentation.Voids;
 using UnityEngine;
@@ -16,17 +16,18 @@ namespace Sources.Infrastructure.Services
 
         public void Enter(object payload = null)
         {
-            //TODO сделать такую проверку
-            // Application.isMobilePlatform
-
-            // if (Application.isMobilePlatform)
-            // {
-            //     _joystickContainer.Movement.
-            // }
+            if (Application.isMobilePlatform)
+            {
+                _joystickContainer.Movement.IsDynamicJoystick = false;
+                _joystickContainer.Rotate.IsDynamicJoystick = false;
+                
+                Debug.Log(_joystickContainer.Movement.IsDynamicJoystick);
+                
+                return;
+            }
+            
+            _joystickContainer.Movement.IsDynamicJoystick = true;
+            _joystickContainer.Rotate.IsDynamicJoystick = true;
         }
-    }
-
-    public interface IMobilePlatformService : IEnterable
-    {
     }
 }

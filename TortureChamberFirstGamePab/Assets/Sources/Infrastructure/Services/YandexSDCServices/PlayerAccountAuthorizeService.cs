@@ -10,7 +10,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     {
         public bool IsAuthorized()
         {
-            //TODO пока не вебе постоянно будет показывать окошко
             if (WebApplication.IsRunningOnWebGL == false)
                 return false;
 

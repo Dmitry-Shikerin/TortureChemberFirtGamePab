@@ -17,6 +17,7 @@ namespace Sources.Controllers.Scenes
     public class GamePlayScene : IScene
     {
         private readonly HUD _hud;
+        private readonly IMobilePlatformService _mobilePlatformService;
         private readonly IVolumeService _volumeService;
         private readonly IAdvertisingAfterCertainPeriodService _advertisingAfterCertainPeriodService;
         private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
@@ -35,6 +36,7 @@ namespace Sources.Controllers.Scenes
 
         public GamePlayScene
         (
+            IMobilePlatformService mobilePlatformService,
             IVolumeService volumeService,
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
@@ -54,6 +56,8 @@ namespace Sources.Controllers.Scenes
         )
         {
             _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _mobilePlatformService = mobilePlatformService ?? 
+                                     throw new ArgumentNullException(nameof(mobilePlatformService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
             _advertisingAfterCertainPeriodService = 
                 advertisingAfterCertainPeriodService ?? 
@@ -93,6 +97,7 @@ namespace Sources.Controllers.Scenes
             _saveAfterCertainPeriodService.Enter(_loadService);
             _advertisingAfterCertainPeriodService.Enter();
             _volumeService.Enter();
+            _mobilePlatformService.Enter();
 
             _localizationService.Enter();
             _focusService.Enter();

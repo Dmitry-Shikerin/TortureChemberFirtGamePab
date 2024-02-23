@@ -9,7 +9,6 @@ namespace Sources.Presentation.Views.Forms
 {
     public class SettingFormView : FormBase<SettingFormPresenter>, ISettingFormView
     {
-        //TODO потом исправить
         [field: SerializeField] public Sprite FilledSprite { get; private set; }
         [field: SerializeField] public Sprite VoidSprite { get; private set; }
         [field: SerializeField] public List<ImageView> Images { get; private set; }

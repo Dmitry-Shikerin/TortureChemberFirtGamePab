@@ -92,6 +92,8 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();
             Container.Bind<ILocalizationService>().To<LocalizationService>().AsSingle();
             Container.Bind<ILeaderboardScoreSetter>().To<YandexLeaderboardScoreSetter>().AsSingle();
+
+            Container.Bind<IMobilePlatformService>().To<MobilePlatformService>().AsSingle();
             
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
