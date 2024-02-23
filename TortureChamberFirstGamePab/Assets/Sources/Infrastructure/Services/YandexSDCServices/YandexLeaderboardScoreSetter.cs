@@ -1,28 +1,22 @@
 ﻿using System;
+using Agava.WebUtility;
 using Agava.YandexGames;
 using Sources.Domain.Constants;
 using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
     public class YandexLeaderboardScoreSetter : ILeaderboardScoreSetter
     {
-        private readonly IWebGlService _webGlService;
-
-        public YandexLeaderboardScoreSetter(IWebGlService webGlService)
-        {
-            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
-        }
-
         public void SetPlayerScore(int score)
         {
-            if(_webGlService.IsWebGl == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
+
             if (PlayerAccount.IsAuthorized == false)
                 return;
 
-            //TODO это запись чисто игрока
             Leaderboard.GetPlayerEntry(Constant.LeaderboardNames.LeaderboardName,
                 (result) =>
                 {

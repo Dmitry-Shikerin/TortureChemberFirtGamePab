@@ -46,7 +46,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             (
                 charismaData.CurrentAmountCharisma,
                 charismaData.AddedAmountCharisma,
-                charismaData.MaximumAmountCharisma,
+                charismaData.MaximumLevelCharisma,
                 charismaData.CurrentLevelCharisma,
                 moneyPerUpgradeCharisma
             );
@@ -66,7 +66,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             (
                 inventoryData.CurrentAmountInventory,
                 inventoryData.AddedAmountInventory,
-                inventoryData.MaximumAmountInventory,
+                inventoryData.MaximumLevelInventory,
                 inventoryData.CurrentLevelInventory,
                 moneyPerUpgradeInventory
             );
@@ -86,7 +86,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             (
                 movementData.CurrentAmountMovement,
                 movementData.AddedAmountMovement,
-                movementData.MaximumAmountMovement,
+                movementData.MaximumLevelMovement,
                 movementData.CurrentLevelMovement,
                 moneyPerUpgradeMovement
             );
@@ -104,7 +104,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             {
                 CurrentAmountCharisma = charismaUpgrader.CurrentAmountUpgrade,
                 AddedAmountCharisma = charismaUpgrader.AddedAmountUpgrade,
-                MaximumAmountCharisma = charismaUpgrader.MaximumUpgradeAmount,
+                MaximumLevelCharisma = charismaUpgrader.MaximumLevel,
                 CurrentLevelCharisma = charismaUpgrader.CurrentLevelUpgrade.GetValue,
                 MoneyPerUpgradesCharisma = playerCharismaMoneyPerUpgradeDatas,
             };
@@ -125,7 +125,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             {
                 CurrentAmountInventory = inventoryUpgrader.CurrentAmountUpgrade,
                 AddedAmountInventory = inventoryUpgrader.AddedAmountUpgrade,
-                MaximumAmountInventory = inventoryUpgrader.MaximumUpgradeAmount,
+                MaximumLevelInventory = inventoryUpgrader.MaximumLevel,
                 CurrentLevelInventory = inventoryUpgrader.CurrentLevelUpgrade.GetValue,
                 MoneyPerUpgradesInventory = playerInventoryMoneyPerUpgradeDatas,
             };
@@ -146,7 +146,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             {
                 CurrentAmountMovement = movementUpgrader.CurrentAmountUpgrade,
                 AddedAmountMovement = movementUpgrader.AddedAmountUpgrade,
-                MaximumAmountMovement = movementUpgrader.MaximumUpgradeAmount,
+                MaximumLevelMovement = movementUpgrader.MaximumLevel,
                 CurrentLevelMovement = movementUpgrader.CurrentLevelUpgrade.GetValue,
                 MoneyPerUpgradesMovement = playerMovementMoneyPerUpgradeDatas,
             };

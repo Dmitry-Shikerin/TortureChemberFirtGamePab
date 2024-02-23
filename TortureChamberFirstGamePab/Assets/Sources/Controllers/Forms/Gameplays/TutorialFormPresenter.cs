@@ -116,7 +116,7 @@ namespace Sources.Controllers.Forms.Gameplays
         
         private void HideDownButton()
         {
-            if (_tutorialFormView.ScrollRect.verticalNormalizedPosition <= 0)
+            if (_tutorialFormView.ScrollRect.verticalNormalizedPosition <= Constant.ScrollRect.MinValue)
             {
                 _tutorialFormView.DownScrollButton.Hide();
                 
@@ -138,7 +138,7 @@ namespace Sources.Controllers.Forms.Gameplays
         
         private void ShowDownButton()
         {
-            if(_tutorialFormView.ScrollRect.verticalNormalizedPosition > 0 && 
+            if(_tutorialFormView.ScrollRect.verticalNormalizedPosition > Constant.ScrollRect.MinValue && 
                _tutorialFormView.DownScrollButton.gameObject.activeSelf == false)
                 _tutorialFormView.DownScrollButton.Show();
         }

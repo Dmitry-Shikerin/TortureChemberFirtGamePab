@@ -79,7 +79,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.SetString(Constant.SettingDataKey.VolumeKey, json);
         }
 
-        //TODO сделать туториал дата и сохранять в нем булку пройдено ли обучение
         private void SaveTutorial(Tutorial tutorial)
         {
             TutorialData tutorialData = new TutorialData()

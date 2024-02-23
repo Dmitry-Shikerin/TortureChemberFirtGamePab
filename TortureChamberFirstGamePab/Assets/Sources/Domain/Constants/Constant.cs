@@ -9,7 +9,8 @@ namespace Sources.Domain.Constants
         
         public static class ScrollRect
         {
-            public const float MaxValue = 1;
+            public const float MaxValue = 0.99f;
+            public const float MinValue = 0.01f;
         }
         
         public static class Volume
@@ -25,6 +26,7 @@ namespace Sources.Domain.Constants
         
         public static class Inventory
         {
+            public const int StartCapacity = 1;
             public const int FirstItemIndex = 0;
             public const int SecondItemIndex = 1;
             public const int ThirdItemIndex = 2;
@@ -198,13 +200,15 @@ namespace Sources.Domain.Constants
         
         public static class SaveService
         {
-            public const int SaveDelay = 3;
+            public const int SaveDelay = 2;
         }
 
         //TODO подумать над делеями в сервисах
+        //TODO добавить на окошко конца игры количество заработанных очков
+        //TODO добавить колайдер на выходе что бы игрок не мог туда пройти
         public static class InterstitialService
         {
-            public const int ShowDelay = 3;
+            public const int ShowDelay = 7;
         }
 
         public static class TutorialContent

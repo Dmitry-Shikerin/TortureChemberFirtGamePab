@@ -23,7 +23,6 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             return enumerable.First();
         }
 
-        //TODO вылетает ошибка индекса
         public static T GetRandomItem<T>(this IEnumerable<T> objects)
         {
             if (objects == null) 
@@ -37,12 +36,8 @@ namespace Sources.Utils.Extensions.ShuffleExtensions
             if(enumerable.Any(@object => @object == null))
                 throw new InvalidOperationException(nameof(enumerable));
 
-            //TODO сделал коррекцию
-            //TODO maxExclude берется включительно?
             int index = Random.Range(0, enumerable.Length);
 
-            // Debug.Log(index);
-            
             if (enumerable[index] == null)
                 throw new InvalidOperationException(nameof(enumerable));
             

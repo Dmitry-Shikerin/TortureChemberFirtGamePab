@@ -1,7 +1,7 @@
 ﻿using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
 
-namespace Sources.Infrastructure.Services.Providers.Players
+namespace Sources.InfrastructureInterfaces.Services.Providers.Players
 {
     public interface IPlayerProvider
     {

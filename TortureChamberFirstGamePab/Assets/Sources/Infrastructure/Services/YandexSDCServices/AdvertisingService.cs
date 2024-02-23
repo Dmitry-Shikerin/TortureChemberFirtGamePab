@@ -5,6 +5,7 @@ using Sources.Domain.Constants;
 using Sources.Domain.Players;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
@@ -15,27 +16,24 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     {
         private readonly IPauseService _pauseService;
         private readonly IPlayerProvider _playerProvider;
-        private readonly IWebGlService _webGlService;
 
         private PlayerWallet _playerWallet;
 
         public AdvertisingService
         (
             IPauseService pauseService,
-            IPlayerProvider playerProvider,
-            IWebGlService webGlService
+            IPlayerProvider playerProvider
         )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _playerProvider = playerProvider ?? throw new ArgumentNullException(nameof(playerProvider));
-            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
         }
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
         public void ShowVideo()
         {
-            if(_webGlService.IsWebGl == false)
+            if(WebApplication.IsRunningOnWebGL == false)
                 return;
             
             if(AdBlock.Enabled)
@@ -59,7 +57,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         //TODo позаниматься скором
         public void ShowInterstitial()
         {
-            if(_webGlService.IsWebGl == false)
+            if(WebApplication.IsRunningOnWebGL == false)
                 return;
             
             if(AdBlock.Enabled)

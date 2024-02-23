@@ -119,6 +119,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
             {
                 //TODO пока есть эта проверка постоянно показывается формочка авторизации
+                //TODO потом раскоментировать
                 if (_playerAccountAuthorizeService.IsAuthorized() == false)
                 {
                     _formService.Show<AuthorizationFormView>();

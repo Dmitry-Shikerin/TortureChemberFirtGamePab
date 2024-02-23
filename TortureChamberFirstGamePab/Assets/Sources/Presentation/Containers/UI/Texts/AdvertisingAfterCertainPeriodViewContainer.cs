@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.Containers.UI.Texts
 {
-    public class AdvertisingAfterCertainPeriodTextContainer : View
+    public class AdvertisingAfterCertainPeriodViewContainer : View
     {
         [field: SerializeField] public TextView Title { get; private set; }
         [field: SerializeField] public TextView Timer { get; private set; }

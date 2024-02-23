@@ -26,6 +26,7 @@ namespace Sources.Infrastructure.Services
         {
         }
 
+        //TODO разделить сервис на мобайл инпут и стенЭлоне
         private void UpdateMovementAxis()
         {
             float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
@@ -46,7 +47,7 @@ namespace Sources.Infrastructure.Services
             bool isLeftRotation = Input.GetKey(KeyCode.Q);
             bool isRightRotation = Input.GetKey(KeyCode.E);
 
-            // if (isLeftRotation == false && isRightRotation == false)
+            //TODO заменить магические числа
             if (SimpleInput.GetAxisSnapValue)
             {
                 float rotation = SimpleInput.GetAxis(Constant.Input.Rotation);

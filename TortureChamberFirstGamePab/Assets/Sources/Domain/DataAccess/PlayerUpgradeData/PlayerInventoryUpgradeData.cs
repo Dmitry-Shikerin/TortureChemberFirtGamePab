@@ -11,7 +11,7 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeD
         public float AddedAmountInventory { get; set; }
         
         [JsonProperty("maximumAmountInventory")]
-        public float MaximumAmountInventory { get; set; }
+        public int MaximumLevelInventory { get; set; }
         
         [JsonProperty("currentLevelInventory")]
         public int CurrentLevelInventory { get; set; }

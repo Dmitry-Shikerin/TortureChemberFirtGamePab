@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40f86fd2332409c8dd78e4ca1994635, type: 3}
   m_Name: MovementUpgradeConfig
   m_EditorClassIdentifier: 
-  <CurrentAmountUpgrade>k__BackingField: 1
-  <AddedAmountUpgrade>k__BackingField: 0.3
-  <MaximumAmountUpgrade>k__BackingField: 1.8
+  <StartAmountUpgrade>k__BackingField: 0.9
+  <AddedAmountUpgrade>k__BackingField: 0.15
   <MoneyPerUpgrades>k__BackingField: 010000000200000003000000

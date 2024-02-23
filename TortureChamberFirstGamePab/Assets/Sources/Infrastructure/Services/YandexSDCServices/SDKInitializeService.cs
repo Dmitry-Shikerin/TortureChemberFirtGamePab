@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Agava.WebUtility;
 using Agava.YandexGames;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
@@ -10,16 +11,9 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 {
     public class SDKInitializeService : IInitializeService
     {
-        private readonly IWebGlService _webGlService;
-
-        public SDKInitializeService(IWebGlService webGlService)
-        {
-            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
-        }
-
         public void GameReady()
         {
-            if (_webGlService.IsWebGl == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
 
             YandexGamesSdk.GameReady();
@@ -27,7 +21,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Register()
         {
-            if (_webGlService.IsWebGl == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
             
             YandexGamesSdk.CallbackLogging = true;
@@ -35,7 +29,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public async UniTask Initialize()
         {
-            if (_webGlService.IsWebGl == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
             
             await YandexGamesSdk.Initialize();

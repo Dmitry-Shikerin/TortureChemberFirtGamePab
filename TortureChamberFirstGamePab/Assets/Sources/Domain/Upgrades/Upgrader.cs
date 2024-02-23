@@ -14,56 +14,56 @@ namespace Sources.Domain.Upgrades
     public class Upgrader : IUpgradeble, IAudioSourceActivator
     {
         private ObservableProperty<int> _currentLevelUpgrade;
-        private float _currentAmountUpgrade;
+        private float _startAmountUpgrade;
         
         public event Action AudioSourceActivated;
 
         public Upgrader(UpgradeConfig upgradeConfig)
         {
-            if (upgradeConfig.CurrentAmountUpgrade <= 0)
-                throw new ArgumentOutOfRangeException(nameof(upgradeConfig.CurrentAmountUpgrade));
+            if (upgradeConfig.StartAmountUpgrade <= 0)
+                throw new ArgumentOutOfRangeException(nameof(upgradeConfig.StartAmountUpgrade));
             if (upgradeConfig.AddedAmountUpgrade <= 0)
                 throw new ArgumentOutOfRangeException(nameof(upgradeConfig.AddedAmountUpgrade));
-            if (upgradeConfig.MaximumAmountUpgrade <= 0)
-                throw new ArgumentOutOfRangeException(nameof(upgradeConfig.MaximumAmountUpgrade));
 
-            _currentAmountUpgrade = upgradeConfig.CurrentAmountUpgrade;
+            _startAmountUpgrade = upgradeConfig.StartAmountUpgrade;
             AddedAmountUpgrade = upgradeConfig.AddedAmountUpgrade;
-            MaximumUpgradeAmount = upgradeConfig.MaximumAmountUpgrade;
+            MaximumLevel = upgradeConfig.MoneyPerUpgrades.Count;
             MoneyPerUpgrades = upgradeConfig.MoneyPerUpgrades;
             _currentLevelUpgrade = new ObservableProperty<int>();
+            
+            Debug.Log(CurrentAmountUpgrade);
         }
 
         public Upgrader
         (
-            float currentAmountUpgrade,
+            float startAmountUpgrade,
             float addedAmountUpgrade,
-            float maximumUpgradeAmount,
+            int maximumLevel,
             int currentLevelUpgrade,
             IEnumerable<int> moneyPerUpgrades
         )
         {
-            _currentAmountUpgrade = currentAmountUpgrade;
+            _startAmountUpgrade = startAmountUpgrade;
             AddedAmountUpgrade = addedAmountUpgrade;
-            MaximumUpgradeAmount = maximumUpgradeAmount;
+            MaximumLevel = maximumLevel;
             _currentLevelUpgrade = new ObservableProperty<int>(currentLevelUpgrade);
             MoneyPerUpgrades = moneyPerUpgrades.ToList();
         }
 
         public float AddedAmountUpgrade { get; }
-        public float CurrentAmountUpgrade => _currentAmountUpgrade;
+        public float CurrentAmountUpgrade => _startAmountUpgrade + _currentLevelUpgrade.Value * AddedAmountUpgrade;
         public IObservableProperty<int> CurrentLevelUpgrade => _currentLevelUpgrade;
-        public float MaximumUpgradeAmount { get; }
+        public int MaximumLevel { get; }
         public IReadOnlyList<int> MoneyPerUpgrades { get; }
 
         public void Upgrade()
         {
-            if (_currentAmountUpgrade >= MaximumUpgradeAmount)
+            if (_currentLevelUpgrade.Value >= MaximumLevel)
                 throw new InvalidOperationException("Достигнут максимальный лимит улучшения");
 
-            _currentAmountUpgrade += AddedAmountUpgrade;
-            Debug.Log(_currentAmountUpgrade);
             _currentLevelUpgrade.Value++;
+            
+            Debug.Log(CurrentAmountUpgrade);
             
             AudioSourceActivated?.Invoke();
         }

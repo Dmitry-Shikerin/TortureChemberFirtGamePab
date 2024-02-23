@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Agava.WebUtility;
 using Agava.YandexGames;
 using Sources.Domain.Constants;
 using Sources.Domain.YandexSDC;
@@ -12,30 +13,24 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     public class YandexLeaderboardInitializeService : ILeaderboardInitializeService
     {
         private readonly LeaderboardElementViewFactory _leaderboardElementViewFactory;
-        private readonly IWebGlService _webGlService;
         private readonly LeaderboardElementViewContainer _leaderboardElementViewContainer;
 
         public YandexLeaderboardInitializeService
         (
             LeaderboardElementViewContainer leaderboardElementViewContainer,
-            LeaderboardElementViewFactory leaderboardElementViewFactory,
-            IWebGlService webGlService
+            LeaderboardElementViewFactory leaderboardElementViewFactory
         )
         {
             _leaderboardElementViewFactory = leaderboardElementViewFactory ??
                                              throw new ArgumentNullException(nameof(leaderboardElementViewFactory));
-            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
             _leaderboardElementViewContainer = leaderboardElementViewContainer
                 ? leaderboardElementViewContainer
                 : throw new ArgumentNullException(nameof(leaderboardElementViewContainer));
         }
 
-        //TODo разделить туториал на несколько окошек и переключать их
-        //TODO сделать проверку в туториале есть ли у человека какойто скор чтобы не показывать его постоянно
-        //TODO добавить булку пройдено лли обучение
         public void Fill()
         {
-            if (_webGlService.IsWebGl == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
 
             if (PlayerAccount.IsAuthorized)

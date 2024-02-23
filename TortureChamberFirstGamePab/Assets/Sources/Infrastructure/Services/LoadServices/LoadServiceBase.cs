@@ -23,6 +23,7 @@ using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Views.Player;
@@ -179,6 +180,10 @@ namespace Sources.Infrastructure.Services.LoadServices
 
             _tavernProviderSetter.SetTavernMood(_tavern.TavernMood);
             _tavernProviderSetter.SetGameplay(_tavern.VisitorQuantity);
+            
+            _playerProviderSetter.SetInventory(_player.Inventory);
+            _playerProviderSetter.SetMovement(_player.Movement);
+            _playerProviderSetter.SetWallet(_player.Wallet);
 
             //Items
             ItemConfigContainer itemConfigContainer = Resources

@@ -20,8 +20,6 @@ namespace Sources.Infrastructure.DIContainers
     {
         public override void InstallBindings()
         {
-            Container.Bind<IWebGlService>().To<WebGlService>().AsSingle();
-            
             Container.Bind<IDataService<Player>>().To<PlayerDataService>().AsSingle();
             Container.Bind<IDataService<Tavern>>().To<TavernDataService>().AsSingle();
             Container.Bind<IDataService<PlayerUpgrade>>().To<PlayerUpgradeDataService>().AsSingle();

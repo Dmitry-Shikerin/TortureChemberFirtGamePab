@@ -98,8 +98,8 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<IGameOverService>().To<GameOverService>().AsSingle();
 
-            Container.Bind<AdvertisingAfterCertainPeriodTextContainer>()
-                .FromInstance(hud.AdvertisingAfterCertainPeriodTextContainer);
+            Container.Bind<AdvertisingAfterCertainPeriodViewContainer>()
+                .FromInstance(hud.AdvertisingAfterCertainPeriodViewContainer);
             Container.Bind<IAdvertisingAfterCertainPeriodService>()
                 .To<AdvertisingAfterCertainPeriodService>().AsSingle();
 

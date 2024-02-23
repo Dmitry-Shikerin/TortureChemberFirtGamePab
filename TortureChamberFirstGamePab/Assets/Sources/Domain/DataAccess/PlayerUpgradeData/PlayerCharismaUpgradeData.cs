@@ -11,7 +11,7 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeD
         public float AddedAmountCharisma { get; set; }
         
         [JsonProperty("maximumAmountCharisma")]
-        public float MaximumAmountCharisma { get; set; }
+        public int MaximumLevelCharisma { get; set; }
         
         [JsonProperty("currentLevelCharisma")]
         public int CurrentLevelCharisma { get; set; }

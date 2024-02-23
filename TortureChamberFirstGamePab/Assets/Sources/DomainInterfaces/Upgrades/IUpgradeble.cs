@@ -8,7 +8,7 @@ namespace Sources.DomainInterfaces.Upgrades
         float CurrentAmountUpgrade { get; }
         float AddedAmountUpgrade { get; }
         IObservableProperty<int> CurrentLevelUpgrade { get; }
-        float MaximumUpgradeAmount { get; }
+        int MaximumLevel { get; }
         IReadOnlyList<int> MoneyPerUpgrades { get; }
         
         void Upgrade();

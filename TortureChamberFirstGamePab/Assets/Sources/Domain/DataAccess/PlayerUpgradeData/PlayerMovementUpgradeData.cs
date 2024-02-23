@@ -11,7 +11,7 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeD
         public float AddedAmountMovement { get; set; }
         
         [JsonProperty("maximumAmountMovement")]
-        public float MaximumAmountMovement { get; set; }
+        public int MaximumLevelMovement { get; set; }
         [JsonProperty("currentLevelMovement")]
         public int CurrentLevelMovement { get; set; }
 

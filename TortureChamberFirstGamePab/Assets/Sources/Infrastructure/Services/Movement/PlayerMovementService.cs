@@ -29,8 +29,11 @@ namespace Sources.Infrastructure.Services.Movement
 
         private IUpgradeble Upgradeble => _upgradeble ??= _upgradeProvider.Movement;
 
-        private float MovementSpeed => Upgradeble.AddedAmountUpgrade;
+        // private float MovementSpeed => Upgradeble.AddedAmountUpgrade;
+        private float MovementSpeed => Upgradeble.CurrentAmountUpgrade;
 
+        //TODO при движении с джойстика по диагонали двигается медленнее
+        //TODO сделать плавный набор скорости
         public Quaternion GetDirectionRotation(Vector3 direction) =>
             Quaternion.LookRotation(direction).normalized;
 
@@ -41,7 +44,14 @@ namespace Sources.Infrastructure.Services.Movement
         {
             float maxMovementValue = Mathf.Max(Mathf.Abs(playerInput.Direction.x),
                 Mathf.Abs(playerInput.Direction.y));
+
             float speed = runInput == 0 ? maxMovementValue * 2 : maxMovementValue;
+
+            //TODO убрать магические чиссла
+            if (speed != 0)
+            {
+                speed += Upgradeble.CurrentLevelUpgrade.GetValue * 0.25f;
+            }
 
             return speed;
         }

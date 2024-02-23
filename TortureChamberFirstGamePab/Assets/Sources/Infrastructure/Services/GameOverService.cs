@@ -9,7 +9,9 @@ using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.Presentation.Views.Forms.Gameplays;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
@@ -58,11 +60,9 @@ namespace Sources.Infrastructure.Services
             TavernMood.TavernMoodOver -= OnGameOver;
 
         //TODO проверить все локализации
-        //TODO протестить GAmeOverService
         private void OnGameOver()
         {
-            //TODO гдето здесь вылетает ошибка
-            _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Coins.GetValue);
+            _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Score);
             _formService.Show<GameOverFormView>();
             _playerDataService.Clear();
             _tavernDataService.Clear();

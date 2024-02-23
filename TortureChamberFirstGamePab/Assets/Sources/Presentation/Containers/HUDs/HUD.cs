@@ -37,8 +37,8 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; }
         [field: SerializeField] public LoadFormButtonContainer LoadFormButtonContainer { get; private set; }
         [field: SerializeField] public GameOverFormButtonContainer GameOverFormButtonContainer { get; private set; }
-        [field: SerializeField] public AdvertisingAfterCertainPeriodTextContainer
-            AdvertisingAfterCertainPeriodTextContainer { get; private set; }
+        [field: SerializeField] public AdvertisingAfterCertainPeriodViewContainer
+            AdvertisingAfterCertainPeriodViewContainer { get; private set; }
         [field: SerializeField] public SettingFormButtonContainer
             SettingFormButtonContainer { get; private set; }
     }

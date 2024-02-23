@@ -12,26 +12,30 @@ namespace Sources.Infrastructure.Services
     public class AdvertisingAfterCertainPeriodService : IAdvertisingAfterCertainPeriodService
     {
         private readonly IInterstitialAdService _interstitialAdService;
-        private readonly AdvertisingAfterCertainPeriodTextContainer _viewTextContainer;
+        private readonly AdvertisingAfterCertainPeriodViewContainer _viewContainer;
 
         private CancellationTokenSource _cancellationTokenSource;
-
+        private TimeSpan _advertisementTimeSpan;
+        private TimeSpan _timerTimeSpan;
+        
         public AdvertisingAfterCertainPeriodService
         (
             IInterstitialAdService interstitialAdService,
-            AdvertisingAfterCertainPeriodTextContainer viewTextContainer
+            AdvertisingAfterCertainPeriodViewContainer viewViewContainer
         )
         {
             _interstitialAdService = interstitialAdService ??
                                      throw new ArgumentNullException(nameof(interstitialAdService));
-            _viewTextContainer = viewTextContainer
-                ? viewTextContainer
-                : throw new ArgumentNullException(nameof(viewTextContainer));
+            _viewContainer = viewViewContainer
+                ? viewViewContainer
+                : throw new ArgumentNullException(nameof(viewViewContainer));
         }
 
         public async void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
+            _advertisementTimeSpan = TimeSpan.FromSeconds(Constant.InterstitialService.ShowDelay);
+            _timerTimeSpan = TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay);
 
             DisableTimer();
             
@@ -47,15 +51,12 @@ namespace Sources.Infrastructure.Services
             {
                 while (cancellationToken.IsCancellationRequested == false)
                 {
-                    //TODO потом раскоментировать
-                    // await UniTask.Delay(TimeSpan.FromMinutes(Constant.InterstitialService.ShowDelay),
-                    //     cancellationToken: _cancellationTokenSource.Token);
-                    await UniTask.Delay(TimeSpan.FromSeconds(10),
+                    await UniTask.Delay(_advertisementTimeSpan,
                         cancellationToken: cancellationToken);
 
                     EnableTimer();
                     
-                    await ShowTimer(cancellationToken);
+                    await ShowTimerAsync(cancellationToken);
 
                     DisableTimer();
                 }
@@ -65,20 +66,20 @@ namespace Sources.Infrastructure.Services
             }
         }
 
-        private async UniTask ShowTimer(CancellationToken cancellationToken)
+        private async UniTask ShowTimerAsync(CancellationToken cancellationToken)
         {
-            _viewTextContainer.Title.SetText(Constant.AdvertisingTimer.ContentText);
-            _viewTextContainer.Timer.SetText("3");
+            _viewContainer.Title.SetText(Constant.AdvertisingTimer.ContentText);
+            _viewContainer.Timer.SetText("3");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
+            await UniTask.Delay(_timerTimeSpan,
                 cancellationToken: cancellationToken);
-            _viewTextContainer.Timer.SetText("2");
+            _viewContainer.Timer.SetText("2");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
+            await UniTask.Delay(_timerTimeSpan,
                 cancellationToken: cancellationToken);
-            _viewTextContainer.Timer.SetText("1");
+            _viewContainer.Timer.SetText("1");
 
-            await UniTask.Delay(TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay),
+            await UniTask.Delay(_timerTimeSpan,
                 cancellationToken: cancellationToken);
 
             _interstitialAdService.ShowInterstitial();
@@ -86,14 +87,18 @@ namespace Sources.Infrastructure.Services
 
         private void DisableTimer()
         {
-            _viewTextContainer.Title.Disable();
-            _viewTextContainer.Timer.Disable();
+            _viewContainer.Hide();
+            
+            _viewContainer.Title.Disable();
+            _viewContainer.Timer.Disable();
         }
 
         private void EnableTimer()
         {
-            _viewTextContainer.Title.Enable();
-            _viewTextContainer.Timer.Enable();
+            _viewContainer.Show();
+            
+            _viewContainer.Title.Enable();
+            _viewContainer.Timer.Enable();
         }
     }
 }

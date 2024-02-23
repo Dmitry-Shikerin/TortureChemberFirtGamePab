@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 
 namespace Sources.Infrastructure.Services.Providers.Players
 {

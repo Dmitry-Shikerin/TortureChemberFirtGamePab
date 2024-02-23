@@ -63,7 +63,7 @@ namespace Sources.Controllers.Player
             _upgradeble.CurrentLevelUpgrade.Changed += ShowAvailableSlot;
             
             _playerInventory.InventoryCapacity = (int)_upgradeble.CurrentAmountUpgrade;
-            _playerInventory.MaxCapacity = (int)_upgradeble.MaximumUpgradeAmount;
+            _playerInventory.MaxCapacity = _upgradeble.MaximumLevel + Constant.Inventory.StartCapacity;
         }
 
         public override void Disable() => 

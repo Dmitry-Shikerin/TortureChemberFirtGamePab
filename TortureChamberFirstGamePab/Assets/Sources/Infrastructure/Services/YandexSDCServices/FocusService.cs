@@ -10,21 +10,18 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     public class FocusService : IFocusService
     {
         private readonly IPauseService _pauseService;
-        private readonly IWebGlService _webGlService;
 
         public FocusService
         (
-            IPauseService pauseService,
-            IWebGlService webGlService
+            IPauseService pauseService
         )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
-            _webGlService = webGlService ?? throw new ArgumentNullException(nameof(webGlService));
         }
 
         public void Enter(object payload = null)
         {
-            if(_webGlService.IsWebGl == false)
+            if(WebApplication.IsRunningOnWebGL == false)
                 return;
             
             OnInBackgroundChangeWeb(WebApplication.InBackground);
@@ -36,7 +33,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Exit()
         {
-            if(_webGlService.IsWebGl == false)
+            if(WebApplication.IsRunningOnWebGL == false)
                 return;
             
             Application.focusChanged -= OnInBackgroundChangeApp;
