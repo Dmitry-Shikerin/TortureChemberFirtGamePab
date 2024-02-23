@@ -76,9 +76,8 @@ namespace Sources.Controllers.Visitors.States
             
             ICoinView coinView = _coinSpawner.Spawn();
 
-            //TODO убрать магическое число
             Vector3 coinPosition = new Vector3(_visitor.SeatPointView.EatPointView.Position.x,
-                _visitor.SeatPointView.EatPointView.Position.y + 0.3f, 
+                _visitor.SeatPointView.EatPointView.Position.y + Constant.Coin.OffsetY, 
                 _visitor.SeatPointView.EatPointView.Position.z);
             
             coinView.SetPosition(coinPosition);

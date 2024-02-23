@@ -8,7 +8,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 {
     public class PlayerAccountAuthorizeService : IPlayerAccountAuthorizeService
     {
-        //TODO пойдет ли так?
         public bool IsAuthorized()
         {
             //TODO пока не вебе постоянно будет показывать окошко

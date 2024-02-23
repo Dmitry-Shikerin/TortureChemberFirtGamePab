@@ -82,11 +82,8 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
                 
-                //TODO потом раскоментировать
-                // await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                //     Constant.Visitors.WaitingEatFillingRate, cancellationToken);
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    0.2f, cancellationToken);
+                    Constant.Visitors.WaitingEatFillingRate, cancellationToken);
                 
                 _visitor.SetUnHappy();
                 _visitor.SeatPointView.UnOccupy();

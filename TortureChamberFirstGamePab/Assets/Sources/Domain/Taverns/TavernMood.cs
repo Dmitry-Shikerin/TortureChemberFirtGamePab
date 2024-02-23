@@ -36,10 +36,7 @@ namespace Sources.Domain.Taverns
 
         public void RemoveTavernMood()
         {
-            //TODO потом раскоментировать
-            // TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
-            //TODO временная проверка
-            TavernMoodValue -= 0.2f;
+            TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
             
             TavernMoodValueChanged?.Invoke();
             

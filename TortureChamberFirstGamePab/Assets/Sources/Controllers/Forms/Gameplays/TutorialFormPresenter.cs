@@ -46,7 +46,7 @@ namespace Sources.Controllers.Forms.Gameplays
             _tutorialFormView.DownScrollButton.AddClickListener(DownScroll);
             _tutorialFormView.UpScrollButton.AddClickListener(UpScroll);
 
-            _tutorialFormView.ScrollRect.onValueChanged.AddListener(OnScrollValueChanged);
+            _tutorialFormView.ScrollRect.ScrollRect.onValueChanged.AddListener(OnScrollValueChanged);
         }
 
         public override void Disable()
@@ -58,7 +58,7 @@ namespace Sources.Controllers.Forms.Gameplays
             
             HideUpButton();
             
-            _tutorialFormView.ScrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
+            _tutorialFormView.ScrollRect.ScrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
             
             _settingDataService.Save(_setting);
         }
@@ -86,17 +86,16 @@ namespace Sources.Controllers.Forms.Gameplays
 
         private void DownScroll()
         {
-            _tutorialFormView.DownScroll(_tutorialFormView.ScrollStep);
+            _tutorialFormView.ScrollRect.DownScroll(_tutorialFormView.ScrollStep);
             
             HideUpButton();
             ShowUpButton();
             HideDownButton();
         }
 
-        //TODO поправить скрывание кнопок
         private void UpScroll()
         {
-            _tutorialFormView.UpScroll(_tutorialFormView.ScrollStep);
+            _tutorialFormView.ScrollRect.UpScroll(_tutorialFormView.ScrollStep);
             
             HideDownButton();
             ShowDownButton();
@@ -107,16 +106,15 @@ namespace Sources.Controllers.Forms.Gameplays
         //TODO добавить туториал для рекламы
         //TODO добавить туториал для управления
         //TODO добавить туториал для сохранений
-        //TODO порефакторить
         private void HideUpButton()
         {
-            if(_tutorialFormView.ScrollRect.verticalNormalizedPosition >= Constant.ScrollRect.MaxValue)
+            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition >= Constant.ScrollRect.MaxValue)
                 _tutorialFormView.UpScrollButton.Hide();
         }
         
         private void HideDownButton()
         {
-            if (_tutorialFormView.ScrollRect.verticalNormalizedPosition <= Constant.ScrollRect.MinValue)
+            if (_tutorialFormView.ScrollRect.VerticalNormalizedPosition <= Constant.ScrollRect.MinValue)
             {
                 _tutorialFormView.DownScrollButton.Hide();
                 
@@ -131,14 +129,14 @@ namespace Sources.Controllers.Forms.Gameplays
         
         private void ShowUpButton()
         {
-            if(_tutorialFormView.ScrollRect.verticalNormalizedPosition < Constant.ScrollRect.MaxValue && 
+            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition < Constant.ScrollRect.MaxValue && 
                _tutorialFormView.UpScrollButton.gameObject.activeSelf == false)
                 _tutorialFormView.UpScrollButton.Show();
         }
         
         private void ShowDownButton()
         {
-            if(_tutorialFormView.ScrollRect.verticalNormalizedPosition > Constant.ScrollRect.MinValue && 
+            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition > Constant.ScrollRect.MinValue && 
                _tutorialFormView.DownScrollButton.gameObject.activeSelf == false)
                 _tutorialFormView.DownScrollButton.Show();
         }

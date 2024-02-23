@@ -1,6 +1,7 @@
 using System;
 using Lean.Localization;
 using Sources.Presentation.Containers.Forms;
+using Sources.Presentation.Containers.UI;
 using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
@@ -41,5 +42,6 @@ namespace Sources.Presentation.Voids
             AdvertisingAfterCertainPeriodViewContainer { get; private set; }
         [field: SerializeField] public SettingFormButtonContainer
             SettingFormButtonContainer { get; private set; }
+        [field: SerializeField] public JoysticksContainer JoysticksContainer { get; private set; }
     }
 }

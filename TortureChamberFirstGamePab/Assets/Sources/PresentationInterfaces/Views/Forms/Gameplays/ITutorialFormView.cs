@@ -1,4 +1,5 @@
 ﻿using Sources.Presentation.UI.Buttons;
+using Sources.Presentation.UI.ScrollViews;
 using UnityEngine.UI;
 
 namespace Sources.PresentationInterfaces.Views.Forms.Gameplays
@@ -8,10 +9,8 @@ namespace Sources.PresentationInterfaces.Views.Forms.Gameplays
         float ScrollStep { get; }
         ButtonView UpScrollButton { get; }
         ButtonView DownScrollButton { get; }
-        ScrollRect ScrollRect { get; }
-        
+        ScrollRectView ScrollRect { get; }
+
         void ShowPauseMenu();
-        void DownScroll(float step);
-        void UpScroll(float step);
     }
 }

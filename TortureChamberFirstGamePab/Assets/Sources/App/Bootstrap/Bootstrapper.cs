@@ -16,9 +16,6 @@ namespace Sources.App.Bootstrap
 
         private async void Awake()
         {
-            //TODO сделать такую проверку
-            // Application.isMobilePlatform
-
             _sdkInitializeService.Register();
             await _sdkInitializeService.Initialize();
             

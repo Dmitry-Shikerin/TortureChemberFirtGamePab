@@ -26,13 +26,11 @@ namespace Sources.Infrastructure.Services
         {
         }
 
-        //TODO разделить сервис на мобайл инпут и стенЭлоне
         private void UpdateMovementAxis()
         {
             float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
             float verticalInput = Input.GetAxis(Constant.Input.Vertical);
 
-            //TODO доделать
             if (SimpleInput.GetAxisSnapValue)
             {
                 horizontalInput = SimpleInput.GetAxis(Constant.Input.Horizontal);
@@ -47,15 +45,14 @@ namespace Sources.Infrastructure.Services
             bool isLeftRotation = Input.GetKey(KeyCode.Q);
             bool isRightRotation = Input.GetKey(KeyCode.E);
 
-            //TODO заменить магические числа
             if (SimpleInput.GetAxisSnapValue)
             {
                 float rotation = SimpleInput.GetAxis(Constant.Input.Rotation);
                 
-                if (rotation > 0.1f)
+                if (rotation > Constant.Epsilon)
                     isLeftRotation = true;
                 
-                if (rotation < -0.1f)
+                if (rotation < -Constant.Epsilon)
                     isRightRotation = true;
             }
 

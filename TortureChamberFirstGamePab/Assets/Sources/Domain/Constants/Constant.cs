@@ -22,6 +22,7 @@ namespace Sources.Domain.Constants
         public static class Coin
         {
             public const float TargetDistance = 1f;
+            public const float OffsetY = 0.3f;
         }
         
         public static class Inventory
@@ -203,7 +204,6 @@ namespace Sources.Domain.Constants
             public const int SaveDelay = 2;
         }
 
-        //TODO подумать над делеями в сервисах
         //TODO добавить на окошко конца игры количество заработанных очков
         //TODO добавить колайдер на выходе что бы игрок не мог туда пройти
         public static class InterstitialService

@@ -34,7 +34,7 @@ namespace Sources.Infrastructure.Services
         public async void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _advertisementTimeSpan = TimeSpan.FromSeconds(Constant.InterstitialService.ShowDelay);
+            _advertisementTimeSpan = TimeSpan.FromMinutes(Constant.InterstitialService.ShowDelay);
             _timerTimeSpan = TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay);
 
             DisableTimer();
