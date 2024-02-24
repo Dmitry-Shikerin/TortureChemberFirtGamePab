@@ -1,6 +1,7 @@
 ﻿using System;
 using Sources.Domain.Players;
 using Sources.Domain.Upgrades;
+using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Views.Players;
 using UnityEngine;
 
@@ -24,7 +25,6 @@ namespace Sources.Controllers.Player
             _playerUpgradeView = playerUpgradeView ?? throw new ArgumentNullException(nameof(playerUpgradeView));
         }
         
-        //TODO подправить логику
         public override void Enable()
         {
             HideLevelImages();
@@ -79,26 +79,24 @@ namespace Sources.Controllers.Player
                 $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
 
-        // private void UpdateCurrentLevelUpgrade() =>
-        //     _playerUpgradeView.SetCurrentLevelUpgrade(
-        //         $"{_upgrader.CurrentLevelUpgrade.StringValue}");
         private void UpdateCurrentLevelUpgrade()
         {
             ShowLevelImages();
         }
 
-        public void ShowLevelImages()
+        private void ShowLevelImages()
         {
             for (int i = 0; i < _upgrader.CurrentLevelUpgrade.GetValue; i++)
             {
                 _playerUpgradeView.ImageViews[i].Show();
             }
         }
-        public void HideLevelImages()
+
+        private void HideLevelImages()
         {
-            for (int i = 0; i < _playerUpgradeView.ImageViews.Count; i++)
+            foreach (ImageView image in _playerUpgradeView.ImageViews)
             {
-                _playerUpgradeView.ImageViews[i].Hide();
+                image.Hide();
             }
         }
     }

@@ -16,6 +16,7 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorInitializeState : FiniteState
     {
+        private readonly IVisitorView _visitorView;
         private readonly Visitor _visitor;
         private readonly CollectionRepository _collectionRepository;
         private readonly VisitorCounter _visitorCounter;
@@ -31,6 +32,7 @@ namespace Sources.Controllers.Visitors.States
             VisitorImageUIContainer visitorImageUIContainer
         )
         {
+            _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _collectionRepository = collectionRepository ??
                                     throw new ArgumentNullException(nameof(collectionRepository));
@@ -45,7 +47,16 @@ namespace Sources.Controllers.Visitors.States
             _visitorImageUIContainer.BackGroundImage.HideImage();
             _visitorImageUIContainer.OrderImage.HideImage();
             
-            //TODO добавить логику смены меша
+            MeshSkinView activeMeshSkin = _visitorView.MeshSkins.GetRandomItem();
+            
+            _visitorView.MeshSkins
+                .Except(new List<MeshSkinView>() {activeMeshSkin})
+                .ToList()
+                .ForEach(meshSkin => meshSkin.Hide());
+            
+            activeMeshSkin.Show();
+
+            //TODO спавнить посетителей на точке входа
             
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()

@@ -1,10 +1,12 @@
 ﻿using System;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
+using Sources.Domain.Players;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
 
 namespace Sources.Controllers.Forms.Gameplays
@@ -17,7 +19,10 @@ namespace Sources.Controllers.Forms.Gameplays
         private readonly IDataService<Domain.Datas.Players.Player> _playerDataService;
         private readonly IDataService<Tavern> _tavernDataService;
         private readonly IDataService<PlayerUpgrade> _upgradeDataService;
+        private readonly IPlayerProvider _playerProvider;
 
+        private PlayerWallet _playerWallet;
+        
         public GameOverFormPresenter
         (
             IGameOverFormView gameOverFormView,
@@ -25,7 +30,8 @@ namespace Sources.Controllers.Forms.Gameplays
             IPauseService pauseService,
             IDataService<Domain.Datas.Players.Player> playerDataService,
             IDataService<Tavern> tavernDataService,
-            IDataService<PlayerUpgrade> upgradeDataService
+            IDataService<PlayerUpgrade> upgradeDataService,
+            IPlayerProvider playerProvider
         )
         {
             _gameOverFormView = gameOverFormView ?? throw new ArgumentNullException(nameof(gameOverFormView));
@@ -34,10 +40,15 @@ namespace Sources.Controllers.Forms.Gameplays
             _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
             _tavernDataService = tavernDataService ?? throw new ArgumentNullException(nameof(tavernDataService));
             _upgradeDataService = upgradeDataService ?? throw new ArgumentNullException(nameof(upgradeDataService));
+            _playerProvider = playerProvider ?? throw new ArgumentNullException(nameof(playerProvider));
         }
 
-        public override void Enable() =>
+        private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
+
+        public override void Enable()
+        {
             _pauseService.Pause();
+        }
 
         public override void Disable() =>
             _pauseService.Continue();

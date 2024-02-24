@@ -20,13 +20,19 @@ namespace Sources.Controllers.UI
                                   throw new ArgumentNullException(nameof(observableProperty));
         }
 
-        public override void Enable() =>
+        public override void Enable()
+        {
+            _textUI.SetText(_observableProperty.StringValue);
+            
             _observableProperty.Changed += OnPropertyChanged;
+        }
 
         public override void Disable() =>
             _observableProperty.Changed -= OnPropertyChanged;
 
-        private void OnPropertyChanged() =>
+        private void OnPropertyChanged()
+        {
             _textUI.SetText(_observableProperty.StringValue);
+        }
     }
 }

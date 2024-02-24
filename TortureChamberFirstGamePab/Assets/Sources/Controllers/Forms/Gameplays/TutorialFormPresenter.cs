@@ -104,7 +104,6 @@ namespace Sources.Controllers.Forms.Gameplays
 
         //TODO добавить туториал для сложности
         //TODO добавить туториал для рекламы
-        //TODO добавить туториал для управления
         //TODO добавить туториал для сохранений
         private void HideUpButton()
         {

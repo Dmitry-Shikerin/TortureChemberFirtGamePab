@@ -27,6 +27,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class GameplayFormServiceFactory
     {
+        private readonly TextUIFactory _textUIFactory;
+        private readonly ImageUIFactory _imageUIFactory;
         private readonly IVideoAdService _videoAdService;
         private readonly ILeaderboardScoreSetter _leaderboardScoreSetter;
         private readonly IPauseService _pauseService;
@@ -45,6 +47,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
         public GameplayFormServiceFactory
         (
+            TextUIFactory textUIFactory,
+            ImageUIFactory imageUIFactory,
             IVideoAdService videoAdService,
             ILeaderboardScoreSetter leaderboardScoreSetter,
             IPauseService pauseService,
@@ -62,6 +66,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             SettingFormPresenterFactory settingFormPresenterFactory
         )
         {
+            _textUIFactory = textUIFactory ?? throw new ArgumentNullException(nameof(textUIFactory));
+            _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _videoAdService = videoAdService ?? throw new ArgumentNullException(nameof(videoAdService));
             _leaderboardScoreSetter = leaderboardScoreSetter ??
                                       throw new ArgumentNullException(nameof(leaderboardScoreSetter));
@@ -174,7 +180,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             {
                 _pauseService.Continue();
                 saveAction.Invoke();
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score);
+                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
 
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
             });
@@ -183,7 +189,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             {
                 _pauseService.Continue();
                 saveAction.Invoke();
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score);
+                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
                 Application.Quit();
             });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.CloseButton,
@@ -221,6 +227,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             //UpgradeFormButton
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI ,
                 hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm);
+            
+            //GameOverTexts
+            _textUIFactory.Create(hud.GameOverTextContainer.ScoreText, player.Wallet.Score);
 
             return _formService;
         }

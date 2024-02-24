@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3774567279177190449}
   - component: {fileID: 8514110535767743269}
+  - component: {fileID: 6770644956762444003}
   m_Layer: 0
   m_Name: SM_Chr_Rider_01
   m_TagString: Untagged
@@ -387,6 +388,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000071525574, y: 0.85065955, z: -0.03683707}
     m_Extent: {x: 1.0221843, y: 0.94732016, z: 0.25428587}
   m_DirtyAABB: 0
+--- !u!114 &6770644956762444003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462208262625970003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &478462636531020281
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6384148234795808059}
   - component: {fileID: 1029241540311819305}
+  - component: {fileID: 2056768377845212323}
   m_Layer: 0
   m_Name: SM_Chr_Soldier_Female_01
   m_TagString: Untagged
@@ -682,6 +696,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000011920929, y: 0.8463429, z: -0.00820592}
     m_Extent: {x: 1.0221847, y: 0.95032346, z: 0.23555896}
   m_DirtyAABB: 0
+--- !u!114 &2056768377845212323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559763295057344562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1728582046976189889
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6155529059060695329}
   - component: {fileID: 2858236219394644907}
+  - component: {fileID: 2296096143483852507}
   m_Layer: 0
   m_Name: SM_Chr_Jester_01
   m_TagString: Untagged
@@ -817,6 +844,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.89607775, z: 0.0002489239}
     m_Extent: {x: 1.0245616, y: 1.0096382, z: 0.29454613}
   m_DirtyAABB: 0
+--- !u!114 &2296096143483852507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728582046976189889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1759331719736285998
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1026,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8181585940967598473}
   - component: {fileID: 9139378779978573077}
+  - component: {fileID: 1537214269931649754}
   m_Layer: 0
   m_Name: SM_Chr_King_01
   m_TagString: Untagged
@@ -1112,6 +1152,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.85368836, z: -0.014498323}
     m_Extent: {x: 1.0245616, y: 0.9547818, z: 0.27718118}
   m_DirtyAABB: 0
+--- !u!114 &1537214269931649754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223616354347476216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2521161724904456206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 826990647134550811}
   - component: {fileID: 3378979172531975278}
+  - component: {fileID: 2661953726519191738}
   m_Layer: 0
   m_Name: SM_Chr_FortuneTeller_01
   m_TagString: Untagged
@@ -1377,6 +1430,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000011920929, y: 0.84095895, z: -0.07776132}
     m_Extent: {x: 1.0252012, y: 0.9673089, z: 0.3078015}
   m_DirtyAABB: 0
+--- !u!114 &2661953726519191738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383736444286233841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3505276308098967375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5771320665572383901}
   - component: {fileID: 7130200790389461052}
+  - component: {fileID: 5063750103541803284}
   m_Layer: 0
   m_Name: SM_Chr_Queen_01
   m_TagString: Untagged
@@ -1706,6 +1772,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000017881393, y: 0.8351608, z: -0.03936009}
     m_Extent: {x: 1.0252013, y: 0.97310704, z: 0.3147204}
   m_DirtyAABB: 0
+--- !u!114 &5063750103541803284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3743529055359513856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3907781530453660237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8635790395690277897}
   - component: {fileID: 2763310562847680876}
+  - component: {fileID: 6892630584469315595}
   m_Layer: 0
   m_Name: SM_Chr_Blacksmith_Female_01
   m_TagString: Untagged
@@ -1841,6 +1920,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0004632473, y: 0.8713077, z: -0.011317812}
     m_Extent: {x: 1.0229115, y: 0.9679684, z: 0.2502344}
   m_DirtyAABB: 0
+--- !u!114 &6892630584469315595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3907781530453660237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3965717720408746908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,6 +2136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 209064909154128140}
   - component: {fileID: 7847674119510560922}
+  - component: {fileID: 4318882429178169783}
   m_Layer: 0
   m_Name: SM_Chr_Priest_01
   m_TagString: Untagged
@@ -2170,6 +2262,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.84347886, z: -0.044082224}
     m_Extent: {x: 1.0245616, y: 0.94457227, z: 0.28991953}
   m_DirtyAABB: 0
+--- !u!114 &4318882429178169783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629182306766170518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4663602324270837086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,13 +2318,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3248212727957004547}
   - component: {fileID: 2061770718659867267}
+  - component: {fileID: 6250393437122091396}
   m_Layer: 0
   m_Name: SM_Chr_Blacksmith_Male_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3248212727957004547
 Transform:
   m_ObjectHideFlags: 0
@@ -2339,6 +2444,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000056266785, y: 0.8434789, z: -0.0045480877}
     m_Extent: {x: 1.0246199, y: 0.9445722, z: 0.2994464}
   m_DirtyAABB: 0
+--- !u!114 &6250393437122091396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764349629190142944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4795149444518977284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2381,6 +2498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761737281983465167}
   - component: {fileID: 912001937343684929}
+  - component: {fileID: 4573941250468365246}
   m_Layer: 0
   m_Name: SM_Chr_Fairy_01
   m_TagString: Untagged
@@ -2506,6 +2624,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000011920929, y: 0.8585622, z: -0.006733522}
     m_Extent: {x: 1.0245147, y: 0.9541963, z: 0.23028065}
   m_DirtyAABB: 0
+--- !u!114 &4573941250468365246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505356836841757673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5588618933665042073
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,6 +2646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6872597502213880916}
   - component: {fileID: 4043902432746980874}
+  - component: {fileID: 243135580219754698}
   m_Layer: 0
   m_Name: SM_Chr_Hermit_01
   m_TagString: Untagged
@@ -2641,6 +2772,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.8496534, z: -0.024243072}
     m_Extent: {x: 1.0245616, y: 0.9518338, z: 0.26985854}
   m_DirtyAABB: 0
+--- !u!114 &243135580219754698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588618933665042073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5672922113635737871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,6 +2857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1272206167431146630}
   - component: {fileID: 8271266964945823534}
+  - component: {fileID: 5771899475124063067}
   m_Layer: 0
   m_Name: SM_Chr_Monk_01
   m_TagString: Untagged
@@ -2839,6 +2983,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.8424885, z: -0.032001562}
     m_Extent: {x: 1.0245616, y: 0.946252, z: 0.2798813}
   m_DirtyAABB: 0
+--- !u!114 &5771899475124063067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5858670201511897075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6294005173832339288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,6 +3005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944508151610223771}
   - component: {fileID: 1639048746560408102}
+  - component: {fileID: 8342358615205941068}
   m_Layer: 0
   m_Name: SM_Chr_Mage_01
   m_TagString: Untagged
@@ -2974,6 +3131,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.85790265, z: -0.02323196}
     m_Extent: {x: 1.0245616, y: 0.95899594, z: 0.25049734}
   m_DirtyAABB: 0
+--- !u!114 &8342358615205941068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294005173832339288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6319788051741037631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,6 +3185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2357344058403771298}
   - component: {fileID: 4739643036982395774}
+  - component: {fileID: 3586985488392091259}
   m_Layer: 0
   m_Name: SM_Chr_Prince_01
   m_TagString: Untagged
@@ -3141,6 +3311,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.86455756, z: -0.005223632}
     m_Extent: {x: 1.0245606, y: 0.9656506, z: 0.2758586}
   m_DirtyAABB: 0
+--- !u!114 &3586985488392091259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6439821934533706808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6658958504366705391
 GameObject:
   m_ObjectHideFlags: 0
@@ -3197,6 +3379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469360287283627701}
   - component: {fileID: 4610278273709306239}
+  - component: {fileID: 2180079531422688728}
   m_Layer: 0
   m_Name: SM_Chr_Merchant_01
   m_TagString: Untagged
@@ -3322,6 +3505,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00008624792, y: 0.8688631, z: -0.02817624}
     m_Extent: {x: 1.024648, y: 0.9699565, z: 0.26563126}
   m_DirtyAABB: 0
+--- !u!114 &2180079531422688728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6697481381769126949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6787680968931819568
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,6 +3527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2527524310370030687}
   - component: {fileID: 4883018035940942464}
+  - component: {fileID: 4771155037667375409}
   m_Layer: 0
   m_Name: SM_Chr_Soldier_Male_01
   m_TagString: Untagged
@@ -3457,6 +3653,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.8429994, z: -0.0064426064}
     m_Extent: {x: 1.0245616, y: 0.9466528, z: 0.27056026}
   m_DirtyAABB: 0
+--- !u!114 &4771155037667375409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787680968931819568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6845819200426189542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3593,6 +3801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6275746488044047989}
   - component: {fileID: 614544023409160361}
+  - component: {fileID: 2909270354504452170}
   m_Layer: 0
   m_Name: SM_Chr_Nun_01
   m_TagString: Untagged
@@ -3718,6 +3927,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000011920929, y: 0.8567346, z: -0.050192356}
     m_Extent: {x: 1.0252012, y: 0.9533952, z: 0.3130502}
   m_DirtyAABB: 0
+--- !u!114 &2909270354504452170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7479044130986530849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7523964281856642755
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,6 +4266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4011667869273005460}
   - component: {fileID: 6115744420726785178}
+  - component: {fileID: 8276718614496094206}
   m_Layer: 0
   m_Name: SM_Chr_Princess_01
   m_TagString: Untagged
@@ -4170,6 +4392,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000017881393, y: 0.8161714, z: -0.04550442}
     m_Extent: {x: 1.0251002, y: 1.0201297, z: 0.3932507}
   m_DirtyAABB: 0
+--- !u!114 &8276718614496094206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7666202681691478421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7802411926703941315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4793,6 +5027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8080558793583679514}
   - component: {fileID: 3726531216992428158}
+  - component: {fileID: 5149135236119167369}
   m_Layer: 0
   m_Name: SM_Chr_Bartender_01
   m_TagString: Untagged
@@ -4918,6 +5153,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00021475554, y: 0.84140164, z: -0.0629891}
     m_Extent: {x: 1.0254245, y: 0.9466495, z: 0.3781579}
   m_DirtyAABB: 0
+--- !u!114 &5149135236119167369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8428266242183068582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8667646680067315521
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,6 +5207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7718798126258610614}
   - component: {fileID: 6854143210204294553}
+  - component: {fileID: 4060926442639422909}
   m_Layer: 0
   m_Name: SM_Chr_Headsman_01
   m_TagString: Untagged
@@ -5085,6 +5333,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000000059604645, y: 0.85582334, z: -0.020388931}
     m_Extent: {x: 1.0245616, y: 0.95691663, z: 0.29143286}
   m_DirtyAABB: 0
+--- !u!114 &4060926442639422909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8785336894581750750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52671221bb4142fd8413a9b691889842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8789470777896563516
 GameObject:
   m_ObjectHideFlags: 0

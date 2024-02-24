@@ -30,14 +30,19 @@ namespace Sources.Infrastructure.Services
         {
             float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
             float verticalInput = Input.GetAxis(Constant.Input.Vertical);
+            
+            bool isSimpleAxis = false;
 
-            if (SimpleInput.GetAxisSnapValue)
+            // if (SimpleInput.GetAxisSnapValue)
+            if (horizontalInput < 0.01f && verticalInput < 0.01f)
             {
                 horizontalInput = SimpleInput.GetAxis(Constant.Input.Horizontal);
                 verticalInput = SimpleInput.GetAxis(Constant.Input.Vertical);
+
+                isSimpleAxis = true;
             }
 
-            PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput));
+            PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput), isSimpleAxis);
         }
 
         private void UpdateRotation()

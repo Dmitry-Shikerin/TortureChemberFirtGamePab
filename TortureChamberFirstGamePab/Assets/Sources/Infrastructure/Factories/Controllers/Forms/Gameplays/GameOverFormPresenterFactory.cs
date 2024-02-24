@@ -6,6 +6,7 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
 
 namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
@@ -17,6 +18,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
         private readonly IDataService<Player> _playerDataService;
         private readonly IDataService<Tavern> _tavernDataService;
         private readonly IDataService<PlayerUpgrade> _upgradeDataService;
+        private readonly IPlayerProvider _playerProvider;
 
         public GameOverFormPresenterFactory
         (
@@ -24,7 +26,8 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
             IPauseService pauseService,
             IDataService<Player> playerDataService,
             IDataService<Tavern> tavernDataService,
-            IDataService<PlayerUpgrade> upgradeDataService
+            IDataService<PlayerUpgrade> upgradeDataService,
+            IPlayerProvider playerProvider
         )
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -32,6 +35,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
             _playerDataService = playerDataService ?? throw new ArgumentNullException(nameof(playerDataService));
             _tavernDataService = tavernDataService ?? throw new ArgumentNullException(nameof(tavernDataService));
             _upgradeDataService = upgradeDataService ?? throw new ArgumentNullException(nameof(upgradeDataService));
+            _playerProvider = playerProvider ?? throw new ArgumentNullException(nameof(playerProvider));
         }
 
         public GameOverFormPresenter Create(IGameOverFormView gameOverFormView)
@@ -40,7 +44,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
                 throw new ArgumentNullException(nameof(gameOverFormView));
             
             return new GameOverFormPresenter(gameOverFormView, _formService, _pauseService,
-                _playerDataService, _tavernDataService, _upgradeDataService);
+                _playerDataService, _tavernDataService, _upgradeDataService, _playerProvider);
         }
     }
 }

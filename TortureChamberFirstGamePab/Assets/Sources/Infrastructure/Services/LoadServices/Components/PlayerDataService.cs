@@ -81,7 +81,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 new PlayerWalletData()
                 {
                     Coins = wallet.Coins.GetValue,
-                    Score = wallet.Score
+                    Score = wallet.Score.GetValue
                 });
             PlayerPrefs.SetString(Constant.DataKey.WalletKey, json);
         }

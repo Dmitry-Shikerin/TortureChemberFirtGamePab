@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Sources.Controllers.Visitors;
 using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
@@ -9,14 +10,17 @@ using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Visitors;
+using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
+using Sources.Utils.Repositoryes.CollectionRepository;
 using Unity.VisualScripting;
 
 namespace Sources.Infrastructure.Factories.Views.Visitors
 {
     public class VisitorViewFactory
     {
+        private readonly CollectionRepository _collectionRepository;
         private readonly VisitorPresenterFactory _visitorPresenterFactory;
         private readonly IPrefabFactory _prefabFactory;
         private readonly ObjectPool<VisitorView> _objectPool;
@@ -25,6 +29,7 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
 
         public VisitorViewFactory
         (
+            CollectionRepository collectionRepository,
             VisitorPresenterFactory visitorPresenterFactory,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
@@ -32,6 +37,8 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
             ImageUIFactory imageUIFactory
         )
         {
+            _collectionRepository = collectionRepository ?? 
+                                    throw new ArgumentNullException(nameof(collectionRepository));
             _visitorPresenterFactory = visitorPresenterFactory ??
                                        throw new ArgumentNullException(nameof(visitorPresenterFactory));
             _prefabFactory = prefabFactory ?? throw new ArgumentNullException(nameof(prefabFactory));
@@ -71,6 +78,10 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
         )
         {
             VisitorView visitorView = CreateView();
+
+            OutDoorPoint spawnPoint = _collectionRepository.Get<OutDoorPoint>().FirstOrDefault() ?? 
+                                      throw new NullReferenceException(nameof(spawnPoint));
+            visitorView.SetPosition(spawnPoint.Position);
 
             Create(visitor, tavernMood, visitorCounter, visitorView);
 

@@ -43,5 +43,6 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public SettingFormButtonContainer
             SettingFormButtonContainer { get; private set; }
         [field: SerializeField] public JoysticksContainer JoysticksContainer { get; private set; }
+        [field: SerializeField] public GameOverTextContainer GameOverTextContainer { get; private set; }
     }
 }

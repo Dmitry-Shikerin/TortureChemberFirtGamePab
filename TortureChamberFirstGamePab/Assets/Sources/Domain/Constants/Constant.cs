@@ -204,7 +204,7 @@ namespace Sources.Domain.Constants
             public const int SaveDelay = 2;
         }
 
-        //TODO добавить на окошко конца игры количество заработанных очков
+        //TODO поправить кнопки рекламы
         //TODO добавить колайдер на выходе что бы игрок не мог туда пройти
         public static class InterstitialService
         {

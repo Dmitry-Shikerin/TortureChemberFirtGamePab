@@ -69,13 +69,28 @@ namespace Sources.Controllers.Player
             
             Vector3 cameraDirection = _cameraDirectionService.GetCameraDirection(
                 _inputService.PlayerInput.Direction);
-            Vector3 direction = _playerMovementService.GetDirection(runInput, cameraDirection);
+            
+            // Vector3 direction = _playerMovementService.GetDirection(runInput, cameraDirection);
+
+            _playerMovement.Speed = _playerMovementService.GetSpeed(
+                runInput, _playerMovement.Speed, _inputService.PlayerInput);
+            
+            // Debug.Log(_playerMovement.Speed);
+            
+            Vector3 direction = _playerMovementService.GetDirection(
+                runInput, _playerMovement.Speed, cameraDirection);
             
             _playerMovementView.Move(direction);
             
-            float animationSpeed = _playerMovementService.GetMaxSpeed(_inputService.PlayerInput, runInput);
+            // float animationSpeed = _playerMovementService.GetMaxSpeed(_inputService.PlayerInput, runInput);
+            
+            _playerMovement.AnimationSpeed = _playerMovementService.GetMaxSpeed(
+                _inputService.PlayerInput, _playerMovement.AnimationSpeed, runInput);
 
-            _playerAnimation.PlayMovementAnimation(animationSpeed);
+            // Debug.Log(_playerMovement.AnimationSpeed);
+            
+            // _playerAnimation.PlayMovementAnimation(animationSpeed);
+            _playerAnimation.PlayMovementAnimation(_playerMovement.AnimationSpeed);
             
             if (_playerMovementService.IsIdle(_inputService.PlayerInput))
                 return;

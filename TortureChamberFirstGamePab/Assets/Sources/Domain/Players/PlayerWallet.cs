@@ -10,6 +10,7 @@ namespace Sources.Domain.Players
     public class PlayerWallet : IAudioSourceActivator
     {
         private ObservableProperty<int> _coins;
+        private ObservableProperty<int> _score;
 
         public event Action AudioSourceActivated;
 
@@ -24,11 +25,13 @@ namespace Sources.Domain.Players
         private PlayerWallet(int coins, int score)
         {
             _coins = new ObservableProperty<int>(coins);
-            Score = score;
+            // Score = score;
+            _score = new ObservableProperty<int>(score);
         }
 
         public IObservableProperty<int> Coins => _coins;
-        public int Score { get; private set; }
+        public IObservableProperty<int> Score => _score;
+        // public int Score { get; private set; }
 
         public void Add(int quantity)
         {
@@ -36,7 +39,7 @@ namespace Sources.Domain.Players
                 return;
             
             _coins.Value += quantity;
-            Score += quantity;
+            _score.Value += quantity;
             
             AudioSourceActivated?.Invoke();
         }

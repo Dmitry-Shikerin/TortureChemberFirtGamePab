@@ -23,9 +23,9 @@ namespace Sources.Domain.Players.PlayerMovements
         {
         }
         
-        private readonly PlayerMovementCharacteristic _characteristic;
-        
         public float RotationAngle { get; set; }
         public Vector3 Position { get; set; }
+        public float Speed { get; set; }
+        public float AnimationSpeed { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Sources.Controllers.Visitors;
 using Sources.Presentation.Animations;
 using Sources.Presentation.Views.ObjectPolls;
@@ -16,14 +18,24 @@ namespace Sources.Presentation.Views.Visitors
         [field: SerializeField] public VisitorImageUIContainer VisitorImageUIContainer { get; private set; }
         [field: SerializeField] public VisitorInventoryView Inventory { get; private set; }
 
+        private List<MeshSkinView> _meshSkins;
+
+        public IReadOnlyList<MeshSkinView> MeshSkins => _meshSkins;
         public NavMeshAgent NavMeshAgent { get; private set; }
+        
 
         public Vector3 Position => transform.position;
 
-        public void Awake() =>
+        public void Awake()
+        {
             NavMeshAgent = GetComponent<NavMeshAgent>() ??
                            throw new NullReferenceException(nameof(NavMeshAgent));
-        
+
+            _meshSkins = GetComponentsInChildren<MeshSkinView>(true).ToList();
+            
+            Debug.Log(_meshSkins.Count);
+        }
+
         public override void Destroy()
         {
             if (TryGetComponent(out PoolableObject poolableObject) == false)

@@ -62,7 +62,7 @@ namespace Sources.Infrastructure.Services
         //TODO проверить все локализации
         private void OnGameOver()
         {
-            _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Score);
+            _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Score.GetValue);
             _formService.Show<GameOverFormView>();
             _playerDataService.Clear();
             _tavernDataService.Clear();
