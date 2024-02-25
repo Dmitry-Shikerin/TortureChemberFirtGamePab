@@ -102,9 +102,6 @@ namespace Sources.Controllers.Forms.Gameplays
             HideUpButton();
         }
 
-        //TODO добавить туториал для сложности
-        //TODO добавить туториал для рекламы
-        //TODO добавить туториал для сохранений
         private void HideUpButton()
         {
             if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition >= Constant.ScrollRect.MaxValue)

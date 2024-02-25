@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
@@ -225,8 +226,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.SettingFormView.TurnDownVolume);
             
             //UpgradeFormButton
-            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI ,
-                hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm);
+            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI, () =>
+            {
+                saveAction.Invoke();
+                
+                hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm();
+            });
             
             //GameOverTexts
             _textUIFactory.Create(hud.GameOverTextContainer.ScoreText, player.Wallet.Score);

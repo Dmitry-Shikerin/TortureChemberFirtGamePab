@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Sources.DomainInterfaces.Data;
 
 namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData
 {
-    public class PlayerCharismaUpgradeData
+    public class PlayerCharismaUpgradeData : IDataModel
     {
         [JsonProperty("currentAmountCharisma")]
         public float CurrentAmountCharisma { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players;
@@ -59,7 +60,6 @@ namespace Sources.Infrastructure.Services
         public void Exit() => 
             TavernMood.TavernMoodOver -= OnGameOver;
 
-        //TODO проверить все локализации
         private void OnGameOver()
         {
             _leaderboardScoreSetter.SetPlayerScore(PlayerWallet.Score.GetValue);

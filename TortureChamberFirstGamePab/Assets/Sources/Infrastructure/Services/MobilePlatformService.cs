@@ -14,14 +14,13 @@ namespace Sources.Infrastructure.Services
             _joystickContainer = hud.JoysticksContainer;
         }
 
+        //TODO Работает
         public void Enter(object payload = null)
         {
             if (Application.isMobilePlatform)
             {
                 _joystickContainer.Movement.IsDynamicJoystick = false;
                 _joystickContainer.Rotate.IsDynamicJoystick = false;
-                
-                Debug.Log(_joystickContainer.Movement.IsDynamicJoystick);
                 
                 return;
             }

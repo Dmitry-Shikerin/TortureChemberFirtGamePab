@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Sources.DomainInterfaces.Data;
 
-namespace Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData
+namespace Sources.Domain.DataAccess.TavernData
 {
-    public class TavernMoodData
+    public class TavernMoodData : IDataModel
     {
         [JsonProperty("moodValue")]
         public float MoodValue { get; set; }

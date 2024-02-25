@@ -16,7 +16,7 @@ namespace Sources.Controllers.Forms.Gameplays
         private readonly IGameOverFormView _gameOverFormView;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
-        private readonly IDataService<Domain.Datas.Players.Player> _playerDataService;
+        private readonly IDataService<Domain.DataAccess.Containers.Players.Player> _playerDataService;
         private readonly IDataService<Tavern> _tavernDataService;
         private readonly IDataService<PlayerUpgrade> _upgradeDataService;
         private readonly IPlayerProvider _playerProvider;
@@ -28,7 +28,7 @@ namespace Sources.Controllers.Forms.Gameplays
             IGameOverFormView gameOverFormView,
             IFormService formService,
             IPauseService pauseService,
-            IDataService<Domain.Datas.Players.Player> playerDataService,
+            IDataService<Domain.DataAccess.Containers.Players.Player> playerDataService,
             IDataService<Tavern> tavernDataService,
             IDataService<PlayerUpgrade> upgradeDataService,
             IPlayerProvider playerProvider

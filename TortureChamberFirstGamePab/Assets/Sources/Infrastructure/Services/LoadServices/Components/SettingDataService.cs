@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public class SettingDataService : IDataService<Setting>
+    public class SettingDataService : DataServiceBase, IDataService<Setting>
     {
         private readonly Setting _setting;
 
@@ -52,21 +52,11 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Debug.Log("SettingDataService Clear");
         }
 
-        private Volume LoadVolume()
-        {
-            string json = PlayerPrefs.GetString(Constant.SettingDataKey.VolumeKey, string.Empty);
-            VolumeData volumeData = JsonConvert.DeserializeObject<VolumeData>(json);
+        private Volume LoadVolume() => 
+            new(LoadData<VolumeData>(Constant.SettingDataKey.VolumeKey));
 
-            return new Volume(volumeData);
-        }
-        
-        private Tutorial LoadTutorial()
-        {
-            string json = PlayerPrefs.GetString(Constant.SettingDataKey.TutorialKey, string.Empty);
-            TutorialData tutorialData = JsonConvert.DeserializeObject<TutorialData>(json);
-
-            return new Tutorial(tutorialData);
-        }
+        private Tutorial LoadTutorial() => 
+            new(LoadData<TutorialData>(Constant.SettingDataKey.TutorialKey));
 
         private void SaveVolume(Volume volume)
         {
@@ -75,8 +65,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 Step = volume.Step,
             };
 
-            string json = JsonConvert.SerializeObject(volumeData);
-            PlayerPrefs.SetString(Constant.SettingDataKey.VolumeKey, json);
+            SaveData(volumeData, Constant.SettingDataKey.VolumeKey);
         }
 
         private void SaveTutorial(Tutorial tutorial)
@@ -86,8 +75,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                  HasCompleted = tutorial.HasCompleted,
             };
 
-            string json = JsonConvert.SerializeObject(tutorialData);
-            PlayerPrefs.SetString(Constant.SettingDataKey.VolumeKey, json);
+            SaveData(tutorialData, Constant.SettingDataKey.VolumeKey);
         }
     }
 }

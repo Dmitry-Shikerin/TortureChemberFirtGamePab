@@ -43,7 +43,7 @@ namespace Sources.Infrastructure.Services
         public async void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _timeSpan = TimeSpan.FromMinutes(Constant.GamePlay.SpawnDelay);
+            _timeSpan = TimeSpan.FromSeconds(Constant.GamePlay.SpawnDelay);
             
             await IncreaseDifficulty(_cancellationTokenSource.Token);
         }
@@ -54,7 +54,7 @@ namespace Sources.Infrastructure.Services
 
             try
             {
-                while (visitorsCount <= _maximumSetPointsCapacity)
+                while (visitorsCount < _maximumSetPointsCapacity)
                 {
                     await UniTask.Delay(_timeSpan,
                         cancellationToken: cancellationToken);

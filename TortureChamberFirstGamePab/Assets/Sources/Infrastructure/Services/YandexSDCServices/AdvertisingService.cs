@@ -54,7 +54,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 });
         }
 
-        //TODo позаниматься скором
         public void ShowInterstitial()
         {
             if(WebApplication.IsRunningOnWebGL == false)

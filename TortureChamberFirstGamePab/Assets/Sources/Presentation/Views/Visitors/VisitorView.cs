@@ -32,8 +32,6 @@ namespace Sources.Presentation.Views.Visitors
                            throw new NullReferenceException(nameof(NavMeshAgent));
 
             _meshSkins = GetComponentsInChildren<MeshSkinView>(true).ToList();
-            
-            Debug.Log(_meshSkins.Count);
         }
 
         public override void Destroy()

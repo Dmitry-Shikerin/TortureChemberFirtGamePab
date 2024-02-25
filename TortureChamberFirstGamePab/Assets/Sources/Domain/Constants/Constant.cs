@@ -1,6 +1,4 @@
-﻿using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
-
-namespace Sources.Domain.Constants
+﻿namespace Sources.Domain.Constants
 {
     public static class Constant
     {
@@ -57,7 +55,7 @@ namespace Sources.Domain.Constants
         
         public static class GamePlay
         {
-            public const int SpawnDelay = 2;
+            public const int SpawnDelay = 20;
         }
 
         public static class Input
@@ -205,7 +203,6 @@ namespace Sources.Domain.Constants
         }
 
         //TODO поправить кнопки рекламы
-        //TODO добавить колайдер на выходе что бы игрок не мог туда пройти
         public static class InterstitialService
         {
             public const int ShowDelay = 7;

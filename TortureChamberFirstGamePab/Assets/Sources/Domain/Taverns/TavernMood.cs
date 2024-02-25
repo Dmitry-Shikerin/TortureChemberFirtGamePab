@@ -1,6 +1,6 @@
 ﻿using System;
 using Sources.Domain.Constants;
-using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
+using Sources.Domain.DataAccess.TavernData;
 using UnityEngine;
 
 namespace Sources.Domain.Taverns

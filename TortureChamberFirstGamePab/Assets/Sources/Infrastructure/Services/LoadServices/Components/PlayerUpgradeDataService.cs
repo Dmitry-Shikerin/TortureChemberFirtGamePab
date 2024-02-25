@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public class PlayerUpgradeDataService : IDataService<PlayerUpgrade>
+    public class PlayerUpgradeDataService : DataServiceBase, IDataService<PlayerUpgrade>
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.UpgradeDataKey.CharismaKey);
 
@@ -34,9 +34,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadCharismaUpgrader()
         {
-            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.CharismaKey, string.Empty);
-            PlayerCharismaUpgradeData charismaData =
-                JsonConvert.DeserializeObject<PlayerCharismaUpgradeData>(json);
+            PlayerCharismaUpgradeData charismaData = LoadData<PlayerCharismaUpgradeData>(
+                Constant.UpgradeDataKey.CharismaKey);
 
             int[] moneyPerUpgradeCharisma = charismaData.MoneyPerUpgradesCharisma
                 .Select(money => money.MoneyPerUpgradeCharisma)
@@ -54,9 +53,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadInventoryUpgrader()
         {
-            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.InventoryKey, string.Empty);
-            PlayerInventoryUpgradeData inventoryData =
-                JsonConvert.DeserializeObject<PlayerInventoryUpgradeData>(json);
+            PlayerInventoryUpgradeData inventoryData = LoadData<PlayerInventoryUpgradeData>(
+                Constant.UpgradeDataKey.InventoryKey);
             
             int[] moneyPerUpgradeInventory = inventoryData.MoneyPerUpgradesInventory
                 .Select(money => money.MoneyPerUpgradeInventory)
@@ -74,9 +72,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadMovementUpgrader()
         {
-            string json = PlayerPrefs.GetString(Constant.UpgradeDataKey.MovementKey, string.Empty);
-            PlayerMovementUpgradeData movementData =
-                JsonConvert.DeserializeObject<PlayerMovementUpgradeData>(json);
+            PlayerMovementUpgradeData movementData = LoadData<PlayerMovementUpgradeData>(
+                Constant.UpgradeDataKey.MovementKey);
             
             int[] moneyPerUpgradeMovement = movementData.MoneyPerUpgradesMovement
                 .Select(money => money.MoneyPerUpgradeMovement)
@@ -109,8 +106,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 MoneyPerUpgradesCharisma = playerCharismaMoneyPerUpgradeDatas,
             };
 
-            string json = JsonConvert.SerializeObject(playerCharismaUpgradeData);
-            PlayerPrefs.SetString(Constant.UpgradeDataKey.CharismaKey, json);
+            SaveData(playerCharismaUpgradeData, Constant.UpgradeDataKey.CharismaKey);
         }
 
         private void SaveInventory(Upgrader inventoryUpgrader)
@@ -130,8 +126,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 MoneyPerUpgradesInventory = playerInventoryMoneyPerUpgradeDatas,
             };
 
-            string json = JsonConvert.SerializeObject(playerCharismaUpgradeData);
-            PlayerPrefs.SetString(Constant.UpgradeDataKey.InventoryKey, json);
+            SaveData(playerCharismaUpgradeData, Constant.UpgradeDataKey.InventoryKey);
         }
 
         private void SaveMovement(Upgrader movementUpgrader)
@@ -151,8 +146,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 MoneyPerUpgradesMovement = playerMovementMoneyPerUpgradeDatas,
             };
 
-            string json = JsonConvert.SerializeObject(playerMovementUpgradeData);
-            PlayerPrefs.SetString(Constant.UpgradeDataKey.MovementKey, json);
+            SaveData(playerMovementUpgradeData, Constant.UpgradeDataKey.MovementKey);
         }
     }
 }

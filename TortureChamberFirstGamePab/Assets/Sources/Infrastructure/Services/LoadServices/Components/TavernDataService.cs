@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.TavernData;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
 using Sources.Domain.Taverns;
-using Sources.Infrastructure.Services.LoadServices.DataAccess.TavernData;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public class TavernDataService : IDataService<Tavern>
+    public class TavernDataService : DataServiceBase, IDataService<Tavern>
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.TavernDataKey.TavernMoodKey);
 
@@ -29,34 +29,30 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Debug.Log("TavernDataService Clear");
         }
 
-        private TavernMood LoadTavernMood()
-        {
-            string json = PlayerPrefs.GetString(Constant.TavernDataKey.TavernMoodKey, string.Empty);
-            TavernMoodData moodData = JsonConvert.DeserializeObject<TavernMoodData>(json);
+        private TavernMood LoadTavernMood() => 
+            new(LoadData<TavernMoodData>(Constant.TavernDataKey.TavernMoodKey));
 
-            return new TavernMood(moodData);
-        }
-
-        private VisitorQuantity LoadGamePlay()
-        {
-            string json = PlayerPrefs.GetString(Constant.TavernDataKey.VisitorQuantityKey, string.Empty);
-            GameplayData gameplayData = JsonConvert.DeserializeObject<GameplayData>(json);
-
-            return new VisitorQuantity(gameplayData);
-        }
+        private VisitorQuantity LoadGamePlay() => 
+            new(LoadData<GameplayData>(Constant.TavernDataKey.VisitorQuantityKey));
 
         private void Save(TavernMood tavernMood)
         {
-            string json = JsonConvert.SerializeObject(
-                new TavernMoodData() { MoodValue = tavernMood.TavernMoodValue });
-            PlayerPrefs.SetString(Constant.TavernDataKey.TavernMoodKey, json);
+            TavernMoodData tavernMoodData = new TavernMoodData()
+            {
+                MoodValue = tavernMood.TavernMoodValue
+            };
+            
+            SaveData(tavernMoodData, Constant.TavernDataKey.TavernMoodKey);
         }
 
         private void Save(VisitorQuantity visitorQuantity)
         {
-            string json = JsonConvert.SerializeObject(
-                new GameplayData() { MaximumVisitorsCapacity = visitorQuantity.MaximumVisitorsQuantity });
-            PlayerPrefs.SetString(Constant.TavernDataKey.VisitorQuantityKey, json);
+            GameplayData gameplayData = new GameplayData()
+            {
+                MaximumVisitorsCapacity = visitorQuantity.MaximumVisitorsQuantity
+            };
+            
+            SaveData(gameplayData, Constant.TavernDataKey.VisitorQuantityKey);
         }
     }
 }

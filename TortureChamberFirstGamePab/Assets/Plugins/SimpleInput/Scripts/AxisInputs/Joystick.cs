@@ -52,11 +52,17 @@ namespace SimpleInputNamespace
 
 		private Vector2 m_value = Vector2.zero;
 		public Vector2 Value { get { return m_value; } }
-
+		
+		//TODO моя писанина
 		public bool IsDynamicJoystick
 		{
 			get => isDynamicJoystick;
-			set => isDynamicJoystick = value;
+			set
+			{
+				isDynamicJoystick = value;
+				UpdateDynamicJoystick();
+				StartDynamicJoystick();
+			}
 		}
 
 		private void Awake()
@@ -227,6 +233,65 @@ namespace SimpleInputNamespace
 				c.a = opacity;
 				background.color = c;
 			}
+		}
+
+		private void UpdateDynamicJoystick()
+		{
+			joystickTR = (RectTransform) transform;
+			thumbTR = thumb.rectTransform;
+			background = GetComponent<Graphic>();
+
+			if( isDynamicJoystick )
+			{
+				opacity = 0f;
+				thumb.raycastTarget = false;
+				if( background )
+					background.raycastTarget = false;
+
+				OnUpdate();
+			}
+			else
+			{
+				thumb.raycastTarget = true;
+				if( background )
+					background.raycastTarget = true;
+			}
+
+			_1OverMovementAreaRadius = 1f / movementAreaRadius;
+			movementAreaRadiusSqr = movementAreaRadius * movementAreaRadius;
+			deadzoneRadiusSqr = deadzoneRadius * deadzoneRadius;
+
+			joystickInitialPos = joystickTR.anchoredPosition;
+			thumbTR.localPosition = Vector3.zero;
+		}
+
+		private void StartDynamicJoystick()
+		{
+			SimpleInputDragListener eventReceiver;
+			if( !isDynamicJoystick )
+			{
+				if( background )
+					eventReceiver = background.gameObject.AddComponent<SimpleInputDragListener>();
+				else
+					eventReceiver = thumbTR.gameObject.AddComponent<SimpleInputDragListener>();
+			}
+			else
+			{
+				if( !dynamicJoystickMovementArea )
+				{
+					dynamicJoystickMovementArea = new GameObject( "Dynamic Joystick Movement Area", typeof( RectTransform ) ).GetComponent<RectTransform>();
+					dynamicJoystickMovementArea.SetParent( thumb.canvas.transform, false );
+					dynamicJoystickMovementArea.SetAsFirstSibling();
+					dynamicJoystickMovementArea.anchorMin = Vector2.zero;
+					dynamicJoystickMovementArea.anchorMax = Vector2.one;
+					dynamicJoystickMovementArea.sizeDelta = Vector2.zero;
+					dynamicJoystickMovementArea.anchoredPosition = Vector2.zero;
+				}
+
+				eventReceiver = dynamicJoystickMovementArea.gameObject.AddComponent<SimpleInputDragListener>();
+			}
+
+			eventReceiver.Listener = this;
 		}
 	}
 }

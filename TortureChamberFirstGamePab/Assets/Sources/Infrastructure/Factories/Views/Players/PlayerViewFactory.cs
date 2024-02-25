@@ -1,6 +1,7 @@
 ﻿using System;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Factories.Prefabs;

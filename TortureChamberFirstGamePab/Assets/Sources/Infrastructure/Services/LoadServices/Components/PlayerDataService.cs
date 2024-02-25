@@ -1,18 +1,18 @@
-﻿using Agava.YandexGames;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sources.Domain.Constants;
+using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
+using Sources.DomainInterfaces.Data;
 using Sources.Extensions.Domain;
-using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.LoadServices.Components
 {
-    public class PlayerDataService : IDataService<Player>
+    public class PlayerDataService : DataServiceBase, IDataService<Player>
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.DataKey.MovementKey);
 
@@ -35,13 +35,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             Debug.Log("PlayerDataService Clear");
         }
 
-        private PlayerMovement LoadMovement()
-        {
-            string json = PlayerPrefs.GetString(Constant.DataKey.MovementKey, string.Empty);
-            PlayerMovementData movementData = JsonConvert.DeserializeObject<PlayerMovementData>(json);
-
-            return new PlayerMovement(movementData);
-        }
+        private PlayerMovement LoadMovement() => 
+            new(LoadData<PlayerMovementData>(Constant.DataKey.MovementKey));
 
         private PlayerInventory LoadInventory()
         {
@@ -51,13 +46,8 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             return new PlayerInventory();
         }
 
-        private PlayerWallet LoadWallet()
-        {
-            string json = PlayerPrefs.GetString(Constant.DataKey.WalletKey, string.Empty);
-            PlayerWalletData walletData = JsonConvert.DeserializeObject<PlayerWalletData>(json);
-
-            return new PlayerWallet(walletData);
-        }
+        private PlayerWallet LoadWallet() => 
+            new(LoadData<PlayerWalletData>(Constant.DataKey.WalletKey));
 
         private void Save(PlayerMovement movement)
         {
@@ -67,8 +57,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                 Direction = movement.RotationAngle,
             };
 
-            string json = JsonConvert.SerializeObject(movementData);
-            PlayerPrefs.SetString(Constant.DataKey.MovementKey, json);
+            SaveData(movementData, Constant.DataKey.MovementKey);
         }
 
         private void Save(PlayerInventory inventory)
@@ -77,13 +66,13 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void Save(PlayerWallet wallet)
         {
-            string json = JsonConvert.SerializeObject(
-                new PlayerWalletData()
-                {
-                    Coins = wallet.Coins.GetValue,
-                    Score = wallet.Score.GetValue
-                });
-            PlayerPrefs.SetString(Constant.DataKey.WalletKey, json);
+            PlayerWalletData playerWalletData = new PlayerWalletData()
+            {
+                Coins = wallet.Coins.GetValue,
+                Score = wallet.Score.GetValue
+            };
+            
+            SaveData(playerWalletData, Constant.DataKey.WalletKey);
         }
     }
 }

@@ -56,8 +56,6 @@ namespace Sources.Controllers.Visitors.States
             
             activeMeshSkin.Show();
 
-            //TODO спавнить посетителей на точке входа
-            
             SeatPointView seatPointView = _collectionRepository
                 .Get<SeatPointView>()
                 .Where(seatPointView => seatPointView.IsOccupied == false)

@@ -26,7 +26,6 @@ namespace Sources.Infrastructure.Services
             await SaveAsync(loadService.Save, _cancellationTokenSource.Token);
         }
         
-        //TODO сохранять при улучшении
         //TODO указать чколько монеток добавится за рекламу
 
         public void Exit()
@@ -40,8 +39,7 @@ namespace Sources.Infrastructure.Services
             {
                 while (cancellationToken.IsCancellationRequested == false)
                 {
-                    await UniTask.Delay(_timeSpan,
-                        cancellationToken: cancellationToken);
+                    await UniTask.Delay(_timeSpan, cancellationToken: cancellationToken);
 
                     saveAction.Invoke();
                 }

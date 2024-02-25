@@ -62,8 +62,6 @@ namespace Sources.Infrastructure.Services.Movement
             {
                 Vector2 normalizedMovementValue = playerInput.Direction.normalized;
                 maxMovementValue = normalizedMovementValue.magnitude;
-                
-                Debug.Log(playerInput.IsSimpleAxis);
             }
 
             float speed = 0;
@@ -112,6 +110,7 @@ namespace Sources.Infrastructure.Services.Movement
             float speed = runInput == 0 ? _playerMovementCharacteristic.RunSpeed : MovementSpeed;
 
             //TODO сделать здесь мув товардс
+            //TODO сделать туториал для обучения
 
             Vector3 direction = speed * Time.deltaTime * cameraDirection;
             direction.y -= _playerMovementCharacteristic.Gravity * Time.deltaTime;

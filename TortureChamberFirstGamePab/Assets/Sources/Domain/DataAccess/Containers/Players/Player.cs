@@ -1,7 +1,7 @@
 ﻿using Sources.Domain.Players;
 using Sources.Domain.Players.PlayerMovements;
 
-namespace Sources.Domain.Datas.Players
+namespace Sources.Domain.DataAccess.Containers.Players
 {
     public class Player
     {

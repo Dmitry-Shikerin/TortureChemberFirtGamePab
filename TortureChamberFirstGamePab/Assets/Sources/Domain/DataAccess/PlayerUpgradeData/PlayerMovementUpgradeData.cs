@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Sources.DomainInterfaces.Data;
 
 namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData
 {
-    public class PlayerMovementUpgradeData
+    public class PlayerMovementUpgradeData : IDataModel
     {
         [JsonProperty("currentAmountMovement")]
         public float CurrentAmountMovement { get; set; }

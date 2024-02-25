@@ -1,4 +1,4 @@
-﻿namespace Sources.Infrastructure.Services.LoadServices.Payloads
+﻿namespace Sources.Infrastructure.Payloads
 {
     public class LoadServicePayload
     {
