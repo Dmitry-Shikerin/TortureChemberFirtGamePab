@@ -14,7 +14,6 @@ namespace Sources.Infrastructure.Services
             _joystickContainer = hud.JoysticksContainer;
         }
 
-        //TODO Работает
         public void Enter(object payload = null)
         {
             if (Application.isMobilePlatform)

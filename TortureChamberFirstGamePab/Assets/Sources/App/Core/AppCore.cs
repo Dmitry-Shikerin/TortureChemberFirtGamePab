@@ -13,6 +13,7 @@ namespace Sources.App.Core
         private void Awake() => 
             DontDestroyOnLoad(this);
 
+        
         private async void Start()
         {
             //TODO потом раскоментировать
