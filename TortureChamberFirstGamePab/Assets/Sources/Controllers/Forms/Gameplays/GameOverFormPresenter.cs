@@ -45,10 +45,9 @@ namespace Sources.Controllers.Forms.Gameplays
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
 
-        public override void Enable()
-        {
+        //TODO возрастные ограничения изза пива и вина не уменьшатся?
+        public override void Enable() => 
             _pauseService.Pause();
-        }
 
         public override void Disable() =>
             _pauseService.Continue();

@@ -36,8 +36,8 @@ namespace Sources.Domain.Taverns
 
         public void RemoveTavernMood()
         {
-            // TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
-            TavernMoodValue -= 0.5f;
+            TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
+            // TavernMoodValue -= 0.5f;
             
             TavernMoodValueChanged?.Invoke();
             

@@ -28,21 +28,35 @@ namespace Sources.Infrastructure.Services
 
         private void UpdateMovementAxis()
         {
-            float horizontalInput = Input.GetAxis(Constant.Input.Horizontal);
-            float verticalInput = Input.GetAxis(Constant.Input.Vertical);
+            Vector2 direction = new Vector2(Input.GetAxis(Constant.Input.Horizontal),
+                Input.GetAxis(Constant.Input.Vertical));
             
-            bool isSimpleAxis = false;
-
-            // if (SimpleInput.GetAxisSnapValue)
-            if (horizontalInput < 0.01f && verticalInput < 0.01f)
+            if (direction.sqrMagnitude < 0.1f)
             {
-                horizontalInput = SimpleInput.GetAxis(Constant.Input.Horizontal);
-                verticalInput = SimpleInput.GetAxis(Constant.Input.Vertical);
-
-                isSimpleAxis = true;
+                UpdateFromSimpleInput();
             }
+            else
+            {
+                UpdateFromKeyBoard();
+            }
+        }
 
-            PlayerInput = new PlayerInput(new Vector2(horizontalInput, verticalInput), isSimpleAxis);
+        private void UpdateFromKeyBoard()
+        {
+            Vector2 direction = new Vector2(Input.GetAxis(Constant.Input.Horizontal),
+                Input.GetAxis(Constant.Input.Vertical));
+
+            direction = direction.magnitude < 0.1f ? Vector2.zero : direction.normalized;
+
+            PlayerInput = new PlayerInput(direction, false);
+        }
+        
+        private void UpdateFromSimpleInput()
+        {
+            Vector2 direction = new Vector2(SimpleInput.GetAxis(Constant.Input.Horizontal),
+                SimpleInput.GetAxis(Constant.Input.Vertical));
+            
+            PlayerInput = new PlayerInput(direction, true);
         }
 
         private void UpdateRotation()

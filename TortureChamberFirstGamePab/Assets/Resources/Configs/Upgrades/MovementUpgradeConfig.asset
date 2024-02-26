@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MovementUpgradeConfig
   m_EditorClassIdentifier: 
   <StartAmountUpgrade>k__BackingField: 0.9
-  <AddedAmountUpgrade>k__BackingField: 0.15
+  <AddedAmountUpgrade>k__BackingField: 0.2
   <MoneyPerUpgrades>k__BackingField: 010000000200000003000000

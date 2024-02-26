@@ -54,7 +54,7 @@ namespace Sources.Controllers.Player
             if(isLeftRotation)
                 _playerCamera.SetLeftRotation();
             
-            if(isRightRotation)
+            else if(isRightRotation)
                 _playerCamera.SetRightRotation();
         }
     }

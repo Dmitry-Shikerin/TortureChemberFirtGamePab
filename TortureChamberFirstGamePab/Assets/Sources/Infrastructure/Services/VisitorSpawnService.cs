@@ -68,8 +68,6 @@ namespace Sources.Infrastructure.Services
             SpawnVisitorAsync(_cancellationTokenSource.Token);
         }
         
-        //TODO у пауз форм выглядывает за край при маленькой высоте
-
         public void Exit() =>
             _cancellationTokenSource.Cancel();
 

@@ -7,9 +7,7 @@ namespace Sources.InfrastructureInterfaces.Services.Movement
     {
         Quaternion GetDirectionRotation(Vector3 direction);
         float GetSpeedRotation();
-        float GetMaxSpeed(PlayerInput playerInput, float runInput);
         float GetMaxSpeed(PlayerInput playerInput, float currentAnimationSpeed, float runInput);
-        Vector3 GetDirection(float runInput, Vector3 cameraDirection);
         Vector3 GetDirection(float runInput, float currentSpeed, Vector3 cameraDirection);
         float GetSpeed(float runInput, float currentSpeed, PlayerInput playerInput);
         bool IsIdle(PlayerInput playerInput);

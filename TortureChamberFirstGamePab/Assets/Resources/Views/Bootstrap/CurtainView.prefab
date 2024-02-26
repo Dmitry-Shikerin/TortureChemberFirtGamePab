@@ -214,7 +214,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: df4851aa0b4a14c3e8e58d8a3107ec1e, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 2821697945209794377}
   - component: {fileID: 1404217077839916962}
   - component: {fileID: 8223345307155451473}
+  - component: {fileID: 4526441107808796473}
   m_Layer: 5
   m_Name: Loading_Text
   m_TagString: Untagged
@@ -254,10 +255,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8118411170824021044}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.40450424, y: 0.16861884}
-  m_AnchorMax: {x: 0.59400004, y: 0.24061884}
-  m_AnchoredPosition: {x: 1.7026978, y: 0}
-  m_SizeDelta: {x: 2.9855042, y: -3.419098}
+  m_AnchorMin: {x: 0.40450424, y: 0.17087893}
+  m_AnchorMax: {x: 0.60026187, y: 0.23837669}
+  m_AnchoredPosition: {x: -3.2973022, y: 0}
+  m_SizeDelta: {x: -7.014496, y: 0.5809021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1404217077839916962
 CanvasRenderer:
@@ -289,8 +290,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Loading
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
+  m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -314,7 +315,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 61.55
+  m_fontSize: 60.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -356,6 +357,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4526441107808796473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2336960799811482313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: Loading
+  FallbackText: Loading
 --- !u!1 &2712058796703635875
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,7 +118,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             });
 
             //TODO проверить весь юай когда он будет готов
-            //TODO поправить триггер у апгрейда
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
             {
                 //TODO пока есть эта проверка постоянно показывается формочка авторизации

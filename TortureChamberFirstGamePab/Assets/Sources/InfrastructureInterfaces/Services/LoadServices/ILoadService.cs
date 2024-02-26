@@ -1,6 +1,4 @@
-﻿using Sources.Domain.Players;
-
-namespace Sources.Infrastructure.Services.LoadServices
+﻿namespace Sources.InfrastructureInterfaces.Services.LoadServices
 {
     public interface ILoadService
     {

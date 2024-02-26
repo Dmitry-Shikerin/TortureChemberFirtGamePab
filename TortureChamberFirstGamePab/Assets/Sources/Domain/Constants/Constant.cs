@@ -202,7 +202,6 @@
             public const int SaveDelay = 2;
         }
 
-        //TODO поправить кнопки рекламы
         public static class InterstitialService
         {
             public const int ShowDelay = 7;
