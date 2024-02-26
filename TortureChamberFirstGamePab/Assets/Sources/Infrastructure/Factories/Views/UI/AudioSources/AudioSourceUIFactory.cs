@@ -91,5 +91,19 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
 
             return audioSourceUI;
         }
+
+        public ITripleAudioSourceUI Create
+        (
+            IFourthAudioSourceActivator audioSourceActivator,
+            TripleAudioSourceUI tripleAudioSourceUI
+        )
+        {
+            FourthCallBackAudioSourceUIPresenter fourthCallBackAudioSourceUIPresenter =
+                _presenterFactory.Create(audioSourceActivator, tripleAudioSourceUI);
+            
+            tripleAudioSourceUI.Construct(fourthCallBackAudioSourceUIPresenter);
+
+            return tripleAudioSourceUI;
+        }
     }
 }

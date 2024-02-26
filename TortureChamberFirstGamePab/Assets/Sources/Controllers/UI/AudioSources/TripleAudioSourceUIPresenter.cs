@@ -3,7 +3,7 @@ using Sources.PresentationInterfaces.UI.AudioSources;
 
 namespace Sources.Controllers.UI.AudioSources
 {
-    public class TripleAudioSourceUIPresenter : PresenterBase
+    public class TripleAudioSourceUIPresenter : AudioSourceUIPresenterBase
     {
         private readonly ITripleAudioSourceActivator _audioSourceActivator;
         private readonly ITripleAudioSourceUI _audioSourceUI;

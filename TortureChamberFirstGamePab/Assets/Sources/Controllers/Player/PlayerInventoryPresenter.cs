@@ -131,6 +131,7 @@ namespace Sources.Controllers.Player
             try
             {
                 _playerInventory.LockGiveAbility();
+                _playerInventory.StartGiveItem();
 
                 for (int i = 0; i < _playerInventory.Items.Count; i++)
                 {
@@ -141,20 +142,24 @@ namespace Sources.Controllers.Player
                         await backGroundImage.FillMoveTowardsAsync(
                             _playerInventoryView.FillingRate, cancellationToken);
 
+                        _playerInventory.StopGiveItem();
                         return RemoveItem(backGroundImage, i);
                     }
                 }
 
+                _playerInventory.StopGiveItem();
                 _playerInventory.SetGiveAbility();
                 return null;
             }
             catch (NullItemException)
             {
+                _playerInventory.StopGiveItem();
                 _playerInventory.SetGiveAbility();
                 return null;
             }
             catch (OperationCanceledException)
             {
+                _playerInventory.StopGiveItem();
                 _playerInventory.SetGiveAbility();
                 backGroundImage?.SetFillAmount(1);
                 return null;

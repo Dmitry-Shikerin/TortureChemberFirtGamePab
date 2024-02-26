@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Sources.Presentation.UI.AudioSources
 {
-    public class TripleAudioSourceUI : PresentableView<TripleAudioSourceUIPresenter>, ITripleAudioSourceUI
+    public class TripleAudioSourceUI : PresentableView<AudioSourceUIPresenterBase>, ITripleAudioSourceUI
     {
         [field: SerializeField] public AudioSourceView FirstAudioSourceView { get; private set; }
         [field: SerializeField] public AudioSourceView SecondAudioSourceView { get; private set; }

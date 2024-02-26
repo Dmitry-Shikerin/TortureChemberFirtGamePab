@@ -158,6 +158,7 @@
             public const string AnonymousName = "Anonymous";
         }
         
+        //TODO ставить звук на паузу в IAudioSource
         public static class Forms
         {
             public const string PrefabPath = "Views/Forms";

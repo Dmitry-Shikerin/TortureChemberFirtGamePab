@@ -9,11 +9,15 @@ namespace Sources.Infrastructure.Services.PauseServices
 {
     public class PauseService : IPauseService
     {
+        public event Action PauseActivated;
+        public event Action ContinueActivated;
+        
         public bool IsPaused { get; private set; }
 
         public void Pause()
         {
             IsPaused = true;
+            PauseActivated?.Invoke();
             Time.timeScale = Constant.TimeScaleValue.Min;
         }
 
@@ -23,6 +27,7 @@ namespace Sources.Infrastructure.Services.PauseServices
         public void Continue()
         {
             IsPaused = false;
+            ContinueActivated?.Invoke();
             Time.timeScale = Constant.TimeScaleValue.Max;
         }
 

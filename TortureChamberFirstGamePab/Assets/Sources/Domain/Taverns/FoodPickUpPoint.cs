@@ -8,10 +8,18 @@ namespace Sources.Domain.Taverns
         public event Action FirstAudioSourceActivated;
         public event Action SecondAudioSourceActivated;
 
-        public void StartAudioSource() => 
-            FirstAudioSourceActivated?.Invoke();
+        public bool IsActive { get; set; }
 
-        public void StopAudioSource() => 
+        public void StartAudioSource()
+        {
+            IsActive = true;
+            FirstAudioSourceActivated?.Invoke();
+        }
+
+        public void StopAudioSource()
+        {
+            IsActive = false;
             SecondAudioSourceActivated?.Invoke();
+        }
     }
 }

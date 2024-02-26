@@ -6,5 +6,7 @@ namespace Sources.DomainInterfaces.UI.AudioSourcesActivators
     {
         event Action FirstAudioSourceActivated;
         event Action SecondAudioSourceActivated;
+        
+        bool IsActive { get; }
     }
 }

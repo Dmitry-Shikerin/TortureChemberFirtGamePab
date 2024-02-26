@@ -9,17 +9,24 @@ namespace Sources.Domain.Items.Garbages
     {
         public event Action FirstAudioSourceActivated;
         public event Action SecondAudioSourceActivated;
-        
+
+        public bool IsActive { get; private set; }
         public IEatPointView EatPointView { get; private set; }
 
 
         public void SetEatPointView(IEatPointView eatPointView) => 
             EatPointView = eatPointView;
 
-        public void StartAudioSource() => 
+        public void StartAudioSource()
+        {
+            IsActive = true;
             FirstAudioSourceActivated?.Invoke();
+        }
 
-        public void StopAudioSource() => 
+        public void StopAudioSource()
+        {
+            IsActive = false;
             SecondAudioSourceActivated?.Invoke();
+        }
     }
 }
