@@ -1,7 +1,6 @@
 ﻿using System;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
-using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
@@ -9,8 +8,6 @@ using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.Presentation.Views.Forms.Gameplays;
-using Sources.PresentationInterfaces.Views.Forms.MainMenus;
-using Sources.PresentationInterfaces.Views.Players;
 
 namespace Sources.Controllers.Forms.Gameplays
 {

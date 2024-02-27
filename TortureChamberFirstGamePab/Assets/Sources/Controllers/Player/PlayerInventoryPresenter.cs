@@ -128,6 +128,7 @@ namespace Sources.Controllers.Player
         {
             IImageUI backGroundImage = null;
 
+            //TODO как сделать паузу в таймСпанах?
             try
             {
                 _playerInventory.LockGiveAbility();

@@ -23,13 +23,12 @@ namespace Sources.Presentation.UI.AudioSources
         public void Pause() => 
             _audioSource.Pause();
 
-        public void Continue() => 
-            _audioSource.Play();
+        public void UnPause() => 
+            _audioSource.UnPause();
 
+        //TODO сделать уравление звуком для аудиосоурсов кнопок
         public void SetVolume(float value)
         {
-            value = Mathf.Clamp(value, Constant.Volume.Min, Constant.Volume.Min);
-            
             _audioSource.volume = value;
         }
     }

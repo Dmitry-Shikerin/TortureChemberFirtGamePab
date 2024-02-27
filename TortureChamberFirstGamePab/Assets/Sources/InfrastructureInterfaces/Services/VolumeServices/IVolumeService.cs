@@ -1,8 +1,12 @@
-﻿using Sources.InfrastructureInterfaces.StateMachines.SceneStateMachines;
+﻿using System;
+using Sources.InfrastructureInterfaces.StateMachines.SceneStateMachines;
 
 namespace Sources.InfrastructureInterfaces.Services.VolumeServices
 {
     public interface IVolumeService : IEnterable, IExitable
     {
+        event Action<float> VolumeChanged; 
+        
+        float Volume { get; }
     }
 }

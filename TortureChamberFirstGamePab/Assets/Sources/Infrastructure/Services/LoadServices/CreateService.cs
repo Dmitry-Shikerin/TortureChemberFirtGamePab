@@ -38,6 +38,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public CreateService
         (
+            BackgroundMusicViewFactory backgroundMusicViewFactory,
             Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
@@ -73,6 +74,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                backgroundMusicViewFactory,
                 setting,
                 foodPickUpPointsViewFactory,
                 audioSourceUIFactory,

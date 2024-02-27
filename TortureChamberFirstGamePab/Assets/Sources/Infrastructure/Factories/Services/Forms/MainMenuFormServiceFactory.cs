@@ -3,6 +3,7 @@ using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Players;
+using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Forms;
@@ -23,6 +24,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class MainMenuFormServiceFactory
     {
+        private readonly IDataService<Setting> _settingDataService;
+        private readonly Setting _setting;
         private readonly AuthorizationFormPresenterFactory _authorizationFormPresenterFactory;
         private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
@@ -38,6 +41,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
         public MainMenuFormServiceFactory
         (
+            IDataService<Setting> settingDataService,
+            Setting setting,
             AuthorizationFormPresenterFactory authorizationFormPresenterFactory,
             SettingFormPresenterFactory settingFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
@@ -52,6 +57,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             IPlayerAccountAuthorizeService playerAccountAuthorizeService
         )
         {
+            _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
+            _setting = setting ?? throw new ArgumentNullException(nameof(setting));
             _authorizationFormPresenterFactory =
                 authorizationFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(authorizationFormPresenterFactory));
@@ -91,7 +98,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             Form<SettingFormView, SettingFormPresenter> settingForm =
                 new Form<SettingFormView, SettingFormPresenter>(
-                    _settingFormPresenterFactory.Create, _mainMenuHUD.MainMenuFormsContainer.SettingFormView);
+                    _settingFormPresenterFactory.Create, 
+                    _mainMenuHUD.MainMenuFormsContainer.SettingFormView);
 
             _formService.Add(settingForm);
 
@@ -139,7 +147,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             //SettingsButton
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.BackToMainMenu,
-                _mainMenuHUD.MainMenuFormsContainer.SettingFormView.BackToMainMenu<MainMenuFormView>);
+               () =>
+               {
+                   _mainMenuHUD.MainMenuFormsContainer.SettingFormView.BackToMainMenu<MainMenuFormView>();
+                   //TODO заработает ли здесь?
+                   // _settingDataService.Save(_setting);
+               });
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.IncreaseVolume,
                 _mainMenuHUD.MainMenuFormsContainer.SettingFormView.IncreaseVolume);
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.SettingFormButtonContainer.TornDownVolume,
@@ -152,6 +165,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             return _formService;
         }
 
+        //TODO сработает ли такое условие для загрузки?
         private bool CanLoad() =>
             _playerDataService.CanLoad && _tavernDateService.CanLoad && _upgradeDateService.CanLoad;
     }

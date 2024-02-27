@@ -11,4 +11,9 @@ namespace Sources.DomainInterfaces.UI.AudioSourcesActivators
         event Action ThirdAudioSourceActivated;
         event Action FourthAudioSourceActivated;
     }
+
+    public enum Sounds
+    {
+        
+    }
 }

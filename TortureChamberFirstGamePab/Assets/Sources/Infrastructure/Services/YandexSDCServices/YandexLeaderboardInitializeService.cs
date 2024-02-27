@@ -5,7 +5,6 @@ using Agava.YandexGames;
 using Sources.Domain.Constants;
 using Sources.Domain.YandexSDC;
 using Sources.Infrastructure.Factories.Views.YandexSDC;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using Sources.Presentation.Views.YandexSDC.MyVariant;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -33,7 +32,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (WebApplication.IsRunningOnWebGL == false)
                 return;
 
-            if (PlayerAccount.IsAuthorized)
+            if (PlayerAccount.IsAuthorized == false)
                 return;
 
             Leaderboard.GetEntries(Constant.LeaderboardNames.LeaderboardName,

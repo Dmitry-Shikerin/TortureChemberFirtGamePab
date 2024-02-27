@@ -6,12 +6,14 @@ using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
+using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.UI.Conteiners.Buttons;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Player.Inventory;
 using Sources.Presentation.Views.Taverns;
+using Sources.Presentation.Views.Taverns.BackGroundMusics;
 using Sources.Presentation.Views.Taverns.UpgradePoints;
 using Sources.Presentation.Views.UIs;
 using UnityEngine;
@@ -44,5 +46,6 @@ namespace Sources.Presentation.Voids
             SettingFormButtonContainer { get; private set; }
         [field: SerializeField] public JoysticksContainer JoysticksContainer { get; private set; }
         [field: SerializeField] public GameOverTextContainer GameOverTextContainer { get; private set; }
+        [field: SerializeField] public BackgroundMusicView BackgroundMusicView { get; private set; }
     }
 }

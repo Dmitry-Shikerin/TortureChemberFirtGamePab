@@ -3,6 +3,7 @@ using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
+using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
@@ -10,6 +11,7 @@ using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Views.Forms.MainMenus;
+using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -17,6 +19,7 @@ namespace Sources.Controllers.Scenes
     {
         private readonly MainMenuHUD _mainMenuHUD;
 
+        private readonly BackgroundMusicViewFactory _backgroundMusicViewFactory;
         private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
@@ -31,9 +34,9 @@ namespace Sources.Controllers.Scenes
 
         public MainMenuScene
         (
+            BackgroundMusicViewFactory backgroundMusicViewFactory,
             IDataService<Setting> settingDataService,
             IVolumeService volumeService,
-            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
@@ -46,10 +49,12 @@ namespace Sources.Controllers.Scenes
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
-            _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
+            _backgroundMusicViewFactory = 
+                backgroundMusicViewFactory ??
+                throw new ArgumentNullException(nameof(backgroundMusicViewFactory));
+            _settingDataService = settingDataService ?? 
+                                  throw new ArgumentNullException(nameof(settingDataService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
-            _backgroundMusicService = backgroundMusicService ?? 
-                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ?? 
                                    throw new ArgumentNullException(nameof(localizationService));
             _leaderboardFormPresenterFactory =
@@ -65,8 +70,9 @@ namespace Sources.Controllers.Scenes
             _sdkInitializeService = sdkInitializeService ??
                                     throw new ArgumentNullException(nameof(sdkInitializeService));
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
-            _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
-                                          throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
+            _mainMenuFormServiceFactory = 
+                mainMenuFormServiceFactory ??
+                throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
         }
 
         public string Name { get; } = nameof(MainMenuScene);
@@ -80,19 +86,19 @@ namespace Sources.Controllers.Scenes
                 .Show<MainMenuFormView>();
             
             _mainMenuHUD.Show();
-            
-            _backgroundMusicService.Enter();
-            _volumeService.Enter();
 
-            _sdkInitializeService.GameReady();
+            //TODo скачать приложение для проверки веба
+            _volumeService.Enter();
+            
+            _backgroundMusicViewFactory.Create(_mainMenuHUD.BackgroundMusicView);
+
             _focusService.Enter();
             _localizationService.Enter();
-            _yandexLeaderboardInitializeService.Fill();
+            _sdkInitializeService.GameReady();
         }
 
         public void Exit()
         {
-            _backgroundMusicService.Exit();
             _volumeService.Exit();
             
             _focusService.Exit();

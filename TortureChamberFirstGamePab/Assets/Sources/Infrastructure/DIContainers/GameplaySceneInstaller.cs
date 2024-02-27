@@ -43,6 +43,7 @@ using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.Cameras;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.Movement;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Containers.UI.Texts;
@@ -72,7 +73,6 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
-        [SerializeField] private AudioSourceView _backgroundAudioSource;
         
         public override void InstallBindings()
         {
@@ -82,11 +82,14 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
 
-            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
-                .FromInstance(new BackgroundMusicService(_backgroundAudioSource)).AsSingle();
-            
             HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
+            
+            Container.Bind<BackgroundMusicPresenterFactory>().AsSingle();
+            Container.Bind<BackgroundMusicViewFactory>().AsSingle();
+            // Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
+            //     .FromInstance(new BackgroundMusicService(hud.BackgroundAudioSource,
+            //         Container.Resolve<IVolumeService>())).AsSingle();
 
             Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle();
             Container.Bind<LeanLocalization>().FromInstance(hud.LeanLocalization).AsSingle();

@@ -71,7 +71,7 @@
             public const float SpawnDelay = 5f;
             public const int MaximumQuantity = 2;
             public const float EatFillingRate = 0.2f;
-            public const float WaitingEatFillingRate = 0.02f;
+            public const float WaitingEatFillingRate = 0.01f;
         }
 
         public static class PrefabPaths
@@ -158,7 +158,6 @@
             public const string AnonymousName = "Anonymous";
         }
         
-        //TODO ставить звук на паузу в IAudioSource
         public static class Forms
         {
             public const string PrefabPath = "Views/Forms";

@@ -6,6 +6,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 {
     public abstract class DataServiceBase
     {
+        //TODO плохо работает
         protected T LoadData<T>(string key) where T : IDataModel
         {
             string json = PlayerPrefs.GetString(key, string.Empty);

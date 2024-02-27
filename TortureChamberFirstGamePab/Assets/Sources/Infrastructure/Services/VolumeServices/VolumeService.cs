@@ -15,6 +15,10 @@ namespace Sources.Infrastructure.Services.VolumeServices
             _volume = setting.Volume ?? throw new NullReferenceException(nameof(setting.Volume));
         }
 
+        public event Action<float> VolumeChanged;
+
+        public float Volume => _volume.VolumeValue;
+        
         public void Enter(object payload = null)
         {
             OnVolumeChanged();
@@ -26,6 +30,6 @@ namespace Sources.Infrastructure.Services.VolumeServices
             _volume.VolumeChanged -= OnVolumeChanged;
 
         private void OnVolumeChanged() => 
-            AudioListener.volume = _volume.VolumeValue;
+            VolumeChanged?.Invoke(_volume.VolumeValue);
     }
 }

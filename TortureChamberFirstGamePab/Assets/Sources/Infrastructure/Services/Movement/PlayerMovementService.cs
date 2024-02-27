@@ -55,7 +55,6 @@ namespace Sources.Infrastructure.Services.Movement
             return Mathf.MoveTowards(currentAnimationSpeed, speed, Time.deltaTime * delta);
         }
 
-        //TODO добавить звуки когда отдаешь продукт
         public float GetSpeed(float runInput, float currentSpeed, PlayerInput playerInput)
         {
             float delta = 4;

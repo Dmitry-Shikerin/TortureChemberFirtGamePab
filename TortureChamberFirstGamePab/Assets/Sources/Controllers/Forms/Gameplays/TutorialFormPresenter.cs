@@ -64,14 +64,14 @@ namespace Sources.Controllers.Forms.Gameplays
         }
 
         //TODO временное решение
-        public void ClearCompleteTutorial()
-        {
-            _setting.Tutorial.HasCompleted = false;
-            
-            _settingDataService.Save(_setting);
-            
-            Debug.Log("Tutorial очищен");
-        }
+        // public void ClearCompleteTutorial()
+        // {
+        //     _setting.Tutorial.HasCompleted = false;
+        //     
+        //     _settingDataService.Save(_setting);
+        //     
+        //     Debug.Log("Tutorial очищен");
+        // }
         
         private void OnScrollValueChanged(Vector2 value)
         {

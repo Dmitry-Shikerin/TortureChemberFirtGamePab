@@ -10,6 +10,7 @@ namespace Sources.Domain.YandexSDC
             Rank = leaderboardEntryResponse.rank;
             Name = leaderboardEntryResponse.player.publicName;
             
+            //TODo сделать проверку на язык и локализовать
             if (string.IsNullOrEmpty(leaderboardEntryResponse.player.publicName))
                 Name = Constant.LeaderboardNames.AnonymousName;
 

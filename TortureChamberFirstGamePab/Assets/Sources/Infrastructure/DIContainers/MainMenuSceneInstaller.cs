@@ -1,16 +1,19 @@
 ﻿using Lean.Localization;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
+using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.YandexSDC;
 using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Factories.Services.Forms;
+using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.YandexSDC;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.YandexSDC.MyVariant;
 using UnityEngine;
@@ -50,8 +53,12 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<IPlayerAccountAuthorizeService>().To<PlayerAccountAuthorizeService>().AsSingle();
 
             Container.Bind<MainMenuFormServiceFactory>().AsSingle();
-            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
-                .FromInstance(new BackgroundMusicService(_mainMenuHUD.BackGroundAudioSourceView)).AsSingle();
+            //TODO переделать на презентер
+            Container.Bind<BackgroundMusicPresenterFactory>().AsSingle();
+            Container.Bind<BackgroundMusicViewFactory>().AsSingle();
+            // Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
+            //     .FromInstance(new BackgroundMusicService(_mainMenuHUD.BackGroundAudioSourceView
+            //     , Container.Resolve<IVolumeService>())).AsSingle();
         }
     }
 }
