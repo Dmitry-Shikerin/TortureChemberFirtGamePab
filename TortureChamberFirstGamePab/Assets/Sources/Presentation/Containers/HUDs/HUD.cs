@@ -1,11 +1,13 @@
 using System;
 using Lean.Localization;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Presentation.Containers.Forms;
 using Sources.Presentation.Containers.UI;
 using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
+using Sources.Presentation.UI.AudioSources.BackgroundMusics;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.UI.Conteiners.Buttons;
@@ -44,5 +46,6 @@ namespace Sources.Presentation.Voids
             SettingFormButtonContainer { get; private set; }
         [field: SerializeField] public JoysticksContainer JoysticksContainer { get; private set; }
         [field: SerializeField] public GameOverTextContainer GameOverTextContainer { get; private set; }
+        [field: SerializeField] public BackgroundMusicView BackgroundMusicView { get; private set; }
     }
 }

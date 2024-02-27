@@ -17,6 +17,7 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
@@ -50,6 +51,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         private readonly HUD _hud;
         private readonly RootGamePoints _rootGamePoints;
         private readonly PlayerCameraView _playerCameraView;
+        private readonly BackgroundMusicViewFactory _backgroundMusicViewFactory;
         private readonly Setting _setting;
         private readonly FoodPickUpPointsViewFactory _foodPickUpPointsViewFactory;
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
@@ -78,6 +80,7 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected LoadServiceBase
         (
+            BackgroundMusicViewFactory backgroundMusicViewFactory,
             Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
@@ -117,6 +120,7 @@ namespace Sources.Infrastructure.Services.LoadServices
             _playerCameraView = playerCameraView
                 ? playerCameraView
                 : throw new ArgumentNullException(nameof(playerCameraView));
+            _backgroundMusicViewFactory = backgroundMusicViewFactory ?? throw new ArgumentNullException(nameof(backgroundMusicViewFactory));
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
             _foodPickUpPointsViewFactory = foodPickUpPointsViewFactory ??
                                            throw new ArgumentNullException(nameof(foodPickUpPointsViewFactory));
@@ -216,6 +220,9 @@ namespace Sources.Infrastructure.Services.LoadServices
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
 
+            //BackgroundMusicView
+            _backgroundMusicViewFactory.Create(_hud.BackgroundMusicView);
+            
             //TavernPickUpPoints
             FoodPickUpPointContainer foodPickUpPointContainer = new FoodPickUpPointContainer
             (

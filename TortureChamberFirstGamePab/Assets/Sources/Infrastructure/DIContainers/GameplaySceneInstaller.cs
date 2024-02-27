@@ -47,7 +47,6 @@ using Sources.InfrastructureInterfaces.Spawners;
 using Sources.Presentation.Containers.GamePoints;
 using Sources.Presentation.Containers.UI.Texts;
 using Sources.Presentation.Triggers.Taverns;
-using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.UI.Conteiners;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Items.Coins;
@@ -72,7 +71,6 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
-        [SerializeField] private AudioSourceView _backgroundAudioSource;
         
         public override void InstallBindings()
         {
@@ -81,9 +79,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<RootGamePoints>().FromInstance(_rootGamePoints).AsSingle();
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
-
-            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
-                .FromInstance(new BackgroundMusicService(_backgroundAudioSource)).AsSingle();
             
             HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();

@@ -4,18 +4,16 @@ using Sources.Controllers.Scenes;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.DataAccess.Containers.Settings;
-using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
-using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
-using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 
@@ -23,6 +21,7 @@ namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly BackgroundMusicViewFactory _backgroundMusicViewFactory;
         private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
         private readonly IBackgroundMusicService _backgroundMusicService;
@@ -43,9 +42,9 @@ namespace Sources.Infrastructure.Factories.Scenes
 
         public MainMenuSceneFactory
         (
+            BackgroundMusicViewFactory backgroundMusicViewFactory,
             IDataService<Setting> settingDataService,
             IVolumeService volumeService,
-            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             LeaderboardFormPresenterFactory leaderboardFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
@@ -60,10 +59,10 @@ namespace Sources.Infrastructure.Factories.Scenes
             MainMenuFormServiceFactory mainMenuFormServiceFactory
         )
         {
+            _backgroundMusicViewFactory = backgroundMusicViewFactory ?? 
+                                          throw new ArgumentNullException(nameof(backgroundMusicViewFactory));
             _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
-            _backgroundMusicService = backgroundMusicService ??
-                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _leaderboardFormPresenterFactory = 
@@ -92,9 +91,9 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _backgroundMusicViewFactory,
                 _settingDataService,
                 _volumeService,
-                _backgroundMusicService,
                 _localizationService,
                 _leaderboardFormPresenterFactory,
                 _mainMenuFormPresenterFactory,

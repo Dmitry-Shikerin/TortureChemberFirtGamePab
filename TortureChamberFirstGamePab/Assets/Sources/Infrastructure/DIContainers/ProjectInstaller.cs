@@ -2,7 +2,9 @@
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
+using Sources.Infrastructure.Factories.Controllers.UI.AudioSources;
 using Sources.Infrastructure.Factories.Prefabs;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.PauseServices;
 using Sources.Infrastructure.Services.VolumeServices;
@@ -32,6 +34,9 @@ namespace Sources.Infrastructure.DIContainers
             
             Container.Bind<IInitializeService>().To<SDKInitializeService>().AsSingle();
             Container.Bind<IFocusService>().To<FocusService>().AsSingle();
+
+            Container.Bind<BackgroundMusicPresenterFactory>().AsSingle();
+            Container.Bind<BackgroundMusicViewFactory>().AsSingle();
         }
     }
 }

@@ -48,7 +48,6 @@ namespace Sources.Infrastructure.Factories.Scenes
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
-            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -73,7 +72,6 @@ namespace Sources.Infrastructure.Factories.Scenes
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ?? 
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
-            _backgroundMusicService = backgroundMusicService ?? throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService;
@@ -99,7 +97,6 @@ namespace Sources.Infrastructure.Factories.Scenes
                 _advertisingAfterCertainPeriodService,
                 _saveAfterCertainPeriodService,
                 _gameOverService,
-                _backgroundMusicService,
                 _localizationService,
                 _focusService,
                 _hud,

@@ -7,7 +7,6 @@ using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.YandexSDC;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
@@ -50,8 +49,6 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<IPlayerAccountAuthorizeService>().To<PlayerAccountAuthorizeService>().AsSingle();
 
             Container.Bind<MainMenuFormServiceFactory>().AsSingle();
-            Container.Bind<IBackgroundMusicService>().To<BackgroundMusicService>()
-                .FromInstance(new BackgroundMusicService(_mainMenuHUD.BackGroundAudioSourceView)).AsSingle();
         }
     }
 }

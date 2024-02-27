@@ -3461,6 +3461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562352162}
+  - component: {fileID: 1562352165}
   - component: {fileID: 1562352163}
   - component: {fileID: 1562352164}
   m_Layer: 5
@@ -3598,6 +3599,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1562352165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562352161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcbae40eaea687499efab466501a690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BackgroundMusic>k__BackingField: {fileID: 1562352163}
+  <ButtonSound>k__BackingField: {fileID: 3686468907829942801}
 --- !u!1 &1592634745
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,6 +4967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1054322602249914412}
   - component: {fileID: 3686468907829942800}
+  - component: {fileID: 3686468907829942801}
   - component: {fileID: 31033111243534117}
   m_Layer: 5
   m_Name: GlobalButtonAudioSourse_AudioSourse
@@ -7102,6 +7118,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231539527437379413}
   m_CullTransparentMesh: 1
+--- !u!114 &3686468907829942801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231539527437379413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda7abd4ca164ef6a8882ea2196010a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 31033111243534117}
 --- !u!224 &3751456019971861708
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7598,7 +7627,7 @@ MonoBehaviour:
   <LeaderboardElementViewContainer>k__BackingField: {fileID: 375657308304269180}
   <LeanLocalization>k__BackingField: {fileID: 7145739341089672619}
   <MainMenuFormsContainer>k__BackingField: {fileID: 1504228459821243474}
-  <BackGroundAudioSourceView>k__BackingField: {fileID: 1562352163}
+  <BackgroundMusicView>k__BackingField: {fileID: 1562352165}
 --- !u!224 &5035924502645663228
 RectTransform:
   m_ObjectHideFlags: 0

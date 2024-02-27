@@ -40,7 +40,6 @@ namespace Sources.Controllers.Scenes
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
-            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -64,8 +63,6 @@ namespace Sources.Controllers.Scenes
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
-            _backgroundMusicService = backgroundMusicService ??
-                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
@@ -91,7 +88,6 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Enter();
             _visitorSpawnService.Enter();
             _pauseMenuService.Enter();
-            _backgroundMusicService.Enter();
             _gameOverService.Enter();
             _saveAfterCertainPeriodService.Enter(_loadService);
             _advertisingAfterCertainPeriodService.Enter();
@@ -108,7 +104,6 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Exit();
             _visitorSpawnService.Exit();
             _pauseMenuService.Exit();
-            _backgroundMusicService.Exit();
             _gameOverService.Exit();
             _saveAfterCertainPeriodService.Exit();
             _advertisingAfterCertainPeriodService.Exit();
