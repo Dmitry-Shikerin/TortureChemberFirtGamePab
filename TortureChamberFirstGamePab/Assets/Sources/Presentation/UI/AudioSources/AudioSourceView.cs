@@ -24,12 +24,10 @@ namespace Sources.Presentation.UI.AudioSources
             _audioSource.Pause();
 
         public void Continue() => 
-            _audioSource.Play();
+            _audioSource.UnPause();
 
         public void SetVolume(float value)
         {
-            value = Mathf.Clamp(value, Constant.Volume.Min, Constant.Volume.Min);
-            
             _audioSource.volume = value;
         }
     }

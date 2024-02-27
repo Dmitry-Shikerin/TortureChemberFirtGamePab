@@ -2,7 +2,6 @@
 using Agava.WebUtility;
 using Agava.YandexGames;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {

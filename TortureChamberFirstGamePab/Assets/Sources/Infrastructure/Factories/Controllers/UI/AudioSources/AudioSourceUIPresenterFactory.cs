@@ -2,6 +2,7 @@
 using Sources.Controllers.UI.AudioSources;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
 namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
@@ -9,10 +10,16 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
     public class AudioSourceUIPresenterFactory
     {
         private readonly IPauseService _pauseService;
+        private readonly IVolumeService _volumeService;
 
-        public AudioSourceUIPresenterFactory(IPauseService pauseService)
+        public AudioSourceUIPresenterFactory
+        (
+            IPauseService pauseService,
+            IVolumeService volumeService
+        )
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
         }
 
         public AudioSourceUIPresenter Create
@@ -21,13 +28,14 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IAudioSourceUI audioSourceUI
         )
         {
-            if (audioSourceActivator == null) 
+            if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
-            if (audioSourceUI == null) 
+
+            if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
-            
-            return new AudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
+
+            return new AudioSourceUIPresenter(audioSourceActivator, 
+                audioSourceUI, _volumeService, _pauseService);
         }
 
         public DoubleAudioSourceUIPresenter Create
@@ -38,11 +46,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
         {
             if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
+
             if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
-            
-            return new DoubleAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
+
+            return new DoubleAudioSourceUIPresenter(audioSourceActivator, 
+                audioSourceUI, _pauseService, _volumeService);
         }
 
         public TripleAudioSourceUIPresenter Create
@@ -53,11 +62,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
         {
             if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
-            if (audioSourceUI == null) 
+
+            if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
-            
-            return new TripleAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
+
+            return new TripleAudioSourceUIPresenter(audioSourceActivator,
+                audioSourceUI, _volumeService);
         }
 
         public FourthAudioSourceUIPresenter Create
@@ -66,13 +76,14 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IFourthAudioSourceUI audioSourceUI
         )
         {
-            if (audioSourceActivator == null) 
+            if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
-            if (audioSourceUI == null) 
+
+            if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
-            
-            return new FourthAudioSourceUIPresenter(audioSourceActivator, audioSourceUI);
+
+            return new FourthAudioSourceUIPresenter(audioSourceActivator,
+                audioSourceUI, _pauseService, _volumeService);
         }
 
         public DoubleCallbackAudioSourceUIPresenter Create
@@ -81,13 +92,14 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             IAudioSourceUI audioSourceUI
         )
         {
-            if (audioSourceActivator == null) 
+            if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
+
             if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
-            
-            return new DoubleCallbackAudioSourceUIPresenter(audioSourceActivator, audioSourceUI, _pauseService);
+
+            return new DoubleCallbackAudioSourceUIPresenter(audioSourceActivator,
+                audioSourceUI, _pauseService, _volumeService);
         }
 
         public FourthCallBackAudioSourceUIPresenter Create
@@ -96,13 +108,14 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
             ITripleAudioSourceUI tripleAudioSourceUI
         )
         {
-            if (audioSourceActivator == null) 
+            if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
-            
+
             if (tripleAudioSourceUI == null)
                 throw new ArgumentNullException(nameof(tripleAudioSourceUI));
 
-            return new FourthCallBackAudioSourceUIPresenter(audioSourceActivator, tripleAudioSourceUI, _pauseService);
+            return new FourthCallBackAudioSourceUIPresenter(audioSourceActivator,
+                tripleAudioSourceUI, _pauseService, _volumeService);
         }
     }
 }

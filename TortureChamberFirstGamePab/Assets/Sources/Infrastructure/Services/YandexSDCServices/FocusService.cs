@@ -2,7 +2,6 @@
 using Agava.WebUtility;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -51,7 +50,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             }
             
             _pauseService.Continue();
-            _pauseService.PauseSound();
+            _pauseService.ContinueSound();
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
@@ -65,7 +64,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             }
             
             _pauseService.Continue();
-            _pauseService.PauseSound();
+            _pauseService.ContinueSound();
         }
     }
 }

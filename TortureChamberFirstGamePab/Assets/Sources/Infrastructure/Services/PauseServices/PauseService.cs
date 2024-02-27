@@ -11,7 +11,9 @@ namespace Sources.Infrastructure.Services.PauseServices
     {
         public event Action PauseActivated;
         public event Action ContinueActivated;
-        
+        public event Action PauseSoundActivated;
+        public event Action ContinueSoundActivated;
+
         public bool IsPaused { get; private set; }
 
         public void Pause()
@@ -21,8 +23,11 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Min;
         }
 
-        public void PauseSound() => 
-            AudioListener.pause = true;
+        public void PauseSound()
+        {
+            // AudioListener.pause = true;
+            PauseSoundActivated?.Invoke();
+        }
 
         public void Continue()
         {
@@ -31,8 +36,11 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Max;
         }
 
-        public void ContinueSound() => 
-            AudioListener.pause = false;
+        public void ContinueSound()
+        {
+            // AudioListener.pause = false;
+            PauseSoundActivated?.Invoke();
+        }
 
         public async UniTask Yield(CancellationToken cancellationToken)
         {

@@ -1,4 +1,6 @@
-﻿using Sources.DomainInterfaces.UI.AudioSourcesActivators;
+﻿using System;
+using Sources.DomainInterfaces.UI.AudioSourcesActivators;
+using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.PresentationInterfaces.UI.AudioSources;
 
 namespace Sources.Controllers.UI.AudioSources
@@ -7,15 +9,19 @@ namespace Sources.Controllers.UI.AudioSources
     {
         private readonly ITripleAudioSourceActivator _audioSourceActivator;
         private readonly ITripleAudioSourceUI _audioSourceUI;
+        private readonly IVolumeService _volumeService;
 
         public TripleAudioSourceUIPresenter
         (
             ITripleAudioSourceActivator audioSourceActivator,
-            ITripleAudioSourceUI audioSourceUI
+            ITripleAudioSourceUI audioSourceUI,
+            IVolumeService volumeService
         )
         {
-            _audioSourceActivator = audioSourceActivator;
-            _audioSourceUI = audioSourceUI;
+            _audioSourceActivator = audioSourceActivator ?? 
+                                    throw new ArgumentNullException(nameof(audioSourceActivator));
+            _audioSourceUI = audioSourceUI ?? throw new ArgumentNullException(nameof(audioSourceUI));
+            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
         }
 
         public override void Enable()
@@ -23,6 +29,8 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceActivator.FirstAudioSourceActivated += OnFirstAudioSourceActivate;
             _audioSourceActivator.SecondAudioSourceActivated += OnSecondAudioSourceActivate;
             _audioSourceActivator.ThirdAudioSourceActivated += OnThirdAudioSourceActivate;
+
+            _volumeService.VolumeChanged += OnVolumeChanged;
         }
 
         public override void Disable()
@@ -30,6 +38,15 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceActivator.FirstAudioSourceActivated -= OnFirstAudioSourceActivate;
             _audioSourceActivator.SecondAudioSourceActivated -= OnSecondAudioSourceActivate;
             _audioSourceActivator.ThirdAudioSourceActivated -= OnThirdAudioSourceActivate;
+            
+            _volumeService.VolumeChanged -= OnVolumeChanged;
+        }
+
+        private void OnVolumeChanged()
+        {
+            _audioSourceUI.FirstAudioSourceView.SetVolume(_volumeService.Volume);
+            _audioSourceUI.SecondAudioSourceView.SetVolume(_volumeService.Volume);
+            _audioSourceUI.ThirdAudioSourceView.SetVolume(_volumeService.Volume);
         }
 
         private void OnFirstAudioSourceActivate() => 

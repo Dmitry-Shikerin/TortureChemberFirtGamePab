@@ -7,9 +7,7 @@ using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
@@ -63,15 +61,6 @@ namespace Sources.Controllers.Forms.Gameplays
             _settingDataService.Save(_setting);
         }
 
-        //TODO временное решение
-        public void ClearCompleteTutorial()
-        {
-            _setting.Tutorial.HasCompleted = false;
-            
-            _settingDataService.Save(_setting);
-            
-            Debug.Log("Tutorial очищен");
-        }
         
         private void OnScrollValueChanged(Vector2 value)
         {
