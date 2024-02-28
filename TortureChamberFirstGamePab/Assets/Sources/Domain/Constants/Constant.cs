@@ -70,8 +70,8 @@
         {
             public const float SpawnDelay = 5f;
             public const int MaximumQuantity = 2;
-            public const float EatFillingRate = 0.2f;
-            public const float WaitingEatFillingRate = 0.01f;
+            public const float EatFillingRate = 0.15f;
+            public const float WaitingEatFillingRate = 0.008f;
         }
 
         public static class PrefabPaths
@@ -200,7 +200,7 @@
 
         public static class GarbageRandomizer
         {
-            public const int PositiveRange = 3;
+            public const int PositiveRange = 2;
             public const int MaximumRange = 10;
         }
         
