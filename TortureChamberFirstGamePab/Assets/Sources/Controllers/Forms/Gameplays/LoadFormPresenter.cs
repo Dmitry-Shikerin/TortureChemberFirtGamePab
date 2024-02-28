@@ -26,11 +26,19 @@ namespace Sources.Controllers.Forms.Gameplays
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public override void Enable() => 
+        public override void Enable()
+        {
+            Debug.Log($"{nameof(LoadFormPresenter)} Enable pause");
+            
             _pauseService.Pause();
+        }
 
-        public override void Disable() => 
+        public override void Disable()
+        {
+            Debug.Log($"{nameof(LoadFormPresenter)} Disable pause");
+            
             _pauseService.Continue();
+        }
 
         public void ShowHudForm() => 
             _formService.Show<HudFormView>();

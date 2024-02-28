@@ -3,6 +3,7 @@ using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Gameplays;
+using UnityEngine;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
@@ -24,11 +25,19 @@ namespace Sources.Controllers.Forms.Gameplays
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public override void Enable() => 
+        public override void Enable()
+        {
+            Debug.Log($"{nameof(PauseMenuFormPresenter)} Enable pause");
+            
             _pauseService.Pause();
+        }
 
-        public override void Disable() => 
+        public override void Disable()
+        {
+            Debug.Log($"{nameof(PauseMenuFormPresenter)} Disable pause");
+            
             _pauseService.Continue();
+        }
 
         public void ShowHudFormView() => 
             _formService.Show<HudFormView>();

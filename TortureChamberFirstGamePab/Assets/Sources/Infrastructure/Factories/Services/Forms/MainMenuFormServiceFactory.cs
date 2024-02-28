@@ -117,10 +117,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                     new LoadServicePayload(false));
             });
 
-            //TODO проверить весь юай когда он будет готов
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
             {
-                //TODO пока есть эта проверка постоянно показывается формочка авторизации
                 if (_playerAccountAuthorizeService.IsAuthorized() == false)
                 {
                     _formService.Show<AuthorizationFormView>();

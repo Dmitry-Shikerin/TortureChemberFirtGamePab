@@ -39,6 +39,7 @@ namespace Sources.Controllers.Forms
 
         public override void Enable()
         {
+            Debug.Log($"{nameof(SettingFormPresenter)} Enable pause");
             _pauseService.Pause();
 
             ShowSprites(Volume.Step);
@@ -46,6 +47,7 @@ namespace Sources.Controllers.Forms
 
         public override void Disable()
         {
+            Debug.Log($"{nameof(SettingFormPresenter)} Disable pause");
             _pauseService.Continue();
 
             _settingDataService.Save(_setting);

@@ -84,6 +84,8 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
+            Debug.Log($"{nameof(GamePlayScene)} enter");
+            
             _loadService.Load();
             _tavernUpgradePointService.OnEnable();
             _visitorQuantityService.Enter();

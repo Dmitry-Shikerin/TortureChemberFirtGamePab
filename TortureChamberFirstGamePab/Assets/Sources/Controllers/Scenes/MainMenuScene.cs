@@ -11,6 +11,7 @@ using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Views.Forms.MainMenus;
+using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -74,6 +75,8 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
+            Debug.Log($"{nameof(MainMenuScene)} enter");
+            
             _settingDataService.Load();
             
             _mainMenuFormServiceFactory
@@ -86,6 +89,7 @@ namespace Sources.Controllers.Scenes
             
             _volumeService.Enter();
 
+            //TODO если переходим с геймПлейсцены невключать?
             _sdkInitializeService.GameReady();
             _focusService.Enter();
             _localizationService.Enter();

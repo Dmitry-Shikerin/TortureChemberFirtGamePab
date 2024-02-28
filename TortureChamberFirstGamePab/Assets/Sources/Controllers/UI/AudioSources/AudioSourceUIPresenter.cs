@@ -38,6 +38,9 @@ namespace Sources.Controllers.UI.AudioSources
 
             _pauseService.PauseActivated += OnPause;
             _pauseService.ContinueActivated += OnContinue;
+
+            _pauseService.PauseSoundActivated += OnMute;
+            _pauseService.ContinueSoundActivated += OnUnMute;
         }
 
         public override void Disable()
@@ -48,26 +51,28 @@ namespace Sources.Controllers.UI.AudioSources
             
             _pauseService.PauseActivated -= OnPause;
             _pauseService.ContinueActivated -= OnContinue;
+            
+            _pauseService.PauseSoundActivated -= OnMute;
+            _pauseService.ContinueSoundActivated -= OnUnMute;
         }
 
-        private void OnContinue()
-        {
+        //TODO сделать перевод для анонимусов
+        private void OnMute() => 
+            _audioSourceUI.AudioSourceView.Mute();
+
+        private void OnUnMute() => 
+            _audioSourceUI.AudioSourceView.UnMute();
+
+        private void OnContinue() => 
             _audioSourceUI.AudioSourceView.Continue();
-        }
 
-        private void OnPause()
-        {
+        private void OnPause() => 
             _audioSourceUI.AudioSourceView.Pause();
-        }
 
-        private void OnVolumeChanged()
-        {
+        private void OnVolumeChanged() => 
             _audioSourceUI.AudioSourceView.SetVolume(_volumeService.Volume);
-        }
 
-        private void OnAudioSourcePlay()
-        {
+        private void OnAudioSourcePlay() => 
             _audioSourceUI.AudioSourceView.Play();
-        }
     }
 }

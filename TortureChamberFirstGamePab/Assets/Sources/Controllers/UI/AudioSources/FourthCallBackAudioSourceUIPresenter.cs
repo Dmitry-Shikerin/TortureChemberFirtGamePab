@@ -40,9 +40,9 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceActivator.ThirdAudioSourceActivated += OnPlaySound;
             _audioSourceActivator.FourthAudioSourceActivated += OnStopSound;
 
-            _pauseService.PauseActivated += OnPauseSound;
-            _pauseService.ContinueActivated += OnContinueSound;
-
+            _pauseService.PauseActivated += OnPause;
+            _pauseService.ContinueActivated += OnContinue;
+            
             _volumeService.VolumeChanged += OnVolumeChanged;
         }
 
@@ -56,8 +56,8 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceActivator.ThirdAudioSourceActivated -= OnPlaySound;
             _audioSourceActivator.FourthAudioSourceActivated -= OnStopSound;
             
-            _pauseService.PauseActivated -= OnPauseSound;
-            _pauseService.ContinueActivated -= OnContinueSound;
+            _pauseService.PauseActivated -= OnPause;
+            _pauseService.ContinueActivated -= OnContinue;
             
             _volumeService.VolumeChanged -= OnVolumeChanged;
         }
@@ -81,7 +81,7 @@ namespace Sources.Controllers.UI.AudioSources
         private void OnStopSound() =>
             _audioSourceUI.ThirdAudioSourceView.Stop();
 
-        private void OnPauseSound()
+        private void OnPause()
         {
             if(_audioSourceActivator.IsActive == false)
                 return;
@@ -89,7 +89,7 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceUI.ThirdAudioSourceView.Pause();
         }
 
-        private void OnContinueSound()
+        private void OnContinue()
         {
             if(_audioSourceActivator.IsActive == false)
                 return;

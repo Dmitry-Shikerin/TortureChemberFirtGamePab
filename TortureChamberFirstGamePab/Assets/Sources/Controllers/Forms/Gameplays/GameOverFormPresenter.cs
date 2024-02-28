@@ -8,6 +8,7 @@ using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.PresentationInterfaces.Views.Forms.Gameplays;
+using UnityEngine;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
@@ -45,12 +46,18 @@ namespace Sources.Controllers.Forms.Gameplays
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
 
-        //TODO возрастные ограничения изза пива и вина не уменьшатся?
-        //TODO попробовать минималку
-        public override void Enable() => 
+        public override void Enable()
+        {
+            Debug.Log($"{nameof(GameOverFormPresenter)} Enable pause");
+            
             _pauseService.Pause();
+        }
 
-        public override void Disable() =>
+        public override void Disable()
+        {
+            Debug.Log($"{nameof(GameOverFormPresenter)} Disable pause");
+            
             _pauseService.Continue();
+        }
     }
 }

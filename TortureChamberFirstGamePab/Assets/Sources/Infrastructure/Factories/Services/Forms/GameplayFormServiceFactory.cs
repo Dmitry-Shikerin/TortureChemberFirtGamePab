@@ -180,7 +180,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 _videoAdService.ShowVideo);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
-                _pauseService.Continue();
+                // _pauseService.Continue();
+                _formService.Show<HudFormView>();
+                
                 saveAction.Invoke();
                 _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
 
@@ -189,7 +191,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SaveButton, saveAction.Invoke);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.QuitButton, () =>
             {
-                _pauseService.Continue();
+                // _pauseService.Continue();
+                _formService.Show<HudFormView>();
+                
                 saveAction.Invoke();
                 _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
                 Application.Quit();
@@ -213,7 +217,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(hud.GameOverFormButtonContainer.BackToMainMenuButton,
                 async () =>
                 {
-                    _pauseService.Continue();
+                    // _pauseService.Continue();
+                    //
+                    _formService.Show<HudFormView>();
 
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
                 });

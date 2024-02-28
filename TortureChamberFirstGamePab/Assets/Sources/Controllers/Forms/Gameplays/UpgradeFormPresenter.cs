@@ -11,6 +11,7 @@ using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.PresentationInterfaces.Views.Forms.MainMenus;
 using Sources.PresentationInterfaces.Views.Players;
+using UnityEngine;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
@@ -39,11 +40,17 @@ namespace Sources.Controllers.Forms.Gameplays
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
 
-        public override void Enable() =>
+        public override void Enable()
+        {
+            Debug.Log($"{nameof(UpgradeFormPresenter)} Enable pause");
+            
             _pauseService.Pause();
+        }
 
         public override void Disable()
         {
+            Debug.Log($"{nameof(UpgradeFormPresenter)} Disable pause");
+            
             _pauseService.Continue();
         }
 

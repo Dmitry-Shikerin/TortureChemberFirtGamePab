@@ -5,6 +5,7 @@ using Sources.Domain.Players;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.Providers.Players;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
@@ -29,13 +30,13 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         
         public void ShowVideo()
         {
-            //TODO дебажить
-            if(WebApplication.IsRunningOnWebGL == false)
+            //TODO указать в обучении что ревард реклама не запустится еесли стоит АддБлок 
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
-            if(AdBlock.Enabled)
+
+            if (AdBlock.Enabled)
                 return;
-            
+
             Agava.YandexGames.VideoAd.Show(
                 () =>
                 {
@@ -53,12 +54,12 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void ShowInterstitial()
         {
-            if(WebApplication.IsRunningOnWebGL == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
-            if(AdBlock.Enabled)
+
+            if (AdBlock.Enabled)
                 return;
-            
+
             Agava.YandexGames.InterstitialAd.Show(
                 () =>
                 {

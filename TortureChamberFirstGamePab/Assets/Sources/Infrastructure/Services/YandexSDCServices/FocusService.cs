@@ -43,46 +43,34 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (inApp == false)
             {
-                Debug.Log($"{nameof(OnInBackgroundChangeApp)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
 
                 return;
             }
 
-            if (_pauseService.IsPaused)
-            {
-                Debug.Log($"{nameof(OnInBackgroundChangeApp)} continue");
+            if (_pauseService.IsPaused) 
                 _pauseService.Continue();
-            }
 
-            if (_pauseService.IsSoundPaused)
-            {
+            if (_pauseService.IsSoundPaused) 
                 _pauseService.ContinueSound();
-            }
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
         {
             if (isBackground)
             {
-                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
 
                 return;
             }
 
-            if (_pauseService.IsPaused)
-            {
-                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} continue");
+            if (_pauseService.IsPaused) 
                 _pauseService.Continue();
-            }
 
-            if (_pauseService.IsSoundPaused)
-            {
+            if (_pauseService.IsSoundPaused) 
                 _pauseService.ContinueSound();
-            }
         }
     }
 }

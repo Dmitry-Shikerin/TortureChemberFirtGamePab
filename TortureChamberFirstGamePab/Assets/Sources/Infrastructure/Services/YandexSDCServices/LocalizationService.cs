@@ -30,7 +30,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 Constant.Localization.English => Constant.Localization.EnglishCode,
                 Constant.Localization.Turkish => Constant.Localization.TurkishCode,
                 Constant.Localization.Russian => Constant.Localization.RussianCode,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => Constant.Anonymous.English
             };
             
             _leanLanguage.SetCurrentLanguage(languageCode);

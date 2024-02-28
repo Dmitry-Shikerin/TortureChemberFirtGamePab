@@ -16,27 +16,29 @@ namespace Sources.Presentation.UI.AudioSources
 
         public void SetLoop()
         {
-            Debug.Log("Set loop");
             _audioSource.loop = true;
         }
 
         public void RemoveLoop()
         {
-            Debug.Log("Remove loop");
             _audioSource.loop = false;
         }
 
         public void Pause()
         {
-            Debug.Log("Pause");
             _audioSource.Pause();
         }
 
         public void Continue()
         {
-            Debug.Log("Continue");
             _audioSource.UnPause();
         }
+
+        public void Mute() => 
+            _audioSource.mute = true;
+
+        public void UnMute() => 
+            _audioSource.mute = false;
 
         public void SetVolume(float value)
         {

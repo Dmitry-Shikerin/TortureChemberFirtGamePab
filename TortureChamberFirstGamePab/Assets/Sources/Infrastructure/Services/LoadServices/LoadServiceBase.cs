@@ -220,9 +220,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             _imageUIFactory.Create(_hud.TavernMoodImageUI);
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
 
-            //TODO изменить якоря у формочек юая
-            //TODO спросить у славы как мы делали?
-            //TODO добавить плагин для ресайза игры
             //BackgroundMusicView
             Debug.Log("_backgroundMusicViewFactory Create");
             _backgroundMusicViewFactory.Create(_hud.BackgroundMusicView);

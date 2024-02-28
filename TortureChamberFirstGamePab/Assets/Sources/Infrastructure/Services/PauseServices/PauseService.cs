@@ -17,7 +17,6 @@ namespace Sources.Infrastructure.Services.PauseServices
         public bool IsPaused { get; private set; }
         public bool IsSoundPaused { get; private set; }
 
-        //TODO так не пойдет
         public int PauseListenersCount { get; private set; }
         public int SoundPauseListenersCount { get; private set; }
 

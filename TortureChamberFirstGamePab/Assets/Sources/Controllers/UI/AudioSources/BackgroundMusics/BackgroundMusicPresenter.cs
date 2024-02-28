@@ -40,7 +40,6 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             Debug.Log("BackgroundMusic Enable");
         }
 
-        //TODO сделать перевод анонимов
         public override void Disable()
         {
             _volumeService.VolumeChanged -= OnVolumeChanged;
@@ -53,9 +52,6 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             
             Debug.Log("BackgroundMusic Disable");
         }
-
-        //TODO сделать ветку тест2 главной
-        //TODO подумать над паузой, убирается после смены фокуса даже если я в меню
         
         private void OnPauseSound()
         {

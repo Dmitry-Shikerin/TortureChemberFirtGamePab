@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AudioSourceUI>k__BackingField: {fileID: 8925339227797108432}
-  <FillingRate>k__BackingField: 0.2
+  <FillingRate>k__BackingField: 0.25
 --- !u!114 &8925339227797108432
 MonoBehaviour:
   m_ObjectHideFlags: 0

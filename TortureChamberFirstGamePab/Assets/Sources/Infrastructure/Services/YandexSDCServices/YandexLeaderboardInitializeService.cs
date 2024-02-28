@@ -43,7 +43,22 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
                     for (int i = 0; i < count; i++)
                     {
-                        _leaderboardElementViewFactory.Create(new LeaderboardPlayer(result.entries[i]),
+                        int rank = result.entries[i].rank;
+                        int score = result.entries[i].score;
+                        string name = result.entries[i].player.publicName;
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            name = YandexGamesSdk.Environment.i18n.lang switch
+                            {
+                                Constant.Localization.English => Constant.Anonymous.English,
+                                Constant.Localization.Turkish => Constant.Anonymous.Turkish,
+                                Constant.Localization.Russian => Constant.Anonymous.Russian,
+                                _ => Constant.Anonymous.English
+                            };
+                        }
+
+                        _leaderboardElementViewFactory.Create(new LeaderboardPlayer(rank, name, score),
                             _leaderboardElementViewContainer.LeaderboardElementViews[i]);
                     }
                 });
