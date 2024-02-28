@@ -1,6 +1,7 @@
 ﻿using Agava.WebUtility;
 using Agava.YandexGames;
 using Sources.Domain.Constants;
+using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {
@@ -13,6 +14,8 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
             if (PlayerAccount.IsAuthorized == false)
                 return;
+            
+            Debug.Log($"{nameof(YandexLeaderboardScoreSetter)} new score {score}");
 
             Leaderboard.GetPlayerEntry(Constant.LeaderboardNames.LeaderboardName,
                 (result) =>

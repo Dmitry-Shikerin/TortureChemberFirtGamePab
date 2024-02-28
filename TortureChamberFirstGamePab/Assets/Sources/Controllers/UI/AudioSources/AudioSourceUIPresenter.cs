@@ -56,7 +56,6 @@ namespace Sources.Controllers.UI.AudioSources
             _pauseService.ContinueSoundActivated -= OnUnMute;
         }
 
-        //TODO сделать перевод для анонимусов
         private void OnMute() => 
             _audioSourceUI.AudioSourceView.Mute();
 

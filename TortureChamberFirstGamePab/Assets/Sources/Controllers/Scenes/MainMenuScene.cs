@@ -90,10 +90,10 @@ namespace Sources.Controllers.Scenes
             _volumeService.Enter();
 
             //TODO если переходим с геймПлейсцены невключать?
-            _sdkInitializeService.GameReady();
             _focusService.Enter();
             _localizationService.Enter();
             _yandexLeaderboardInitializeService.Fill();
+            _sdkInitializeService.GameReady();
         }
 
         public void Exit()

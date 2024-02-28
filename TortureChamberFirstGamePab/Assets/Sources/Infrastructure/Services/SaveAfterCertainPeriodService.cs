@@ -28,7 +28,6 @@ namespace Sources.Infrastructure.Services
         }
         
         //TODO указать чколько монеток добавится за рекламу
-
         public void Exit()
         {
             _cancellationTokenSource.Cancel();
