@@ -12,6 +12,7 @@ namespace Sources.InfrastructureInterfaces.Services.PauseServices
         event Action ContinueSoundActivated;
         
         bool IsPaused { get; }
+        bool IsSoundPaused { get; }
 
         void ContinueSound();
         void Continue();

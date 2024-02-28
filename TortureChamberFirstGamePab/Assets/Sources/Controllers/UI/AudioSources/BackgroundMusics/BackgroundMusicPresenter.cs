@@ -54,6 +54,9 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             Debug.Log("BackgroundMusic Disable");
         }
 
+        //TODO сделать ветку тест2 главной
+        //TODO подумать над паузой, убирается после смены фокуса даже если я в меню
+        
         private void OnPauseSound()
         {
             _backgroundMusicView.BackgroundMusic.Pause();
