@@ -75,7 +75,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                  HasCompleted = tutorial.HasCompleted,
             };
 
-            SaveData(tutorialData, Constant.SettingDataKey.VolumeKey);
+            SaveData(tutorialData, Constant.SettingDataKey.TutorialKey);
         }
     }
 }

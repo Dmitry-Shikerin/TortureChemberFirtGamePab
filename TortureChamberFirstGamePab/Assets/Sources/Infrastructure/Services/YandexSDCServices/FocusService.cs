@@ -2,7 +2,6 @@
 using Agava.WebUtility;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -21,21 +20,21 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Enter(object payload = null)
         {
-            if(WebApplication.IsRunningOnWebGL == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
+
             OnInBackgroundChangeWeb(WebApplication.InBackground);
             OnInBackgroundChangeApp(Application.isFocused);
-            
+
             Application.focusChanged += OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
         }
 
         public void Exit()
         {
-            if(WebApplication.IsRunningOnWebGL == false)
+            if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
+
             Application.focusChanged -= OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
         }
@@ -44,28 +43,46 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (inApp == false)
             {
+                Debug.Log($"{nameof(OnInBackgroundChangeApp)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
-                
+
                 return;
             }
-            
-            _pauseService.Continue();
-            _pauseService.PauseSound();
+
+            if (_pauseService.IsPaused)
+            {
+                Debug.Log($"{nameof(OnInBackgroundChangeApp)} continue");
+                _pauseService.Continue();
+            }
+
+            if (_pauseService.IsSoundPaused)
+            {
+                _pauseService.ContinueSound();
+            }
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
         {
             if (isBackground)
             {
+                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
-                
+
                 return;
             }
-            
-            _pauseService.Continue();
-            _pauseService.PauseSound();
+
+            if (_pauseService.IsPaused)
+            {
+                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} continue");
+                _pauseService.Continue();
+            }
+
+            if (_pauseService.IsSoundPaused)
+            {
+                _pauseService.ContinueSound();
+            }
         }
     }
 }

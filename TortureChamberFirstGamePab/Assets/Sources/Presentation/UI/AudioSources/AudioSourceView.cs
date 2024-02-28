@@ -14,22 +14,32 @@ namespace Sources.Presentation.UI.AudioSources
         public void Stop() => 
             _audioSource.Stop();
 
-        public void SetLoop() => 
+        public void SetLoop()
+        {
+            Debug.Log("Set loop");
             _audioSource.loop = true;
+        }
 
-        public void RemoveLoop() => 
+        public void RemoveLoop()
+        {
+            Debug.Log("Remove loop");
             _audioSource.loop = false;
+        }
 
-        public void Pause() => 
+        public void Pause()
+        {
+            Debug.Log("Pause");
             _audioSource.Pause();
+        }
 
-        public void Continue() => 
-            _audioSource.Play();
+        public void Continue()
+        {
+            Debug.Log("Continue");
+            _audioSource.UnPause();
+        }
 
         public void SetVolume(float value)
         {
-            value = Mathf.Clamp(value, Constant.Volume.Min, Constant.Volume.Min);
-            
             _audioSource.volume = value;
         }
     }

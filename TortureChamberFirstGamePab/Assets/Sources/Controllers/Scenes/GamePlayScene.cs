@@ -2,16 +2,15 @@
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
-using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
+using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -42,7 +41,6 @@ namespace Sources.Controllers.Scenes
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
-            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -66,8 +64,6 @@ namespace Sources.Controllers.Scenes
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
-            _backgroundMusicService = backgroundMusicService ??
-                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
@@ -93,7 +89,6 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Enter();
             _visitorSpawnService.Enter();
             _pauseMenuService.Enter();
-            _backgroundMusicService.Enter();
             _gameOverService.Enter();
             _saveAfterCertainPeriodService.Enter(_loadService);
             _advertisingAfterCertainPeriodService.Enter();
@@ -110,7 +105,6 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Exit();
             _visitorSpawnService.Exit();
             _pauseMenuService.Exit();
-            _backgroundMusicService.Exit();
             _gameOverService.Exit();
             _saveAfterCertainPeriodService.Exit();
             _advertisingAfterCertainPeriodService.Exit();

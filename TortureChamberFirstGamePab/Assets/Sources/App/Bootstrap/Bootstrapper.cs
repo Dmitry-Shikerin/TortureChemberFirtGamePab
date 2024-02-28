@@ -1,9 +1,7 @@
 using System;
-using Agava.WebUtility;
 using Sources.App.Core;
 using Sources.Infrastructure.Factories.App;
 using Sources.Infrastructure.Services.YandexSDCServices;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 using Zenject;
 

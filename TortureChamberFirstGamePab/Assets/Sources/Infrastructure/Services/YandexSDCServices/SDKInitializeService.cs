@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using Agava.WebUtility;
+﻿using Agava.WebUtility;
 using Agava.YandexGames;
 using Cysharp.Threading.Tasks;
-using Sources.Domain.Constants;
-using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
-using UnityEngine.SceneManagement;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {

@@ -170,7 +170,7 @@ PlayerSettings:
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
-  stripEngineCode: 1
+  stripEngineCode: 0
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
   ForceInternetPermission: 0
@@ -580,7 +580,9 @@ PlayerSettings:
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
-  m_TemplateCustomTags: {}
+  m_TemplateCustomTags:
+    MOBILE_RENDER_SCALE: 
+    RENDER_SCALE: 
   mobileMTRendering:
     Android: 1
     iPhone: 1
@@ -853,7 +855,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: PROJECT:FullscreenWindow
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
@@ -870,6 +872,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Standalone: UEE;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1
+    WebGL: UEE;ODIN_VALIDATOR;ODIN_VALIDATOR_3_1;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
@@ -885,7 +888,7 @@ PlayerSettings:
     QNX: 1
     Stadia: 1
     VisionOS: 1
-    WebGL: 1
+    WebGL: 4
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1

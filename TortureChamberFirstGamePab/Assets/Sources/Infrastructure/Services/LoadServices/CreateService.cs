@@ -18,6 +18,7 @@ using Sources.Infrastructure.Factories.Views.Taverns;
 using Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
+using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Infrastructure.Services.Providers.Players;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
@@ -38,6 +39,7 @@ namespace Sources.Infrastructure.Services.LoadServices
     {
         public CreateService
         (
+            BackgroundMusicViewFactory backgroundMusicViewFactory,
             Setting setting,
             FoodPickUpPointsViewFactory foodPickUpPointsViewFactory,
             AudioSourceUIFactory audioSourceUIFactory,
@@ -73,6 +75,7 @@ namespace Sources.Infrastructure.Services.LoadServices
         ) :
             base
             (
+                backgroundMusicViewFactory,
                 setting,
                 foodPickUpPointsViewFactory,
                 audioSourceUIFactory,

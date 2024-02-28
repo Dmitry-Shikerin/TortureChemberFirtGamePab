@@ -8,8 +8,11 @@ namespace Sources.InfrastructureInterfaces.Services.PauseServices
     {
         event Action PauseActivated;
         event Action ContinueActivated;
+        event Action PauseSoundActivated;
+        event Action ContinueSoundActivated;
         
         bool IsPaused { get; }
+        bool IsSoundPaused { get; }
 
         void ContinueSound();
         void Continue();
