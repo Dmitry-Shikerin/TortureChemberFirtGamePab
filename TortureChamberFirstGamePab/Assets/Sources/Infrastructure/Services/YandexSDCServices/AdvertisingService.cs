@@ -29,6 +29,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         
         public void ShowVideo()
         {
+            //TODO дебажить
             if(WebApplication.IsRunningOnWebGL == false)
                 return;
             

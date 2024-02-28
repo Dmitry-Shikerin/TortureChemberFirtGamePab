@@ -176,7 +176,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
 
             //PauseMenuButtons
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton, _videoAdService.ShowVideo);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton,
+                _videoAdService.ShowVideo);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
                 _pauseService.Continue();
