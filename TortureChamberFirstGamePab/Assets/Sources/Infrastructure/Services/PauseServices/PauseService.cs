@@ -39,7 +39,7 @@ namespace Sources.Infrastructure.Services.PauseServices
         public void ContinueSound()
         {
             // AudioListener.pause = false;
-            PauseSoundActivated?.Invoke();
+            ContinueSoundActivated?.Invoke();
         }
 
         public async UniTask Yield(CancellationToken cancellationToken)

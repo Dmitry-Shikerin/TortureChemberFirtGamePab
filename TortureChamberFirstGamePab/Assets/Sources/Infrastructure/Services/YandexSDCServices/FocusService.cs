@@ -43,12 +43,14 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (inApp == false)
             {
+                Debug.Log($"{nameof(OnInBackgroundChangeApp)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
                 
                 return;
             }
             
+            Debug.Log($"{nameof(OnInBackgroundChangeApp)} continue");
             _pauseService.Continue();
             _pauseService.ContinueSound();
         }
@@ -57,12 +59,14 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (isBackground)
             {
+                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
                 
                 return;
             }
             
+            Debug.Log($"{nameof(OnInBackgroundChangeWeb)} continue");
             _pauseService.Continue();
             _pauseService.ContinueSound();
         }

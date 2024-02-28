@@ -48,6 +48,7 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             _pauseService.PauseSoundActivated -= OnPauseSound;
             _pauseService.ContinueSoundActivated -= OnContinueSound;
             
+            _backgroundMusicView.BackgroundMusic.RemoveLoop();
             _backgroundMusicView.BackgroundMusic.Stop();
             
             Debug.Log("BackgroundMusic Disable");
