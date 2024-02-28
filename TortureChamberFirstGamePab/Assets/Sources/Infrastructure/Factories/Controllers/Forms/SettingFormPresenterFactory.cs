@@ -34,8 +34,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms
             if (formView == null)
                 throw new ArgumentNullException(nameof(formView));
             
-            return new SettingFormPresenter(_setting, formView, 
-                _formService, _settingDataService, _pauseService);
+            return new SettingFormPresenter(_setting, formView, _formService, _settingDataService, _pauseService);
         }
     }
 }

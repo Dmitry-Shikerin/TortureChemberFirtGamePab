@@ -29,8 +29,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
             Volume volume = LoadVolume();
             _setting.Volume.Step = volume.Step;
-            
-            Debug.Log($"Load Volume {volume.Step}");
 
             if (CanLoadTutorial == false)
                 return _setting;
@@ -45,8 +43,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         {
             SaveVolume(@object.Volume);
             SaveTutorial(@object.Tutorial);
-            
-            Debug.Log($"Save Setting Volume {@object.Volume.Step}");
         }
 
         public void Clear()
@@ -79,7 +75,7 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
                  HasCompleted = tutorial.HasCompleted,
             };
 
-            SaveData(tutorialData, Constant.SettingDataKey.TutorialKey);
+            SaveData(tutorialData, Constant.SettingDataKey.VolumeKey);
         }
     }
 }

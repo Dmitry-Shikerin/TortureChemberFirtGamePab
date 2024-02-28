@@ -352,7 +352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0422\u043E\u0447\u043A\u0438 \u0435\u0434\u044B"
+  m_text: Food points
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -636,23 +636,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412 \u0438\u0433\u0440\u0435 \u043F\u0440\u0438\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442
-    \u0441\u0438\u0441\u0442\u0435\u043C\u0430 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u044B\u0445
-    \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0439 \u043A\u043E\u0442\u043E\u0440\u0430\u044F
-    \u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F \u0432 \u0432\u0430\u0448\u0435\u043C
-    \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0435. \u0418\u0433\u0440\u0443 \u043C\u043E\u0436\u043D\u043E
-    \u0441\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043D\u0430\u0436\u0430\u0432
-    \u043A\u043D\u043E\u043F\u043A\u0443 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F
-    \u0432 \u043C\u0435\u043D\u044E \u043F\u0430\u0443\u0437\u044B. \u0418\u0433\u0440\u0430
-    \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438
-    \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0441\u044F \u043A\u043E\u0433\u0434\u0430
-    \u0432\u044B \u0432\u044B\u0445\u043E\u0434\u0438\u0442\u0435 \u0432 \u0433\u043B\u0430\u0432\u043D\u043E\u0435
-    \u043C\u0435\u043D\u044E \u0438 \u043A\u043E\u0433\u0434\u0430 \u0432\u044B \u0437\u0430\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0435
-    \u043C\u0435\u043D\u044E \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0439.
-    \u0422\u0430\u043A\u0436\u0435 \u043A\u0430\u0436\u0434\u044B\u0435 \u0434\u0432\u0435
-    \u043C\u0438\u043D\u0443\u0442\u044B \u0438\u0433\u0440\u043E\u0432\u043E\u0433\u043E
-    \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u0438\u0433\u0440\u0430 \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0441\u044F
-    \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438."
+  m_text: The game has a local save system that is stored in your browser. The game
+    can be saved by pressing the save button in the pause menu. The game is automatically
+    saved when you go to the main menu and when you close the upgrade menu. Also,
+    every two minutes of playing time, the game is saved automatically.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -1306,167 +1293,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1263.9902, y: -169.66702}
   m_SizeDelta: {x: 385.59604, y: 317.37}
   m_Pivot: {x: 0.50000024, y: 0.5}
---- !u!1 &819565827384653546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3638173350803623432}
-  - component: {fileID: 4052165378014531664}
-  - component: {fileID: 2731752883357957356}
-  - component: {fileID: 611298893402246544}
-  m_Layer: 5
-  m_Name: BackGroundMusicView
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3638173350803623432
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819565827384653546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7483830643190490460}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4052165378014531664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819565827384653546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf7e7b9cc50347fda446a6d24799e062, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <BackgroundAudioSource>k__BackingField: {fileID: 2731752883357957356}
-  <ButtonAudioSource>k__BackingField: {fileID: 8200751773817713804}
---- !u!114 &2731752883357957356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819565827384653546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dda7abd4ca164ef6a8882ea2196010a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioSource: {fileID: 611298893402246544}
---- !u!82 &611298893402246544
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819565827384653546}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 11a1972984bc63844b50cd19bb60a859, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &827102579582895029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,6 +1361,7 @@ GameObject:
   - component: {fileID: 4382404677748356234}
   - component: {fileID: 7765747212049799055}
   - component: {fileID: 7423076760833126664}
+  - component: {fileID: 8365200909849013726}
   m_Layer: 5
   m_Name: Inventory_Button
   m_TagString: Untagged
@@ -1656,7 +1483,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 7765747212049799055}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 8365200909849013726}
+--- !u!82 &8365200909849013726
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919892065121158945}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &927665812366216704
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,7 +2296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0420\u0435\u043A\u043B\u0430\u043C\u0430"
+  m_text: Advertisement
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -3029,7 +2952,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u043D\u0434\u0438\u043A\u0430\u0442\u043E \u041D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u044F"
+  m_text: Mood Indicator
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -3125,6 +3048,7 @@ GameObject:
   - component: {fileID: 7766318911040065623}
   - component: {fileID: 2479681992771177061}
   - component: {fileID: 4272853604550274245}
+  - component: {fileID: 5395366568475533075}
   m_Layer: 5
   m_Name: Charizma_Button
   m_TagString: Untagged
@@ -3246,7 +3170,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 2479681992771177061}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 5395366568475533075}
+--- !u!82 &5395366568475533075
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475509317639868329}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1530713873373896860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3677,7 +3697,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u041C\u041E\u0422\u0420\u0415\u0422\u042C \u0420\u0415\u041A\u041B\u0410\u041C\u0423"
+  m_text: WATCH ADVERTISEMENT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -4278,17 +4298,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0415\u0441\u043B\u0438 \u0438\u043D\u0434\u0438\u043A\u0430\u0442\u043E\u0440
-    \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u044F \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0435\u0439
-    \u0432 \u0437\u0430\u0432\u0435\u0434\u0435\u043D\u0438\u0438 \u043E\u043F\u0443\u0441\u0442\u0438\u0442\u0441\u044F
-    \u0434\u043E \u043D\u0443\u043B\u044F, \u0442\u043E \u0432\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u0435\u0442\u0435.
-    \u0412\u0430\u0448\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F
-    \u0438 \u043F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0431\u0443\u0434\u0443\u0442
-    \u0441\u0431\u0440\u043E\u0448\u0435\u043D\u044B, \u043F\u043E\u0441\u043B\u0435
-    \u0447\u0435\u0433\u043E \u0432\u044B \u0441\u043C\u043E\u0436\u0435\u0442\u0435
-    \u043F\u0435\u0440\u0435\u0439\u0442\u0438 \u0432 \u0433\u043B\u0430\u0432\u043D\u043E\u0435
-    \u043C\u0435\u043D\u044E \u0438 \u043D\u0430\u0447\u0430\u0442\u044C \u043D\u043E\u0432\u0443\u044E
-    \u0438\u0433\u0440\u0443."
+  m_text: If the mood indicator of visitors in the institution drops to zero, then
+    you will lose. Your saves and progress will be reset, after which you can go
+    to the main menu and start a new game.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -4315,7 +4327,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.7
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4930,9 +4942,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u043E\u043A\u0430 \u0432\u044B \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u043E\u0432\u0430\u043B\u0438
-    \u0432\u0441\u0435 \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0438
-    \u043F\u043E\u043A\u0438\u043D\u0443\u043B\u0438 \u0437\u0430\u0432\u0435\u0434\u0435\u043D\u0438\u0435"
+  m_text: While you were away, all the visitors left the place
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -5674,15 +5684,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431\u044B
-    \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0435\u0434\u0443 \u0432 \u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u044C
-    \u043F\u043E\u0434\u043E\u0439\u0434\u0438\u0442\u0435 \u043A \u0442\u043E\u0447\u043A\u0435
-    \u043E\u0442\u043C\u0435\u0447\u0435\u043D\u043D\u043E\u0439 \u0436\u0435\u043B\u0442\u044B\u043C
-    \u043A\u0440\u0443\u0433\u043E\u043C \u0441 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u044B\u043C
-    \u0432\u0430\u043C \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u043E\u043C \u0438
-    \u043D\u0435\u043C\u043D\u043E\u0433\u043E \u043F\u043E\u0434\u043E\u0436\u0434\u0438\u0442\u0435
-    \u043F\u043E\u043A\u0430 \u0442\u0430\u0439\u043C\u0435\u0440 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E
-    \u043D\u0435 \u043E\u043F\u0443\u0441\u0442\u0435\u0435\u0442."
+  m_text: In order to add food to your inventory, go to the point marked with a yellow
+    circle with the product you need and wait a little until the timer is completely
+    empty.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -6086,7 +6090,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0422\u043E\u0447\u043A\u0430 \u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0439"
+  m_text: Upgrade Point
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -7276,7 +7280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0410\u0423\u0417\u0410"
+  m_text: PAUSE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -7484,6 +7488,7 @@ GameObject:
   - component: {fileID: 2542578720897570494}
   - component: {fileID: 2355252609979119695}
   - component: {fileID: 5607218349388598403}
+  - component: {fileID: 4134656629951367343}
   m_Layer: 5
   m_Name: BackToMainMenu_Button
   m_TagString: Untagged
@@ -7605,7 +7610,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 2355252609979119695}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 4134656629951367343}
+--- !u!82 &4134656629951367343
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186858339623560043}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3289966658370285423
 GameObject:
   m_ObjectHideFlags: 0
@@ -8141,24 +8242,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0414\u043E\u0431\u0440\u043E \u043F\u043E\u0436\u0430\u043B\u043E\u0432\u0430\u0442\u044C
-    \u0432 \u0438\u0433\u0440\u0443 \u0441\u0440\u0435\u0434\u043D\u0435\u0432\u0435\u043A\u043E\u0432\u0430\u044F
-    \u0442\u0430\u0432\u0435\u0440\u043D\u0430. \u041F\u0440\u043E\u0447\u0438\u0442\u0430\u0439\u0442\u0435
-    \u0434\u0430\u043D\u043D\u043E\u0435 \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435
-    \u0434\u043E \u043A\u043E\u043D\u0446\u0430 \u043F\u043E\u043A\u0430 \u043D\u0435
-    \u043F\u0440\u043E\u043F\u0430\u0434\u0435\u0442 \u043A\u043D\u043E\u043F\u043A\u0430
-    \u043F\u0440\u043E\u043A\u0440\u0443\u0442\u043A\u0438 \u0432\u043D\u0438\u0437
-    \u0447\u0442\u043E\u0431\u044B \u043F\u0440\u0438 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u043C
-    \u0437\u0430\u043F\u0443\u0441\u043A\u0435 \u0438\u0433\u0440\u044B \u043E\u043A\u043D\u043E
-    \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u044F \u0431\u043E\u043B\u044C\u0448\u0435
-    \u043D\u0435 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u043B\u043E\u0441\u044C.
-    \u0415\u0441\u043B\u0438 \u0432\u044B \u0437\u0430\u0445\u043E\u0442\u0438\u0442\u0435
-    \u043F\u0440\u043E\u0447\u0438\u0442\u0430\u0442\u044C \u043E\u0431\u0443\u0447\u0435\u043D\u0438\u0435
-    \u0441\u043D\u043E\u0432\u0430 \u0442\u044B \u0441\u043C\u043E\u0436\u0435\u0442\u0435
-    \u043D\u0430\u0439\u0442\u0438 \u0435\u0433\u043E \u0432 \u043C\u0435\u043D\u044E
-    \u043F\u0430\u0443\u0437\u044B \u0438 \u043D\u0430\u0436\u0430\u0432 \u043D\u0430
-    \u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044E\u0449\u0443\u044E
-    \u043A\u043D\u043E\u043F\u043A\u0443."
+  m_text: Welcome to the medieval tavern game. Read this tutorial to the end until
+    the scroll down button disappears so that the next time you start the game, the
+    learning window will no longer start. If you want to read the tutorial again,
+    you can find it in the pause menu and click on the appropriate button.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -8324,7 +8411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041E\u0411\u0423\u0427\u0415\u041D\u0418\u0415"
+  m_text: TUTORIAL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -8473,7 +8560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041E\u0411\u0423\u0427\u0415\u041D\u0418\u0415"
+  m_text: TUTORIAL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -8622,7 +8709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u041E\u0425\u0420\u0410\u041D\u0418\u0422\u042C"
+  m_text: Save
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -8771,7 +8858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u043E\u043D\u0435\u0442\u044B"
+  m_text: Coins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -10282,7 +10369,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435 \u041C\u0435\u043D\u044E"
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -10500,7 +10587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0413\u043B\u0430\u0432\u043D\u043E\u0435 \u041C\u0435\u043D\u044E"
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -11265,21 +11352,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u043E\u0441\u043B\u0435 \u0442\u043E\u0433\u043E \u043A\u0430\u043A
-    \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044C \u043F\u043E\u043B\u0443\u0447\u0438\u0442
-    \u0432\u043E\u0432\u0440\u0435\u043C\u044F \u0441\u0432\u043E\u0439 \u0437\u0430\u043A\u0430\u0437
-    \u043E\u043D \u043A\u0430\u043A\u043E\u0435\u0442\u043E \u0432\u0440\u0435\u043C\u044F
-    \u0431\u0443\u0434\u0435\u0442 \u0435\u0433\u043E \u0435\u0441\u0442\u044C, \u043F\u043E\u0441\u043B\u0435
-    \u0447\u0435\u0433\u043E \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E
-    \u043E\u0441\u0442\u0430\u0432\u0438\u0442 \u0434\u043B\u044F \u0432\u0430\u0441
-    \u043C\u043E\u043D\u0435\u0442\u044B. \u041F\u043E\u0434\u043E\u0439\u0434\u0438\u0442\u0435
-    \u043A \u043C\u043E\u043D\u0435\u0442\u0435 \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E
-    \u0431\u043B\u0438\u0437\u043A\u043E \u0438 \u043E\u043D\u0430 \u0441\u0430\u043C\u0430
-    \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u0441\u044F \u043A \u0432\u0430\u043C
-    \u0432 \u043A\u043E\u0448\u0435\u043B\u0435\u043A. \u041C\u043E\u043D\u0435\u0442\u044B
-    \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u0442\u044C
-    \u0434\u043B\u044F \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A
-    \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430."
+  m_text: After the visitor receives his order on time, he will eat it for a while,
+    after which he will definitely leave coins for you. Get close enough to the coin
+    and it will be added to your wallet by itself. Coins can be spent to improve
+    the character's characteristics.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -12086,7 +12162,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9080219827315615243}
   - component: {fileID: 5457800538931376990}
-  - component: {fileID: 8200751773817713804}
   m_Layer: 0
   m_Name: CloseButton_Audiosourse
   m_TagString: Untagged
@@ -12205,19 +12280,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8200751773817713804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4845959561432065155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dda7abd4ca164ef6a8882ea2196010a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioSource: {fileID: 5457800538931376990}
 --- !u!1 &4869276935042834671
 GameObject:
   m_ObjectHideFlags: 0
@@ -12478,7 +12540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u0443\u0441\u043E\u0440"
+  m_text: Garbage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -12763,7 +12825,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3638173350803623432}
   - {fileID: 2859270731777421174}
   - {fileID: 5640232026238775130}
   - {fileID: 6769315013206037792}
@@ -12882,7 +12943,6 @@ MonoBehaviour:
   <SettingFormButtonContainer>k__BackingField: {fileID: 2158827032970883119}
   <JoysticksContainer>k__BackingField: {fileID: 8770112127736724155}
   <GameOverTextContainer>k__BackingField: {fileID: 6008969343492101068}
-  <BackgroundMusicView>k__BackingField: {fileID: 4052165378014531664}
 --- !u!114 &1790518852072667884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12909,7 +12969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: Russian
+  currentLanguage: English
   detectLanguage: 1
   defaultLanguage: 
   saveLoad: 1
@@ -12980,7 +13040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0418\u0413\u0420\u0410 \u0417\u0410\u0413\u0420\u0423\u0416\u0415\u041D\u0410"
+  m_text: GAME LOAD
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -13818,15 +13878,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0420\u0430\u0437 \u0432 \u0434\u0432\u0430\u0434\u0446\u0430\u0442\u044C
-    \u0441\u0435\u043A\u0443\u043D\u0434 \u0432 \u0442\u0430\u0432\u0435\u0440\u043D\u0435
-    \u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442\u0441\u044F
-    \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0435\u0439,
-    \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043C\u043E\u0433\u0443\u0442 \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0441\u044F
-    \u0432 \u0442\u0430\u0432\u0435\u0440\u043D\u0435 \u043E\u0434\u043D\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E.
-    \u0421\u0432\u043E\u0435\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E \u043E\u0431\u0441\u043B\u0443\u0436\u0438\u0432\u0430\u0439\u0442\u0435
-    \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0435\u0439 \u0438\u043D\u0430\u0447\u0435
-    \u043E\u0447\u0435\u043D\u044C \u0431\u044B\u0441\u0442\u0440\u043E \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u0435\u0442\u0435."
+  m_text: Once every twenty seconds, the number of visitors in the tavern increases,
+    who can be in the tavern at the same time. Serve the visitors in a timely manner,
+    otherwise you will lose very quickly.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -14060,23 +14114,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0438
-    \u043E\u0447\u0435\u043D\u044C \u043D\u0435\u0430\u043A\u043A\u0443\u0440\u0430\u0442\u043D\u044B\u0435
-    \u0438 \u043C\u043E\u0433\u0443\u0442 \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C
-    \u043F\u043E\u0441\u043B\u0435 \u0441\u0435\u0431\u044F \u043C\u0443\u0441\u043E\u0440.
-    \u0421\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C \u0441\u0432\u043E\u0435\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u043E
-    \u0435\u0433\u043E \u0443\u0431\u0438\u0440\u0430\u0442\u044C \u0438\u043D\u0430\u0447\u0435
-    \u0435\u0441\u043B\u0438 \u043D\u043E\u0432\u044B\u0439 \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044C
-    \u0437\u0430\u0439\u043C\u0435\u0442 \u0433\u0440\u044F\u0437\u043D\u043E\u0435
-    \u043C\u0435\u0441\u0442\u043E \u0442\u043E \u043E\u043D \u0431\u0443\u0434\u0435\u0442
-    \u043D\u0435\u0434\u043E\u0432\u043E\u043B\u0435\u043D \u0438 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
-    \u0432 \u0437\u0430\u0432\u0435\u0434\u0435\u043D\u0438\u0438 \u0443\u0445\u0443\u0434\u0448\u0438\u0442\u0441\u044F.
-    \u0414\u043B\u044F \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431\u044B \u0443\u0431\u0440\u0430\u0442\u044C
-    \u043C\u0443\u0441\u043E\u0440 \u043F\u043E\u0434\u043E\u0439\u0434\u0438\u0442\u0435
-    \u043A \u043D\u0435\u043C\u0443 \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E
-    \u0431\u043B\u0438\u0437\u043A\u043E \u0438 \u043F\u043E\u0434\u043E\u0436\u0434\u0438\u0442\u0435
-    \u043F\u043E \u0442\u0430\u0439\u043C\u0435\u0440 \u043F\u043E\u043B\u043D\u043E\u0441\u0442\u044C\u044E
-    \u043D\u0435 \u0438\u0441\u0447\u0435\u0437\u043D\u0435\u0442."
+  m_text: Some visitors are very sloppy and may leave garbage behind. Try to clean
+    it up in a timely manner, otherwise if a new visitor takes a dirty place, he
+    will be unhappy and the mood in the institution will deteriorate. In order to
+    remove the garbage, get close enough to it and wait until the timer completely
+    disappears.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -14371,7 +14413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u042B\u0419\u0422\u0418"
+  m_text: EXIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -14824,6 +14866,7 @@ GameObject:
   - component: {fileID: 8177893473519213963}
   - component: {fileID: 6853725139682646002}
   - component: {fileID: 6947973879524186293}
+  - component: {fileID: 3855077586170254245}
   m_Layer: 5
   m_Name: Exit_Button
   m_TagString: Untagged
@@ -14945,7 +14988,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 6853725139682646002}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 3855077586170254245}
+--- !u!82 &3855077586170254245
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818425761907073438}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5830172041227581066
 GameObject:
   m_ObjectHideFlags: 0
@@ -14959,6 +15098,7 @@ GameObject:
   - component: {fileID: 4810279089498011895}
   - component: {fileID: 7292205338015188387}
   - component: {fileID: 6800332913303550488}
+  - component: {fileID: 3489822707460292592}
   m_Layer: 5
   m_Name: Save_Button
   m_TagString: Untagged
@@ -15080,7 +15220,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 7292205338015188387}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 3489822707460292592}
+--- !u!82 &3489822707460292592
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5830172041227581066}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5882508971349269881
 GameObject:
   m_ObjectHideFlags: 0
@@ -15296,7 +15532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C"
+  m_text: Complexity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -15485,7 +15721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435"
+  m_text: Save
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -15778,32 +16014,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412 \u0445\u043E\u0434\u0435 \u0438\u0433\u0440\u044B \u0432\u044B
-    \u0431\u0443\u0434\u0435\u0442\u0435 \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0442\u044C
-    \u043C\u043E\u043D\u0435\u0442\u044B \u043A\u043E\u0442\u043E\u0440\u044B\u0435
-    \u043C\u043E\u0436\u043D\u043E \u043F\u043E\u0442\u0440\u0430\u0442\u0438\u0442\u044C
-    \u043D\u0430 \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F. \u0414\u043B\u044F
-    \u0442\u043E\u0433\u043E \u0447\u0442\u043E\u0431\u044B \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C
-    \u0441\u0432\u043E\u0438 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438
-    \u043F\u043E\u0434\u043E\u0439\u0434\u0438\u0442\u0435 \u043A \u0442\u043E\u0447\u043A\u0435
-    \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u044F \u0438 \u0432\u044B\u0431\u0435\u0440\u0435\u0442\u0435
-    \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0435 \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435.
-    \u0415\u0441\u043B\u0438 \u043C\u043E\u043D\u0435\u0442 \u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E
-    \u0442\u044B \u0432\u044B \u0441\u043C\u043E\u0436\u0435\u0442\u0435 \u0443\u043B\u0443\u0447\u0448\u0438\u0442\u044C
-    \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0443.
-    \u0412\u0430\u043C \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B 3 \u0432\u0438\u0434\u0430
-    \u0443\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0439. \u041F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435
-    \u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442 \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C
-    \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0441
-    \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430\u043C\u0438 \u0432 \u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u0435.
-    \u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435 \u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u044F
-    \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u0443\u044E
-    \u044F\u0447\u0435\u0439\u043A\u0443 \u0438\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u044F.
-    \u0423\u043B\u0443\u0447\u0448\u0435\u043D\u0438\u0435 \u0445\u0430\u0440\u0438\u0437\u043C\u044B
-    \u0443\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E
-    \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u043C\u043E\u0433\u043E \u0441\u0447\u0430\u0441\u0442\u044C\u044F
-    \u043F\u043E\u0441\u043B\u0435 \u0442\u043E\u0433\u043E \u043A\u0430\u043A \u0432\u044B
-    \u043E\u0431\u0441\u043B\u0443\u0436\u0438\u043B\u0438 \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044F."
+  m_text: During the game you will earn coins that can be spent on improvements.
+    In order to improve your performance, go to the improvement point and select
+    the necessary improvement. If there are enough coins, you will be able to improve
+    the performance. There are 3 types of improvements available to you. Movement
+    increases the speed of movement with products in the inventory. Inventory enhancement
+    adds an additional inventory cell. Improving charisma increases the amount of
+    happiness added after you have served a visitor.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -16402,7 +16619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041A\u043E\u043D\u0435\u0446 \u0438\u0433\u0440\u044B"
+  m_text: Game over
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -16790,7 +17007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u0427\u0415\u0422"
+  m_text: SCORE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -17400,9 +17617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0427\u0442\u043E \u0431\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C
-    \u0433\u0438\u0433\u0430\u043D\u0442\u0441\u043A\u0443\u044E \u043D\u0430\u0433\u0440\u0430\u0434\u0443
-    \u043F\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435 \u0440\u0435\u043A\u043B\u0430\u043C\u0443"
+  m_text: To get a huge reward, watch the advertisement
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -17740,28 +17955,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421 \u043F\u0440\u0430\u0432\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B
-    \u044D\u043A\u0440\u0430\u043D\u0430 \u0432\u044B \u0443\u0432\u0438\u0434\u0438\u0442\u0435
-    \u0438\u043D\u0434\u0438\u043A\u0430\u0442\u043E\u0440 \u043A\u043E\u0442\u043E\u0440\u044B\u0439
-    \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442 \u0437\u0430 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
-    \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u0435\u0439 \u0432 \u0432
-    \u0442\u0430\u0432\u0435\u0440\u043D\u0435 \u0441\u0442\u0430\u0440\u0430\u0439\u0442\u0435\u0441\u044C
-    \u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0438\u043D\u0434\u0438\u043A\u0430\u0442\u043E\u0440
-    \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u044F \u043D\u0430 \u0432\u044B\u0441\u043E\u043A\u043E\u043C
-    \u0443\u0440\u043E\u0432\u043D\u0435 \u0438\u043D\u0430\u0447\u0435 \u0435\u0441\u043B\u0438
-    \u0438\u043D\u0434\u0438\u043A\u0430\u0442\u043E\u0440 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u044F
-    \u0443\u043F\u0430\u0434\u0435\u0442 \u0434\u043E \u043D\u0443\u043B\u044F \u0442\u043E
-    \u0432\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u0435\u0442\u0435. \u041D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
-    \u0440\u0430\u0441\u0442\u0435\u0442 \u0435\u0441\u043B\u0438 \u0432\u044B \u0432\u043E\u0432\u0440\u0435\u043C\u044F
-    \u0443\u0441\u043F\u0435\u0432\u0430\u0435\u0442\u0435 \u043E\u0431\u0441\u043B\u0443\u0436\u0438\u0442\u044C
-    \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044F. \u041D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0435
-    \u043F\u0430\u0434\u0430\u0435\u0442 \u0435\u0441\u043B\u0438 \u0432\u044B \u043D\u0435
-    \u0443\u0441\u043F\u0435\u0435\u0442\u0435 \u0432\u043E\u0432\u0440\u0435\u043C\u044F
-    \u043F\u0440\u0438\u043D\u0435\u0441\u0442\u0438 \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044E
-    \u0437\u0430\u043A\u0430\u0437 \u0430 \u0442\u0430\u043A \u0436\u0435 \u0435\u0441\u043B\u0438
-    \u043F\u043E\u0441\u0435\u0442\u0438\u0442\u0435\u043B\u044C \u0437\u0430\u0439\u043C\u0435\u0442
-    \u043C\u0435\u0441\u0442\u043E \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u043E\u043C
-    \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u0441\u044F \u043C\u0443\u0441\u043E\u0440."
+  m_text: On the right side of the screen you will see an indicator that is responsible
+    for the mood of visitors in the tavern. Try to keep the mood indicator at a high
+    level, otherwise if the mood indicator drops to zero, then you will lose. The
+    mood grows if you manage to serve the visitor on time. The mood drops if you
+    do not have time to bring the order to the visitor in time, as well as if the
+    visitor takes a place where there is garbage.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -18494,6 +18693,7 @@ GameObject:
   - component: {fileID: 4803459753061193052}
   - component: {fileID: 4080423731187831446}
   - component: {fileID: 426353533159474997}
+  - component: {fileID: 492921626753161867}
   m_Layer: 5
   m_Name: Movement_Button
   m_TagString: Untagged
@@ -18615,7 +18815,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 4080423731187831446}
-  _audioSource: {fileID: 5457800538931376990}
+  _audioSource: {fileID: 492921626753161867}
+--- !u!82 &492921626753161867
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385589218778158356}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 57e6a45092a44fd49a197c3bc110b036, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7410640733194685889
 GameObject:
   m_ObjectHideFlags: 0
@@ -18747,7 +19043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: Russian
+  currentLanguage: English
   detectLanguage: 1
   defaultLanguage: 
   saveLoad: 1
@@ -20100,7 +20396,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
+  m_text: SETTINGS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -20803,7 +21099,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u0438\u0432\u0435\u0442\u0441\u0442\u0432\u0438\u0435"
+  m_text: Greeting
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
   m_sharedMaterial: {fileID: 7643501878926834077, guid: 6adcd2f9e8bc28e4693c3d00e6156782, type: 2}
@@ -22037,7 +22333,7 @@ PrefabInstance:
       objectReference: {fileID: 5457800538931376990}
     - target: {fileID: 1236442489383165125, guid: 52d68ba81510e5e449046f648a80a56d, type: 3}
       propertyPath: m_text
-      value: "\u0413\u0420\u041E\u041C\u041A\u041E\u0421\u0422\u042C"
+      value: Volume
       objectReference: {fileID: 0}
     - target: {fileID: 1242329414038724281, guid: 52d68ba81510e5e449046f648a80a56d, type: 3}
       propertyPath: m_FlexibleWidth

@@ -72,7 +72,6 @@ namespace Sources.Controllers.Items.Coins
             _coin.PlayerWalletView.Add(_coin.CoinAmount);
             
             await UniTask.Yield(cancellationToken);
-            // await _pauseService.Yield(cancellationToken);
         }
 
         private async UniTask RotateCoinAsync(CancellationToken cancellationToken)
@@ -82,7 +81,6 @@ namespace Sources.Controllers.Items.Coins
                 _coinView.Rotate();
                 
                 await UniTask.Yield(cancellationToken);
-                // await _pauseService.Yield(cancellationToken);
             }
         }
 
@@ -101,7 +99,6 @@ namespace Sources.Controllers.Items.Coins
                     _coinView.MovementSpeed * Time.deltaTime));
 
                 await UniTask.Yield(cancellationToken);
-                // await _pauseService.Yield(cancellationToken);
             }
         }
     }

@@ -13,14 +13,10 @@ namespace Sources.Domain.Players.PlayerCameras
         public void SetStartAngleY(float angleY) => 
             AngleY = angleY;
 
-        public void SetLeftRotation()
-        {
+        public void SetLeftRotation() => 
             AngleY += AngularSpeed;
-        }
 
-        public void SetRightRotation()
-        {
+        public void SetRightRotation() => 
             AngleY -= AngularSpeed;
-        }
     }
 }

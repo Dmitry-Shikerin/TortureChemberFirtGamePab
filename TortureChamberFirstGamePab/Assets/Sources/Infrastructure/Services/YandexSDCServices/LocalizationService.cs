@@ -3,6 +3,7 @@ using Agava.WebUtility;
 using Agava.YandexGames;
 using Lean.Localization;
 using Sources.Domain.Constants;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
 {

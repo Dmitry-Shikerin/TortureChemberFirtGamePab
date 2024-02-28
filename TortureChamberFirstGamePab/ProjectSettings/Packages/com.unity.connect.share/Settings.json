@@ -1,11 +1,5 @@
 {
     "m_Dictionary": {
-        "m_DictionaryValues": [
-            {
-                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
-                "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Programs/Unity Projects/Builds/MedivalTavern16;C:/Programs/Unity Projects/Builds/MedivalTavern15;C:/Programs/Unity Projects/Builds/MedivalTavern14;C:/Programs/Unity Projects/Builds/MedivalTavern13;C:/Programs/Unity Projects/Builds/MedivalTavern12;C:/Programs/Unity Projects/Builds/MedivalTavern11;C:/Programs/Unity Projects/Builds/MedivalTavern10;C:/Programs/Unity Projects/Builds/MedivalTavern9;C:/Programs/Unity Projects/Builds/MedivalTavern8;C:/Programs/Unity Projects/Builds/MedivalTavern7\"}"
-            }
-        ]
+        "m_DictionaryValues": []
     }
 }

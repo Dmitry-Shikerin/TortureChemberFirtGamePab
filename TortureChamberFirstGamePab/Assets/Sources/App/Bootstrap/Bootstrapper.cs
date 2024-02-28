@@ -1,7 +1,9 @@
 using System;
+using Agava.WebUtility;
 using Sources.App.Core;
 using Sources.Infrastructure.Factories.App;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 using Zenject;
 
@@ -16,8 +18,6 @@ namespace Sources.App.Bootstrap
         {
             _sdkInitializeService.Register();
             
-            //TODO нету звука
-            //TODO GRAPHY аддон для оптимизации
             await _sdkInitializeService.Initialize();
             
             _appCore = FindObjectOfType<AppCore>() ?? new AppCoreFactory().Create();

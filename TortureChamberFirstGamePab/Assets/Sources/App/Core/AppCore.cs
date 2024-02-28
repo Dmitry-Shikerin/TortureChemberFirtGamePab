@@ -13,12 +13,12 @@ namespace Sources.App.Core
         private void Awake() => 
             DontDestroyOnLoad(this);
 
-        //TODO сделать серсис для смены громкости всех аудиоСоурсов
+        
         private async void Start()
         {
             //TODO потом раскоментировать
-            // await _sceneService.ChangeSceneAsync(SceneManager.GetActiveScene().name, null);
-            await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu, null);
+            await _sceneService.ChangeSceneAsync(SceneManager.GetActiveScene().name, null);
+            // await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu, null);
         }
 
         private void Update() => 

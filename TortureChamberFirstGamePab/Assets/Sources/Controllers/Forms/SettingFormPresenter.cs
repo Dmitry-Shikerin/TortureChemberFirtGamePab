@@ -48,21 +48,17 @@ namespace Sources.Controllers.Forms
         {
             _pauseService.Continue();
 
-            //TODo покашто закомментировал
             _settingDataService.Save(_setting);
         }
 
         public void IncreaseVolume()
         {
-            Debug.Log($"Increase Volume {Volume.Step}");
             Volume.Increase();
             ShowSprites(Volume.Step);
         }
 
         public void TurnDownVolume()
         {
-            Debug.Log($"Turn Down Volume {Volume.Step}");
-
             Volume.TurnDown();
             ShowSprites(Volume.Step);
         }

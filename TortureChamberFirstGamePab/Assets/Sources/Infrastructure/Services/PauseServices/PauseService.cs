@@ -11,9 +11,7 @@ namespace Sources.Infrastructure.Services.PauseServices
     {
         public event Action PauseActivated;
         public event Action ContinueActivated;
-        public event Action PauseSoundActivated;
-        public event Action ContinueSoundActivated;
-
+        
         public bool IsPaused { get; private set; }
 
         public void Pause()
@@ -23,18 +21,9 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Min;
         }
 
-        //TODO сеттинг не соответствует громкости
-        //Todo не выключаются звукифуц
-        //TODO не работает регулировка громкости
-        //TODO если я в паузе то при смене фокуса на игру она убирается даже если я в меню паузы
-        //TODO сделать диммер для окошек паузы
-        public void PauseSound()
-        {
-            PauseSoundActivated?.Invoke();
-        }
+        public void PauseSound() => 
+            AudioListener.pause = true;
 
-        //TODO разобратся с паузой
-        //TODO увеличить размер триггеров
         public void Continue()
         {
             IsPaused = false;
@@ -42,10 +31,8 @@ namespace Sources.Infrastructure.Services.PauseServices
             Time.timeScale = Constant.TimeScaleValue.Max;
         }
 
-        public void ContinueSound()
-        {
-            ContinueSoundActivated?.Invoke();
-        }
+        public void ContinueSound() => 
+            AudioListener.pause = false;
 
         public async UniTask Yield(CancellationToken cancellationToken)
         {

@@ -2,15 +2,16 @@
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
+using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
-using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -41,6 +42,7 @@ namespace Sources.Controllers.Scenes
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
             ISaveAfterCertainPeriodService saveAfterCertainPeriodService,
             IGameOverService gameOverService,
+            IBackgroundMusicService backgroundMusicService,
             ILocalizationService localizationService,
             IFocusService focusService,
             HUD hud,
@@ -64,6 +66,8 @@ namespace Sources.Controllers.Scenes
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
             _gameOverService = gameOverService ?? throw new ArgumentNullException(nameof(gameOverService));
+            _backgroundMusicService = backgroundMusicService ??
+                                      throw new ArgumentNullException(nameof(backgroundMusicService));
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
@@ -82,37 +86,22 @@ namespace Sources.Controllers.Scenes
 
         public string Name { get; } = nameof(GamePlayScene);
 
-        //TODO сделать проверку на наличие сохраненией в сеттинге если их нет сделать громкость 0.2
-        //TODO музыка не меняет громкость 
-        //TODO луп звуки не ставятся на паузу
         public void Enter(object payload)
         {
-            Debug.Log("Start Enter GamePlay");
             _loadService.Load();
-            Debug.Log("Enter LoadService");
             _tavernUpgradePointService.OnEnable();
-            Debug.Log("Enter TavernUpgradePointService");
             _visitorQuantityService.Enter();
-            Debug.Log("Enter VisitorQuantityService");
             _visitorSpawnService.Enter();
-            Debug.Log("Enter VisitorSpawnService");
             _pauseMenuService.Enter();
-            Debug.Log("Enter PauseMenuService");
+            _backgroundMusicService.Enter();
             _gameOverService.Enter();
-            Debug.Log("Enter GameOverService");
             _saveAfterCertainPeriodService.Enter(_loadService);
-            Debug.Log("Enter SaveAfterCertainPeriodService");
             _advertisingAfterCertainPeriodService.Enter();
-            Debug.Log("Enter _advertisingAfterCertainPeriodService");
             _volumeService.Enter();
-            Debug.Log("Enter _volumeService");
             _mobilePlatformService.Enter();
-            Debug.Log("Enter _mobilePlatformService");
 
             _localizationService.Enter();
-            Debug.Log("Enter _localizationService");
             _focusService.Enter();
-            Debug.Log("End Enter GamePlay");
         }
 
         public void Exit()
@@ -121,6 +110,7 @@ namespace Sources.Controllers.Scenes
             _visitorQuantityService.Exit();
             _visitorSpawnService.Exit();
             _pauseMenuService.Exit();
+            _backgroundMusicService.Exit();
             _gameOverService.Exit();
             _saveAfterCertainPeriodService.Exit();
             _advertisingAfterCertainPeriodService.Exit();

@@ -1,9 +1,7 @@
 ﻿using System;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
-using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.PresentationInterfaces.UI.AudioSources;
-using UnityEngine;
 
 namespace Sources.Controllers.UI.AudioSources
 {
@@ -12,27 +10,22 @@ namespace Sources.Controllers.UI.AudioSources
         private readonly IFourthAudioSourceActivator _audioSourceActivator;
         private readonly ITripleAudioSourceUI _audioSourceUI;
         private readonly IPauseService _pauseService;
-        private readonly IVolumeService _volumeService;
 
         public FourthCallBackAudioSourceUIPresenter
         (
             IFourthAudioSourceActivator audioSourceActivator,
             ITripleAudioSourceUI audioSourceUI,
-            IPauseService pauseService,
-            IVolumeService volumeService
+            IPauseService pauseService
         )
         {
             _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
             _audioSourceUI = audioSourceUI ?? throw new ArgumentNullException(nameof(audioSourceUI));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
-            _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
         }
 
         public override void Enable()
         {
-            OnVolumeChanged(_volumeService.Volume);
-            
             _audioSourceUI.ThirdAudioSourceView.SetLoop();
 
             _audioSourceActivator.FirstAudioSourceActivated += OnPlayFirstSound;
@@ -43,8 +36,6 @@ namespace Sources.Controllers.UI.AudioSources
 
             _pauseService.PauseActivated += OnPauseSound;
             _pauseService.ContinueActivated += OnContinueSound;
-
-            _volumeService.VolumeChanged += OnVolumeChanged;
         }
 
         public override void Disable()
@@ -59,15 +50,6 @@ namespace Sources.Controllers.UI.AudioSources
             
             _pauseService.PauseActivated -= OnPauseSound;
             _pauseService.ContinueActivated -= OnContinueSound;
-            
-            _volumeService.VolumeChanged -= OnVolumeChanged;
-        }
-
-        private void OnVolumeChanged(float volume)
-        {
-            _audioSourceUI.FirstAudioSourceView.SetVolume(volume);
-            _audioSourceUI.SecondAudioSourceView.SetVolume(volume);
-            _audioSourceUI.ThirdAudioSourceView.SetVolume(volume);
         }
 
         private void OnPlayFirstSound() => 
@@ -84,22 +66,18 @@ namespace Sources.Controllers.UI.AudioSources
 
         private void OnPauseSound()
         {
-            Debug.Log($"Audiosource Loop Paused");
             if(_audioSourceActivator.IsActive == false)
                 return;
             
             _audioSourceUI.ThirdAudioSourceView.Pause();
-            
         }
 
         private void OnContinueSound()
         {
-            Debug.Log($"Audiosource Loop Continue");
             if(_audioSourceActivator.IsActive == false)
                 return;
             
-            _audioSourceUI.ThirdAudioSourceView.UnPause();
-            
+            _audioSourceUI.ThirdAudioSourceView.Continue();
         }
 
     }

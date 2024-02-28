@@ -7,9 +7,11 @@ using Sources.Infrastructure.Services.LoadServices.Components;
 using Sources.Infrastructure.Services.PauseServices;
 using Sources.Infrastructure.Services.VolumeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
+using Sources.Infrastructure.Services.YandexSDCServices.WebGlServices;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Zenject;
 

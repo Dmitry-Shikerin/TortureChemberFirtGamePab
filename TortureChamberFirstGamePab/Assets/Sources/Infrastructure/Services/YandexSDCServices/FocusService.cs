@@ -2,6 +2,7 @@
 using Agava.WebUtility;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
+using Sources.InfrastructureInterfaces.Services.SDCServices.WebGlServices;
 using UnityEngine;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -20,16 +21,14 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         public void Enter(object payload = null)
         {
-            Debug.Log("FocusService Enter");
             if(WebApplication.IsRunningOnWebGL == false)
                 return;
             
-            // OnInBackgroundChangeWeb(WebApplication.InBackground);
-            // OnInBackgroundChangeApp(Application.isFocused);
-            //
-            // Application.focusChanged += OnInBackgroundChangeApp;
-            // WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
-            Debug.Log("FocusService AddListeners");
+            OnInBackgroundChangeWeb(WebApplication.InBackground);
+            OnInBackgroundChangeApp(Application.isFocused);
+            
+            Application.focusChanged += OnInBackgroundChangeApp;
+            WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
         }
 
         public void Exit()
@@ -45,32 +44,28 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (inApp == false)
             {
-                Debug.Log($"{nameof(OnInBackgroundChangeApp)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
                 
                 return;
             }
             
-            Debug.Log($"{nameof(OnInBackgroundChangeApp)} continue");
             _pauseService.Continue();
-            _pauseService.ContinueSound();
+            _pauseService.PauseSound();
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
         {
             if (isBackground)
             {
-                Debug.Log($"{nameof(OnInBackgroundChangeWeb)} pause");
                 _pauseService.Pause();
                 _pauseService.PauseSound();
                 
                 return;
             }
-
-            Debug.Log($"{nameof(OnInBackgroundChangeWeb)} continue");
+            
             _pauseService.Continue();
-            _pauseService.ContinueSound();
+            _pauseService.PauseSound();
         }
     }
 }

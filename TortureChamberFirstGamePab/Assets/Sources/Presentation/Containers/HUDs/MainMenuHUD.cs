@@ -3,7 +3,6 @@ using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.UI.AudioSources;
 using Sources.Presentation.Views;
 using Sources.Presentation.Views.Forms.MainMenus.Containers;
-using Sources.Presentation.Views.Taverns.BackGroundMusics;
 using Sources.Presentation.Views.YandexSDC.MyVariant;
 using UnityEngine;
 
@@ -15,5 +14,5 @@ public class MainMenuHUD : View
         LeaderboardElementViewContainer { get; private set; }
     [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
     [field: SerializeField] public MainMenuFormsContainer MainMenuFormsContainer { get; private set; }
-    [field: SerializeField] public BackgroundMusicView BackgroundMusicView { get; private set; }
+    [field: SerializeField] public AudioSourceView BackGroundAudioSourceView { get; private set; }
 }

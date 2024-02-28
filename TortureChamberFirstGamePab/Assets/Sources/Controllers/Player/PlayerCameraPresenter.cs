@@ -49,7 +49,6 @@ namespace Sources.Controllers.Player
             _playerCameraView.Rotate(_playerCamera.AngleY);
         }
         
-        //TODO медленно крутится камера
         private void OnRotationChanged(bool isLeftRotation, bool isRightRotation)
         {
             if(isLeftRotation)
