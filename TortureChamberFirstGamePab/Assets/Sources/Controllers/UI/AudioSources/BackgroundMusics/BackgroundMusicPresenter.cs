@@ -2,6 +2,7 @@
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.PresentationInterfaces.UI.AudioSources.BackgroundMusics;
+using UnityEngine;
 
 namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
 {
@@ -26,6 +27,7 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
 
         public override void Enable()
         {
+            OnVolumeChanged();
 
             _volumeService.VolumeChanged += OnVolumeChanged;
 
@@ -34,8 +36,11 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             
             _backgroundMusicView.BackgroundMusic.SetLoop();
             _backgroundMusicView.BackgroundMusic.Play();
+            
+            Debug.Log("BackgroundMusic Enable");
         }
 
+        //TODO сделать перевод анонимов
         public override void Disable()
         {
             _volumeService.VolumeChanged -= OnVolumeChanged;
@@ -44,6 +49,8 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             _pauseService.ContinueSoundActivated -= OnContinueSound;
             
             _backgroundMusicView.BackgroundMusic.Stop();
+            
+            Debug.Log("BackgroundMusic Disable");
         }
 
         private void OnPauseSound()

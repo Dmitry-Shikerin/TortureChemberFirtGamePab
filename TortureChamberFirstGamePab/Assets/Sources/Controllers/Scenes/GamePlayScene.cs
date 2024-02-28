@@ -10,6 +10,7 @@ using Sources.InfrastructureInterfaces.Services.LoadServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.Presentation.Voids;
+using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -83,19 +84,32 @@ namespace Sources.Controllers.Scenes
 
         public void Enter(object payload)
         {
+            Debug.Log("_loadService enter");
             _loadService.Load();
+            Debug.Log("_loadService enter");
             _tavernUpgradePointService.OnEnable();
+            Debug.Log("_tavernUpgradePointService enter");
             _visitorQuantityService.Enter();
+            Debug.Log("_visitorQuantityService enter");
             _visitorSpawnService.Enter();
+            Debug.Log("_visitorSpawnService enter");
             _pauseMenuService.Enter();
+            Debug.Log("_pauseMenuService enter");
             _gameOverService.Enter();
+            Debug.Log("_gameOverService enter");
             _saveAfterCertainPeriodService.Enter(_loadService);
+            Debug.Log("_saveAfterCertainPeriodService enter");
             _advertisingAfterCertainPeriodService.Enter();
+            Debug.Log("_advertisingAfterCertainPeriodService enter");
             _volumeService.Enter();
+            Debug.Log("_volumeService enter");
             _mobilePlatformService.Enter();
+            Debug.Log("_mobilePlatformService enter");
 
             _localizationService.Enter();
+            Debug.Log("_localizationService enter");
             _focusService.Enter();
+            Debug.Log("_focusService enter");
         }
 
         public void Exit()
