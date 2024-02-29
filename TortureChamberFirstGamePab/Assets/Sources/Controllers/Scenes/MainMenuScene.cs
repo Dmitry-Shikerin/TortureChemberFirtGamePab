@@ -4,6 +4,7 @@ using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
+using Sources.Infrastructure.Payloads;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
@@ -93,7 +94,7 @@ namespace Sources.Controllers.Scenes
             _focusService.Enter();
             _localizationService.Enter();
             _yandexLeaderboardInitializeService.Fill();
-            _sdkInitializeService.GameReady();
+            GameReady(payload);
         }
 
         public void Exit()
@@ -113,6 +114,21 @@ namespace Sources.Controllers.Scenes
 
         public void UpdateFixed(float fixedDeltaTime)
         {
+        }
+
+        private void GameReady(object payload)
+        {
+            if(payload == null)
+                return;
+            
+            if(payload is not InitializeServicePayload concrete )
+                return;
+            
+            if(concrete.IsInitialized == false)
+                return;
+            
+            Debug.Log("initialize service ready");
+            _sdkInitializeService.GameReady();
         }
     }
 }

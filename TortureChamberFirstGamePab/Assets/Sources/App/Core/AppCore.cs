@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Domain.Constants;
+using Sources.Infrastructure.Payloads;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +19,8 @@ namespace Sources.App.Core
         {
             //TODO потом раскоментировать
             // await _sceneService.ChangeSceneAsync(SceneManager.GetActiveScene().name, null);
-            await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu, null);
+            await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu,
+                new InitializeServicePayload(true));
         }
 
         private void Update() => 
