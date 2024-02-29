@@ -55,7 +55,7 @@ namespace Sources.Controllers.Player
         {
             HideSlots();
             
-            for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue; i++)
+            for (int i = 0; i < _upgradeble.CurrentLevelUpgrade.GetValue + 1; i++)
             {
                 UpdateAvailableSlot(i);
             }
@@ -186,16 +186,21 @@ namespace Sources.Controllers.Player
         {
             _playerInventory.IncreaseCapacity();
             
-            int index = _playerInventory.InventoryCapacity - 1;
-            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
+            // int index = _playerInventory.InventoryCapacity - 1;
+            // _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
             // _playerInventoryView.PlayerInventorySlots[index].Image.ShowImage();
+            
+            for (int i = 0; i < _playerInventory.InventoryCapacity; i++)
+            {
+                UpdateAvailableSlot(i);
+            }
         }
         
         private void UpdateAvailableSlot(int index)
         {
             int correctionIndex = _playerInventory.InventoryCapacity + 1;
             
-            _playerInventoryView.PlayerInventorySlots[correctionIndex].BackgroundImage.ShowImage();
+            _playerInventoryView.PlayerInventorySlots[index].BackgroundImage.ShowImage();
             // _playerInventoryView.PlayerInventorySlots[correctionIndex].Image.ShowImage();
         }
 

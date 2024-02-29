@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CharismaUpgradeConfig
   m_EditorClassIdentifier: 
   <StartAmountUpgrade>k__BackingField: 0.1
-  <AddedAmountUpgrade>k__BackingField: 0.05
-  <MoneyPerUpgrades>k__BackingField: 050000000a00000014000000
+  <AddedAmountUpgrade>k__BackingField: 0.025
+  <MoneyPerUpgrades>k__BackingField: 0a000000230000004b000000

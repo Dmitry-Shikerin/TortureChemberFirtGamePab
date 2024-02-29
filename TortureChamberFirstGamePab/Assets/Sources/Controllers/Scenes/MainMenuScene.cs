@@ -90,9 +90,10 @@ namespace Sources.Controllers.Scenes
             
             _volumeService.Enter();
 
-            //TODO если переходим с геймПлейсцены невключать?
             _focusService.Enter();
             _localizationService.Enter();
+            //TODO может быть сделать заполнение при вызове лидерборда?
+            //TODO нужно ли диспозить презентер и модель у монеток, мусора и посетителей?
             _yandexLeaderboardInitializeService.Fill();
             GameReady(payload);
         }
@@ -127,7 +128,6 @@ namespace Sources.Controllers.Scenes
             if(concrete.IsInitialized == false)
                 return;
             
-            Debug.Log("initialize service ready");
             _sdkInitializeService.GameReady();
         }
     }

@@ -169,7 +169,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 playerMovementUpgradeView.Upgrade);
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.AdvertisementButtonUI, () =>
             {
-                _videoAdService.ShowVideo();
+                hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
+                _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
             });
 
             //HudButtons
@@ -177,8 +178,11 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
 
             //PauseMenuButtons
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton,
-                _videoAdService.ShowVideo);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton, () =>
+            {
+                hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
+                _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
+            });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
                 // _pauseService.Continue();

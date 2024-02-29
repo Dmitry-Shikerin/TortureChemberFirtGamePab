@@ -53,7 +53,8 @@ namespace Sources.Controllers.Player
         public override void Enable()
         {
             _updateService.ChangedUpdate += OnUpdate;
-            _playerMovementView.SetPosition(_playerMovement.Position);
+            // _playerMovementView.SetPosition(_playerMovement.Position);
+            _playerMovement.Position = _playerMovementView.Position;
             _playerMovementView.SetAngle(_playerMovement.RotationAngle);
         }
 

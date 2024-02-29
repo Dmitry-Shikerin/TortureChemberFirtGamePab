@@ -15,7 +15,7 @@ namespace Sources.Domain.Players.PlayerMovements
             if (data == null) 
                 throw new ArgumentNullException(nameof(data));
             
-            Position = data.Position.ToVector3();
+            // Position = data.Position.ToVector3();
             RotationAngle = data.Direction;
         }
 

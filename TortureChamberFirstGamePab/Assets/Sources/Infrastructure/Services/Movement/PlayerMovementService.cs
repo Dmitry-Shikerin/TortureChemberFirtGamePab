@@ -38,7 +38,6 @@ namespace Sources.Infrastructure.Services.Movement
         public float GetSpeedRotation() =>
             _playerMovementCharacteristic.AngularSpeed * Time.deltaTime;
         
-        //TODO убрать магические чиссла
         public float GetMaxSpeed(PlayerInput playerInput, float currentAnimationSpeed, float runInput)
         {
             float maxMovementValue = playerInput.Direction.magnitude;

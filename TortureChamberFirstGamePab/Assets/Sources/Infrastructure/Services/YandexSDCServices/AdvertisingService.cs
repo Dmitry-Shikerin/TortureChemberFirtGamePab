@@ -28,14 +28,26 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         
-        public void ShowVideo()
+        public void ShowVideo(Action onCloseCallback)
         {
-            //TODO указать в обучении что ревард реклама не запустится еесли стоит АддБлок 
+            //TODO поправить коллайдеры на столах
+            //TODO блокировать кнопку рекламы и включать ее после того как просмотрится реклама
+            //TODO убрать ккнопку выхода(Application.Quit)
+            //TODO прятать кнопку продолжить
+            //TODO добавить коллайдеры на стулья и увеличить радиус сбора мусора
             if (WebApplication.IsRunningOnWebGL == false)
+            {
+                onCloseCallback?.Invoke();
+                
                 return;
+            }
 
             if (AdBlock.Enabled)
+            {
+                onCloseCallback?.Invoke();
+                
                 return;
+            }
 
             Agava.YandexGames.VideoAd.Show(
                 () =>
@@ -49,6 +61,8 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 {
                     _pauseService.Continue();
                     _pauseService.ContinueSound();
+                    
+                    onCloseCallback?.Invoke();
                 });
         }
 

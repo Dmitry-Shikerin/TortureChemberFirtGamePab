@@ -35,7 +35,7 @@ namespace Sources.Infrastructure.Services
             {
                 UpdateFromSimpleInput();
             }
-            else
+            else 
             {
                 UpdateFromKeyBoard();
             }

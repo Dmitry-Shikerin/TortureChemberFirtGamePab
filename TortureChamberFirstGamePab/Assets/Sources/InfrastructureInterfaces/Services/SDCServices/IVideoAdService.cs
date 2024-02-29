@@ -1,7 +1,9 @@
-﻿namespace Sources.InfrastructureInterfaces.Services.SDCServices
+﻿using System;
+
+namespace Sources.InfrastructureInterfaces.Services.SDCServices
 {
     public interface IVideoAdService
     {
-        void ShowVideo();
+        void ShowVideo(Action onCloseCallback);
     }
 }

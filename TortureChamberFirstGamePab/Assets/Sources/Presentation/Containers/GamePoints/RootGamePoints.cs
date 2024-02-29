@@ -1,6 +1,7 @@
 using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI.Conteiners.AudioSources;
 using Sources.Presentation.Views;
+using Sources.Presentation.Views.Player;
 using Sources.Presentation.Views.Taverns.PickUpPoints.Foods;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using UnityEngine;
@@ -18,5 +19,6 @@ namespace Sources.Presentation.Containers.GamePoints
         [field: SerializeField] public TavernUpgradeTrigger TavernUpgradeTrigger { get; private set; }
         [field: SerializeField] public UpgradePointsInteractionAudioSourceContainer 
             UpgradePointsInteractionAudioSourceContainer { get; private set; }
+        [field: SerializeField] public PlayerSpawnPoint PlayerSpawnPoint { get; private set; }
     }
 }

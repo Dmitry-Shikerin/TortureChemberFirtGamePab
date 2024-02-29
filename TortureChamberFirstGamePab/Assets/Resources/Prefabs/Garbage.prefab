@@ -153,8 +153,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5746114
+  m_Center: {x: 0, y: 0.074611425, z: 0}
 --- !u!1 &2274980297429259954
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AudioSourceUI>k__BackingField: {fileID: 8925339227797108432}
-  <FillingRate>k__BackingField: 0.25
+  <FillingRate>k__BackingField: 0.35
 --- !u!114 &8925339227797108432
 MonoBehaviour:
   m_ObjectHideFlags: 0

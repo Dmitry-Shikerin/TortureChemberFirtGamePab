@@ -17,8 +17,6 @@ namespace Sources.App.Core
         
         private async void Start()
         {
-            //TODO потом раскоментировать
-            // await _sceneService.ChangeSceneAsync(SceneManager.GetActiveScene().name, null);
             await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu,
                 new InitializeServicePayload(true));
         }

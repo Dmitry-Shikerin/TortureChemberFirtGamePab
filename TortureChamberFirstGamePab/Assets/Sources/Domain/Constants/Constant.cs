@@ -70,7 +70,7 @@
         {
             public const float SpawnDelay = 5f;
             public const int MaximumQuantity = 2;
-            public const float EatFillingRate = 0.15f;
+            public const float EatFillingRate = 0.1f;
             public const float WaitingEatFillingRate = 0.008f;
         }
 
@@ -178,7 +178,7 @@
         
         public static class AdvertisingReward
         {
-            public const int CoinsAmount = 10;
+            public const int CoinsAmount = 40;
         }
 
         public static class AdvertisingTimer

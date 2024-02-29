@@ -5,7 +5,6 @@ using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.DomainInterfaces.Items;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
-using Sources.InfrastructureInterfaces.Services.ShuffleServices;
 using Sources.PresentationInterfaces.Animations;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Extensions.ShuffleExtensions;
@@ -82,8 +81,11 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
                 
+                //TODO потом исправить
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
                     Constant.Visitors.WaitingEatFillingRate, cancellationToken);
+                // await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
+                //     0.3f, cancellationToken);
                 
                 _visitor.SetUnHappy();
                 _visitor.SeatPointView.UnOccupy();

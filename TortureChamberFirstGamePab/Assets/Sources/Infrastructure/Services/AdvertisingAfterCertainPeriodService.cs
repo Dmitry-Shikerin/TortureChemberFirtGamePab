@@ -5,7 +5,6 @@ using Sources.Domain.Constants;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Containers.UI.Texts;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
@@ -34,6 +33,7 @@ namespace Sources.Infrastructure.Services
         public async void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
+            //TODO AdvertisingAfterCertainPeriodService работает хорошо
             _advertisementTimeSpan = TimeSpan.FromMinutes(Constant.InterstitialService.ShowDelay);
             _timerTimeSpan = TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay);
 
