@@ -23,16 +23,11 @@ namespace Sources.Infrastructure.Services
                 throw new InvalidOperationException(nameof(payload));
 
             _cancellationTokenSource = new CancellationTokenSource();
-            //TODO потом раскоментировать
-            //TODO SaveAfterCeertainPeriodService работает хорошо
             _timeSpan = TimeSpan.FromMinutes(Constant.SaveService.SaveDelay);
-            // _timeSpan = TimeSpan.FromMinutes(0.5f);
             
             await SaveAsync(loadService.Save, _cancellationTokenSource.Token);
         }
         
-        //TODO указать чколько монеток добавится за рекламу
-        //TODO спросить про шрифт в лидерборде
         public void Exit()
         {
             _cancellationTokenSource.Cancel();

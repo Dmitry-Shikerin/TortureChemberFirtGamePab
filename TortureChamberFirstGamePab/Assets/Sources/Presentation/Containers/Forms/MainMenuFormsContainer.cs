@@ -1,7 +1,9 @@
-﻿using Sources.Controllers.Forms;
+﻿using Sources.Presentation.Views;
+using Sources.Presentation.Views.Forms;
+using Sources.Presentation.Views.Forms.MainMenus;
 using UnityEngine;
 
-namespace Sources.Presentation.Views.Forms.MainMenus.Containers
+namespace Sources.Presentation.Containers.Forms
 {
     public class MainMenuFormsContainer : View
     {
@@ -9,5 +11,6 @@ namespace Sources.Presentation.Views.Forms.MainMenus.Containers
         [field: SerializeField] public LeaderboardFormView LeaderboardFormView { get; private set; }
         [field: SerializeField] public SettingFormView SettingFormView { get; private set; }
         [field: SerializeField] public AuthorizationFormView AuthorizationFormView { get; private set; }
+        [field: SerializeField] public NewGameFormView NewGameFormView { get; private set; }
     }
 }

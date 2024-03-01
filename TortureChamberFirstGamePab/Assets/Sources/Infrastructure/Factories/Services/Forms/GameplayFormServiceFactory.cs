@@ -1,5 +1,4 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Domain.Constants;
@@ -10,9 +9,7 @@ using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Views.Players;
 using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
-using Sources.Infrastructure.Payloads;
 using Sources.Infrastructure.Services.Forms;
-using Sources.Infrastructure.Services.LoadServices;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
@@ -23,7 +20,6 @@ using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Voids;
 using Sources.PresentationInterfaces.Views.Players;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Factories.Services.Forms
 {
@@ -169,8 +165,8 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 playerMovementUpgradeView.Upgrade);
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.AdvertisementButtonUI, () =>
             {
-                hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
-                _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
+                hud.TavernUpgradePointButtons.AdvertisementButtonUI.Hide();
+                _videoAdService.ShowVideo(hud.TavernUpgradePointButtons.AdvertisementButtonUI.Show);
             });
 
             //HudButtons
@@ -185,7 +181,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
             {
-                // _pauseService.Continue();
                 _formService.Show<HudFormView>();
                 
                 saveAction.Invoke();
@@ -194,15 +189,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
             });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SaveButton, saveAction.Invoke);
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.QuitButton, () =>
-            {
-                // _pauseService.Continue();
-                _formService.Show<HudFormView>();
-                
-                saveAction.Invoke();
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
-                Application.Quit();
-            });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.CloseButton,
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowHudFormView);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.TutorialButton,
@@ -222,8 +208,6 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _buttonUIFactory.Create(hud.GameOverFormButtonContainer.BackToMainMenuButton,
                 async () =>
                 {
-                    // _pauseService.Continue();
-                    //
                     _formService.Show<HudFormView>();
 
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);

@@ -30,11 +30,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         
         public void ShowVideo(Action onCloseCallback)
         {
-            //TODO поправить коллайдеры на столах
-            //TODO блокировать кнопку рекламы и включать ее после того как просмотрится реклама
-            //TODO убрать ккнопку выхода(Application.Quit)
-            //TODO прятать кнопку продолжить
-            //TODO добавить коллайдеры на стулья и увеличить радиус сбора мусора
             if (WebApplication.IsRunningOnWebGL == false)
             {
                 onCloseCallback?.Invoke();

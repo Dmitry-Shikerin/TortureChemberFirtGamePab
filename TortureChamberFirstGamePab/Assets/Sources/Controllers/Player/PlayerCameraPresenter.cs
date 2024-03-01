@@ -49,7 +49,6 @@ namespace Sources.Controllers.Player
             _playerCameraView.Rotate(_playerCamera.AngleY);
         }
         
-        //TODO плохо работает ротейшн
         private void OnRotationChanged(bool isLeftRotation, bool isRightRotation)
         {
             if(isLeftRotation)

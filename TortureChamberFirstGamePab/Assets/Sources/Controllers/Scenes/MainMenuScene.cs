@@ -92,8 +92,6 @@ namespace Sources.Controllers.Scenes
 
             _focusService.Enter();
             _localizationService.Enter();
-            //TODO может быть сделать заполнение при вызове лидерборда?
-            //TODO нужно ли диспозить презентер и модель у монеток, мусора и посетителей?
             _yandexLeaderboardInitializeService.Fill();
             GameReady(payload);
         }

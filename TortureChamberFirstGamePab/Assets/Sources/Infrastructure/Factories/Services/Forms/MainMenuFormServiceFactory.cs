@@ -11,6 +11,7 @@ using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Payloads;
 using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.SceneServices;
+using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
@@ -23,6 +24,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class MainMenuFormServiceFactory
     {
+        private readonly NewGameFormPresenterFactory _newGameFormPresenterFactory;
         private readonly AuthorizationFormPresenterFactory _authorizationFormPresenterFactory;
         private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
         private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
@@ -34,10 +36,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
         private readonly IDataService<Tavern> _tavernDateService;
         private readonly IDataService<PlayerUpgrade> _upgradeDateService;
         private readonly IPlayerAccountAuthorizeService _playerAccountAuthorizeService;
+        private readonly ILeaderboardInitializeService _leaderboardInitializeService;
         private readonly MainMenuHUD _mainMenuHUD;
 
         public MainMenuFormServiceFactory
         (
+            NewGameFormPresenterFactory newGameFormPresenterFactory,
             AuthorizationFormPresenterFactory authorizationFormPresenterFactory,
             SettingFormPresenterFactory settingFormPresenterFactory,
             MainMenuFormPresenterFactory mainMenuFormPresenterFactory,
@@ -49,9 +53,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             IDataService<Player> playerDataService,
             IDataService<Tavern> tavernDateService,
             IDataService<PlayerUpgrade> upgradeDateService,
-            IPlayerAccountAuthorizeService playerAccountAuthorizeService
+            IPlayerAccountAuthorizeService playerAccountAuthorizeService,
+            ILeaderboardInitializeService leaderboardInitializeService
         )
         {
+            _newGameFormPresenterFactory = newGameFormPresenterFactory ??
+                                           throw new ArgumentNullException(nameof(newGameFormPresenterFactory));
             _authorizationFormPresenterFactory =
                 authorizationFormPresenterFactory ??
                 throw new ArgumentNullException(nameof(authorizationFormPresenterFactory));
@@ -70,7 +77,11 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             _upgradeDateService = upgradeDateService ?? throw new ArgumentNullException(nameof(upgradeDateService));
             _playerAccountAuthorizeService = playerAccountAuthorizeService ??
                                              throw new ArgumentNullException(nameof(playerAccountAuthorizeService));
-            _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
+            _leaderboardInitializeService = leaderboardInitializeService ??
+                                            throw new ArgumentNullException(nameof(leaderboardInitializeService));
+            _mainMenuHUD = mainMenuHUD
+                ? mainMenuHUD
+                : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
         public IFormService Create()
@@ -102,16 +113,30 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             _formService.Add(authorizationForm);
 
+            Form<NewGameFormView, NewGameFormPresenter> newGameForm = 
+                new Form<NewGameFormView, NewGameFormPresenter>(
+                _newGameFormPresenterFactory.Create, 
+                _mainMenuHUD.MainMenuFormsContainer.NewGameFormView);
+            
+            _formService.Add(newGameForm);
+
             IButtonUI continueGameButton = _buttonUIFactory.Create(
                 _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
                         new LoadServicePayload(true)));
 
+            continueGameButton.Show();
+
+            //TODO сделать кнопки в главном меню через LayoutGroup
+            //TOdo сделать затемнение заднего фона
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
             {
-                _playerDataService.Clear();
-                _tavernDateService.Clear();
-                _upgradeDateService.Clear();
+                if (CanLoad())
+                {
+                    _formService.Show<NewGameFormView>();
+                    
+                    return;
+                }
 
                 await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
                     new LoadServicePayload(false));
@@ -122,10 +147,11 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 if (_playerAccountAuthorizeService.IsAuthorized() == false)
                 {
                     _formService.Show<AuthorizationFormView>();
-                    
+
                     return;
                 }
 
+                _leaderboardInitializeService.Fill();
                 _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
             });
 
@@ -144,7 +170,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 _mainMenuHUD.MainMenuFormsContainer.SettingFormView.TurnDownVolume);
 
             if (CanLoad() == false)
-                continueGameButton.Disable();
+                continueGameButton.Hide();
 
             return _formService;
         }

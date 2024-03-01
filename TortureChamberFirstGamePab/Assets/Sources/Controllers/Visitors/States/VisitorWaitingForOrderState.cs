@@ -58,20 +58,14 @@ namespace Sources.Controllers.Visitors.States
 
             _visitorInventory.SetTargetItem(item);
             _visitorAnimation.PlaySeatIdle();
-            
-            WaitAsync(_cancellationTokenSource.Token);
-        }
 
-        public override void Update()
-        {
-            if (_visitorInventory.Item != null)
-                _cancellationTokenSource.Cancel();
+            WaitAsync(_cancellationTokenSource.Token);
         }
 
         public override void Exit()
         {
             _visitorInventory.SetTargetItem(null);
-            
+
             _cancellationTokenSource.Cancel();
         }
 
@@ -80,13 +74,19 @@ namespace Sources.Controllers.Visitors.States
             try
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
-                
-                //TODO потом исправить
+
+                //TODO спросить про рекламу и продвижение
+                //TODo спросить про стикки баннер
+                //TODO увеличить стоимость улучшений
+                //TODO немного увеличить радиус сбора мусора
+                //TODO потом раскоментировать
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.WaitingEatFillingRate, cancellationToken);
-                // await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                //     0.3f, cancellationToken);
-                
+                    Constant.Visitors.WaitingEatFillingRate, cancellationToken, () =>
+                    {
+                        if (_visitorInventory.Item != null)
+                            Cancel();
+                    });
+
                 _visitor.SetUnHappy();
                 _visitor.SeatPointView.UnOccupy();
             }
@@ -96,5 +96,8 @@ namespace Sources.Controllers.Visitors.States
                 _visitor.Eat();
             }
         }
+
+        private void Cancel() => 
+            _cancellationTokenSource.Cancel();
     }
 }

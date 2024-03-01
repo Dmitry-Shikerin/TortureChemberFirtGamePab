@@ -92,7 +92,7 @@ namespace Sources.Controllers.Player
             if (_playerInventory.CanGet == false)
                 return;
 
-            IItem item = await GiveAsync(targetItem, _cancellationTokenSource.Token);
+            IItem item = await GiveAsync(targetItem, takeble, _cancellationTokenSource.Token);
             takeble.TakeItem(item);
         }
 
@@ -124,7 +124,7 @@ namespace Sources.Controllers.Player
             }
         }
 
-        private async UniTask<IItem> GiveAsync(IItem item, CancellationToken cancellationToken)
+        private async UniTask<IItem> GiveAsync(IItem item, ITakeble takeble, CancellationToken cancellationToken)
         {
             IImageUI backGroundImage = null;
 
@@ -140,7 +140,11 @@ namespace Sources.Controllers.Player
                         backGroundImage = _playerInventoryView.PlayerInventorySlots[i].BackgroundImage;
                         
                         await backGroundImage.FillMoveTowardsAsync(
-                            _playerInventoryView.FillingRate, cancellationToken);
+                            _playerInventoryView.FillingRate, cancellationToken, () =>
+                            {
+                                if(takeble.TargetItem == null)
+                                    Cancel();
+                            });
 
                         _playerInventory.StopGiveItem();
                         return RemoveItem(backGroundImage, i);
