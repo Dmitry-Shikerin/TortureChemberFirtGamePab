@@ -4,9 +4,9 @@
     {
         T Value { get; }
 
-        object IObservablePropertySecond.GetValue()
-        {
-            return Value;
-        }
+        T GetValue();
+
+        object IObservablePropertySecond.GetValue() => 
+            GetValue();
     }
 }

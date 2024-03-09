@@ -36,8 +36,6 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             
             _backgroundMusicView.BackgroundMusic.SetLoop();
             _backgroundMusicView.BackgroundMusic.Play();
-            
-            Debug.Log("BackgroundMusic Enable");
         }
 
         public override void Disable()
@@ -49,8 +47,6 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
             
             _backgroundMusicView.BackgroundMusic.RemoveLoop();
             _backgroundMusicView.BackgroundMusic.Stop();
-            
-            Debug.Log("BackgroundMusic Disable");
         }
         
         private void OnPauseSound()

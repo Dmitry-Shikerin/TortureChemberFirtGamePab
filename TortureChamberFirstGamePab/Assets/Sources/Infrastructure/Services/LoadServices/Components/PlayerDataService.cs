@@ -21,7 +21,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         public void Save(Player player)
         {
-            Debug.Log("Game saved");
             Save(player.Inventory);
             Save(player.Movement);
             Save(player.Wallet);
@@ -32,7 +31,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteKey(Constant.DataKey.MovementKey);
             PlayerPrefs.DeleteKey(Constant.DataKey.InventoryKey);
             PlayerPrefs.DeleteKey(Constant.DataKey.WalletKey);
-            Debug.Log("PlayerDataService Clear");
         }
 
         private PlayerMovement LoadMovement() => 

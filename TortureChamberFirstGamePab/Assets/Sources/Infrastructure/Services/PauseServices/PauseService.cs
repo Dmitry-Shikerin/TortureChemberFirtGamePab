@@ -30,8 +30,6 @@ namespace Sources.Infrastructure.Services.PauseServices
             IsPaused = true;
             PauseActivated?.Invoke();
             Time.timeScale = Constant.TimeScaleValue.Min;
-
-            Debug.Log($"{nameof(PauseListenersCount)} {PauseListenersCount}");
         }
 
         public void PauseSound()
@@ -43,14 +41,12 @@ namespace Sources.Infrastructure.Services.PauseServices
 
             IsSoundPaused = true;
             PauseSoundActivated?.Invoke();
-            Debug.Log($"{nameof(PauseListenersCount)} {PauseListenersCount}");
         }
 
         public void Continue()
         {
             PauseListenersCount--;
 
-            Debug.Log($"{nameof(PauseListenersCount)} {PauseListenersCount}");
             if (PauseListenersCount > 0)
                 return;
 
@@ -66,7 +62,6 @@ namespace Sources.Infrastructure.Services.PauseServices
         {
             SoundPauseListenersCount--;
 
-            Debug.Log($"{nameof(SoundPauseListenersCount)} {SoundPauseListenersCount}");
             if (SoundPauseListenersCount > 0)
                 return;
 

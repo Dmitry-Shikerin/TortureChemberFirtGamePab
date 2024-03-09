@@ -4,13 +4,16 @@ using Sources.Domain.Constants;
 using Sources.Domain.Exceptions.Serializefields;
 using UnityEngine;
 
-namespace Sources.Presentation.Views.Bootstrap
+namespace Sources.Presentation.Views.Applications
 {
     public class CurtainView : View
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _duration = 1;
 
+        public event Action CurtainHide;
+        public bool IsInProgress { get; private set; }
+        
         private void OnValidate()
         {
             if (_canvasGroup == null)
@@ -31,6 +34,7 @@ namespace Sources.Presentation.Views.Bootstrap
 
         public async UniTask ShowCurtain()
         {
+            IsInProgress = true;
             Show();
             await Fade(Constant.FillingAmount.Minimum, Constant.FillingAmount.Maximum);
         }
@@ -39,6 +43,7 @@ namespace Sources.Presentation.Views.Bootstrap
         {
             await Fade(Constant.FillingAmount.Maximum, Constant.FillingAmount.Minimum);
             Hide();
+            IsInProgress = false;
         }
 
         private async UniTask Fade(float startAlpha, float endAlpha)

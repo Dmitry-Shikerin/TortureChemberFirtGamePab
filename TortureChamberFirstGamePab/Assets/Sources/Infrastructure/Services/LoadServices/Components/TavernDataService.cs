@@ -26,7 +26,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         {
             PlayerPrefs.DeleteKey(Constant.TavernDataKey.TavernMoodKey);
             PlayerPrefs.DeleteKey(Constant.TavernDataKey.VisitorQuantityKey);
-            Debug.Log("TavernDataService Clear");
         }
 
         private TavernMood LoadTavernMood() => 

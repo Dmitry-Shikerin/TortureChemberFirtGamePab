@@ -12,9 +12,10 @@ namespace Sources.App.Bootstrap
         private AppCore _appCore;
         private IInitializeService _sdkInitializeService;
 
+        //TODO этим сервисам здесь не место
         private async void Awake()
         {
-            _sdkInitializeService.Register();
+            _sdkInitializeService.EnableCallbackLogging();
             
             await _sdkInitializeService.Initialize();
             

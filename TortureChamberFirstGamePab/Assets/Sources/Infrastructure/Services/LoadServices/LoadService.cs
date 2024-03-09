@@ -107,7 +107,6 @@ namespace Sources.Infrastructure.Services.LoadServices
 
         protected override Player CreatePlayer()
         {
-            Debug.Log("Load scene");
             return PlayerDataService.Load();
         }
 

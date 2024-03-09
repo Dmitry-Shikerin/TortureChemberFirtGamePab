@@ -16,11 +16,13 @@ using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
+using Sources.Presentation.Views.Applications;
 
 namespace Sources.Infrastructure.Factories.Scenes
 {
     public class MainMenuSceneFactory : ISceneFactory
     {
+        private readonly CurtainView _curtainView;
         private readonly BackgroundMusicViewFactory _backgroundMusicViewFactory;
         private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
@@ -36,12 +38,14 @@ namespace Sources.Infrastructure.Factories.Scenes
         private readonly IDataService<Player> _dataService;
         private readonly ButtonUIFactory _buttonUIFactory;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
+        private readonly IStickyService _stickyService;
         private readonly MainMenuHUD _mainMenuHUD;
 
         private bool _canLoad;
 
         public MainMenuSceneFactory
         (
+            CurtainView curtainView,
             BackgroundMusicViewFactory backgroundMusicViewFactory,
             IDataService<Setting> settingDataService,
             IVolumeService volumeService,
@@ -56,9 +60,11 @@ namespace Sources.Infrastructure.Factories.Scenes
             IDataService<Player> dataService,
             MainMenuHUD mainMenuHUD,
             ButtonUIFactory buttonUIFactory,
-            MainMenuFormServiceFactory mainMenuFormServiceFactory
+            MainMenuFormServiceFactory mainMenuFormServiceFactory,
+            IStickyService stickyService
         )
         {
+            _curtainView = curtainView ?? throw new ArgumentNullException(nameof(curtainView));
             _backgroundMusicViewFactory = backgroundMusicViewFactory ?? 
                                           throw new ArgumentNullException(nameof(backgroundMusicViewFactory));
             _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
@@ -84,6 +90,7 @@ namespace Sources.Infrastructure.Factories.Scenes
             _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
                                           throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
+            _stickyService = stickyService ?? throw new ArgumentNullException(nameof(stickyService));
             _mainMenuHUD = mainMenuHUD ? mainMenuHUD : throw new ArgumentNullException(nameof(mainMenuHUD));
         }
 
@@ -91,6 +98,7 @@ namespace Sources.Infrastructure.Factories.Scenes
         {
             return new MainMenuScene
             (
+                _curtainView,
                 _backgroundMusicViewFactory,
                 _settingDataService,
                 _volumeService,
@@ -102,7 +110,8 @@ namespace Sources.Infrastructure.Factories.Scenes
                 _sdkInitializeService,
                 _mainMenuHUD,
                 _sceneService,
-                _mainMenuFormServiceFactory
+                _mainMenuFormServiceFactory,
+                _stickyService
             );
         }
     }

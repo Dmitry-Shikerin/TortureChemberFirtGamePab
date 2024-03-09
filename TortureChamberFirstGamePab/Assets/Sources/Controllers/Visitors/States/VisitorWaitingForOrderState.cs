@@ -75,11 +75,6 @@ namespace Sources.Controllers.Visitors.States
             {
                 _visitorImageUI.BackGroundImage.ShowImage();
 
-                //TODO спросить про рекламу и продвижение
-                //TODo спросить про стикки баннер
-                //TODO увеличить стоимость улучшений
-                //TODO немного увеличить радиус сбора мусора
-                //TODO потом раскоментировать
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
                     Constant.Visitors.WaitingEatFillingRate, cancellationToken, () =>
                     {

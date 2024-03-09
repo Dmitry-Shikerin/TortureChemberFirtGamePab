@@ -48,15 +48,11 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public override void Enable()
         {
-            Debug.Log($"{nameof(GameOverFormPresenter)} Enable pause");
-            
             _pauseService.Pause();
         }
 
         public override void Disable()
         {
-            Debug.Log($"{nameof(GameOverFormPresenter)} Disable pause");
-            
             _pauseService.Continue();
         }
     }

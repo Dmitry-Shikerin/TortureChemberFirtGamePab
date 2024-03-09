@@ -8,7 +8,6 @@ using Sources.Infrastructure.Factories.Scenes;
 using Sources.Infrastructure.Services.SceneLoaderServices;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Presentation.Views.Applications;
-using Sources.Presentation.Views.Bootstrap;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Zenject;
@@ -21,11 +20,14 @@ namespace Sources.Infrastructure.Factories.App
         {
             AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
+            //TODO беспередел
+            ProjectContext projectContext = Object.FindObjectOfType<ProjectContext>();
             CurtainView curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
                 throw new NullReferenceException(nameof(CurtainView));
             CurtainImageLoaderView curtainImageLoaderView =
                 curtainView.GetComponent<CurtainImageLoaderView>();
+            projectContext.Container.Bind<CurtainView>().FromInstance(curtainView);
 
             Dictionary<string, Func<object, SceneContext, UniTask<IScene>>> sceneStates =
                 new Dictionary<string, Func<object, SceneContext, UniTask<IScene>>>();
@@ -47,7 +49,7 @@ namespace Sources.Infrastructure.Factories.App
             
             sceneService.AddAfterSceneChangeHandler(async () =>
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainDelay)));
-            
+             
             sceneService.AddAfterSceneChangeHandler(async () =>
             {
                 curtainImageLoaderView.StopTwist();

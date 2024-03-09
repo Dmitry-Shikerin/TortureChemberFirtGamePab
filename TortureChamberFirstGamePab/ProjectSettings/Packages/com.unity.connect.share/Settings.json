@@ -4,7 +4,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Programs/Unity Projects/Builds/MedivalTavern45;C:/Programs/Unity Projects/Builds/MedivalTavern44;C:/Programs/Unity Projects/Builds/MedivalTavern43;C:/Programs/Unity Projects/Builds/MedivalTavern42;C:/Programs/Unity Projects/Builds/MedivalTavern41;C:/Programs/Unity Projects/Builds/MedivalTavern40;C:/Programs/Unity Projects/Builds/MedivalTavern39;C:/Programs/Unity Projects/Builds/MedivalTavern38;C:/Programs/Unity Projects/Builds/MedivalTavern37;C:/Programs/Unity Projects/Builds/MedivalTavern36\"}"
+                "value": "{\"m_Value\":\"C:/Programs/Unity Projects/Builds/MedivalTavern48;C:/Programs/Unity Projects/Builds/MedivalTavern47;C:/Programs/Unity Projects/Builds/MedivalTavern46;C:/Programs/Unity Projects/Builds/MedivalTavern45;C:/Programs/Unity Projects/Builds/MedivalTavern44;C:/Programs/Unity Projects/Builds/MedivalTavern43;C:/Programs/Unity Projects/Builds/MedivalTavern42;C:/Programs/Unity Projects/Builds/MedivalTavern41;C:/Programs/Unity Projects/Builds/MedivalTavern40;C:/Programs/Unity Projects/Builds/MedivalTavern39\"}"
             }
         ]
     }

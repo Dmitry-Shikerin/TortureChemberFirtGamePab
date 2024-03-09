@@ -15,8 +15,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (PlayerAccount.IsAuthorized == false)
                 return;
             
-            Debug.Log($"{nameof(YandexLeaderboardScoreSetter)} new score {score}");
-
             Leaderboard.GetPlayerEntry(Constant.LeaderboardNames.LeaderboardName,
                 (result) =>
                 {

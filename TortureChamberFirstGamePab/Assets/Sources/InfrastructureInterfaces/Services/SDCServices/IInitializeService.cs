@@ -5,7 +5,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     public interface IInitializeService
     {
         void GameReady();
-        void Register();
+        void EnableCallbackLogging();
         UniTask Initialize();
     }
 }

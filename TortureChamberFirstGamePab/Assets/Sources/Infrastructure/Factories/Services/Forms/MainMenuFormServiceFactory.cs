@@ -129,6 +129,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
             //TODO сделать кнопки в главном меню через LayoutGroup
             //TOdo сделать затемнение заднего фона
+            //TODO сделать перевод в черновике для всех языков
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
             {
                 if (CanLoad())

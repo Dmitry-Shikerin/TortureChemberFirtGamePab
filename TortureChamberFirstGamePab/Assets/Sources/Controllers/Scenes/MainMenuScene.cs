@@ -1,18 +1,18 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
 using Sources.Infrastructure.Factories.Services.Forms;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Infrastructure.Payloads;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
+using Sources.Presentation.Views.Applications;
 using Sources.Presentation.Views.Forms.MainMenus;
-using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
@@ -20,6 +20,7 @@ namespace Sources.Controllers.Scenes
     {
         private readonly MainMenuHUD _mainMenuHUD;
 
+        private readonly CurtainView _curtainView;
         private readonly BackgroundMusicViewFactory _backgroundMusicViewFactory;
         private readonly IDataService<Setting> _settingDataService;
         private readonly IVolumeService _volumeService;
@@ -31,9 +32,11 @@ namespace Sources.Controllers.Scenes
         private readonly IInitializeService _sdkInitializeService;
         private readonly ISceneService _sceneService;
         private readonly MainMenuFormServiceFactory _mainMenuFormServiceFactory;
+        private readonly IStickyService _stickyService;
 
         public MainMenuScene
         (
+            CurtainView curtainView,
             BackgroundMusicViewFactory backgroundMusicViewFactory,
             IDataService<Setting> settingDataService,
             IVolumeService volumeService,
@@ -45,10 +48,13 @@ namespace Sources.Controllers.Scenes
             IInitializeService sdkInitializeService,
             MainMenuHUD hud,
             ISceneService sceneService,
-            MainMenuFormServiceFactory mainMenuFormServiceFactory
+            MainMenuFormServiceFactory mainMenuFormServiceFactory,
+            IStickyService stickyService
         )
         {
             _mainMenuHUD = hud ? hud : throw new ArgumentNullException(nameof(hud));
+            _curtainView = curtainView ? curtainView : 
+                throw new ArgumentNullException(nameof(curtainView));
             _backgroundMusicViewFactory = backgroundMusicViewFactory ?? 
                                           throw new ArgumentNullException(nameof(backgroundMusicViewFactory));
             _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
@@ -70,14 +76,13 @@ namespace Sources.Controllers.Scenes
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
             _mainMenuFormServiceFactory = mainMenuFormServiceFactory ??
                                           throw new ArgumentNullException(nameof(mainMenuFormServiceFactory));
+            _stickyService = stickyService ?? throw new ArgumentNullException(nameof(stickyService));
         }
 
         public string Name { get; } = nameof(MainMenuScene);
 
         public void Enter(object payload)
         {
-            Debug.Log($"{nameof(MainMenuScene)} enter");
-            
             _settingDataService.Load();
             
             _mainMenuFormServiceFactory
@@ -93,6 +98,7 @@ namespace Sources.Controllers.Scenes
             _focusService.Enter();
             _localizationService.Enter();
             _yandexLeaderboardInitializeService.Fill();
+            
             GameReady(payload);
         }
 
@@ -115,7 +121,7 @@ namespace Sources.Controllers.Scenes
         {
         }
 
-        private void GameReady(object payload)
+        private async void GameReady(object payload)
         {
             if(payload == null)
                 return;
@@ -125,7 +131,10 @@ namespace Sources.Controllers.Scenes
             
             if(concrete.IsInitialized == false)
                 return;
+
+            await UniTask.WaitUntil(() => _curtainView.IsInProgress == false);
             
+            _stickyService.ShowSticky();
             _sdkInitializeService.GameReady();
         }
     }

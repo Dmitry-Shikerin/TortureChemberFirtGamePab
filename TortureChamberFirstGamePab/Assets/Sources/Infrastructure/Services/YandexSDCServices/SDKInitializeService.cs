@@ -14,11 +14,14 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             YandexGamesSdk.GameReady();
         }
 
-        public void Register()
+        public void EnableCallbackLogging()
         {
             if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
+
+            if (YandexGamesSdk.CallbackLogging)
+                return;
+
             YandexGamesSdk.CallbackLogging = true;
         }
 
@@ -26,7 +29,10 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         {
             if (WebApplication.IsRunningOnWebGL == false)
                 return;
-            
+
+            if (YandexGamesSdk.IsInitialized)
+                return;
+
             await YandexGamesSdk.Initialize();
         }
     }

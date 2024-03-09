@@ -28,6 +28,7 @@ namespace Sources.Infrastructure.DIContainers
             
             Container.Bind<Setting>().AsSingle();
 
+            Container.Bind<IStickyService>().To<StickyService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             Container.Bind<IVolumeService>().To<VolumeService>().AsSingle();
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();

@@ -39,8 +39,6 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public override void Enable()
         {
-            Debug.Log($"{nameof(TutorialFormPresenter)} Enable pause");
-
             _pauseService.Pause();
             
             _tutorialFormView.DownScrollButton.AddClickListener(DownScroll);
@@ -51,8 +49,6 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public override void Disable()
         {
-            Debug.Log($"{nameof(TutorialFormPresenter)} Disable pause");
-            
             _pauseService.Continue();
             
             _tutorialFormView.DownScrollButton.RemoveClickListener(DownScroll);

@@ -1,4 +1,5 @@
-﻿using Sources.Domain.Items.ItemConfigs;
+﻿using System;
+using Sources.Domain.Items.ItemConfigs;
 using Sources.DomainInterfaces.Items;
 using Sources.PresentationInterfaces.Views;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Sources.Domain.Items
 
         public Wine(ItemConfig itemConfig)
         {
-            _itemConfig = itemConfig;
+            _itemConfig = itemConfig ? itemConfig : throw new ArgumentNullException(nameof(itemConfig));
             Icon = itemConfig.Icon;
             Title = itemConfig.Title;
             Price = itemConfig.Price;

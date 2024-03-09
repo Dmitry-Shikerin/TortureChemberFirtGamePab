@@ -81,5 +81,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                     _pauseService.ContinueSound();
                 });
         }
+        
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Sources.ControllersInterfaces.Scenes;
 using Sources.Infrastructure.StateMachines.StateMachineBase;
-using Sources.InfrastructureInterfaces.Factories.Scenes;
 using Sources.InfrastructureInterfaces.Services.ScenServices;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -17,7 +16,6 @@ namespace Sources.Infrastructure.Services.SceneServices
 
         private readonly StateMachine _stateMachine;
         private readonly IReadOnlyDictionary<string, Func<object, SceneContext, UniTask<IScene>>> _sceneFactories;
-        private readonly ISceneFactory _sceneFactory;
 
         public SceneService
         (

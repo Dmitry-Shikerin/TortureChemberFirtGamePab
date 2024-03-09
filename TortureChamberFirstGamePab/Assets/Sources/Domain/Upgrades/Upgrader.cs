@@ -30,8 +30,6 @@ namespace Sources.Domain.Upgrades
             MaximumLevel = upgradeConfig.MoneyPerUpgrades.Count;
             MoneyPerUpgrades = upgradeConfig.MoneyPerUpgrades;
             _currentLevelUpgrade = new ObservableProperty<int>();
-            
-            Debug.Log(CurrentAmountUpgrade);
         }
 
         public Upgrader

@@ -10,7 +10,7 @@ namespace Sources.Infrastructure.Services
     {
         public event Action<bool, bool> RotationChanged;
         public event Action PauseButtonChanged;
-
+        
         public PlayerInput PlayerInput { get; private set; }
 
         public void Update(float deltaTime)
@@ -86,15 +86,8 @@ namespace Sources.Infrastructure.Services
         {
             float rotation = SimpleInput.GetAxis(Constant.Input.Rotation);
 
-            //TODo переделать на тернарку
-            bool isLeftRotation = false;
-            bool isRightRotation = false;
-
-            if (rotation > Constant.Epsilon)
-                isLeftRotation = true;
-
-            if (rotation < -Constant.Epsilon)
-                isRightRotation = true;
+            bool isLeftRotation = rotation > Constant.Epsilon;
+            bool isRightRotation = rotation < -Constant.Epsilon;
 
             RotationChanged?.Invoke(isLeftRotation, isRightRotation);
         }

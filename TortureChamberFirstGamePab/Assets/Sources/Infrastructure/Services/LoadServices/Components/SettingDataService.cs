@@ -49,7 +49,6 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
         {
             PlayerPrefs.DeleteKey(Constant.SettingDataKey.VolumeKey);
             PlayerPrefs.DeleteKey(Constant.SettingDataKey.TutorialKey);
-            Debug.Log("SettingDataService Clear");
         }
 
         private Volume LoadVolume() => 

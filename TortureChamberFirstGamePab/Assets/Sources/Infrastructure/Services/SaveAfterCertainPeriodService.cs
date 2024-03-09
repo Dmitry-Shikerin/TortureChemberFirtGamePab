@@ -42,7 +42,6 @@ namespace Sources.Infrastructure.Services
                     await UniTask.Delay(_timeSpan, cancellationToken: cancellationToken);
 
                     saveAction.Invoke();
-                    Debug.Log($"{nameof(SaveAfterCertainPeriodService)} SAVE");
                 }
             }
             catch (OperationCanceledException)

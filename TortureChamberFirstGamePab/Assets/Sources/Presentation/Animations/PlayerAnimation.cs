@@ -9,6 +9,7 @@ namespace Sources.Presentation.Animations
     {
         private readonly int Speed = Animator.StringToHash(nameof(Speed));
 
+        //TODO удалить все дебаги
         private Animator _animator;
 
         private void Awake()

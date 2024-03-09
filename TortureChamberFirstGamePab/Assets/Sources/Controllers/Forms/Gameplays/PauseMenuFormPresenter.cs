@@ -27,15 +27,11 @@ namespace Sources.Controllers.Forms.Gameplays
 
         public override void Enable()
         {
-            Debug.Log($"{nameof(PauseMenuFormPresenter)} Enable pause");
-            
             _pauseService.Pause();
         }
 
         public override void Disable()
         {
-            Debug.Log($"{nameof(PauseMenuFormPresenter)} Disable pause");
-            
             _pauseService.Continue();
         }
 

@@ -221,7 +221,6 @@ namespace Sources.Infrastructure.Services.LoadServices
             _tavernMoodViewFactory.Create(_hud.TavernMoodView, _tavern.TavernMood, _hud.TavernMoodImageUI);
 
             //BackgroundMusicView
-            Debug.Log("_backgroundMusicViewFactory Create");
             _backgroundMusicViewFactory.Create(_hud.BackgroundMusicView);
             
             //TavernPickUpPoints
