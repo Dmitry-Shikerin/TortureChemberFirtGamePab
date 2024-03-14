@@ -4,19 +4,20 @@ namespace Sources.Domain.Players.PlayerCameras
 {
     public class PlayerCamera
     {
+        private const float AngularSpeed = 1f;
+
         private readonly Transform _cameraTransform;
 
-        private const float AngularSpeed = 1f;
-        
         public float AngleY { get; private set; }
 
-        public void SetStartAngleY(float angleY) => 
-            AngleY = angleY;
-
-        public void SetLeftRotation() => 
+        public void SetLeftRotation()
+        {
             AngleY += AngularSpeed;
+        }
 
-        public void SetRightRotation() => 
+        public void SetRightRotation()
+        {
             AngleY -= AngularSpeed;
+        }
     }
 }

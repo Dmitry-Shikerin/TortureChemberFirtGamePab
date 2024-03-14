@@ -15,15 +15,21 @@ namespace Sources.Presentation.UI
         [SerializeField] private Image _image;
 
         public float FillAmount => _image.fillAmount;
-        
-        public void SetSprite(Sprite sprite) => 
+
+        public void SetSprite(Sprite sprite)
+        {
             _image.sprite = sprite;
+        }
 
-        public void SetFillAmount(float filling) => 
+        public void SetFillAmount(float filling)
+        {
             _image.fillAmount = filling;
+        }
 
-        public async UniTask FillMoveTowardsAsync(float fillingRate, 
-            CancellationToken cancellationToken, Action action)
+        public async UniTask FillMoveTowardsAsync(
+            float fillingRate,
+            CancellationToken cancellationToken,
+            Action action)
         {
             await Presenter.FillMoveTowardsAsync(fillingRate, cancellationToken, action);
         }
@@ -33,13 +39,19 @@ namespace Sources.Presentation.UI
             await Presenter.FillMoveTowardsAsync(fillingRate, cancellationToken);
         }
 
-        public void SetColor(Color color) => 
+        public void SetColor(Color color)
+        {
             _image.color = color;
+        }
 
-        public void HideImage() => 
+        public void HideImage()
+        {
             _image.fillAmount = Constant.FillingAmount.Minimum;
+        }
 
-        public void ShowImage() => 
+        public void ShowImage()
+        {
             _image.fillAmount = Constant.FillingAmount.Maximum;
+        }
     }
 }

@@ -16,9 +16,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public HudFormPresenter Create(IHudFormView hudFormView)
         {
-            if (hudFormView == null) 
+            if (hudFormView == null)
                 throw new ArgumentNullException(nameof(hudFormView));
-            
+
             return new HudFormPresenter(hudFormView, _formService);
         }
     }

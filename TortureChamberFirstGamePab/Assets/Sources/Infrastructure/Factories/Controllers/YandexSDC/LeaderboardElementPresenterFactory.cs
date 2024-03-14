@@ -7,23 +7,19 @@ namespace Sources.Infrastructure.Factories.Controllers.YandexSDC
 {
     public class LeaderboardElementPresenterFactory
     {
-        public LeaderboardElementPresenter Create
-        (
+        public LeaderboardElementPresenter Create(
             LeaderboardPlayer leaderboardPlayer,
-            ILeaderboardElementView leaderboardElementView
-        )
+            ILeaderboardElementView leaderboardElementView)
         {
-            if (leaderboardPlayer == null) 
+            if (leaderboardPlayer == null)
                 throw new ArgumentNullException(nameof(leaderboardPlayer));
-            
+
             if (leaderboardElementView == null)
                 throw new ArgumentNullException(nameof(leaderboardElementView));
-            
-            return new LeaderboardElementPresenter
-            (
+
+            return new LeaderboardElementPresenter(
                 leaderboardPlayer,
-                leaderboardElementView
-            );
+                leaderboardElementView);
         }
     }
 }

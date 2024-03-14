@@ -9,12 +9,12 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
     {
         public PlayerWalletPresenter Create(IPlayerWalletView playerWalletView, PlayerWallet playerWallet)
         {
-            if (playerWalletView == null) 
+            if (playerWalletView == null)
                 throw new ArgumentNullException(nameof(playerWalletView));
-            
-            if (playerWallet == null) 
+
+            if (playerWallet == null)
                 throw new ArgumentNullException(nameof(playerWallet));
-            
+
             return new PlayerWalletPresenter(playerWalletView, playerWallet);
         }
     }

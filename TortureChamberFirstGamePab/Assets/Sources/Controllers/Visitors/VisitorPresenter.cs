@@ -3,28 +3,23 @@ using Sources.ControllersInterfaces;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
-using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors
 {
     public class VisitorPresenter : FiniteStateMachine, IPresenter
     {
         private readonly FiniteState _firstState;
-        private readonly IVisitorView _visitorView;
-        private readonly Visitor _visitor;
         private readonly IUpdateServiceChanger _updateService;
+        private readonly Visitor _visitor;
+        private readonly IVisitorView _visitorView;
 
-        public VisitorPresenter
-        (
+        public VisitorPresenter(
             FiniteState firstState,
             IVisitorView visitorView,
             Visitor visitor,
-            IUpdateServiceChanger updateService
-        )
+            IUpdateServiceChanger updateService)
         {
             _firstState = firstState ?? throw new ArgumentNullException(nameof(firstState));
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
@@ -35,21 +30,25 @@ namespace Sources.Controllers.Visitors
         public void Enable()
         {
             Start();
-            
+
             _updateService.ChangedUpdate += OnUpdate;
         }
 
         public void Disable()
         {
             _updateService.ChangedUpdate -= OnUpdate;
-            
+
             Stop();
         }
 
-        public void Start() => 
+        private void Start()
+        {
             Start(_firstState);
+        }
 
-        public void OnUpdate(float deltaTime) => 
+        private void OnUpdate(float deltaTime)
+        {
             Update();
+        }
     }
 }

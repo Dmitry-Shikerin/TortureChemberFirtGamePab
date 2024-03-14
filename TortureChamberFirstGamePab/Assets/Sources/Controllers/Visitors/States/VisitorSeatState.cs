@@ -3,26 +3,22 @@ using Sources.Domain.Taverns;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.PresentationInterfaces.Animations;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
     public class VisitorSeatState : FiniteState
     {
-        private readonly IVisitorView _visitorView;
+        private readonly TavernMood _tavernMood;
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
-        private readonly TavernMood _tavernMood;
+        private readonly IVisitorView _visitorView;
 
-        public VisitorSeatState
-        (
+        public VisitorSeatState(
             IVisitorView visitorView,
             Visitor visitor,
             IVisitorAnimation visitorAnimation,
-            TavernMood tavernMood
-        )
+            TavernMood tavernMood)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -33,21 +29,13 @@ namespace Sources.Controllers.Visitors.States
 
         public override void Enter()
         {
-            // Debug.Log("Посетитель в состоянии сидя");
             _visitorView.SeatDown(_visitor.SeatPointView.Position, _visitor.SeatPointView.Rotation);
 
             if (_visitor.SeatPointView.EatPointView.IsClear == false)
-            {
                 _tavernMood.RemoveTavernMood();
-                Debug.Log("Посетитель недоволен грязным местом");
-            }
 
             _visitorAnimation.PlaySeatIdle();
             _visitor.SetSeat();
-        }
-
-        public override void Exit()
-        {
         }
     }
 }

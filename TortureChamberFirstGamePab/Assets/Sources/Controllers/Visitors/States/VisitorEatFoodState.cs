@@ -17,26 +17,24 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorEatFoodState : FiniteState
     {
-        private readonly Visitor _visitor;
-        private readonly VisitorInventory _visitorInventory;
+        private readonly ISpawner<ICoinView> _coinSpawner;
+        private readonly ISpawner<IGarbageView> _garbageSpawner;
         private readonly ItemViewFactory _itemViewFactory;
         private readonly TavernMood _tavernMood;
-        private readonly ISpawner<IGarbageView> _garbageSpawner;
-        private readonly ISpawner<ICoinView> _coinSpawner;
+        private readonly Visitor _visitor;
         private readonly VisitorImageUIContainer _visitorImageUIContainer;
+        private readonly VisitorInventory _visitorInventory;
 
         private CancellationTokenSource _cancellationTokenSource;
-        
-        public VisitorEatFoodState
-        (
+
+        public VisitorEatFoodState(
             Visitor visitor,
             VisitorInventory visitorInventory,
             VisitorImageUIContainer visitorImageUIContainer,
             ItemViewFactory itemViewFactory,
             TavernMood tavernMood,
             ISpawner<IGarbageView> garbageSpawner,
-            ISpawner<ICoinView> coinSpawner
-        )
+            ISpawner<ICoinView> coinSpawner)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorInventory = visitorInventory ?? throw new ArgumentNullException(nameof(visitorInventory));
@@ -52,11 +50,11 @@ namespace Sources.Controllers.Visitors.States
         public override void Enter()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             _visitorImageUIContainer.OrderImage.SetSprite(_visitorImageUIContainer.EatSprite);
-            IItemView itemView = _itemViewFactory.Create(_visitorInventory.Item);
+            var itemView = _itemViewFactory.Create(_visitorInventory.Item);
             itemView.SetTransformPosition(_visitor.SeatPointView.EatPointView.transform);
-            
+
             Eat(itemView, _cancellationTokenSource.Token);
         }
 
@@ -65,24 +63,25 @@ namespace Sources.Controllers.Visitors.States
             _visitor.SeatPointView.UnOccupy();
             _visitor.FinishEating();
 
-            if (ShuffleExtension.GetRandomChance(Constant.GarbageRandomizer.PositiveRange,
-                    Constant.GarbageRandomizer.MaximumRange))
+            if (ShuffleExtension.GetRandomChance(
+                Constant.GarbageRandomizer.PositiveRange, Constant.GarbageRandomizer.MaximumRange))
             {
-                IGarbageView garbageView = _garbageSpawner.Spawn();
+                var garbageView = _garbageSpawner.Spawn();
                 garbageView.SetPosition(_visitor.SeatPointView.EatPointView.Position);
                 garbageView.SetEatPointView(_visitor.SeatPointView.EatPointView);
                 _visitor.SeatPointView.EatPointView.SetDirty();
             }
-            
-            ICoinView coinView = _coinSpawner.Spawn();
 
-            Vector3 coinPosition = new Vector3(_visitor.SeatPointView.EatPointView.Position.x,
-                _visitor.SeatPointView.EatPointView.Position.y + Constant.Coin.OffsetY, 
+            var coinView = _coinSpawner.Spawn();
+
+            var coinPosition = new Vector3(
+                _visitor.SeatPointView.EatPointView.Position.x,
+                _visitor.SeatPointView.EatPointView.Position.y + Constant.Coin.OffsetY,
                 _visitor.SeatPointView.EatPointView.Position.z);
-            
+
             coinView.SetPosition(coinPosition);
             coinView.SetCoinAmount(_visitorInventory.Item.Price);
-            
+
             _cancellationTokenSource.Cancel();
         }
 
@@ -91,7 +90,8 @@ namespace Sources.Controllers.Visitors.States
             try
             {
                 await _visitorImageUIContainer.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.EatFillingRate, cancellationToken);
+                    Constant.Visitors.EatFillingRate,
+                    cancellationToken);
 
                 _visitorImageUIContainer.BackGroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
                 itemView.Destroy();

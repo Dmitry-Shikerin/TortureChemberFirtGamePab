@@ -1,7 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Points;
 using Sources.Domain.Points;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Infrastructure.Factories.Controllers.Points
@@ -10,17 +9,15 @@ namespace Sources.Infrastructure.Factories.Controllers.Points
     {
         public EatPointPresenter Create(EatPoint eatPoint, IEatPointView eatPointView)
         {
-            if (eatPointView == null) 
+            if (eatPointView == null)
                 throw new ArgumentNullException(nameof(eatPointView));
-            
-            if (eatPoint == null) 
+
+            if (eatPoint == null)
                 throw new ArgumentNullException(nameof(eatPoint));
-            
-            return new EatPointPresenter
-            (
+
+            return new EatPointPresenter(
                 eatPoint,
-                eatPointView
-            );
+                eatPointView);
         }
     }
 }

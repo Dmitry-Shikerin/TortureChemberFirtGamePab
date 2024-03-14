@@ -5,7 +5,6 @@ namespace Sources.Domain.DataAccess.TavernData
 {
     public class TavernMoodData : IDataModel
     {
-        [JsonProperty("moodValue")]
-        public float MoodValue { get; set; }
+        [JsonProperty("moodValue")] public float MoodValue { get; set; }
     }
 }

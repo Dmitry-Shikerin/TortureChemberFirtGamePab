@@ -5,23 +5,19 @@ namespace Sources.Presentation.Triggers
 {
     public class TriggerBase<T> : MonoBehaviour
     {
-        public Action<T> Entered;
-        public Action<T> Exited;
-        
+        public event Action<T> Entered;
+        public event Action<T> Exited;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent(out T component))
-            {
                 Entered?.Invoke(component);
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.gameObject.TryGetComponent(out T component))
-            {
                 Exited?.Invoke(component);
-            }
         }
     }
 }

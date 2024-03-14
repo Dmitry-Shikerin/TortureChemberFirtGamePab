@@ -10,10 +10,17 @@ namespace Sources.Presentation.Views.Applications
     {
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _duration = 1;
-
-        public event Action CurtainHide;
         public bool IsInProgress { get; private set; }
-        
+
+        private void Awake()
+        {
+            if (_canvasGroup == null)
+                throw new NullReferenceException(nameof(_canvasGroup));
+
+            DontDestroyOnLoad(this);
+            _canvasGroup.alpha = 0;
+        }
+
         private void OnValidate()
         {
             if (_canvasGroup == null)
@@ -23,14 +30,7 @@ namespace Sources.Presentation.Views.Applications
                 throw new SerializeFieldNumberChangedException("Поле изменено", nameof(_duration));
         }
 
-        private void Awake()
-        {
-            if (_canvasGroup == null)
-                throw new NullReferenceException(nameof(_canvasGroup));
-            
-            DontDestroyOnLoad(this);
-            _canvasGroup.alpha = 0;
-        }
+        public event Action CurtainHide;
 
         public async UniTask ShowCurtain()
         {
@@ -53,7 +53,9 @@ namespace Sources.Presentation.Views.Applications
             while (Mathf.Abs(_canvasGroup.alpha - endAlpha) > Constant.Epsilon)
             {
                 _canvasGroup.alpha = Mathf.MoveTowards(
-                    _canvasGroup.alpha, endAlpha, Time.deltaTime / _duration);
+                    _canvasGroup.alpha,
+                    endAlpha,
+                    Time.deltaTime / _duration);
 
                 await UniTask.Yield();
             }

@@ -20,10 +20,10 @@ namespace Sources.Infrastructure.Services
             {
                 _joystickContainer.Movement.IsDynamicJoystick = false;
                 _joystickContainer.Rotate.IsDynamicJoystick = false;
-                
+
                 return;
             }
-            
+
             _joystickContainer.Movement.IsDynamicJoystick = true;
             _joystickContainer.Rotate.IsDynamicJoystick = true;
         }

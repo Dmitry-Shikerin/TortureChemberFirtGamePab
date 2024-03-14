@@ -9,6 +9,8 @@ namespace Sources.Infrastructure.Services.PauseServices
 {
     public class PauseService : IPauseService
     {
+        public int PauseListenersCount { get; private set; }
+        public int SoundPauseListenersCount { get; private set; }
         public event Action PauseActivated;
         public event Action ContinueActivated;
         public event Action PauseSoundActivated;
@@ -17,16 +19,13 @@ namespace Sources.Infrastructure.Services.PauseServices
         public bool IsPaused { get; private set; }
         public bool IsSoundPaused { get; private set; }
 
-        public int PauseListenersCount { get; private set; }
-        public int SoundPauseListenersCount { get; private set; }
-
         public void Pause()
         {
             PauseListenersCount++;
 
             if (PauseListenersCount < 0)
                 throw new InvalidOperationException(nameof(PauseListenersCount));
-            
+
             IsPaused = true;
             PauseActivated?.Invoke();
             Time.timeScale = Constant.TimeScaleValue.Min;
@@ -77,7 +76,8 @@ namespace Sources.Infrastructure.Services.PauseServices
             do
             {
                 await UniTask.Yield(cancellationToken);
-            } while (IsPaused);
+            }
+            while (IsPaused);
         }
     }
 }

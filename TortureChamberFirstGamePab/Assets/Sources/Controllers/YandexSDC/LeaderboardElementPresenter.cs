@@ -6,17 +6,15 @@ namespace Sources.Controllers.YandexSDC
 {
     public class LeaderboardElementPresenter : PresenterBase
     {
-        private readonly LeaderboardPlayer _leaderboardPlayer;
         private readonly ILeaderboardElementView _leaderboardElementView;
+        private readonly LeaderboardPlayer _leaderboardPlayer;
 
-        public LeaderboardElementPresenter
-        (
+        public LeaderboardElementPresenter(
             LeaderboardPlayer leaderboardPlayer,
-            ILeaderboardElementView leaderboardElementView
-        )
+            ILeaderboardElementView leaderboardElementView)
         {
             _leaderboardPlayer = leaderboardPlayer ?? throw new ArgumentNullException(nameof(leaderboardPlayer));
-            _leaderboardElementView = leaderboardElementView ?? 
+            _leaderboardElementView = leaderboardElementView ??
                                       throw new ArgumentNullException(nameof(leaderboardElementView));
         }
 

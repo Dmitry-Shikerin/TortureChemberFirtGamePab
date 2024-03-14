@@ -14,18 +14,17 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorWaitingForOrderState : FiniteState
     {
-        private readonly Visitor _visitor;
-        private readonly VisitorInventory _visitorInventory;
-        private readonly TavernMood _tavernMood;
-        private readonly IVisitorAnimation _visitorAnimation;
-        private readonly IVisitorView _visitorView;
         private readonly IItemProvider<IItem> _itemProvider;
+        private readonly TavernMood _tavernMood;
+        private readonly Visitor _visitor;
+        private readonly IVisitorAnimation _visitorAnimation;
         private readonly IVisitorImageUI _visitorImageUI;
+        private readonly VisitorInventory _visitorInventory;
+        private readonly IVisitorView _visitorView;
 
         private CancellationTokenSource _cancellationTokenSource;
 
-        public VisitorWaitingForOrderState
-        (
+        public VisitorWaitingForOrderState(
             Visitor visitor,
             VisitorInventory visitorInventory,
             IVisitorImageUI visitorImageUI,
@@ -49,7 +48,7 @@ namespace Sources.Controllers.Visitors.States
         {
             _cancellationTokenSource = new CancellationTokenSource();
 
-            IItem item = _itemProvider.Collection.GetRandomItem();
+            var item = _itemProvider.Collection.GetRandomItem();
 
             _visitorImageUI.OrderImage.SetSprite(item.Icon);
             _visitorImageUI.OrderImage.ShowImage();
@@ -76,7 +75,9 @@ namespace Sources.Controllers.Visitors.States
                 _visitorImageUI.BackGroundImage.ShowImage();
 
                 await _visitorImageUI.BackGroundImage.FillMoveTowardsAsync(
-                    Constant.Visitors.WaitingEatFillingRate, cancellationToken, () =>
+                    Constant.Visitors.WaitingEatFillingRate,
+                    cancellationToken,
+                    () =>
                     {
                         if (_visitorInventory.Item != null)
                             Cancel();
@@ -92,7 +93,9 @@ namespace Sources.Controllers.Visitors.States
             }
         }
 
-        private void Cancel() => 
+        private void Cancel()
+        {
             _cancellationTokenSource.Cancel();
+        }
     }
 }

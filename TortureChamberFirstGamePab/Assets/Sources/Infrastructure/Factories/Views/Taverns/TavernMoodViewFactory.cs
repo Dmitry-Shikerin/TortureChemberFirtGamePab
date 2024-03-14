@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.Taverns;
 using Sources.Domain.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Taverns;
 using Sources.Presentation.Views.Taverns;
@@ -18,12 +17,10 @@ namespace Sources.Infrastructure.Factories.Views.Taverns
                                           throw new ArgumentNullException(nameof(tavernMoodPresenterFactory));
         }
 
-        public ITavernMoodView Create
-        (
+        public ITavernMoodView Create(
             TavernMoodView tavernMoodView,
             TavernMood tavernMood,
-            IImageUI imageUI
-        )
+            IImageUI imageUI)
         {
             if (tavernMoodView == null)
                 throw new ArgumentNullException(nameof(tavernMoodView));
@@ -34,7 +31,7 @@ namespace Sources.Infrastructure.Factories.Views.Taverns
             if (imageUI == null)
                 throw new ArgumentNullException(nameof(imageUI));
 
-            TavernMoodPresenter tavernMoodPresenter =
+            var tavernMoodPresenter =
                 _tavernMoodPresenterFactory.Create(tavernMood, tavernMoodView, imageUI);
             tavernMoodView.Construct(tavernMoodPresenter);
 

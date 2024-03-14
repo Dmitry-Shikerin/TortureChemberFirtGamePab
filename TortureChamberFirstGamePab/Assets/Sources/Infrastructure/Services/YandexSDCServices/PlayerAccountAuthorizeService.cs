@@ -19,13 +19,13 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
         }
 
         public void Authorize(Action onSuccessCallback)
-        {            
+        {
             if (WebApplication.IsRunningOnWebGL == false)
                 return;
 
-            if(PlayerAccount.IsAuthorized)
+            if (PlayerAccount.IsAuthorized)
                 return;
-            
+
             PlayerAccount.Authorize(onSuccessCallback);
         }
     }

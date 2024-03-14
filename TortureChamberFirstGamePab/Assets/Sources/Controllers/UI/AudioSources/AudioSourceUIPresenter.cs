@@ -10,16 +10,14 @@ namespace Sources.Controllers.UI.AudioSources
     {
         private readonly IAudioSourceActivator _audioSourceActivator;
         private readonly IAudioSourceUI _audioSourceUI;
-        private readonly IVolumeService _volumeService;
         private readonly IPauseService _pauseService;
+        private readonly IVolumeService _volumeService;
 
-        public AudioSourceUIPresenter
-        (
+        public AudioSourceUIPresenter(
             IAudioSourceActivator audioSourceActivator,
             IAudioSourceUI audioSourceUI,
             IVolumeService volumeService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
@@ -31,7 +29,7 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Enable()
         {
             OnVolumeChanged();
-            
+
             _audioSourceActivator.AudioSourceActivated += OnAudioSourcePlay;
 
             _volumeService.VolumeChanged += OnVolumeChanged;
@@ -46,32 +44,44 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Disable()
         {
             _audioSourceActivator.AudioSourceActivated -= OnAudioSourcePlay;
-            
+
             _volumeService.VolumeChanged -= OnVolumeChanged;
-            
+
             _pauseService.PauseActivated -= OnPause;
             _pauseService.ContinueActivated -= OnContinue;
-            
+
             _pauseService.PauseSoundActivated -= OnMute;
             _pauseService.ContinueSoundActivated -= OnUnMute;
         }
 
-        private void OnMute() => 
+        private void OnMute()
+        {
             _audioSourceUI.AudioSourceView.Mute();
+        }
 
-        private void OnUnMute() => 
+        private void OnUnMute()
+        {
             _audioSourceUI.AudioSourceView.UnMute();
+        }
 
-        private void OnContinue() => 
+        private void OnContinue()
+        {
             _audioSourceUI.AudioSourceView.Continue();
+        }
 
-        private void OnPause() => 
+        private void OnPause()
+        {
             _audioSourceUI.AudioSourceView.Pause();
+        }
 
-        private void OnVolumeChanged() => 
+        private void OnVolumeChanged()
+        {
             _audioSourceUI.AudioSourceView.SetVolume(_volumeService.Volume);
+        }
 
-        private void OnAudioSourcePlay() => 
+        private void OnAudioSourcePlay()
+        {
             _audioSourceUI.AudioSourceView.Play();
+        }
     }
 }

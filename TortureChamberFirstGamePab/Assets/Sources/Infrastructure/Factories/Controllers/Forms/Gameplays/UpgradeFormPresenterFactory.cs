@@ -21,7 +21,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
         {
             if (upgradeFormView == null)
                 throw new ArgumentNullException(nameof(upgradeFormView));
-            
+
             return new UpgradeFormPresenter(upgradeFormView, _formService, _pauseService);
         }
     }

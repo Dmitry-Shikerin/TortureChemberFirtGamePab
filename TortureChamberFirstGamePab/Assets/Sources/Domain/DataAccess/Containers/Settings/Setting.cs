@@ -1,5 +1,4 @@
-﻿using System;
-using Sources.Domain.Settings;
+﻿using Sources.Domain.Settings;
 
 namespace Sources.Domain.DataAccess.Containers.Settings
 {

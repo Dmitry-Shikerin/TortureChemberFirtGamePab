@@ -3,35 +3,27 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
 using Sources.Domain.GamePlays;
-using Sources.Domain.Points;
 using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Services;
-using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
-using Sources.Utils.Repositoryes.CollectionRepository;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
     public class VisitorQuantityService : IQuantityService
     {
-        private readonly ITavernProvider _tavernProvider;
-        private readonly IPauseService _pauseService;
         private readonly int _maximumSetPointsCapacity;
-        private VisitorQuantity _visitorQuantity;
+        private readonly ITavernProvider _tavernProvider;
 
         private CancellationTokenSource _cancellationTokenSource;
         private TimeSpan _timeSpan;
+        private VisitorQuantity _visitorQuantity;
 
-        public VisitorQuantityService
-        (
+        public VisitorQuantityService(
             ITavernProvider tavernProvider,
-            VisitorPoints visitorPoints,
-            IPauseService pauseService
-        )
+            VisitorPoints visitorPoints)
         {
             _tavernProvider = tavernProvider ?? throw new ArgumentNullException(nameof(tavernProvider));
-            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _maximumSetPointsCapacity = visitorPoints.GetComponentsInChildren<SeatPointView>().Length;
 
             if (_maximumSetPointsCapacity <= 0)
@@ -39,18 +31,23 @@ namespace Sources.Infrastructure.Services
         }
 
         private VisitorQuantity VisitorQuantity => _visitorQuantity ??= _tavernProvider.VisitorQuantity;
-        
+
         public async void Enter(object payload = null)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             _timeSpan = TimeSpan.FromSeconds(Constant.GamePlay.SpawnDelay);
-            
+
             await IncreaseDifficulty(_cancellationTokenSource.Token);
         }
-        
+
+        public void Exit()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
         private async UniTask IncreaseDifficulty(CancellationToken cancellationToken)
         {
-            int visitorsCount = 0;
+            var visitorsCount = 0;
 
             try
             {
@@ -58,7 +55,7 @@ namespace Sources.Infrastructure.Services
                 {
                     await UniTask.Delay(_timeSpan,
                         cancellationToken: cancellationToken);
-                    
+
                     visitorsCount++;
                     VisitorQuantity.AddMaximumVisitorsQuantity();
                 }
@@ -67,8 +64,5 @@ namespace Sources.Infrastructure.Services
             {
             }
         }
-
-        public void Exit() => 
-            _cancellationTokenSource.Cancel();
     }
 }

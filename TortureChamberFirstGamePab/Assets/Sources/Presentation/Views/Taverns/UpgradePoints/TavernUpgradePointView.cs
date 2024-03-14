@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Sources.Presentation.Views.Taverns.UpgradePoints
+﻿namespace Sources.Presentation.Views.Taverns.UpgradePoints
 {
     public class TavernUpgradePointView : View
     {

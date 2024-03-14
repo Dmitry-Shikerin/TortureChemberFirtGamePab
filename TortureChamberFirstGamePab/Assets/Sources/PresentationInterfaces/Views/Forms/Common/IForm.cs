@@ -1,4 +1,4 @@
-﻿namespace Sources.PresentationInterfaces.Views.Forms
+﻿namespace Sources.PresentationInterfaces.Views.Forms.Common
 {
     public interface IForm : IView
     {

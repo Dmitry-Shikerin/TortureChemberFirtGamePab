@@ -10,7 +10,7 @@ namespace Sources.Presentation.Views.Applications
         [SerializeField] private Image _image;
 
         private bool _isSpinning;
-        
+
         public async void PlayTwist()
         {
             _isSpinning = true;
@@ -27,9 +27,10 @@ namespace Sources.Presentation.Views.Applications
         {
             while (_isSpinning)
             {
-                _image.rectTransform.Rotate(0, 0 ,
+                _image.rectTransform.Rotate(0,
+                    0,
                     Constant.ImageRotate.Speed);
-                
+
                 await UniTask.Yield();
             }
         }

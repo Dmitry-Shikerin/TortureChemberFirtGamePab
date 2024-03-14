@@ -1,11 +1,9 @@
 ﻿using System;
-using Sources.Controllers.Items.Coins;
 using Sources.Domain.Constants;
 using Sources.Domain.Items.Coins;
 using Sources.Infrastructure.Factories.Controllers.Items.Coins;
 using Sources.Infrastructure.Services.ObjectPools;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
-using Sources.InfrastructureInterfaces.Factories.Views;
 using Sources.InfrastructureInterfaces.Factories.Views.ViewFactories.Generic.Triple;
 using Sources.Presentation.Views.Items.Coins;
 using Sources.Presentation.Views.ObjectPolls;
@@ -16,16 +14,14 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
 {
     public class CoinViewFactory : IViewFactory<ICoinView, CoinView, Coin>
     {
-        private readonly IPrefabFactory _prefabFactory;
-        private readonly ObjectPool<CoinView> _objectPool;
         private readonly CoinPresenterFactory _coinPresenterFactory;
+        private readonly ObjectPool<CoinView> _objectPool;
+        private readonly IPrefabFactory _prefabFactory;
 
-        public CoinViewFactory
-        (
+        public CoinViewFactory(
             CoinPresenterFactory coinPresenterFactory,
             IPrefabFactory prefabFactory,
-            ObjectPool<CoinView> objectPool
-        )
+            ObjectPool<CoinView> objectPool)
         {
             _coinPresenterFactory = coinPresenterFactory ??
                                     throw new ArgumentNullException(nameof(coinPresenterFactory));
@@ -35,7 +31,7 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
 
         public ICoinView Create(Coin coin, CoinView coinView)
         {
-            CoinPresenter coinPresenter =
+            var coinPresenter =
                 _coinPresenterFactory.Create(coinView, coin);
 
             coinView.Construct(coinPresenter);
@@ -45,15 +41,17 @@ namespace Sources.Infrastructure.Factories.Views.Items.Coins
 
         public ICoinView Create(Coin coin)
         {
-            CoinView coinView = CreateView();
+            var coinView = CreateView();
 
             return Create(coin, coinView);
         }
 
-        private CoinView CreateView() =>
-            _prefabFactory.Create<CoinView>(Constant.PrefabPaths.CoinView)
+        private CoinView CreateView()
+        {
+            return _prefabFactory.Create<CoinView>(Constant.PrefabPaths.CoinView)
                 .AddComponent<PoolableObject>()
                 .SetPool(_objectPool)
                 .GetComponent<CoinView>();
+        }
     }
 }

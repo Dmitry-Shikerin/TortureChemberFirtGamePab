@@ -10,11 +10,9 @@ namespace Sources.Controllers.Visitors.States
         private readonly Visitor _visitor;
         private readonly IVisitorAnimation _visitorAnimation;
 
-        public VisitorIdleState
-        (
+        public VisitorIdleState(
             Visitor visitor,
-            IVisitorAnimation visitorAnimation
-        )
+            IVisitorAnimation visitorAnimation)
         {
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
             _visitorAnimation = visitorAnimation ??

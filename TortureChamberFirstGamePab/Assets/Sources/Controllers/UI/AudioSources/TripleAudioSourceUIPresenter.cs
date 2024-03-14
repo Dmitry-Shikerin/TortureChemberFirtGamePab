@@ -11,14 +11,12 @@ namespace Sources.Controllers.UI.AudioSources
         private readonly ITripleAudioSourceUI _audioSourceUI;
         private readonly IVolumeService _volumeService;
 
-        public TripleAudioSourceUIPresenter
-        (
+        public TripleAudioSourceUIPresenter(
             ITripleAudioSourceActivator audioSourceActivator,
             ITripleAudioSourceUI audioSourceUI,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
-            _audioSourceActivator = audioSourceActivator ?? 
+            _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
             _audioSourceUI = audioSourceUI ?? throw new ArgumentNullException(nameof(audioSourceUI));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
@@ -38,7 +36,7 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceActivator.FirstAudioSourceActivated -= OnFirstAudioSourceActivate;
             _audioSourceActivator.SecondAudioSourceActivated -= OnSecondAudioSourceActivate;
             _audioSourceActivator.ThirdAudioSourceActivated -= OnThirdAudioSourceActivate;
-            
+
             _volumeService.VolumeChanged -= OnVolumeChanged;
         }
 
@@ -49,13 +47,19 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceUI.ThirdAudioSourceView.SetVolume(_volumeService.Volume);
         }
 
-        private void OnFirstAudioSourceActivate() => 
+        private void OnFirstAudioSourceActivate()
+        {
             _audioSourceUI.FirstAudioSourceView.Play();
+        }
 
-        private void OnSecondAudioSourceActivate() => 
+        private void OnSecondAudioSourceActivate()
+        {
             _audioSourceUI.SecondAudioSourceView.Play();
+        }
 
-        private void OnThirdAudioSourceActivate() => 
+        private void OnThirdAudioSourceActivate()
+        {
             _audioSourceUI.ThirdAudioSourceView.Play();
+        }
     }
 }

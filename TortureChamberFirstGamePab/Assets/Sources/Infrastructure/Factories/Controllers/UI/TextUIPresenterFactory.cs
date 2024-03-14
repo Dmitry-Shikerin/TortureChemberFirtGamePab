@@ -9,12 +9,12 @@ namespace Sources.Infrastructure.Factories.Controllers.UI
     {
         public TextUIPresenter Create(ITextUI textUI, IObservableProperty observableProperty)
         {
-            if (textUI == null) 
+            if (textUI == null)
                 throw new ArgumentNullException(nameof(textUI));
-            
-            if (observableProperty == null) 
+
+            if (observableProperty == null)
                 throw new ArgumentNullException(nameof(observableProperty));
-            
+
             return new TextUIPresenter(textUI, observableProperty);
         }
     }

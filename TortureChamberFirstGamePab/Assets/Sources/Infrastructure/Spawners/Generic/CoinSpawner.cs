@@ -8,11 +8,10 @@ namespace Sources.Infrastructure.Spawners.Generic
 {
     public class CoinSpawner : SpawnerBase<ICoinView, CoinView, Coin>
     {
-        public CoinSpawner
-        (
+        public CoinSpawner(
             IViewFactory<ICoinView, CoinView, Coin> viewFactory,
-            ObjectPool<CoinView> objectPool
-        ) : base(viewFactory, objectPool)
+            ObjectPool<CoinView> objectPool)
+            : base(viewFactory, objectPool)
         {
         }
     }

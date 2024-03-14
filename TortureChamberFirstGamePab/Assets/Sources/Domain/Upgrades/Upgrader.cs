@@ -4,19 +4,15 @@ using System.Linq;
 using Sources.Domain.Upgrades.Configs;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.DomainInterfaces.Upgrades;
-using Sources.Infrastructure.Services.LoadServices.DataAccess;
 using Sources.Utils.ObservablePropertyes;
 using Sources.Utils.ObservablePropertyes.ObservablePropertyInterfaces.Generic;
-using UnityEngine;
 
 namespace Sources.Domain.Upgrades
 {
     public class Upgrader : IUpgradeble, IAudioSourceActivator
     {
-        private ObservableProperty<int> _currentLevelUpgrade;
-        private float _startAmountUpgrade;
-        
-        public event Action AudioSourceActivated;
+        private readonly ObservableProperty<int> _currentLevelUpgrade;
+        private readonly float _startAmountUpgrade;
 
         public Upgrader(UpgradeConfig upgradeConfig)
         {
@@ -32,14 +28,12 @@ namespace Sources.Domain.Upgrades
             _currentLevelUpgrade = new ObservableProperty<int>();
         }
 
-        public Upgrader
-        (
+        public Upgrader(
             float startAmountUpgrade,
             float addedAmountUpgrade,
             int maximumLevel,
             int currentLevelUpgrade,
-            IEnumerable<int> moneyPerUpgrades
-        )
+            IEnumerable<int> moneyPerUpgrades)
         {
             _startAmountUpgrade = startAmountUpgrade;
             AddedAmountUpgrade = addedAmountUpgrade;
@@ -48,11 +42,13 @@ namespace Sources.Domain.Upgrades
             MoneyPerUpgrades = moneyPerUpgrades.ToList();
         }
 
-        public float AddedAmountUpgrade { get; }
+        public event Action AudioSourceActivated;
+
         public float CurrentAmountUpgrade => _startAmountUpgrade + _currentLevelUpgrade.Value * AddedAmountUpgrade;
         public IObservableProperty<int> CurrentLevelUpgrade => _currentLevelUpgrade;
-        public int MaximumLevel { get; }
         public IReadOnlyList<int> MoneyPerUpgrades { get; }
+        public float AddedAmountUpgrade { get; }
+        public int MaximumLevel { get; }
 
         public void Upgrade()
         {
@@ -60,9 +56,7 @@ namespace Sources.Domain.Upgrades
                 throw new InvalidOperationException("Достигнут максимальный лимит улучшения");
 
             _currentLevelUpgrade.Value++;
-            
-            Debug.Log(CurrentAmountUpgrade);
-            
+
             AudioSourceActivated?.Invoke();
         }
     }

@@ -20,7 +20,7 @@ namespace Sources.Infrastructure.DIContainers
     public class MainMenuSceneInstaller : MonoInstaller
     {
         [SerializeField] private MainMenuHUD _mainMenuHUD;
-            
+
         public override void InstallBindings()
         {
             Container.Bind<MainMenuSceneFactory>().AsSingle();
@@ -32,13 +32,13 @@ namespace Sources.Infrastructure.DIContainers
 
             Container.Bind<ContainerView>().FromInstance(_mainMenuHUD.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
-            
+
             Container.Bind<MainMenuFormPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardFormPresenterFactory>().AsSingle();
             Container.Bind<SettingFormPresenterFactory>().AsSingle();
             Container.Bind<AuthorizationFormPresenterFactory>().AsSingle();
             Container.Bind<NewGameFormPresenterFactory>().AsSingle();
-            
+
             Container.Bind<LeaderboardElementPresenterFactory>().AsSingle();
             Container.Bind<LeaderboardElementViewFactory>().AsSingle();
 

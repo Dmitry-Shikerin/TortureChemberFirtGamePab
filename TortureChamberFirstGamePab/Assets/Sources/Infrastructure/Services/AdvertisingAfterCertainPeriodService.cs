@@ -12,16 +12,14 @@ namespace Sources.Infrastructure.Services
     {
         private readonly IInterstitialAdService _interstitialAdService;
         private readonly AdvertisingAfterCertainPeriodViewContainer _viewContainer;
+        private TimeSpan _advertisementTimeSpan;
 
         private CancellationTokenSource _cancellationTokenSource;
-        private TimeSpan _advertisementTimeSpan;
         private TimeSpan _timerTimeSpan;
-        
-        public AdvertisingAfterCertainPeriodService
-        (
+
+        public AdvertisingAfterCertainPeriodService(
             IInterstitialAdService interstitialAdService,
-            AdvertisingAfterCertainPeriodViewContainer viewViewContainer
-        )
+            AdvertisingAfterCertainPeriodViewContainer viewViewContainer)
         {
             _interstitialAdService = interstitialAdService ??
                                      throw new ArgumentNullException(nameof(interstitialAdService));
@@ -37,12 +35,14 @@ namespace Sources.Infrastructure.Services
             _timerTimeSpan = TimeSpan.FromSeconds(Constant.AdvertisingTimer.Delay);
 
             DisableTimer();
-            
+
             await ShowInterstitialAsync(_cancellationTokenSource.Token);
         }
 
-        public void Exit() => 
+        public void Exit()
+        {
             _cancellationTokenSource.Cancel();
+        }
 
         private async UniTask ShowInterstitialAsync(CancellationToken cancellationToken)
         {
@@ -54,7 +54,7 @@ namespace Sources.Infrastructure.Services
                         cancellationToken: cancellationToken);
 
                     EnableTimer();
-                    
+
                     await ShowTimerAsync(cancellationToken);
 
                     DisableTimer();
@@ -87,7 +87,7 @@ namespace Sources.Infrastructure.Services
         private void DisableTimer()
         {
             _viewContainer.Hide();
-            
+
             _viewContainer.Title.Disable();
             _viewContainer.Timer.Disable();
         }
@@ -95,7 +95,7 @@ namespace Sources.Infrastructure.Services
         private void EnableTimer()
         {
             _viewContainer.Show();
-            
+
             _viewContainer.Title.Enable();
             _viewContainer.Timer.Enable();
         }

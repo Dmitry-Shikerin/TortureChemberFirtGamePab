@@ -12,39 +12,36 @@ using Sources.Infrastructure.Services.Providers.Taverns;
 using Sources.InfrastructureInterfaces.Factories.Prefabs;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
+using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using Sources.Presentation.Views.Visitors;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Visitors;
 using Sources.Utils.Repositoryes.CollectionRepository;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
     public class VisitorSpawnService : IVisitorSpawnService
     {
-        private readonly VisitorCounter _visitorCounter;
+        private readonly CollectionRepository _collectionRepository;
+        private readonly ObjectPool<VisitorView> _objectPool;
         private readonly IPauseService _pauseService;
         private readonly IPrefabFactory _prefabFactory;
-        private readonly ObjectPool<VisitorView> _objectPool;
-        private readonly VisitorViewFactory _visitorViewFactory;
         private readonly ITavernProvider _tavernProvider;
-        private readonly CollectionRepository _collectionRepository;
-
-        private TavernMood _tavernMood;
-        private VisitorQuantity _visitorQuantity;
+        private readonly VisitorCounter _visitorCounter;
+        private readonly VisitorViewFactory _visitorViewFactory;
 
         private CancellationTokenSource _cancellationTokenSource;
-        private TimeSpan _timeSpan;
 
-        public VisitorSpawnService
-        (
+        private TavernMood _tavernMood;
+        private TimeSpan _timeSpan;
+        private VisitorQuantity _visitorQuantity;
+
+        public VisitorSpawnService(
             IPauseService pauseService,
             IPrefabFactory prefabFactory,
             ObjectPool<VisitorView> objectPool,
             VisitorViewFactory visitorViewFactory,
             ITavernProvider tavernProvider,
-            CollectionRepository collectionRepository
-        )
+            CollectionRepository collectionRepository)
         {
             _visitorCounter = new VisitorCounter();
 
@@ -67,9 +64,11 @@ namespace Sources.Infrastructure.Services
 
             SpawnVisitorAsync(_cancellationTokenSource.Token);
         }
-        
-        public void Exit() =>
+
+        public void Exit()
+        {
             _cancellationTokenSource.Cancel();
+        }
 
         private async void SpawnVisitorAsync(CancellationToken cancellationToken)
         {
@@ -95,7 +94,7 @@ namespace Sources.Infrastructure.Services
 
         private bool CanSpawn()
         {
-            int freeSeatPoints = _collectionRepository
+            var freeSeatPoints = _collectionRepository
                 .Get<SeatPointView>()
                 .Count(seatPoint => seatPoint.IsOccupied == false);
 
@@ -112,7 +111,7 @@ namespace Sources.Infrastructure.Services
 
         private IVisitorView Create()
         {
-            Visitor visitor = new Visitor();
+            var visitor = new Visitor();
 
             return CreateFromPool(visitor, TavernMood, _visitorCounter) ??
                    _visitorViewFactory.Create(visitor, TavernMood, _visitorCounter);
@@ -120,8 +119,8 @@ namespace Sources.Infrastructure.Services
 
         private IVisitorView CreateFromPool(Visitor visitor, TavernMood tavernMood, VisitorCounter visitorCounter)
         {
-            VisitorView visitorView = _objectPool.Get<VisitorView>();
-            
+            var visitorView = _objectPool.Get<VisitorView>();
+
             if (visitorView == null)
                 return null;
 

@@ -1,9 +1,7 @@
 ﻿using System;
-using JetBrains.Annotations;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
-using Sources.Infrastructure.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 
@@ -14,11 +12,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
         private readonly IInputService _inputService;
         private readonly IUpdateServiceChanger _updateService;
 
-        public PlayerCameraPresenterFactory
-        (
+        public PlayerCameraPresenterFactory(
             IInputService inputService,
-            IUpdateServiceChanger updateService
-        )
+            IUpdateServiceChanger updateService)
         {
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
@@ -34,13 +30,11 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
             if (playerCameraView == null)
                 throw new ArgumentNullException(nameof(playerCameraView));
 
-            return new PlayerCameraPresenter
-            (
+            return new PlayerCameraPresenter(
                 playerCamera,
                 playerCameraView,
                 _inputService,
-                _updateService
-            );
+                _updateService);
         }
     }
 }

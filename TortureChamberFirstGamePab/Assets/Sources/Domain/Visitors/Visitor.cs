@@ -1,4 +1,4 @@
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using UnityEngine;
 
 namespace Sources.Domain.Visitors
@@ -12,35 +12,54 @@ namespace Sources.Domain.Visitors
         public bool IsUnhappy { get; private set; }
         public bool CanEat { get; private set; }
 
-        public void FinishEating() => 
+        public void FinishEating()
+        {
             CanEat = false;
+        }
 
-        public void Eat() => 
+        public void Eat()
+        {
             CanEat = true;
+        }
 
-        public void SetUnHappy() => 
+        public void SetUnHappy()
+        {
             IsUnhappy = true;
+        }
 
-        public void SetHappy() => 
+        public void SetHappy()
+        {
             IsUnhappy = false;
+        }
 
-        public void SetIdle() => 
+        public void SetIdle()
+        {
             IsIdle = true;
+        }
 
-        public void SetMove() => 
+        public void SetMove()
+        {
             IsIdle = false;
+        }
 
-        public void SetSeatPoint(SeatPointView seatPoint) => 
+        public void SetSeatPoint(SeatPointView seatPoint)
+        {
             SeatPointView = seatPoint;
+        }
 
-        public void SetTargetPosition(Vector3 targetPosition) => 
+        public void SetTargetPosition(Vector3 targetPosition)
+        {
             TargetPosition = targetPosition;
+        }
 
-        public void SetSeat() => 
+        public void SetSeat()
+        {
             CanSeat = true;
+        }
 
-        public void SetUnSeat() => 
+        public void SetUnSeat()
+        {
             CanSeat = false;
-        
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.DataAccess.Containers.Players;
-using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
@@ -13,19 +12,17 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
     public class NewGameFormPresenterFactory
     {
         private readonly IFormService _formService;
-        private readonly SceneService _sceneService;
         private readonly IDataService<Player> _playerDataService;
+        private readonly SceneService _sceneService;
         private readonly IDataService<Tavern> _tavernDataService;
         private readonly IDataService<PlayerUpgrade> _upgradeDataService;
 
-        public NewGameFormPresenterFactory
-        (
+        public NewGameFormPresenterFactory(
             IFormService formService,
             SceneService sceneService,
             IDataService<Player> playerDataService,
             IDataService<Tavern> tavernDataService,
-            IDataService<PlayerUpgrade> upgradeDataService
-        )
+            IDataService<PlayerUpgrade> upgradeDataService)
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
@@ -36,8 +33,12 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
 
         public NewGameFormPresenter Create(INewGameFormView newGameFormView)
         {
-            return new NewGameFormPresenter(newGameFormView, _formService, _sceneService,
-                _playerDataService, _tavernDataService, _upgradeDataService);
+            return new NewGameFormPresenter(newGameFormView,
+                _formService,
+                _sceneService,
+                _playerDataService,
+                _tavernDataService,
+                _upgradeDataService);
         }
     }
 }

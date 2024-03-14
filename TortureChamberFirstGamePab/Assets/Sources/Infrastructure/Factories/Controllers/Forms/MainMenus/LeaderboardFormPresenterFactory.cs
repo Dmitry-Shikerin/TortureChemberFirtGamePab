@@ -16,9 +16,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
 
         public LeaderboardFormPresenter Create(ILeaderboardFormView leaderboardFormView)
         {
-            if (leaderboardFormView == null) 
+            if (leaderboardFormView == null)
                 throw new ArgumentNullException(nameof(leaderboardFormView));
-            
+
             return new LeaderboardFormPresenter(leaderboardFormView, _formService);
         }
     }

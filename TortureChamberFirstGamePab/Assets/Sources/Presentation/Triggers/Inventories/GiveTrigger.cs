@@ -1,5 +1,4 @@
-﻿using Sources.Presentation.Views.Taverns;
-using Sources.PresentationInterfaces.Views.Interactions.Givable;
+﻿using Sources.PresentationInterfaces.Views.Interactions.Givable;
 
 namespace Sources.Presentation.Triggers.Inventories
 {

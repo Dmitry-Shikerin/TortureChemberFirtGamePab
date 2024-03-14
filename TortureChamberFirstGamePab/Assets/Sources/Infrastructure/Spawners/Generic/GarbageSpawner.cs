@@ -8,11 +8,10 @@ namespace Sources.Infrastructure.Spawners.Generic
 {
     public class GarbageSpawner : SpawnerBase<IGarbageView, GarbageView, Garbage>
     {
-        public GarbageSpawner
-        (
+        public GarbageSpawner(
             IViewFactory<IGarbageView, GarbageView, Garbage> viewFactory,
-            ObjectPool<GarbageView> objectPool
-        ) : base(viewFactory, objectPool)
+            ObjectPool<GarbageView> objectPool)
+            : base(viewFactory, objectPool)
         {
         }
     }

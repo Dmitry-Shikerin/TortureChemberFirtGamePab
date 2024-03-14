@@ -9,9 +9,9 @@ namespace Sources.Infrastructure.Services.UpgradeServices
     public class TavernUpgradePointService
     {
         private readonly IFormService _formService;
-        private readonly UpgradeFormView _upgradeFormView;
 
         private readonly TavernUpgradeTrigger _triggerUpgradeTrigger;
+        private readonly UpgradeFormView _upgradeFormView;
 
         public TavernUpgradePointService(TavernUpgradeTrigger tavernUpgradeTrigger, IFormService formService)
         {
@@ -33,10 +33,14 @@ namespace Sources.Infrastructure.Services.UpgradeServices
             _triggerUpgradeTrigger.Exited -= OnExit;
         }
 
-        private void OnEnter(IPlayerMovementView playerMovementView) => 
+        private void OnEnter(IPlayerMovementView playerMovementView)
+        {
             _formService.Show<UpgradeFormView>();
+        }
 
-        private void OnExit(IPlayerMovementView playerMovementView) => 
+        private void OnExit(IPlayerMovementView playerMovementView)
+        {
             _formService.Show<HudFormView>();
+        }
     }
 }

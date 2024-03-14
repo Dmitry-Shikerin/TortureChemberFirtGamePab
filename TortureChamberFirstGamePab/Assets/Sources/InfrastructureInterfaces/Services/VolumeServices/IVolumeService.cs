@@ -5,8 +5,7 @@ namespace Sources.InfrastructureInterfaces.Services.VolumeServices
 {
     public interface IVolumeService : IEnterable, IExitable
     {
-        event Action VolumeChanged;
-        
         float Volume { get; }
+        event Action VolumeChanged;
     }
 }

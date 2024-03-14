@@ -6,8 +6,8 @@ namespace Sources.Controllers.Points
 {
     public class SeatPointPresenter : PresenterBase
     {
-        private readonly ISeatPointView _seatPointView;
         private readonly SeatPoint _seatPoint;
+        private readonly ISeatPointView _seatPointView;
 
         public SeatPointPresenter(SeatPoint seatPoint, ISeatPointView seatPointView)
         {
@@ -17,10 +17,14 @@ namespace Sources.Controllers.Points
 
         public bool IsOccupied => _seatPoint.IsOccupied;
 
-        public void Occupy() => 
+        public void Occupy()
+        {
             _seatPoint.Occupy();
+        }
 
-        public void UnOccupy() => 
+        public void UnOccupy()
+        {
             _seatPoint.UnOccupy();
+        }
     }
 }

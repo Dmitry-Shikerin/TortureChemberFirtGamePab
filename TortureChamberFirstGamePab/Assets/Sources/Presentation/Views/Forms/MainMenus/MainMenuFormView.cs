@@ -6,10 +6,14 @@ namespace Sources.Presentation.Views.Forms.MainMenus
 {
     public class MainMenuFormView : FormBase<MainMenuFormPresenter>, IMainMenuFormView
     {
-        public void ShowLeaderboard() => 
+        public void ShowLeaderboard()
+        {
             Presenter.ShowLeaderBoard();
+        }
 
-        public void ShowSetting() => 
+        public void ShowSetting()
+        {
             Presenter.ShowSetting();
+        }
     }
 }

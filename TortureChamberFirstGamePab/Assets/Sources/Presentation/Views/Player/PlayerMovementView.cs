@@ -8,7 +8,7 @@ namespace Sources.Presentation.Views.Player
     public class PlayerMovementView : PresentableView<PlayerMovementPresenter>, IPlayerMovementView
     {
         private CharacterController _characterController;
-        
+
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>() ??
@@ -19,17 +19,27 @@ namespace Sources.Presentation.Views.Player
         public Transform Transform => transform;
         public float RotationAngle => transform.rotation.eulerAngles.y;
 
-        public void Move(Vector3 direction) => 
+        public void Move(Vector3 direction)
+        {
             _characterController.Move(direction);
+        }
 
-        public void Rotate(Quaternion look, float speed) =>
+        public void Rotate(Quaternion look, float speed)
+        {
             transform.rotation = Quaternion.RotateTowards(
-                transform.rotation, look, speed);
+                transform.rotation,
+                look,
+                speed);
+        }
 
-        public void SetPosition(Vector3 position) => 
+        public void SetPosition(Vector3 position)
+        {
             transform.position = position;
+        }
 
-        public void SetAngle(float angle) => 
-            transform.rotation = Quaternion.Euler(0,angle, 0);
+        public void SetAngle(float angle)
+        {
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 }

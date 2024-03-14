@@ -4,13 +4,12 @@
     {
         public const float Epsilon = 0.01f;
 
-        
         public static class ScrollRect
         {
             public const float MaxValue = 0.99f;
             public const float MinValue = 0.01f;
         }
-        
+
         public static class Volume
         {
             public const float Min = 0;
@@ -22,7 +21,7 @@
             public const float TargetDistance = 1f;
             public const float OffsetY = 0.3f;
         }
-        
+
         public static class Inventory
         {
             public const int StartCapacity = 1;
@@ -30,7 +29,7 @@
             public const int SecondItemIndex = 1;
             public const int ThirdItemIndex = 2;
         }
-        
+
         public static class Overlap
         {
             public const int MaxCollidersValue = 32;
@@ -40,19 +39,19 @@
         {
             public const float Speed = -1f;
         }
-        
+
         public static class FillingAmount
         {
             public const float Maximum = 1;
             public const float Minimum = 0;
         }
-        
+
         public static class TavernMoodValues
         {
             public const float StartValue = 0.5f;
             public const float RemovedAmount = 0.05f;
         }
-        
+
         public static class GamePlay
         {
             public const int SpawnDelay = 20;
@@ -65,7 +64,7 @@
             public const string Run = "Run";
             public const string Rotation = "Rotation";
         }
-        
+
         public static class Visitors
         {
             public const float SpawnDelay = 5f;
@@ -87,7 +86,7 @@
             public const string ItemConfigContainer = "Configs/Items/Containers/ItemConfigContainer";
             public const string UpgradeConfigContainer = "Configs/Upgrades/Containers/UpgradeConfigContainer";
         }
-        
+
         public static class UpgradeDataKey
         {
             public const string CharismaKey = "CharismaUpgrader";
@@ -101,7 +100,7 @@
             public const string InventoryKey = "PlayerInventory";
             public const string WalletKey = "PlayerWallet";
         }
-        
+
         public static class TavernDataKey
         {
             public const string TavernMoodKey = "TavernMood";
@@ -120,7 +119,7 @@
             public const string Inventory = "Configs/Upgrades/InventoryUpgradeConfig";
             public const string Movement = "Configs/Upgrades/MovementUpgradeConfig";
         }
-        
+
         public static class ItemConfigPath
         {
             public const string Beer = "Configs/Items/BeerItemConfig";
@@ -129,7 +128,7 @@
             public const string Soup = "Configs/Items/SoupItemConfig";
             public const string Wine = "Configs/Items/WineItemConfig";
         }
-        
+
         public static class SceneNames
         {
             public const string MainMenu = "MainMenu";
@@ -145,7 +144,7 @@
             public const string Russian = "ru";
             public const string English = "en";
         }
-        
+
         public static class Anonymous
         {
             public const string English = "Anonymous";
@@ -158,13 +157,13 @@
             public const float Min = 0;
             public const float Max = 1;
         }
-        
+
         public static class LeaderboardNames
         {
             public const string LeaderboardName = "Leaderboard";
             public const string AnonymousName = "Anonymous";
         }
-        
+
         public static class Forms
         {
             public const string PrefabPath = "Views/Forms";
@@ -175,7 +174,7 @@
             public const double CurtainDelay = 1;
             public const double CurtainWaiting = 2;
         }
-        
+
         public static class AdvertisingReward
         {
             public const int CoinsAmount = 40;
@@ -186,7 +185,7 @@
             public const string ContentText = "Реклама появвится через";
             public const float Delay = 1.2f;
         }
-        
+
         public static class VolumeValue
         {
             public const float BaseValue = 0.2f;
@@ -203,7 +202,7 @@
             public const int PositiveRange = 2;
             public const int MaximumRange = 10;
         }
-        
+
         public static class SaveService
         {
             public const int SaveDelay = 2;

@@ -1,5 +1,4 @@
 ﻿using Sources.Presentation.UI.AudioSources;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Points;
 using UnityEngine;
 

@@ -10,10 +10,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
     {
         private readonly IPauseService _pauseService;
 
-        public FocusService
-        (
-            IPauseService pauseService
-        )
+        public FocusService(IPauseService pauseService)
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
         }
@@ -49,10 +46,10 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 return;
             }
 
-            if (_pauseService.IsPaused) 
+            if (_pauseService.IsPaused)
                 _pauseService.Continue();
 
-            if (_pauseService.IsSoundPaused) 
+            if (_pauseService.IsSoundPaused)
                 _pauseService.ContinueSound();
         }
 
@@ -66,10 +63,10 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 return;
             }
 
-            if (_pauseService.IsPaused) 
+            if (_pauseService.IsPaused)
                 _pauseService.Continue();
 
-            if (_pauseService.IsSoundPaused) 
+            if (_pauseService.IsSoundPaused)
                 _pauseService.ContinueSound();
         }
     }

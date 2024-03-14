@@ -3,7 +3,6 @@ using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.MainMenus;
 using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Players;
-using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.MainMenus;
@@ -18,29 +17,27 @@ using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.MainMenus;
-using Sources.PresentationInterfaces.UI;
 
 namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class MainMenuFormServiceFactory
     {
-        private readonly NewGameFormPresenterFactory _newGameFormPresenterFactory;
         private readonly AuthorizationFormPresenterFactory _authorizationFormPresenterFactory;
-        private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
-        private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
+        private readonly ButtonUIFactory _buttonUIFactory;
         private readonly FormService _formService;
         private readonly LeaderboardFormPresenterFactory _leaderboardFormPresenterFactory;
-        private readonly ButtonUIFactory _buttonUIFactory;
-        private readonly SceneService _sceneService;
+        private readonly ILeaderboardInitializeService _leaderboardInitializeService;
+        private readonly MainMenuFormPresenterFactory _mainMenuFormPresenterFactory;
+        private readonly MainMenuHUD _mainMenuHUD;
+        private readonly NewGameFormPresenterFactory _newGameFormPresenterFactory;
+        private readonly IPlayerAccountAuthorizeService _playerAccountAuthorizeService;
         private readonly IDataService<Player> _playerDataService;
+        private readonly SceneService _sceneService;
+        private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
         private readonly IDataService<Tavern> _tavernDateService;
         private readonly IDataService<PlayerUpgrade> _upgradeDateService;
-        private readonly IPlayerAccountAuthorizeService _playerAccountAuthorizeService;
-        private readonly ILeaderboardInitializeService _leaderboardInitializeService;
-        private readonly MainMenuHUD _mainMenuHUD;
 
-        public MainMenuFormServiceFactory
-        (
+        public MainMenuFormServiceFactory(
             NewGameFormPresenterFactory newGameFormPresenterFactory,
             AuthorizationFormPresenterFactory authorizationFormPresenterFactory,
             SettingFormPresenterFactory settingFormPresenterFactory,
@@ -54,8 +51,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             IDataService<Tavern> tavernDateService,
             IDataService<PlayerUpgrade> upgradeDateService,
             IPlayerAccountAuthorizeService playerAccountAuthorizeService,
-            ILeaderboardInitializeService leaderboardInitializeService
-        )
+            ILeaderboardInitializeService leaderboardInitializeService)
         {
             _newGameFormPresenterFactory = newGameFormPresenterFactory ??
                                            throw new ArgumentNullException(nameof(newGameFormPresenterFactory));
@@ -86,75 +82,76 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
         public IFormService Create()
         {
-            Form<MainMenuFormView, MainMenuFormPresenter> mainMenuFormView =
+            var mainMenuFormView =
                 new Form<MainMenuFormView, MainMenuFormPresenter>(
                     _mainMenuFormPresenterFactory.Create,
                     _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView);
 
             _formService.Add(mainMenuFormView);
 
-            Form<LeaderboardFormView, LeaderboardFormPresenter> leaderboardFormView =
+            var leaderboardFormView =
                 new Form<LeaderboardFormView, LeaderboardFormPresenter>(
                     _leaderboardFormPresenterFactory.Create,
                     _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView);
 
             _formService.Add(leaderboardFormView);
 
-            Form<SettingFormView, SettingFormPresenter> settingForm =
+            var settingForm =
                 new Form<SettingFormView, SettingFormPresenter>(
-                    _settingFormPresenterFactory.Create, _mainMenuHUD.MainMenuFormsContainer.SettingFormView);
+                    _settingFormPresenterFactory.Create,
+                    _mainMenuHUD.MainMenuFormsContainer.SettingFormView);
 
             _formService.Add(settingForm);
 
-            Form<AuthorizationFormView, AuthorizationFormPresenter> authorizationForm =
+            var authorizationForm =
                 new Form<AuthorizationFormView, AuthorizationFormPresenter>(
                     _authorizationFormPresenterFactory.Create,
                     _mainMenuHUD.MainMenuFormsContainer.AuthorizationFormView);
 
             _formService.Add(authorizationForm);
 
-            Form<NewGameFormView, NewGameFormPresenter> newGameForm = 
+            var newGameForm =
                 new Form<NewGameFormView, NewGameFormPresenter>(
-                _newGameFormPresenterFactory.Create, 
-                _mainMenuHUD.MainMenuFormsContainer.NewGameFormView);
-            
+                    _newGameFormPresenterFactory.Create,
+                    _mainMenuHUD.MainMenuFormsContainer.NewGameFormView);
+
             _formService.Add(newGameForm);
 
-            IButtonUI continueGameButton = _buttonUIFactory.Create(
-                _mainMenuHUD.ButtonUIContainer.ContinueGameButton, async () =>
+            var continueGameButton = _buttonUIFactory.Create(
+                _mainMenuHUD.ButtonUIContainer.ContinueGameButton,
+                async () =>
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
                         new LoadServicePayload(true)));
 
             continueGameButton.Show();
 
-            //TODO сделать кнопки в главном меню через LayoutGroup
-            //TOdo сделать затемнение заднего фона
-            //TODO сделать перевод в черновике для всех языков
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton, async () =>
-            {
-                if (CanLoad())
+            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.NewGameButton,
+                async () =>
                 {
-                    _formService.Show<NewGameFormView>();
-                    
-                    return;
-                }
+                    if (CanLoad())
+                    {
+                        _formService.Show<NewGameFormView>();
 
-                await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
-                    new LoadServicePayload(false));
-            });
+                        return;
+                    }
 
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
-            {
-                if (_playerAccountAuthorizeService.IsAuthorized() == false)
+                    await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
+                        new LoadServicePayload(false));
+                });
+
+            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton,
+                () =>
                 {
-                    _formService.Show<AuthorizationFormView>();
+                    if (_playerAccountAuthorizeService.IsAuthorized() == false)
+                    {
+                        _formService.Show<AuthorizationFormView>();
 
-                    return;
-                }
+                        return;
+                    }
 
-                _leaderboardInitializeService.Fill();
-                _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
-            });
+                    _leaderboardInitializeService.Fill();
+                    _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
+                });
 
             _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,
                 _mainMenuHUD.MainMenuFormsContainer.LeaderboardFormView.ShowMainMenu);
@@ -176,7 +173,9 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             return _formService;
         }
 
-        private bool CanLoad() =>
-            _playerDataService.CanLoad && _tavernDateService.CanLoad && _upgradeDateService.CanLoad;
+        private bool CanLoad()
+        {
+            return _playerDataService.CanLoad && _tavernDateService.CanLoad && _upgradeDateService.CanLoad;
+        }
     }
 }

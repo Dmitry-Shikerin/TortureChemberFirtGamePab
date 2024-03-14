@@ -11,16 +11,24 @@ namespace Sources.Presentation.UI
     {
         [SerializeField] private Button _button;
 
-        public void AddListener(UnityAction action) =>
+        public void AddListener(UnityAction action)
+        {
             _button.onClick.AddListener(action);
+        }
 
-        public void RemoveListener(UnityAction action) =>
+        public void RemoveListener(UnityAction action)
+        {
             _button.onClick.RemoveListener(action);
+        }
 
-        public void Enable() => 
+        public void Enable()
+        {
             _button.enabled = true;
+        }
 
-        public void Disable() => 
+        public void Disable()
+        {
             _button.enabled = false;
+        }
     }
 }

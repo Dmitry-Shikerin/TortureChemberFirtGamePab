@@ -10,9 +10,11 @@ namespace Sources.PresentationInterfaces.Views.Forms
         Sprite VoidSprite { get; }
         List<ImageView> Images { get; }
 
-        
+
         void IncreaseVolume();
         void TurnDownVolume();
-        void BackToMainMenu<T>() where T : IFormView;
+
+        void BackToMainMenu<T>()
+            where T : IFormView;
     }
 }

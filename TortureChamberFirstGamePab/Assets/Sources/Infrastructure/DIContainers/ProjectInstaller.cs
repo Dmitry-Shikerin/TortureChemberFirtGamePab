@@ -1,6 +1,5 @@
 ﻿using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.DataAccess.Containers.Settings;
-using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Factories.Controllers.UI.AudioSources;
 using Sources.Infrastructure.Factories.Prefabs;
@@ -25,14 +24,14 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<IDataService<Tavern>>().To<TavernDataService>().AsSingle();
             Container.Bind<IDataService<PlayerUpgrade>>().To<PlayerUpgradeDataService>().AsSingle();
             Container.Bind<IDataService<Setting>>().To<SettingDataService>().AsSingle();
-            
+
             Container.Bind<Setting>().AsSingle();
 
             Container.Bind<IStickyService>().To<StickyService>().AsSingle();
             Container.BindInterfacesAndSelfTo<PauseService>().AsSingle();
             Container.Bind<IVolumeService>().To<VolumeService>().AsSingle();
             Container.Bind<IPrefabFactory>().To<PrefabFactory>().AsSingle();
-            
+
             Container.Bind<IInitializeService>().To<SDKInitializeService>().AsSingle();
             Container.Bind<IFocusService>().To<FocusService>().AsSingle();
 

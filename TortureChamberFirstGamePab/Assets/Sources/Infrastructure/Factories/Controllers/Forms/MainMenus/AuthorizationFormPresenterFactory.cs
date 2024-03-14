@@ -11,11 +11,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
         private readonly IFormService _formService;
         private readonly IPlayerAccountAuthorizeService _playerAccountAuthorizeService;
 
-        public AuthorizationFormPresenterFactory
-        (
+        public AuthorizationFormPresenterFactory(
             IFormService formService,
-            IPlayerAccountAuthorizeService playerAccountAuthorizeService
-        )
+            IPlayerAccountAuthorizeService playerAccountAuthorizeService)
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _playerAccountAuthorizeService = playerAccountAuthorizeService ??
@@ -24,8 +22,10 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.MainMenus
 
         public AuthorizationFormPresenter Create(IAuthorizationFormView authorizationFormView)
         {
-            return new AuthorizationFormPresenter(authorizationFormView, 
-                _formService, _playerAccountAuthorizeService);
+            return new AuthorizationFormPresenter(
+                authorizationFormView,
+                _formService,
+                _playerAccountAuthorizeService);
         }
     }
 }

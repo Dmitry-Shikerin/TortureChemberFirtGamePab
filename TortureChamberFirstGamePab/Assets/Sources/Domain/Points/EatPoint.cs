@@ -4,10 +4,14 @@
     {
         public bool IsClear { get; private set; } = true;
 
-        public void Clean() => 
+        public void Clean()
+        {
             IsClear = true;
+        }
 
-        public void SetDirty() => 
+        public void SetDirty()
+        {
             IsClear = false;
+        }
     }
 }

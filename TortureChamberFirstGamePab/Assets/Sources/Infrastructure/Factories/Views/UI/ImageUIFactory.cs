@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.UI;
@@ -12,19 +11,19 @@ namespace Sources.Infrastructure.Factories.Views.UI
 
         public ImageUIFactory(ImageUIPresenterFactory imageUIPresenterFactory)
         {
-            _imageUIPresenterFactory = imageUIPresenterFactory ?? 
+            _imageUIPresenterFactory = imageUIPresenterFactory ??
                                        throw new ArgumentNullException(nameof(imageUIPresenterFactory));
         }
 
         public IImageUI Create(ImageUI imageUI)
         {
-            if (imageUI == null) 
+            if (imageUI == null)
                 throw new ArgumentNullException(nameof(imageUI));
-            
-            ImageUIPresenter imageUIPresenter = _imageUIPresenterFactory.Create(imageUI);
+
+            var imageUIPresenter = _imageUIPresenterFactory.Create(imageUI);
 
             imageUI.Construct(imageUIPresenter);
-            
+
             return imageUI;
         }
     }

@@ -10,18 +10,16 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms
 {
     public class SettingFormPresenterFactory
     {
-        private readonly Setting _setting;
         private readonly IFormService _formService;
-        private readonly IDataService<Setting> _settingDataService;
         private readonly IPauseService _pauseService;
+        private readonly Setting _setting;
+        private readonly IDataService<Setting> _settingDataService;
 
-        public SettingFormPresenterFactory
-        (
+        public SettingFormPresenterFactory(
             Setting setting,
             IFormService formService,
             IDataService<Setting> settingDataService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -33,7 +31,7 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms
         {
             if (formView == null)
                 throw new ArgumentNullException(nameof(formView));
-            
+
             return new SettingFormPresenter(_setting, formView, _formService, _settingDataService, _pauseService);
         }
     }

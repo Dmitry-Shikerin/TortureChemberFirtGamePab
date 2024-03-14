@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Sources.Domain.Constants;
+﻿using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.TavernData;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.GamePlays;
@@ -13,8 +12,10 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.TavernDataKey.TavernMoodKey);
 
-        public Tavern Load() =>
-            new(LoadTavernMood(), LoadGamePlay());
+        public Tavern Load()
+        {
+            return new Tavern(LoadTavernMood(), LoadGamePlay());
+        }
 
         public void Save(Tavern @object)
         {
@@ -28,29 +29,33 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteKey(Constant.TavernDataKey.VisitorQuantityKey);
         }
 
-        private TavernMood LoadTavernMood() => 
-            new(LoadData<TavernMoodData>(Constant.TavernDataKey.TavernMoodKey));
+        private TavernMood LoadTavernMood()
+        {
+            return new TavernMood(LoadData<TavernMoodData>(Constant.TavernDataKey.TavernMoodKey));
+        }
 
-        private VisitorQuantity LoadGamePlay() => 
-            new(LoadData<GameplayData>(Constant.TavernDataKey.VisitorQuantityKey));
+        private VisitorQuantity LoadGamePlay()
+        {
+            return new VisitorQuantity(LoadData<GameplayData>(Constant.TavernDataKey.VisitorQuantityKey));
+        }
 
         private void Save(TavernMood tavernMood)
         {
-            TavernMoodData tavernMoodData = new TavernMoodData()
+            var tavernMoodData = new TavernMoodData
             {
                 MoodValue = tavernMood.TavernMoodValue
             };
-            
+
             SaveData(tavernMoodData, Constant.TavernDataKey.TavernMoodKey);
         }
 
         private void Save(VisitorQuantity visitorQuantity)
         {
-            GameplayData gameplayData = new GameplayData()
+            var gameplayData = new GameplayData
             {
                 MaximumVisitorsCapacity = visitorQuantity.MaximumVisitorsQuantity
             };
-            
+
             SaveData(gameplayData, Constant.TavernDataKey.VisitorQuantityKey);
         }
     }

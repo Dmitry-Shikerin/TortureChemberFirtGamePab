@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Sources.Domain.DataAccess.PlayerData;
 
 namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
 {

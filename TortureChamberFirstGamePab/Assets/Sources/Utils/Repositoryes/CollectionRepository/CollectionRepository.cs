@@ -8,8 +8,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
 {
     public class CollectionRepository
     {
-        private Dictionary<Type, ICollectionContainer> _repositoryes =
-            new Dictionary<Type, ICollectionContainer>();
+        private readonly Dictionary<Type, ICollectionContainer> _repositoryes = new();
 
         public IReadOnlyList<T> Get<T>()
         {
@@ -18,7 +17,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
 
             if (_repositoryes[typeof(T)] is not CollectionContainerGeneric<T> concrete)
                 throw new InvalidOperationException(nameof(T));
-            
+
             return concrete.Get().ToList();
         }
 
@@ -27,7 +26,7 @@ namespace Sources.Utils.Repositoryes.CollectionRepository
             if (_repositoryes.ContainsKey(typeof(T)))
                 throw new InvalidOperationException();
 
-            CollectionContainerGeneric<T> containerGenericCollection =
+            var containerGenericCollection =
                 new CollectionContainerGeneric<T>();
             containerGenericCollection.Set(objects);
 

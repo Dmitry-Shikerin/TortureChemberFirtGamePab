@@ -6,7 +6,9 @@ namespace Sources.Presentation.Views.Forms.Gameplays
 {
     public class HudFormView : FormBase<HudFormPresenter>, IHudFormView
     {
-        public void ShowPauseMenu() => 
+        public void ShowPauseMenu()
+        {
             Presenter.ShowPauseMenu();
+        }
     }
 }

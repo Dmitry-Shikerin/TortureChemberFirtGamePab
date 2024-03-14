@@ -1,5 +1,4 @@
-﻿using Sources.Presentation.Views.Taverns;
-using ITakeble = Sources.PresentationInterfaces.Views.Interactions.Get.ITakeble;
+﻿using Sources.PresentationInterfaces.Views.Interactions.Get;
 
 namespace Sources.Presentation.Triggers.Inventories
 {

@@ -6,7 +6,9 @@ namespace Sources.Presentation.Views.Forms.MainMenus
 {
     public class LeaderboardFormView : FormBase<LeaderboardFormPresenter>, ILeaderboardFormView
     {
-        public void ShowMainMenu() => 
+        public void ShowMainMenu()
+        {
             Presenter.ShowMainMenu();
+        }
     }
 }

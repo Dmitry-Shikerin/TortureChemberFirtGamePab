@@ -1,14 +1,13 @@
 ﻿using System;
 using Sources.Domain.Points;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Controllers.Points
 {
     public class EatPointPresenter : PresenterBase
     {
-        private readonly IEatPointView _eatPointView;
         private readonly EatPoint _eatPoint;
+        private readonly IEatPointView _eatPointView;
 
         public EatPointPresenter(EatPoint eatPoint, IEatPointView eatPointView)
         {
@@ -17,11 +16,15 @@ namespace Sources.Controllers.Points
         }
 
         public bool IsClear => _eatPoint.IsClear;
-        
-        public void Clean() => 
-            _eatPoint.Clean();
 
-        public void SetDirty() => 
+        public void Clean()
+        {
+            _eatPoint.Clean();
+        }
+
+        public void SetDirty()
+        {
             _eatPoint.SetDirty();
+        }
     }
 }

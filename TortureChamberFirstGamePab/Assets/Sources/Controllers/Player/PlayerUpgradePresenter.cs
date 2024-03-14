@@ -1,36 +1,32 @@
 ﻿using System;
+using Sirenix.Utilities;
 using Sources.Domain.Players;
 using Sources.Domain.Upgrades;
-using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.Views.Players;
-using UnityEngine;
 
 namespace Sources.Controllers.Player
 {
     public class PlayerUpgradePresenter : PresenterBase
     {
-        private readonly Upgrader _upgrader;
-        private readonly PlayerWallet _playerWallet;
         private readonly IPlayerUpgradeView _playerUpgradeView;
+        private readonly PlayerWallet _playerWallet;
+        private readonly Upgrader _upgrader;
 
-        public PlayerUpgradePresenter
-        (
+        public PlayerUpgradePresenter(
             Upgrader upgrader,
             PlayerWallet playerWallet,
-            IPlayerUpgradeView playerUpgradeView
-        )
+            IPlayerUpgradeView playerUpgradeView)
         {
             _upgrader = upgrader ?? throw new ArgumentNullException(nameof(upgrader));
             _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
             _playerUpgradeView = playerUpgradeView ?? throw new ArgumentNullException(nameof(playerUpgradeView));
         }
-        
+
         public override void Enable()
         {
             HideLevelImages();
             ShowLevelImages();
             UpdatePricePerUpgrade();
-            UpdateCurrentLevelUpgrade();
         }
 
         public void Upgrade()
@@ -39,18 +35,19 @@ namespace Sources.Controllers.Player
             {
                 if (CanUpgrade())
                 {
-                    _playerWallet.Remove(_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]);
+                    var moneyPerUpgrade = _upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue];
+
+                    _playerWallet.Remove(moneyPerUpgrade);
                     _upgrader.Upgrade();
                     UpdatePricePerUpgrade();
-                    UpdateCurrentLevelUpgrade();
+                    ShowLevelImages();
                 }
 
                 UpdatePricePerUpgrade();
-                UpdateCurrentLevelUpgrade();
+                ShowLevelImages();
             }
             catch (InvalidOperationException exception)
             {
-                Debug.Log(exception.Message);
             }
         }
 
@@ -71,33 +68,22 @@ namespace Sources.Controllers.Player
             {
                 _playerUpgradeView.SetPriceNextUpgrade(
                     $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue - 1]}");
-                
+
                 return;
             }
-                
+
             _playerUpgradeView.SetPriceNextUpgrade(
                 $"{_upgrader.MoneyPerUpgrades[_upgrader.CurrentLevelUpgrade.GetValue]}");
         }
 
-        private void UpdateCurrentLevelUpgrade()
-        {
-            ShowLevelImages();
-        }
-
         private void ShowLevelImages()
         {
-            for (int i = 0; i < _upgrader.CurrentLevelUpgrade.GetValue; i++)
-            {
-                _playerUpgradeView.ImageViews[i].Show();
-            }
+            for (var i = 0; i < _upgrader.CurrentLevelUpgrade.GetValue; i++) _playerUpgradeView.ImageViews[i].Show();
         }
 
         private void HideLevelImages()
         {
-            foreach (ImageView image in _playerUpgradeView.ImageViews)
-            {
-                image.Hide();
-            }
+            _playerUpgradeView.ImageViews.ForEach(image => image.Hide());
         }
     }
 }

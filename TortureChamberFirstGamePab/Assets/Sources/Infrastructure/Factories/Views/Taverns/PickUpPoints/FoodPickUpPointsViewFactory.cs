@@ -3,20 +3,17 @@ using Sources.Domain.Items.ItemConfigs;
 using Sources.Domain.Taverns;
 using Sources.Infrastructure.Factories.Views.UI.AudioSources;
 using Sources.Presentation.Containers.GamePoints;
-using Sources.Presentation.Voids.GamePoints;
 
 namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
 {
     public class FoodPickUpPointsViewFactory
     {
-        private readonly TavernFoodPickUpPointViewFactory _tavernFoodPickUpPointViewFactory;
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
+        private readonly TavernFoodPickUpPointViewFactory _tavernFoodPickUpPointViewFactory;
 
-        public FoodPickUpPointsViewFactory
-        (
+        public FoodPickUpPointsViewFactory(
             TavernFoodPickUpPointViewFactory tavernFoodPickUpPointViewFactory,
-            AudioSourceUIFactory audioSourceUIFactory
-        )
+            AudioSourceUIFactory audioSourceUIFactory)
         {
             _tavernFoodPickUpPointViewFactory = tavernFoodPickUpPointViewFactory ??
                                                 throw new ArgumentNullException(
@@ -25,23 +22,26 @@ namespace Sources.Infrastructure.Factories.Views.Taverns.PickUpPoints
                                     throw new ArgumentNullException(nameof(audioSourceUIFactory));
         }
 
-        public void Create
-        (
+        public void Create(
             FoodPickUpPointContainer foodContainer,
             ItemConfigContainer itemConfigContainer,
-            RootGamePoints rootGamePoints
-        )
+            RootGamePoints rootGamePoints)
         {
             _tavernFoodPickUpPointViewFactory.Create(foodContainer.Beer,
-                rootGamePoints.BeerPickUpPointView, itemConfigContainer.Beer);
+                rootGamePoints.BeerPickUpPointView,
+                itemConfigContainer.Beer);
             _tavernFoodPickUpPointViewFactory.Create(foodContainer.Bread,
-                rootGamePoints.BreadPickUpPointView, itemConfigContainer.Bread);
+                rootGamePoints.BreadPickUpPointView,
+                itemConfigContainer.Bread);
             _tavernFoodPickUpPointViewFactory.Create(foodContainer.Meat,
-                rootGamePoints.MeatPickUpPointView, itemConfigContainer.Meat);
+                rootGamePoints.MeatPickUpPointView,
+                itemConfigContainer.Meat);
             _tavernFoodPickUpPointViewFactory.Create(foodContainer.Soup,
-                rootGamePoints.SoupPickUpPointView, itemConfigContainer.Soup);
+                rootGamePoints.SoupPickUpPointView,
+                itemConfigContainer.Soup);
             _tavernFoodPickUpPointViewFactory.Create(foodContainer.Wine,
-                rootGamePoints.WinePickUpPointView, itemConfigContainer.Wine);
+                rootGamePoints.WinePickUpPointView,
+                itemConfigContainer.Wine);
 
             _audioSourceUIFactory.Create(foodContainer.Beer,
                 rootGamePoints.UpgradePointsInteractionAudioSourceContainer.Beer);

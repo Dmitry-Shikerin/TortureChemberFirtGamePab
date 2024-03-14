@@ -11,11 +11,9 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
         private readonly IPauseService _pauseService;
         private readonly IVolumeService _volumeService;
 
-        public BackgroundMusicPresenterFactory
-        (
+        public BackgroundMusicPresenterFactory(
             IPauseService pauseService,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
@@ -24,7 +22,8 @@ namespace Sources.Infrastructure.Factories.Controllers.UI.AudioSources
         public BackgroundMusicPresenter Create(IBackgroundMusicView backgroundMusicView)
         {
             return new BackgroundMusicPresenter(backgroundMusicView,
-                _pauseService, _volumeService);
+                _pauseService,
+                _volumeService);
         }
     }
 }

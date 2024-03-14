@@ -13,13 +13,11 @@ namespace Sources.Controllers.UI.AudioSources
         private readonly IPauseService _pauseService;
         private readonly IVolumeService _volumeService;
 
-        public FourthCallBackAudioSourceUIPresenter
-        (
+        public FourthCallBackAudioSourceUIPresenter(
             IFourthAudioSourceActivator audioSourceActivator,
             ITripleAudioSourceUI audioSourceUI,
             IPauseService pauseService,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
             _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
@@ -31,34 +29,34 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Enable()
         {
             OnVolumeChanged();
-            
+
             _audioSourceUI.ThirdAudioSourceView.SetLoop();
 
             _audioSourceActivator.FirstAudioSourceActivated += OnPlayFirstSound;
             _audioSourceActivator.SecondAudioSourceActivated += OnPlaySecondSound;
-            
+
             _audioSourceActivator.ThirdAudioSourceActivated += OnPlaySound;
             _audioSourceActivator.FourthAudioSourceActivated += OnStopSound;
 
             _pauseService.PauseActivated += OnPause;
             _pauseService.ContinueActivated += OnContinue;
-            
+
             _volumeService.VolumeChanged += OnVolumeChanged;
         }
 
         public override void Disable()
         {
             _audioSourceUI.ThirdAudioSourceView.RemoveLoop();
-            
+
             _audioSourceActivator.FirstAudioSourceActivated -= OnPlayFirstSound;
             _audioSourceActivator.SecondAudioSourceActivated -= OnPlaySecondSound;
-            
+
             _audioSourceActivator.ThirdAudioSourceActivated -= OnPlaySound;
             _audioSourceActivator.FourthAudioSourceActivated -= OnStopSound;
-            
+
             _pauseService.PauseActivated -= OnPause;
             _pauseService.ContinueActivated -= OnContinue;
-            
+
             _volumeService.VolumeChanged -= OnVolumeChanged;
         }
 
@@ -69,33 +67,40 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceUI.ThirdAudioSourceView.SetVolume(_volumeService.Volume);
         }
 
-        private void OnPlayFirstSound() => 
+        private void OnPlayFirstSound()
+        {
             _audioSourceUI.FirstAudioSourceView.Play();
+        }
 
-        private void OnPlaySecondSound() => 
+        private void OnPlaySecondSound()
+        {
             _audioSourceUI.SecondAudioSourceView.Play();
+        }
 
-        private void OnPlaySound() =>
+        private void OnPlaySound()
+        {
             _audioSourceUI.ThirdAudioSourceView.Play();
+        }
 
-        private void OnStopSound() =>
+        private void OnStopSound()
+        {
             _audioSourceUI.ThirdAudioSourceView.Stop();
+        }
 
         private void OnPause()
         {
-            if(_audioSourceActivator.IsActive == false)
+            if (_audioSourceActivator.IsActive == false)
                 return;
-            
+
             _audioSourceUI.ThirdAudioSourceView.Pause();
         }
 
         private void OnContinue()
         {
-            if(_audioSourceActivator.IsActive == false)
+            if (_audioSourceActivator.IsActive == false)
                 return;
-            
+
             _audioSourceUI.ThirdAudioSourceView.Continue();
         }
-
     }
 }

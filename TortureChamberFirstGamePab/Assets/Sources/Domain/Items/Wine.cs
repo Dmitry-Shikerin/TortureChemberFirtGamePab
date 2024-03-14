@@ -25,10 +25,14 @@ namespace Sources.Domain.Items
         public int Price { get; }
         public float WaitingTime { get; }
 
-        public void SetItemView(IItemView itemView) => 
+        public void SetItemView(IItemView itemView)
+        {
             ItemView = itemView;
+        }
 
-        public IItem Clone() => 
-            new Wine(_itemConfig);
+        public IItem Clone()
+        {
+            return new Wine(_itemConfig);
+        }
     }
 }

@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Sources.Utils.Repositoryes.ItemRepository.Interfaces;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace Sources.Utils.Repositoryes.ItemRepository
 {
     public class ItemProvider<T1> : IItemProvider<T1>
     {
-        private Dictionary<Type, T1> _repositoryes =
-            new Dictionary<Type, T1>();
+        private readonly Dictionary<Type, T1> _repositoryes = new();
 
         public int Count => _repositoryes.Count;
         public IReadOnlyCollection<T1> Collection => _repositoryes.Values;
 
-        public T2 Get<T2>() where T2 : T1
+        public T2 Get<T2>()
+            where T2 : T1
         {
             if (_repositoryes.ContainsKey(typeof(T2)) == false)
                 throw new InvalidOperationException();
@@ -26,7 +23,8 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             throw new InvalidOperationException(nameof(T2));
         }
 
-        public bool TryGetComponent<T2>(out T2 @object) where T2 : T1
+        public bool TryGetComponent<T2>(out T2 @object)
+            where T2 : T1
         {
             if (_repositoryes.ContainsKey(typeof(T2)) == false)
             {
@@ -45,7 +43,8 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             return false;
         }
 
-        public void Remove<T2>() where T2 : T1
+        public void Remove<T2>()
+            where T2 : T1
         {
             if (_repositoryes.ContainsKey(typeof(T2)) == false)
                 throw new InvalidOperationException();
@@ -56,7 +55,8 @@ namespace Sources.Utils.Repositoryes.ItemRepository
             _repositoryes.Remove(typeof(T2));
         }
 
-        public void Add<T2>(T2 @object) where T2 : T1
+        public void Add<T2>(T2 @object)
+            where T2 : T1
         {
             if (_repositoryes.ContainsKey(typeof(T2)))
                 throw new InvalidOperationException();
@@ -66,9 +66,9 @@ namespace Sources.Utils.Repositoryes.ItemRepository
 
         public void AddCollection(IEnumerable<T1> items)
         {
-            foreach (T1 item in items)
+            foreach (var item in items)
             {
-                Type type = item.GetType();
+                var type = item.GetType();
 
                 if (_repositoryes.ContainsKey(type))
                     throw new InvalidOperationException();

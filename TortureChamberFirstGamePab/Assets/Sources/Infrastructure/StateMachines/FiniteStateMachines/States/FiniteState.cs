@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions;
 using Sources.InfrastructureInterfaces.StateMachines.FiniteStateMachinew.Transitions;
 
 namespace Sources.Infrastructure.StateMachines.FiniteStateMachines.States
 {
     public abstract class FiniteState
     {
-        private readonly List<IFiniteTransition> _transitions = new List<IFiniteTransition>();
+        private readonly List<IFiniteTransition> _transitions = new();
 
         public virtual void Enter()
         {
@@ -20,21 +19,23 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines.States
         {
         }
 
-        public void AddTransition(IFiniteTransition transition) =>
+        public void AddTransition(IFiniteTransition transition)
+        {
             _transitions.Add(transition);
+        }
 
-        public void RemoveTransition(IFiniteTransition transition) =>
+        public void RemoveTransition(IFiniteTransition transition)
+        {
             _transitions.Remove(transition);
+        }
 
         public bool TryGetNextState(out FiniteState nextSate)
         {
             nextSate = default;
 
-            foreach (IFiniteTransition transition in _transitions)
-            {
+            foreach (var transition in _transitions)
                 if (transition.CanMoveNextState(out nextSate))
                     return true;
-            }
 
             return false;
         }

@@ -1,10 +1,11 @@
 ﻿using Sources.InfrastructureInterfaces.Factories;
 using Sources.PresentationInterfaces.Views;
 
-namespace Sources.Infrastructure.Services.Providers
+namespace Sources.InfrastructureInterfaces.Services.Providers
 {
     public interface IViewFactoryProvider
     {
-        T Get<T>() where T : IFactory<IView>;
+        T Get<T>()
+            where T : IFactory<IView>;
     }
 }

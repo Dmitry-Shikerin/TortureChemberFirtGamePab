@@ -7,16 +7,17 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines.Transitions
     {
         private readonly Func<bool> _condition;
 
-        public FiniteTransitionBase
-        (
+        public FiniteTransitionBase(
             FiniteState nextState,
-            Func<bool> condition
-        ) : base(nextState)
+            Func<bool> condition)
+            : base(nextState)
         {
             _condition = condition ?? throw new ArgumentNullException(nameof(condition));
         }
 
-        protected override bool CanTransit() => 
-            _condition.Invoke();
+        protected override bool CanTransit()
+        {
+            return _condition.Invoke();
+        }
     }
 }

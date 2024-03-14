@@ -4,7 +4,9 @@ namespace Sources.Presentation.Views
 {
     public class ContainerView : View
     {
-        public void AppendChild(IView view) => 
+        public void AppendChild(IView view)
+        {
             view.SetParent(transform);
+        }
     }
 }

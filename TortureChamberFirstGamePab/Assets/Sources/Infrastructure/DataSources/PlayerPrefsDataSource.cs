@@ -10,17 +10,18 @@ namespace Sources.Infrastructure.DataSources
     public class PlayerPrefsDataSource : IDataSource
     {
         private const string Key = "SavedModels";
-        
+
         public IEnumerable<DataModel> Load()
         {
-            string json = PlayerPrefs.GetString(Key);
+            var json = PlayerPrefs.GetString(Key);
             return JsonConvert.DeserializeObject<CollectionWrapper<DataModel>>(json).Collection;
         }
 
         public void Save(IEnumerable<DataModel> models)
         {
-            PlayerPrefs.SetString(Key, JsonConvert.SerializeObject(
-                new CollectionWrapper<DataModel>(models.ToArray())));
+            PlayerPrefs.SetString(Key,
+                JsonConvert.SerializeObject(
+                    new CollectionWrapper<DataModel>(models.ToArray())));
         }
     }
 }

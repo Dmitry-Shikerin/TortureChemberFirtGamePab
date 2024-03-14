@@ -7,7 +7,7 @@ namespace Sources.PresentationInterfaces.Views.Points
         public Vector3 Position { get; }
         public Quaternion Rotation { get; }
         public bool IsClear { get; }
-        
+
         void Clean();
         void SetDirty();
     }

@@ -8,22 +8,20 @@ namespace Sources.Infrastructure.Factories.Controllers.Players
 {
     public class PlayerUpgradePresenterFactory
     {
-        public PlayerUpgradePresenter Create
-        (
+        public PlayerUpgradePresenter Create(
             Upgrader upgrader,
             PlayerWallet playerWallet,
-            IPlayerUpgradeView playerUpgradeView
-        )
+            IPlayerUpgradeView playerUpgradeView)
         {
-            if (upgrader == null) 
+            if (upgrader == null)
                 throw new ArgumentNullException(nameof(upgrader));
-            
-            if (playerWallet == null) 
+
+            if (playerWallet == null)
                 throw new ArgumentNullException(nameof(playerWallet));
-            
-            if (playerUpgradeView == null) 
+
+            if (playerUpgradeView == null)
                 throw new ArgumentNullException(nameof(playerUpgradeView));
-            
+
             return new PlayerUpgradePresenter(upgrader, playerWallet, playerUpgradeView);
         }
     }

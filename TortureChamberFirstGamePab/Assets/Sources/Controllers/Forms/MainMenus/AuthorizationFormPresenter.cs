@@ -12,18 +12,16 @@ namespace Sources.Controllers.Forms.MainMenus
         private readonly IFormService _formService;
         private readonly IPlayerAccountAuthorizeService _playerAccountAuthorizeService;
 
-        public AuthorizationFormPresenter
-        (
+        public AuthorizationFormPresenter(
             IAuthorizationFormView authorizationFormView,
             IFormService formService,
-            IPlayerAccountAuthorizeService playerAccountAuthorizeService
-        )
+            IPlayerAccountAuthorizeService playerAccountAuthorizeService)
         {
-            _authorizationFormView = authorizationFormView ?? 
+            _authorizationFormView = authorizationFormView ??
                                      throw new ArgumentNullException(nameof(authorizationFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
-            _playerAccountAuthorizeService = 
-                playerAccountAuthorizeService ?? 
+            _playerAccountAuthorizeService =
+                playerAccountAuthorizeService ??
                 throw new ArgumentNullException(nameof(playerAccountAuthorizeService));
         }
 
@@ -39,10 +37,14 @@ namespace Sources.Controllers.Forms.MainMenus
             _authorizationFormView.AuthorizationButton.RemoveClickListener(Authorize);
         }
 
-        private void ShowMainMenuForm() => 
+        private void ShowMainMenuForm()
+        {
             _formService.Show<MainMenuFormView>();
+        }
 
-        private void Authorize() => 
+        private void Authorize()
+        {
             _playerAccountAuthorizeService.Authorize(ShowMainMenuForm);
+        }
     }
 }

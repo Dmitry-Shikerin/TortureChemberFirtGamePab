@@ -2,14 +2,12 @@
 {
     public class FoodPickUpPointContainer
     {
-        public FoodPickUpPointContainer
-        (
+        public FoodPickUpPointContainer(
             FoodPickUpPoint beer,
             FoodPickUpPoint bread,
             FoodPickUpPoint meat,
             FoodPickUpPoint soup,
-            FoodPickUpPoint wine
-        )
+            FoodPickUpPoint wine)
         {
             Beer = beer;
             Bread = bread;

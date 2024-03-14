@@ -13,13 +13,11 @@ namespace Sources.Controllers.UI.AudioSources
         private readonly IPauseService _pauseService;
         private readonly IVolumeService _volumeService;
 
-        public DoubleAudioSourceUIPresenter
-        (
+        public DoubleAudioSourceUIPresenter(
             IDoubleAudioSourceActivator audioSourceActivator,
             IDoubleAudioSourceUI audioSourceUI,
             IPauseService pauseService,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
             _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
@@ -31,7 +29,7 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Enable()
         {
             OnVolumeChanged();
-            
+
             _audioSourceActivator.FirstAudioSourceActivated += OnFirstAudioSourceActivate;
             _audioSourceActivator.SecondAudioSourceActivated += OnSecondAudioSourceActivate;
 
@@ -45,7 +43,7 @@ namespace Sources.Controllers.UI.AudioSources
         {
             _audioSourceActivator.FirstAudioSourceActivated -= OnFirstAudioSourceActivate;
             _audioSourceActivator.SecondAudioSourceActivated -= OnSecondAudioSourceActivate;
-            
+
             _volumeService.VolumeChanged -= OnVolumeChanged;
 
             _pauseService.PauseActivated -= OnPause;
@@ -70,10 +68,14 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceUI.SecondAudioSourceView.SetVolume(_volumeService.Volume);
         }
 
-        private void OnFirstAudioSourceActivate() => 
+        private void OnFirstAudioSourceActivate()
+        {
             _audioSourceUI.FirstAudioSourceView.Play();
+        }
 
-        private void OnSecondAudioSourceActivate() => 
+        private void OnSecondAudioSourceActivate()
+        {
             _audioSourceUI.SecondAudioSourceView.Play();
+        }
     }
 }

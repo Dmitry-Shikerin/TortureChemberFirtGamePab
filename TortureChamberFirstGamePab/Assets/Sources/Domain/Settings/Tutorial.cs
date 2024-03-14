@@ -1,5 +1,4 @@
-﻿using Sources.Domain.Constants;
-using Sources.Domain.DataAccess.SettingData;
+﻿using Sources.Domain.DataAccess.SettingData;
 
 namespace Sources.Domain.Settings
 {
@@ -8,11 +7,11 @@ namespace Sources.Domain.Settings
         public Tutorial(TutorialData tutorialData) : this(tutorialData.HasCompleted)
         {
         }
-        
+
         public Tutorial() : this(false)
         {
         }
-        
+
         private Tutorial(bool hasCompleted)
         {
             HasCompleted = hasCompleted;

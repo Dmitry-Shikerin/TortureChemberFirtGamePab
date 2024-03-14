@@ -1,8 +1,7 @@
 ﻿using System;
-using Sources.Controllers.Points;
 using Sources.Domain.Points;
 using Sources.Infrastructure.Factories.Controllers.Points;
-using Sources.Presentation.Voids.GamePoints.VisitorsPoints;
+using Sources.Presentation.Views.GamePoints.VisitorsPoints;
 using Sources.PresentationInterfaces.Views.Points;
 
 namespace Sources.Infrastructure.Factories.Views.Points
@@ -13,15 +12,15 @@ namespace Sources.Infrastructure.Factories.Views.Points
 
         public SeatPointViewFactory(SeatPointPresenterFactory seatPointPresenterFactory)
         {
-            _seatPointPresenterFactory = seatPointPresenterFactory ?? 
+            _seatPointPresenterFactory = seatPointPresenterFactory ??
                                          throw new ArgumentNullException(nameof(seatPointPresenterFactory));
         }
 
         public ISeatPointView Create(SeatPointView seatPointView)
         {
-            SeatPoint seatPoint = new SeatPoint();
-            SeatPointPresenter seatPointPresenter = _seatPointPresenterFactory.Create(seatPoint, seatPointView);
-            
+            var seatPoint = new SeatPoint();
+            var seatPointPresenter = _seatPointPresenterFactory.Create(seatPoint, seatPointView);
+
             seatPointView.Construct(seatPointPresenter);
 
             return seatPointView;

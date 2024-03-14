@@ -11,11 +11,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
 
-        public PauseMenuFormPresenterFactory
-        (
+        public PauseMenuFormPresenterFactory(
             IFormService formService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
@@ -23,9 +21,9 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public PauseMenuFormPresenter Create(IPauseMenuFormView pauseMenuFormView)
         {
-            if (pauseMenuFormView == null) 
+            if (pauseMenuFormView == null)
                 throw new ArgumentNullException(nameof(pauseMenuFormView));
-            
+
             return new PauseMenuFormPresenter(pauseMenuFormView, _formService, _pauseService);
         }
     }

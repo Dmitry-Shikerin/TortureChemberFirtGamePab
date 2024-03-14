@@ -1,27 +1,22 @@
 ﻿using System;
 using Sources.Domain.Visitors;
-using Sources.Infrastructure.Services;
 using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
 using Sources.InfrastructureInterfaces.Services.ObjectPolls;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
-using UnityEngine;
 
 namespace Sources.Controllers.Visitors.States
 {
     public class VisitorReturnToPoolState : FiniteState
     {
-        private readonly IVisitorView _visitorView;
+        private readonly IObjectPool _objectPool;
         private readonly Visitor _visitor;
         private readonly VisitorCounter _visitorCounter;
-        private readonly IObjectPool _objectPool;
+        private readonly IVisitorView _visitorView;
 
-        public VisitorReturnToPoolState
-        (
+        public VisitorReturnToPoolState(
             IVisitorView visitorView,
             Visitor visitor,
-            VisitorCounter visitorCounter
-        )
+            VisitorCounter visitorCounter)
         {
             _visitorView = visitorView ?? throw new ArgumentNullException(nameof(visitorView));
             _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
@@ -33,16 +28,11 @@ namespace Sources.Controllers.Visitors.States
             _visitor.FinishEating();
             _visitor.SetHappy();
             _visitor.SetIdle();
-            // _visitor.SetSeatPoint(null);
             _visitor.SetUnSeat();
 
             _visitorCounter.RemoveActiveVisitor();
 
             _visitorView.Destroy();
-        }
-
-        public override void Exit()
-        {
         }
     }
 }

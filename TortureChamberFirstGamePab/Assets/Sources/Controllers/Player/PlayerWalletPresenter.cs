@@ -7,8 +7,8 @@ namespace Sources.Controllers.Player
 {
     public class PlayerWalletPresenter : PresenterBase
     {
-        private readonly IPlayerWalletView _playerWalletView;
         private readonly PlayerWallet _playerWallet;
+        private readonly IPlayerWalletView _playerWalletView;
 
         public PlayerWalletPresenter(IPlayerWalletView playerWalletView, PlayerWallet playerWallet)
         {
@@ -16,11 +16,15 @@ namespace Sources.Controllers.Player
             _playerWallet = playerWallet ?? throw new ArgumentNullException(nameof(playerWallet));
         }
 
-        public void Add(int quantity) => 
+        public void Add(int quantity)
+        {
             _playerWallet.Add(quantity);
+        }
 
-        public void Remove(int quantity) => 
+        public void Remove(int quantity)
+        {
             _playerWallet.Remove(quantity);
+        }
 
         public void AddCoins(ICoinView coinView)
         {

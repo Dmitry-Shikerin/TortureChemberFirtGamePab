@@ -3,22 +3,19 @@ using Sources.InfrastructureInterfaces.Services.Forms;
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Gameplays;
-using UnityEngine;
 
 namespace Sources.Controllers.Forms.Gameplays
 {
     public class PauseMenuFormPresenter : PresenterBase
     {
-        private readonly IPauseMenuFormView _pauseMenuFormView;
         private readonly IFormService _formService;
+        private readonly IPauseMenuFormView _pauseMenuFormView;
         private readonly IPauseService _pauseService;
 
-        public PauseMenuFormPresenter
-        (
+        public PauseMenuFormPresenter(
             IPauseMenuFormView pauseMenuFormView,
             IFormService formService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _pauseMenuFormView = pauseMenuFormView ?? throw new ArgumentNullException(nameof(pauseMenuFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -35,13 +32,19 @@ namespace Sources.Controllers.Forms.Gameplays
             _pauseService.Continue();
         }
 
-        public void ShowHudFormView() => 
+        public void ShowHudFormView()
+        {
             _formService.Show<HudFormView>();
+        }
 
-        public void ShowTutorialFormView() => 
+        public void ShowTutorialFormView()
+        {
             _formService.Show<TutorialFormView>();
+        }
 
-        public void ShowSettingsFormView() => 
+        public void ShowSettingsFormView()
+        {
             _formService.Show<SettingFormView>();
+        }
     }
 }

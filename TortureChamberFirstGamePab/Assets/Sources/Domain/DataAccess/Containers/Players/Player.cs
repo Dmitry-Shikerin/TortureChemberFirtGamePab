@@ -11,7 +11,7 @@ namespace Sources.Domain.DataAccess.Containers.Players
             Inventory = inventory;
             Wallet = wallet;
         }
-        
+
         public PlayerMovement Movement { get; }
         public PlayerInventory Inventory { get; }
         public PlayerWallet Wallet { get; }

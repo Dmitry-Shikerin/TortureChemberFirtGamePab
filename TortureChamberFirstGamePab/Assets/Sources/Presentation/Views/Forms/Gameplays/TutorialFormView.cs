@@ -13,8 +13,10 @@ namespace Sources.Presentation.Views.Forms.Gameplays
         [field: SerializeField] public ButtonView UpScrollButton { get; private set; }
         [field: SerializeField] public ButtonView DownScrollButton { get; private set; }
         [field: SerializeField] public ScrollRectView ScrollRect { get; private set; }
-        
-        public void ShowPauseMenu() => 
+
+        public void ShowPauseMenu()
+        {
             Presenter?.ShowPauseMenu();
+        }
     }
 }

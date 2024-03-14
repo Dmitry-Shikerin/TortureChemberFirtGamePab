@@ -10,18 +10,16 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 {
     public class TutorialFormPresenterFactory
     {
-        private readonly IDataService<Setting> _settingDataService;
-        private readonly Setting _setting;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
+        private readonly Setting _setting;
+        private readonly IDataService<Setting> _settingDataService;
 
-        public TutorialFormPresenterFactory
-        (
+        public TutorialFormPresenterFactory(
             IDataService<Setting> settingDataService,
             Setting setting,
             IFormService formService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
@@ -31,11 +29,15 @@ namespace Sources.Infrastructure.Factories.Controllers.Forms.Gameplays
 
         public TutorialFormPresenter Create(ITutorialFormView tutorialFormView)
         {
-            if (tutorialFormView == null) 
+            if (tutorialFormView == null)
                 throw new ArgumentNullException(nameof(tutorialFormView));
-            
-            return new TutorialFormPresenter(_settingDataService,_setting,
-                tutorialFormView, _formService, _pauseService);
+
+            return new TutorialFormPresenter(
+                _settingDataService,
+                _setting,
+                tutorialFormView,
+                _formService,
+                _pauseService);
         }
     }
 }

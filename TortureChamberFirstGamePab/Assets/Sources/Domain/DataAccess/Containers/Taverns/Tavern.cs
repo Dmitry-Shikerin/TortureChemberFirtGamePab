@@ -10,7 +10,7 @@ namespace Sources.Domain.Datas.Taverns
             TavernMood = tavernMood;
             VisitorQuantity = visitorQuantity;
         }
-        
+
         public TavernMood TavernMood { get; }
         public VisitorQuantity VisitorQuantity { get; }
     }

@@ -6,7 +6,7 @@ namespace Sources.PresentationInterfaces.Views.Interactions.Get
     {
         public IItem TargetItem { get; }
         public IItem Item { get; }
-        
+
         void TakeItem(IItem item);
     }
 }

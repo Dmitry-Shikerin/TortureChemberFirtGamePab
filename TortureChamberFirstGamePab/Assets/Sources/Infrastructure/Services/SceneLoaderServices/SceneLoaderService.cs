@@ -5,7 +5,9 @@ namespace Sources.Infrastructure.Services.SceneLoaderServices
 {
     public class SceneLoaderService
     {
-        public async UniTask Load(string sceneName) => 
+        public async UniTask Load(string sceneName)
+        {
             await SceneManager.LoadSceneAsync(sceneName);
+        }
     }
 }

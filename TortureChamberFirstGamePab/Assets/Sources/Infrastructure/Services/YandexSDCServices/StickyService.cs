@@ -1,4 +1,5 @@
 ﻿using Agava.WebUtility;
+using Agava.YandexGames;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 
 namespace Sources.Infrastructure.Services.YandexSDCServices
@@ -10,7 +11,7 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
             if (WebApplication.IsRunningOnWebGL == false)
                 return;
 
-            Agava.YandexGames.StickyAd.Show();
+            StickyAd.Show();
         }
     }
 }

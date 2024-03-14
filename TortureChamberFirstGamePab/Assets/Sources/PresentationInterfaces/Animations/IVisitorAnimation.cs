@@ -3,7 +3,7 @@
     public interface IVisitorAnimation
     {
         void PlayIdle();
-        void PlayWalk(); 
+        void PlayWalk();
         void PlaySeatIdle();
         void PlayStandUp();
     }

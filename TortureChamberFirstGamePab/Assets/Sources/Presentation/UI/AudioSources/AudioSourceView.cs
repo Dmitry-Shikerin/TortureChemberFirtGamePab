@@ -1,5 +1,4 @@
-﻿using Sources.Domain.Constants;
-using Sources.Presentation.Views;
+﻿using Sources.Presentation.Views;
 using UnityEngine;
 
 namespace Sources.Presentation.UI.AudioSources
@@ -8,11 +7,15 @@ namespace Sources.Presentation.UI.AudioSources
     {
         [SerializeField] private AudioSource _audioSource;
 
-        public void Play() => 
+        public void Play()
+        {
             _audioSource.Play();
+        }
 
-        public void Stop() => 
+        public void Stop()
+        {
             _audioSource.Stop();
+        }
 
         public void SetLoop()
         {
@@ -34,11 +37,15 @@ namespace Sources.Presentation.UI.AudioSources
             _audioSource.UnPause();
         }
 
-        public void Mute() => 
+        public void Mute()
+        {
             _audioSource.mute = true;
+        }
 
-        public void UnMute() => 
+        public void UnMute()
+        {
             _audioSource.mute = false;
+        }
 
         public void SetVolume(float value)
         {

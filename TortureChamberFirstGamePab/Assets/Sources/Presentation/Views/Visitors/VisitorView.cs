@@ -5,7 +5,6 @@ using Sources.Controllers.Visitors;
 using Sources.Presentation.Animations;
 using Sources.Presentation.Views.ObjectPolls;
 using Sources.Presentation.Views.Visitors.Inventorys;
-using Sources.PresentationInterfaces.Views;
 using Sources.PresentationInterfaces.Views.Visitors;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,16 +14,9 @@ namespace Sources.Presentation.Views.Visitors
     public class VisitorView : PresentableView<VisitorPresenter>, IVisitorView
     {
         [field: SerializeField] public VisitorAnimation Animation { get; private set; }
-        [field: SerializeField] public VisitorImageUIContainer VisitorImageUIContainer { get; private set; }
         [field: SerializeField] public VisitorInventoryView Inventory { get; private set; }
 
         private List<MeshSkinView> _meshSkins;
-
-        public IReadOnlyList<MeshSkinView> MeshSkins => _meshSkins;
-        public NavMeshAgent NavMeshAgent { get; private set; }
-        
-
-        public Vector3 Position => transform.position;
 
         public void Awake()
         {
@@ -33,6 +25,13 @@ namespace Sources.Presentation.Views.Visitors
 
             _meshSkins = GetComponentsInChildren<MeshSkinView>(true).ToList();
         }
+
+        [field: SerializeField] public VisitorImageUIContainer VisitorImageUIContainer { get; private set; }
+
+        public IReadOnlyList<MeshSkinView> MeshSkins => _meshSkins;
+        public NavMeshAgent NavMeshAgent { get; private set; }
+
+        public Vector3 Position => transform.position;
 
         public override void Destroy()
         {
@@ -45,30 +44,34 @@ namespace Sources.Presentation.Views.Visitors
             }
 
             poolableObject.ReturnTooPool();
-            
+
             Hide();
             DestroyPresenter();
         }
-        
-        public void SetPosition(Vector3 position) => 
+
+        public void SetPosition(Vector3 position)
+        {
             transform.position = position;
+        }
 
         public void StopMove()
         {
-            if(NavMeshAgent == null)
+            if (NavMeshAgent == null)
                 return;
-            
+
             NavMeshAgent.isStopped = true;
         }
 
-        public void Move() => 
+        public void Move()
+        {
             NavMeshAgent.isStopped = false;
+        }
 
         public void SetDestination(Vector3 destination)
         {
-            if(NavMeshAgent == null)
+            if (NavMeshAgent == null)
                 return;
-            
+
             NavMeshAgent.destination = destination;
         }
 

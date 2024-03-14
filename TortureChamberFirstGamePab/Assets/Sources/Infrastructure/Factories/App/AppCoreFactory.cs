@@ -9,8 +9,8 @@ using Sources.Infrastructure.Services.SceneLoaderServices;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Presentation.Views.Applications;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.App
 {
@@ -18,20 +18,20 @@ namespace Sources.Infrastructure.Factories.App
     {
         public AppCore Create()
         {
-            AppCore appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
+            var appCore = new GameObject(nameof(AppCore)).AddComponent<AppCore>();
 
             //TODO беспередел
-            ProjectContext projectContext = Object.FindObjectOfType<ProjectContext>();
-            CurtainView curtainView =
+            var projectContext = Object.FindObjectOfType<ProjectContext>();
+            var curtainView =
                 Object.Instantiate(Resources.Load<CurtainView>(Constant.PrefabPaths.Curtain)) ??
                 throw new NullReferenceException(nameof(CurtainView));
-            CurtainImageLoaderView curtainImageLoaderView =
+            var curtainImageLoaderView =
                 curtainView.GetComponent<CurtainImageLoaderView>();
             projectContext.Container.Bind<CurtainView>().FromInstance(curtainView);
 
-            Dictionary<string, Func<object, SceneContext, UniTask<IScene>>> sceneStates =
+            var sceneStates =
                 new Dictionary<string, Func<object, SceneContext, UniTask<IScene>>>();
-            SceneService sceneService = new SceneService(sceneStates);
+            var sceneService = new SceneService(sceneStates);
 
             sceneStates[Constant.SceneNames.MainMenu] = (payload, sceneContext) =>
                 sceneContext.Container.Resolve<MainMenuSceneFactory>().Create(payload);
@@ -43,13 +43,13 @@ namespace Sources.Infrastructure.Factories.App
                 curtainImageLoaderView.PlayTwist();
                 await curtainView.ShowCurtain();
             });
-            
+
             sceneService.AddBeforeSceneChangeHandler(async sceneName =>
                 await new SceneLoaderService().Load(sceneName));
-            
+
             sceneService.AddAfterSceneChangeHandler(async () =>
                 await UniTask.Delay(TimeSpan.FromSeconds(Constant.App.CurtainDelay)));
-             
+
             sceneService.AddAfterSceneChangeHandler(async () =>
             {
                 curtainImageLoaderView.StopTwist();

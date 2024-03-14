@@ -5,7 +5,9 @@ namespace Sources.Presentation.Views.Forms.Gameplays
 {
     public class LoadFormView : FormBase<LoadFormPresenter>, ILoadFormView
     {
-        public void ShowHudForm() => 
+        public void ShowHudForm()
+        {
             Presenter.ShowHudForm();
+        }
     }
 }

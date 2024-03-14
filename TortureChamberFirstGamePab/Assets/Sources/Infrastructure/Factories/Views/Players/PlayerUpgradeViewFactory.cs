@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.Player;
 using Sources.Domain.Players;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Factories.Controllers.Players;
@@ -18,23 +17,21 @@ namespace Sources.Infrastructure.Factories.Views.Players
                                              throw new ArgumentNullException(nameof(playerUpgradePresenterFactory));
         }
 
-        public IPlayerUpgradeView Create
-        (
+        public IPlayerUpgradeView Create(
             Upgrader upgrader,
             PlayerWallet playerWallet,
-            PlayerUpgradeView playerUpgradeView
-        )
+            PlayerUpgradeView playerUpgradeView)
         {
-            if (upgrader == null) 
+            if (upgrader == null)
                 throw new ArgumentNullException(nameof(upgrader));
-            
-            if (playerWallet == null) 
+
+            if (playerWallet == null)
                 throw new ArgumentNullException(nameof(playerWallet));
-            
-            if (playerUpgradeView == null) 
+
+            if (playerUpgradeView == null)
                 throw new ArgumentNullException(nameof(playerUpgradeView));
-            
-            PlayerUpgradePresenter playerUpgradePresenter =
+
+            var playerUpgradePresenter =
                 _playerUpgradePresenterFactory.Create(upgrader, playerWallet, playerUpgradeView);
 
             playerUpgradeView.Construct(playerUpgradePresenter);

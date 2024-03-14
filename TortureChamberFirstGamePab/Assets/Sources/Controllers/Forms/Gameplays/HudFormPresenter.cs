@@ -7,8 +7,8 @@ namespace Sources.Controllers.Forms.Gameplays
 {
     public class HudFormPresenter : PresenterBase
     {
-        private readonly IHudFormView _hudFormView;
         private readonly IFormService _formService;
+        private readonly IHudFormView _hudFormView;
 
         public HudFormPresenter(IHudFormView hudFormView, IFormService formService)
         {
@@ -16,7 +16,9 @@ namespace Sources.Controllers.Forms.Gameplays
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
         }
 
-        public void ShowPauseMenu() => 
+        public void ShowPauseMenu()
+        {
             _formService.Show<PauseMenuFormView>();
+        }
     }
 }

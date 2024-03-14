@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Settings;
 using Sources.Domain.DataAccess.SettingData;
@@ -18,22 +17,22 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
         }
 
-        public bool CanLoad => PlayerPrefs.HasKey(Constant.SettingDataKey.VolumeKey);
-
         private bool CanLoadTutorial => PlayerPrefs.HasKey(Constant.SettingDataKey.TutorialKey);
+
+        public bool CanLoad => PlayerPrefs.HasKey(Constant.SettingDataKey.VolumeKey);
 
         public Setting Load()
         {
             if (CanLoad == false)
                 return _setting;
 
-            Volume volume = LoadVolume();
+            var volume = LoadVolume();
             _setting.Volume.Step = volume.Step;
 
             if (CanLoadTutorial == false)
                 return _setting;
-            
-            Tutorial tutorial = LoadTutorial();
+
+            var tutorial = LoadTutorial();
             _setting.Tutorial.HasCompleted = tutorial.HasCompleted;
 
             return _setting;
@@ -51,17 +50,21 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
             PlayerPrefs.DeleteKey(Constant.SettingDataKey.TutorialKey);
         }
 
-        private Volume LoadVolume() => 
-            new(LoadData<VolumeData>(Constant.SettingDataKey.VolumeKey));
+        private Volume LoadVolume()
+        {
+            return new Volume(LoadData<VolumeData>(Constant.SettingDataKey.VolumeKey));
+        }
 
-        private Tutorial LoadTutorial() => 
-            new(LoadData<TutorialData>(Constant.SettingDataKey.TutorialKey));
+        private Tutorial LoadTutorial()
+        {
+            return new Tutorial(LoadData<TutorialData>(Constant.SettingDataKey.TutorialKey));
+        }
 
         private void SaveVolume(Volume volume)
         {
-            VolumeData volumeData = new VolumeData()
+            var volumeData = new VolumeData
             {
-                Step = volume.Step,
+                Step = volume.Step
             };
 
             SaveData(volumeData, Constant.SettingDataKey.VolumeKey);
@@ -69,9 +72,9 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveTutorial(Tutorial tutorial)
         {
-            TutorialData tutorialData = new TutorialData()
+            var tutorialData = new TutorialData
             {
-                 HasCompleted = tutorial.HasCompleted,
+                HasCompleted = tutorial.HasCompleted
             };
 
             SaveData(tutorialData, Constant.SettingDataKey.TutorialKey);

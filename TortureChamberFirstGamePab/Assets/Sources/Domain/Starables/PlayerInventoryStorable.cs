@@ -1,9 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sources.Domain.Players;
-using Sources.Infrastructure.Factories.Views.Players;
-using Sources.Infrastructure.Services.Providers;
 using Sources.InfrastructureInterfaces.Repositories;
+using Sources.InfrastructureInterfaces.Services.Providers;
 
 namespace Sources.Domain.Starables
 {
@@ -13,23 +11,16 @@ namespace Sources.Domain.Starables
         {
             PlayerInventory = playerInventory;
         }
-        
-        [JsonIgnore]
-        public PlayerInventory PlayerInventory { get; private set; }
+
+        [JsonIgnore] public PlayerInventory PlayerInventory { get; private set; }
 
         public void Load(IViewFactoryProvider provider)
         {
-            // var viewFactory = provider.Get<PlayerInventoryViewFactory>() ??
-            //                   throw new InvalidOperationException(nameof(PlayerInventoryViewFactory));
-            //
             PlayerInventory = new PlayerInventory();
-
-            // viewFactory.Create();
         }
 
         public void Save()
         {
-            
         }
     }
 }

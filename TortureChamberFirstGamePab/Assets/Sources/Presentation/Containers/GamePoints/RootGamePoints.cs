@@ -17,8 +17,11 @@ namespace Sources.Presentation.Containers.GamePoints
         [field: SerializeField] public SoupPickUpPointView SoupPickUpPointView { get; private set; }
         [field: SerializeField] public MeatPickUpPointView MeatPickUpPointView { get; private set; }
         [field: SerializeField] public TavernUpgradeTrigger TavernUpgradeTrigger { get; private set; }
-        [field: SerializeField] public UpgradePointsInteractionAudioSourceContainer 
+
+        [field: SerializeField]
+        public UpgradePointsInteractionAudioSourceContainer
             UpgradePointsInteractionAudioSourceContainer { get; private set; }
+
         [field: SerializeField] public PlayerSpawnPoint PlayerSpawnPoint { get; private set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Sources.Domain.Constants;
-using Sources.Domain.Datas.Players;
+using Sources.Domain.DataAccess.Containers.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Infrastructure.Payloads;
 using Sources.Infrastructure.Services.SceneServices;
@@ -13,22 +13,20 @@ namespace Sources.Controllers.Forms.MainMenus
 {
     public class NewGameFormPresenter : PresenterBase
     {
-        private readonly INewGameFormView _newGameFormView;
         private readonly IFormService _formService;
-        private readonly SceneService _sceneService;
+        private readonly INewGameFormView _newGameFormView;
         private readonly IDataService<Domain.DataAccess.Containers.Players.Player> _playerDataService;
+        private readonly SceneService _sceneService;
         private readonly IDataService<Tavern> _tavernDataService;
         private readonly IDataService<PlayerUpgrade> _upgradeDataService;
 
-        public NewGameFormPresenter
-        (
+        public NewGameFormPresenter(
             INewGameFormView newGameFormView,
             IFormService formService,
             SceneService sceneService,
             IDataService<Domain.DataAccess.Containers.Players.Player> playerDataService,
             IDataService<Tavern> tavernDataService,
-            IDataService<PlayerUpgrade> upgradeDataService
-        )
+            IDataService<PlayerUpgrade> upgradeDataService)
         {
             _newGameFormView = newGameFormView ?? throw new ArgumentNullException(nameof(newGameFormView));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
@@ -56,7 +54,8 @@ namespace Sources.Controllers.Forms.MainMenus
             _tavernDataService.Clear();
             _upgradeDataService.Clear();
 
-            await _sceneService.ChangeSceneAsync(Constant.SceneNames.Gameplay,
+            await _sceneService.ChangeSceneAsync(
+                Constant.SceneNames.Gameplay,
                 new LoadServicePayload(false));
         }
 

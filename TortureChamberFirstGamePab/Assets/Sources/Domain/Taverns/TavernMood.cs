@@ -8,7 +8,7 @@ namespace Sources.Domain.Taverns
     public class TavernMood
     {
         private float _tavernMoodValue;
-        
+
         public TavernMood() : this(Constant.TavernMoodValues.StartValue)
         {
         }
@@ -22,10 +22,8 @@ namespace Sources.Domain.Taverns
             TavernMoodValue = tavernMoodValue;
         }
 
-        public event Action TavernMoodValueChanged;
-        public event Action TavernMoodOver;
-
         public float AddedAmountUpgrade { get; set; }
+
         public float TavernMoodValue
         {
             get => _tavernMoodValue;
@@ -36,19 +34,19 @@ namespace Sources.Domain.Taverns
             }
         }
 
+        public event Action TavernMoodValueChanged;
+        public event Action TavernMoodOver;
+
         public void AddTavernMood()
         {
             TavernMoodValue += AddedAmountUpgrade;
-            
-            Debug.Log($"{nameof(TavernMoodValue)} : {TavernMoodValue}");
-            Debug.Log($"{nameof(AddedAmountUpgrade)} : {AddedAmountUpgrade}");
         }
 
         public void RemoveTavernMood()
         {
             TavernMoodValue -= Constant.TavernMoodValues.RemovedAmount;
-            // TavernMoodValue -= 0.5f;
-            if(TavernMoodValue <= 0)
+
+            if (TavernMoodValue <= 0)
                 TavernMoodOver?.Invoke();
         }
     }

@@ -14,19 +14,17 @@ namespace Sources.Controllers.Taverns
     public class TavernFudPickUpPointPresenter : PresenterBase
     {
         private readonly FoodPickUpPoint _foodPickUpPoint;
-        private readonly ITavernFudPickUpPointView _tavernFudPickUpPointView;
+        private readonly ItemConfig _itemConfig;
         private readonly ItemsFactory _itemsFactory;
         private readonly PickUpPointUIImages _pickUpPointUIImages;
-        private readonly ItemConfig _itemConfig;
+        private readonly ITavernFudPickUpPointView _tavernFudPickUpPointView;
 
-        public TavernFudPickUpPointPresenter
-        (
+        public TavernFudPickUpPointPresenter(
             FoodPickUpPoint foodPickUpPoint,
             ITavernFudPickUpPointView tavernFudPickUpPointView,
             ItemsFactory itemsFactory,
             PickUpPointUIImages pickUpPointUIImages,
-            ItemConfig itemConfig
-        )
+            ItemConfig itemConfig)
         {
             _foodPickUpPoint = foodPickUpPoint ?? throw new ArgumentNullException(nameof(foodPickUpPoint));
             _tavernFudPickUpPointView = tavernFudPickUpPointView ??
@@ -39,22 +37,26 @@ namespace Sources.Controllers.Taverns
             _itemConfig = itemConfig ? itemConfig : throw new ArgumentNullException(nameof(itemConfig));
         }
 
-        public override void Enable() => 
+        public override void Enable()
+        {
             _pickUpPointUIImages.Image.SetSprite(_itemConfig.Icon);
+        }
 
-        public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken) where TItem : IItem
+        public async UniTask<IItem> GiveItemAsync<TItem>(CancellationToken cancellationToken)
+            where TItem : IItem
         {
             try
             {
                 _foodPickUpPoint.StartAudioSource();
-                
+
                 await _pickUpPointUIImages.BackgroundImage.FillMoveTowardsAsync(
-                    _tavernFudPickUpPointView.FillingRate, cancellationToken);
-                
+                    _tavernFudPickUpPointView.FillingRate,
+                    cancellationToken);
+
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
                 _foodPickUpPoint.StopAudioSource();
-                
+
                 return _itemsFactory.Create<TItem>();
             }
             catch (OperationCanceledException)
@@ -62,7 +64,7 @@ namespace Sources.Controllers.Taverns
                 _pickUpPointUIImages.BackgroundImage.SetFillAmount(Constant.FillingAmount.Maximum);
 
                 _foodPickUpPoint.StopAudioSource();
-                
+
                 return default;
             }
         }

@@ -2,7 +2,7 @@
 
 namespace Sources.PresentationInterfaces.UI.AudioSources
 {
-    public interface IAudioSourceUI 
+    public interface IAudioSourceUI
     {
         AudioSourceView AudioSourceView { get; }
     }

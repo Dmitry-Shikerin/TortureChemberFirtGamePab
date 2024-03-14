@@ -1,5 +1,4 @@
-﻿using System;
-using Sources.Presentation.UI;
+﻿using Sources.Presentation.UI;
 using Sources.Presentation.Views;
 using UnityEngine;
 

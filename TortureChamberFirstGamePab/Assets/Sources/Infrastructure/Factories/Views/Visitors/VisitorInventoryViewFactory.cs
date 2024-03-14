@@ -1,11 +1,8 @@
 ﻿using System;
-using JetBrains.Annotations;
-using Sources.Controllers;
-using Sources.Controllers.Visitors;
 using Sources.Domain.Visitors;
 using Sources.Infrastructure.Factories.Controllers.Visitors;
 using Sources.Presentation.Views.Visitors.Inventorys;
-using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 
 namespace Sources.Infrastructure.Factories.Views.Visitors
 {
@@ -15,22 +12,23 @@ namespace Sources.Infrastructure.Factories.Views.Visitors
 
         public VisitorInventoryViewFactory(VisitorInventoryPresenterFactory visitorInventoryPresenterFactory)
         {
-            _visitorInventoryPresenterFactory = 
-                visitorInventoryPresenterFactory ?? 
+            _visitorInventoryPresenterFactory =
+                visitorInventoryPresenterFactory ??
                 throw new ArgumentNullException(nameof(visitorInventoryPresenterFactory));
         }
 
-        public IVisitorInventoryView Create(VisitorInventoryView visitorInventoryView,
+        public IVisitorInventoryView Create(
+            VisitorInventoryView visitorInventoryView,
             VisitorInventory visitorInventory)
         {
-            if (visitorInventoryView == null) 
+            if (visitorInventoryView == null)
                 throw new ArgumentNullException(nameof(visitorInventoryView));
-            if (visitorInventory == null) 
+            if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
-            
-            VisitorInventoryPresenter visitorInventoryPresenter = 
+
+            var visitorInventoryPresenter =
                 _visitorInventoryPresenterFactory.Create(visitorInventoryView, visitorInventory);
-            
+
             visitorInventoryView.Construct(visitorInventoryPresenter);
 
             return visitorInventoryView;

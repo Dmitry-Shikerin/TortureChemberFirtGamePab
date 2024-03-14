@@ -6,34 +6,28 @@ namespace Sources.Presentation.Animations
     [RequireComponent(typeof(Animator))]
     public class VisitorAnimation : MonoBehaviour, IVisitorAnimation
     {
-        private readonly int IsIdle = Animator.StringToHash(nameof(IsIdle));
-        private readonly int IsWalk = Animator.StringToHash(nameof(IsWalk));
-        private readonly int IsSeatedIdle = Animator.StringToHash(nameof(IsSeatedIdle));
-        private readonly int IsStandUp = Animator.StringToHash(nameof(IsStandUp));
-        
+        private readonly int _isIdle = Animator.StringToHash(nameof(_isIdle));
+        private readonly int _isSeatedIdle = Animator.StringToHash(nameof(_isSeatedIdle));
+        private readonly int _isStandUp = Animator.StringToHash(nameof(_isStandUp));
+        private readonly int _isWalk = Animator.StringToHash(nameof(_isWalk));
+
         private Animator _animator;
 
-        private void Awake() => 
+        private void Awake()
+        {
             _animator = GetComponent<Animator>();
+        }
 
         public void PlayIdle()
         {
             StopPlayWalk();
             StopPlaySeatIdle();
             StopPlayStandUp();
-            
-            if(_animator.GetBool(IsIdle))
-                return;
-            
-            _animator.SetBool(IsIdle, true);
-        }
 
-        private void StopPlayIdle()
-        {
-            if(_animator.GetBool(IsIdle) == false)
+            if (_animator.GetBool(_isIdle))
                 return;
-            
-            _animator.SetBool(IsIdle, false);
+
+            _animator.SetBool(_isIdle, true);
         }
 
         public void PlayWalk()
@@ -41,19 +35,11 @@ namespace Sources.Presentation.Animations
             StopPlayIdle();
             StopPlaySeatIdle();
             StopPlayStandUp();
-            
-            if(_animator.GetBool(IsWalk))
-                return;
-            
-            _animator.SetBool(IsWalk, true);
-        }
 
-        private void StopPlayWalk()
-        {
-            if(_animator.GetBool(IsWalk) == false)
+            if (_animator.GetBool(_isWalk))
                 return;
-            
-            _animator.SetBool(IsWalk, false);
+
+            _animator.SetBool(_isWalk, true);
         }
 
         public void PlaySeatIdle()
@@ -61,19 +47,11 @@ namespace Sources.Presentation.Animations
             StopPlayIdle();
             StopPlayWalk();
             StopPlayStandUp();
-            
-            if(_animator.GetBool(IsSeatedIdle))
-                return;
-            
-            _animator.SetBool(IsSeatedIdle, true);
-        }
 
-        private void StopPlaySeatIdle()
-        {
-            if(_animator.GetBool(IsSeatedIdle) == false)
+            if (_animator.GetBool(_isSeatedIdle))
                 return;
-            
-            _animator.SetBool(IsSeatedIdle, false);
+
+            _animator.SetBool(_isSeatedIdle, true);
         }
 
         public void PlayStandUp()
@@ -81,19 +59,43 @@ namespace Sources.Presentation.Animations
             StopPlayIdle();
             StopPlayWalk();
             StopPlaySeatIdle();
-            
-            if(_animator.GetBool(IsStandUp))
+
+            if (_animator.GetBool(_isStandUp))
                 return;
-            
-            _animator.SetBool(IsStandUp, true);
+
+            _animator.SetBool(_isStandUp, true);
+        }
+
+        private void StopPlayIdle()
+        {
+            if (_animator.GetBool(_isIdle) == false)
+                return;
+
+            _animator.SetBool(_isIdle, false);
+        }
+
+        private void StopPlayWalk()
+        {
+            if (_animator.GetBool(_isWalk) == false)
+                return;
+
+            _animator.SetBool(_isWalk, false);
+        }
+
+        private void StopPlaySeatIdle()
+        {
+            if (_animator.GetBool(_isSeatedIdle) == false)
+                return;
+
+            _animator.SetBool(_isSeatedIdle, false);
         }
 
         private void StopPlayStandUp()
         {
-            if(_animator.GetBool(IsStandUp) == false)
+            if (_animator.GetBool(_isStandUp) == false)
                 return;
-            
-            _animator.SetBool(IsStandUp, false);
+
+            _animator.SetBool(_isStandUp, false);
         }
     }
 }

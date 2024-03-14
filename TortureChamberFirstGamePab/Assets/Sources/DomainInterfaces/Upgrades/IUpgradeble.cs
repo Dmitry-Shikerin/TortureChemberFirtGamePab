@@ -10,7 +10,7 @@ namespace Sources.DomainInterfaces.Upgrades
         IObservableProperty<int> CurrentLevelUpgrade { get; }
         int MaximumLevel { get; }
         IReadOnlyList<int> MoneyPerUpgrades { get; }
-        
+
         void Upgrade();
     }
 }

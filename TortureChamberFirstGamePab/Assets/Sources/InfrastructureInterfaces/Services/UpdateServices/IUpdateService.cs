@@ -1,5 +1,4 @@
-﻿using System;
-using Sources.InfrastructureInterfaces.Services.UpdateServices;
+﻿using Sources.InfrastructureInterfaces.Services.UpdateServices;
 
 namespace Sources.InfrastructureInterfaces.Services
 {

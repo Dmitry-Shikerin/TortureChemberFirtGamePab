@@ -1,11 +1,8 @@
-using System;
 using Lean.Localization;
-using Sources.Infrastructure.Factories.Views.UI.AudioSources.BackgroundMusics;
 using Sources.Presentation.Containers.Forms;
 using Sources.Presentation.Containers.UI;
 using Sources.Presentation.Containers.UI.Buttons;
 using Sources.Presentation.Containers.UI.Texts;
-using Sources.Presentation.Triggers.Taverns;
 using Sources.Presentation.UI;
 using Sources.Presentation.UI.AudioSources.BackgroundMusics;
 using Sources.Presentation.UI.Conteiners;
@@ -35,15 +32,23 @@ namespace Sources.Presentation.Voids
         [field: SerializeField] public LeanLocalization LeanLocalization { get; private set; }
         [field: SerializeField] public GameplayFormsContainer GameplayFormsContainer { get; private set; }
         [field: SerializeField] public ContainerView ContainerView { get; private set; }
-        [field: SerializeField] public CongratulationUpgradeAudioSourceContainer 
+
+        [field: SerializeField]
+        public CongratulationUpgradeAudioSourceContainer
             CongratulationUpgradeAudioSourceContainer { get; private set; }
+
         [field: SerializeField] public TutorialFormButtonContainer TutorialFormButtonContainer { get; private set; }
         [field: SerializeField] public LoadFormButtonContainer LoadFormButtonContainer { get; private set; }
         [field: SerializeField] public GameOverFormButtonContainer GameOverFormButtonContainer { get; private set; }
-        [field: SerializeField] public AdvertisingAfterCertainPeriodViewContainer
+
+        [field: SerializeField]
+        public AdvertisingAfterCertainPeriodViewContainer
             AdvertisingAfterCertainPeriodViewContainer { get; private set; }
-        [field: SerializeField] public SettingFormButtonContainer
+
+        [field: SerializeField]
+        public SettingFormButtonContainer
             SettingFormButtonContainer { get; private set; }
+
         [field: SerializeField] public JoysticksContainer JoysticksContainer { get; private set; }
         [field: SerializeField] public GameOverTextContainer GameOverTextContainer { get; private set; }
         [field: SerializeField] public BackgroundMusicView BackgroundMusicView { get; private set; }

@@ -11,12 +11,22 @@ namespace Sources.Presentation.Views.Player
     {
         private WalletTrigger _walletTrigger;
 
-        public Vector3 Position => transform.position;
-
         private void Awake()
         {
             _walletTrigger = GetComponent<WalletTrigger>() ??
                              throw new NullReferenceException(nameof(WalletTrigger));
+        }
+
+        public Vector3 Position => transform.position;
+
+        public void Add(int quantity)
+        {
+            Presenter.Add(quantity);
+        }
+
+        public void Remove(int quantity)
+        {
+            Presenter.Remove(quantity);
         }
 
         protected override void OnAfterEnable()
@@ -31,17 +41,13 @@ namespace Sources.Presentation.Views.Player
             _walletTrigger.Exited -= OnExit;
         }
 
-        private void OnEnter(ICoinView coinView) => 
+        private void OnEnter(ICoinView coinView)
+        {
             Presenter.AddCoins(coinView);
+        }
 
         private void OnExit(ICoinView coinView)
         {
         }
-
-        public void Add(int quantity) => 
-            Presenter.Add(quantity);
-
-        public void Remove(int quantity) => 
-            Presenter.Remove(quantity);
     }
 }

@@ -10,14 +10,12 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
 {
     public class YandexLeaderboardInitializeService : ILeaderboardInitializeService
     {
-        private readonly LeaderboardElementViewFactory _leaderboardElementViewFactory;
         private readonly LeaderboardElementViewContainer _leaderboardElementViewContainer;
+        private readonly LeaderboardElementViewFactory _leaderboardElementViewFactory;
 
-        public YandexLeaderboardInitializeService
-        (
+        public YandexLeaderboardInitializeService(
             LeaderboardElementViewContainer leaderboardElementViewContainer,
-            LeaderboardElementViewFactory leaderboardElementViewFactory
-        )
+            LeaderboardElementViewFactory leaderboardElementViewFactory)
         {
             _leaderboardElementViewFactory = leaderboardElementViewFactory ??
                                              throw new ArgumentNullException(nameof(leaderboardElementViewFactory));
@@ -35,20 +33,19 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                 return;
 
             Leaderboard.GetEntries(Constant.LeaderboardNames.LeaderboardName,
-                (result) =>
+                result =>
                 {
-                    int count = result.entries.Length < _leaderboardElementViewContainer.LeaderboardElementViews.Count
+                    var count = result.entries.Length < _leaderboardElementViewContainer.LeaderboardElementViews.Count
                         ? result.entries.Length
                         : _leaderboardElementViewContainer.LeaderboardElementViews.Count;
 
-                    for (int i = 0; i < count; i++)
+                    for (var i = 0; i < count; i++)
                     {
-                        int rank = result.entries[i].rank;
-                        int score = result.entries[i].score;
-                        string name = result.entries[i].player.publicName;
+                        var rank = result.entries[i].rank;
+                        var score = result.entries[i].score;
+                        var name = result.entries[i].player.publicName;
 
                         if (string.IsNullOrEmpty(name))
-                        {
                             name = YandexGamesSdk.Environment.i18n.lang switch
                             {
                                 Constant.Localization.English => Constant.Anonymous.English,
@@ -56,7 +53,6 @@ namespace Sources.Infrastructure.Services.YandexSDCServices
                                 Constant.Localization.Russian => Constant.Anonymous.Russian,
                                 _ => Constant.Anonymous.English
                             };
-                        }
 
                         _leaderboardElementViewFactory.Create(new LeaderboardPlayer(rank, name, score),
                             _leaderboardElementViewContainer.LeaderboardElementViews[i]);

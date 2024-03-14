@@ -1,8 +1,6 @@
 ﻿using System;
-using JetBrains.Annotations;
 using Sources.Controllers.Taverns;
 using Sources.Domain.Taverns;
-using Sources.DomainInterfaces.Upgrades;
 using Sources.InfrastructureInterfaces.Services.Providers;
 using Sources.PresentationInterfaces.UI;
 using Sources.PresentationInterfaces.Views.Taverns;
@@ -19,30 +17,25 @@ namespace Sources.Infrastructure.Factories.Controllers.Taverns
                                throw new ArgumentNullException(nameof(upgradeProvider));
         }
 
-
-        public TavernMoodPresenter Create
-        (
+        public TavernMoodPresenter Create(
             TavernMood tavernMood,
             ITavernMoodView tavernMoodView,
-            IImageUI imageUI
-        )
+            IImageUI imageUI)
         {
             if (tavernMood == null)
                 throw new ArgumentNullException(nameof(tavernMood));
 
             if (tavernMoodView == null)
                 throw new ArgumentNullException(nameof(tavernMoodView));
-            
-            if (imageUI == null) 
+
+            if (imageUI == null)
                 throw new ArgumentNullException(nameof(imageUI));
 
-            return new TavernMoodPresenter
-            (
+            return new TavernMoodPresenter(
                 tavernMood,
                 tavernMoodView,
                 imageUI,
-                _upgradeProvider.Charisma
-            );
+                _upgradeProvider.Charisma);
         }
     }
 }

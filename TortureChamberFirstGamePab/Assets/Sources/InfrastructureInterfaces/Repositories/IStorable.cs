@@ -1,4 +1,4 @@
-﻿using Sources.Infrastructure.Services.Providers;
+﻿using Sources.InfrastructureInterfaces.Services.Providers;
 
 namespace Sources.InfrastructureInterfaces.Repositories
 {

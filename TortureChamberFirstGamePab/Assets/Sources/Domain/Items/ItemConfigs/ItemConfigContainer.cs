@@ -2,8 +2,7 @@
 
 namespace Sources.Domain.Items.ItemConfigs
 {
-    [CreateAssetMenu(fileName = "ItemConfigContainer", 
-        menuName = "Characteristics/ItemConfigContainer", order = 51)]
+    [CreateAssetMenu(fileName = "ItemConfigContainer", menuName = "Characteristics/ItemConfigContainer", order = 51)]
     public class ItemConfigContainer : ScriptableObject
     {
         [field: SerializeField] public ItemConfig Beer { get; private set; }

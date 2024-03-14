@@ -12,8 +12,8 @@ namespace Sources.Presentation.Views.Player.Inventory
         public void Construct(ImageUI image, ImageUI backgroundImage)
         {
             Image = image ? image : throw new ArgumentNullException(nameof(image));
-            BackgroundImage = backgroundImage ? backgroundImage : 
-                throw new ArgumentNullException(nameof(backgroundImage));
+            BackgroundImage =
+                backgroundImage ? backgroundImage : throw new ArgumentNullException(nameof(backgroundImage));
         }
     }
 }

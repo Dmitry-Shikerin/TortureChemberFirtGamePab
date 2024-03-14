@@ -16,9 +16,9 @@ namespace Sources.Infrastructure.Factories.Controllers.UI
 
         public ImageUIPresenter Create(IImageUI imageUI)
         {
-            if (imageUI == null) 
+            if (imageUI == null)
                 throw new ArgumentNullException(nameof(imageUI));
-            
+
             return new ImageUIPresenter(imageUI, _pauseService);
         }
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.UI;
@@ -19,14 +18,14 @@ namespace Sources.Infrastructure.Factories.Views.UI
 
         public ITextUI Create(TextUI textUI, IObservableProperty observableProperty)
         {
-            if (textUI == null) 
+            if (textUI == null)
                 throw new ArgumentNullException(nameof(textUI));
-            
-            if (observableProperty == null) 
+
+            if (observableProperty == null)
                 throw new ArgumentNullException(nameof(observableProperty));
-            
-            TextUIPresenter textUIPresenter = _textUIPresenterFactory.Create(textUI, observableProperty);
-            
+
+            var textUIPresenter = _textUIPresenterFactory.Create(textUI, observableProperty);
+
             textUI.Construct(textUIPresenter);
 
             return textUI;

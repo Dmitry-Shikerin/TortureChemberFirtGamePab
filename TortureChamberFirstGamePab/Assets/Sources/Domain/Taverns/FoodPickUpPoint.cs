@@ -8,7 +8,7 @@ namespace Sources.Domain.Taverns
         public event Action FirstAudioSourceActivated;
         public event Action SecondAudioSourceActivated;
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; private set; }
 
         public void StartAudioSource()
         {

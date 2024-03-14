@@ -7,8 +7,8 @@ namespace Sources.Infrastructure.Services
 {
     public class OverlapService
     {
+        private readonly Collider[] _colliders = new Collider[Constant.Overlap.MaxCollidersValue];
         private readonly LinecastService _linecastService;
-        private Collider[] _colliders  = new Collider[Constant.Overlap.MaxCollidersValue];
 
         public OverlapService(LinecastService linecastService)
         {
@@ -16,11 +16,14 @@ namespace Sources.Infrastructure.Services
                                throw new ArgumentNullException(nameof(linecastService));
         }
 
-        public IReadOnlyList<T> OverlapSphere<T>(Vector3 position, float radius,
-            int searchLayerMask, int obstacleLayerMask) 
+        public IReadOnlyList<T> OverlapSphere<T>(
+            Vector3 position,
+            float radius,
+            int searchLayerMask,
+            int obstacleLayerMask)
             where T : MonoBehaviour
         {
-            int collidersCount = Overlap(position, radius, searchLayerMask);
+            var collidersCount = Overlap(position, radius, searchLayerMask);
 
             if (collidersCount == 0)
                 return new List<T>();
@@ -28,30 +31,35 @@ namespace Sources.Infrastructure.Services
             return Filter<T>(position, obstacleLayerMask, collidersCount);
         }
 
-        private IReadOnlyList<T> Filter<T>(Vector3 position, int obstacleLayerMask,
-            int collidersCount) where T : MonoBehaviour
+        private IReadOnlyList<T> Filter<T>(
+            Vector3 position,
+            int obstacleLayerMask,
+            int collidersCount)
+            where T : MonoBehaviour
         {
-            List<T> components = new List<T>();
+            var components = new List<T>();
 
-            for (int i = 0; i < collidersCount; i++)
+            for (var i = 0; i < collidersCount; i++)
             {
-                Collider collider = _colliders[i];
+                var collider = _colliders[i];
 
                 if (collider.TryGetComponent(out T component) == false)
                     continue;
 
-                Vector3 colliderPosition = collider.transform.position;
+                var colliderPosition = collider.transform.position;
 
                 if (_linecastService.Linecast(position, colliderPosition, obstacleLayerMask))
                     continue;
-                
+
                 components.Add(component);
             }
 
             return components;
         }
 
-        private int Overlap(Vector3 position, float radius,int searchLayerMask) => 
-            Physics.OverlapSphereNonAlloc(position, radius, _colliders, searchLayerMask);
+        private int Overlap(Vector3 position, float radius, int searchLayerMask)
+        {
+            return Physics.OverlapSphereNonAlloc(position, radius, _colliders, searchLayerMask);
+        }
     }
 }

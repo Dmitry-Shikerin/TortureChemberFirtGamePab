@@ -2,7 +2,6 @@
 using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
 using Sources.PresentationInterfaces.UI.AudioSources.BackgroundMusics;
-using UnityEngine;
 
 namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
 {
@@ -12,12 +11,10 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
         private readonly IPauseService _pauseService;
         private readonly IVolumeService _volumeService;
 
-        public BackgroundMusicPresenter
-        (
+        public BackgroundMusicPresenter(
             IBackgroundMusicView backgroundMusicView,
             IPauseService pauseService,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
             _backgroundMusicView = backgroundMusicView ??
                                    throw new ArgumentNullException(nameof(backgroundMusicView));
@@ -33,7 +30,7 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
 
             _pauseService.PauseSoundActivated += OnPauseSound;
             _pauseService.ContinueSoundActivated += OnContinueSound;
-            
+
             _backgroundMusicView.BackgroundMusic.SetLoop();
             _backgroundMusicView.BackgroundMusic.Play();
         }
@@ -41,14 +38,14 @@ namespace Sources.Controllers.UI.AudioSources.BackgroundMusics
         public override void Disable()
         {
             _volumeService.VolumeChanged -= OnVolumeChanged;
-            
+
             _pauseService.PauseSoundActivated -= OnPauseSound;
             _pauseService.ContinueSoundActivated -= OnContinueSound;
-            
+
             _backgroundMusicView.BackgroundMusic.RemoveLoop();
             _backgroundMusicView.BackgroundMusic.Stop();
         }
-        
+
         private void OnPauseSound()
         {
             _backgroundMusicView.BackgroundMusic.Pause();

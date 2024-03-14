@@ -5,10 +5,8 @@ namespace Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerData
 {
     public class PlayerWalletData : IDataModel
     {
-        [JsonProperty("coins")]
-        public int Coins { get; set; }
-        
-        [JsonProperty("score")]
-        public int Score { get; set; }
+        [JsonProperty("coins")] public int Coins { get; set; }
+
+        [JsonProperty("score")] public int Score { get; set; }
     }
 }

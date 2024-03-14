@@ -1,6 +1,5 @@
 ﻿using System;
 using Sources.ControllersInterfaces.Scenes;
-using Sources.Infrastructure.Factories.Views.UI;
 using Sources.Infrastructure.Services;
 using Sources.Infrastructure.Services.UpgradeServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
@@ -9,33 +8,28 @@ using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.LoadServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.InfrastructureInterfaces.Services.VolumeServices;
-using Sources.Presentation.Voids;
-using UnityEngine;
 
 namespace Sources.Controllers.Scenes
 {
     public class GamePlayScene : IScene
     {
-        private readonly HUD _hud;
-        private readonly IMobilePlatformService _mobilePlatformService;
-        private readonly IVolumeService _volumeService;
         private readonly IAdvertisingAfterCertainPeriodService _advertisingAfterCertainPeriodService;
-        private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
-        private readonly IGameOverService _gameOverService;
         private readonly IBackgroundMusicService _backgroundMusicService;
-        private readonly ILocalizationService _localizationService;
         private readonly IFocusService _focusService;
-        private readonly ButtonUIFactory _buttonUIFactory;
+        private readonly IGameOverService _gameOverService;
         private readonly IInputService _inputService;
-        private readonly IUpdateService _updateService;
-        private readonly VisitorSpawnService _visitorSpawnService;
-        private readonly TavernUpgradePointService _tavernUpgradePointService;
-        private readonly IQuantityService _visitorQuantityService;
         private readonly ILoadService _loadService;
+        private readonly ILocalizationService _localizationService;
+        private readonly IMobilePlatformService _mobilePlatformService;
         private readonly PauseMenuService _pauseMenuService;
+        private readonly ISaveAfterCertainPeriodService _saveAfterCertainPeriodService;
+        private readonly TavernUpgradePointService _tavernUpgradePointService;
+        private readonly IUpdateService _updateService;
+        private readonly IQuantityService _visitorQuantityService;
+        private readonly VisitorSpawnService _visitorSpawnService;
+        private readonly IVolumeService _volumeService;
 
-        public GamePlayScene
-        (
+        public GamePlayScene(
             IMobilePlatformService mobilePlatformService,
             IVolumeService volumeService,
             IAdvertisingAfterCertainPeriodService advertisingAfterCertainPeriodService,
@@ -43,23 +37,19 @@ namespace Sources.Controllers.Scenes
             IGameOverService gameOverService,
             ILocalizationService localizationService,
             IFocusService focusService,
-            HUD hud,
-            ButtonUIFactory buttonUIFactory,
             IInputService inputService,
             IUpdateService updateService,
             VisitorSpawnService visitorSpawnService,
             TavernUpgradePointService tavernUpgradePointService,
             IQuantityService visitorQuantityService,
             PauseMenuService pauseMenuService,
-            ILoadService loadService
-        )
+            ILoadService loadService)
         {
-            _hud = hud ? hud : throw new ArgumentNullException(nameof(hud));
-            _mobilePlatformService = mobilePlatformService ?? 
+            _mobilePlatformService = mobilePlatformService ??
                                      throw new ArgumentNullException(nameof(mobilePlatformService));
             _volumeService = volumeService ?? throw new ArgumentNullException(nameof(volumeService));
-            _advertisingAfterCertainPeriodService = 
-                advertisingAfterCertainPeriodService ?? 
+            _advertisingAfterCertainPeriodService =
+                advertisingAfterCertainPeriodService ??
                 throw new ArgumentNullException(nameof(advertisingAfterCertainPeriodService));
             _saveAfterCertainPeriodService = saveAfterCertainPeriodService ??
                                              throw new ArgumentNullException(nameof(saveAfterCertainPeriodService));
@@ -67,7 +57,6 @@ namespace Sources.Controllers.Scenes
             _localizationService = localizationService ??
                                    throw new ArgumentNullException(nameof(localizationService));
             _focusService = focusService ?? throw new ArgumentNullException(nameof(focusService));
-            _buttonUIFactory = buttonUIFactory ?? throw new ArgumentNullException(nameof(buttonUIFactory));
             _inputService = inputService ??
                             throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));

@@ -8,7 +8,9 @@ namespace Sources.Presentation.UI
     {
         [SerializeField] private Image _image;
 
-        public void SetSprite(Sprite sprite) => 
+        public void SetSprite(Sprite sprite)
+        {
             _image.sprite = sprite;
+        }
     }
 }

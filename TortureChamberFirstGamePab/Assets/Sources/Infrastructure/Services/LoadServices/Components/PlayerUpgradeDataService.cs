@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
 using Sources.Domain.Constants;
-using Sources.Domain.Datas.Players;
+using Sources.Domain.DataAccess.Containers.Players;
+using Sources.Domain.DataAccess.PlayerUpgradeData;
 using Sources.Domain.Upgrades;
 using Sources.Infrastructure.Services.LoadServices.DataAccess.PlayerUpgradeData;
 using Sources.InfrastructureInterfaces.Services.LoadServices.Components;
@@ -14,8 +13,10 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
     {
         public bool CanLoad => PlayerPrefs.HasKey(Constant.UpgradeDataKey.CharismaKey);
 
-        public PlayerUpgrade Load() => 
-            new(LoadCharismaUpgrader(), LoadInventoryUpgrader(), LoadMovementUpgrader());
+        public PlayerUpgrade Load()
+        {
+            return new PlayerUpgrade(LoadCharismaUpgrader(), LoadInventoryUpgrader(), LoadMovementUpgrader());
+        }
 
         public void Save(PlayerUpgrade @object)
         {
@@ -33,76 +34,69 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private Upgrader LoadCharismaUpgrader()
         {
-            PlayerCharismaUpgradeData charismaData = LoadData<PlayerCharismaUpgradeData>(
+            var charismaData = LoadData<PlayerCharismaUpgradeData>(
                 Constant.UpgradeDataKey.CharismaKey);
 
-            int[] moneyPerUpgradeCharisma = charismaData.MoneyPerUpgradesCharisma
+            var moneyPerUpgradeCharisma = charismaData.MoneyPerUpgradesCharisma
                 .Select(money => money.MoneyPerUpgradeCharisma)
                 .ToArray();
 
-            return new Upgrader
-            (
+            return new Upgrader(
                 charismaData.CurrentAmountCharisma,
                 charismaData.AddedAmountCharisma,
                 charismaData.MaximumLevelCharisma,
                 charismaData.CurrentLevelCharisma,
-                moneyPerUpgradeCharisma
-            );
+                moneyPerUpgradeCharisma);
         }
 
         private Upgrader LoadInventoryUpgrader()
         {
-            PlayerInventoryUpgradeData inventoryData = LoadData<PlayerInventoryUpgradeData>(
+            var inventoryData = LoadData<PlayerInventoryUpgradeData>(
                 Constant.UpgradeDataKey.InventoryKey);
-            
-            int[] moneyPerUpgradeInventory = inventoryData.MoneyPerUpgradesInventory
+
+            var moneyPerUpgradeInventory = inventoryData.MoneyPerUpgradesInventory
                 .Select(money => money.MoneyPerUpgradeInventory)
                 .ToArray();
 
-            return new Upgrader
-            (
+            return new Upgrader(
                 inventoryData.CurrentAmountInventory,
                 inventoryData.AddedAmountInventory,
                 inventoryData.MaximumLevelInventory,
                 inventoryData.CurrentLevelInventory,
-                moneyPerUpgradeInventory
-            );
+                moneyPerUpgradeInventory);
         }
 
         private Upgrader LoadMovementUpgrader()
         {
-            PlayerMovementUpgradeData movementData = LoadData<PlayerMovementUpgradeData>(
+            var movementData = LoadData<PlayerMovementUpgradeData>(
                 Constant.UpgradeDataKey.MovementKey);
-            
-            int[] moneyPerUpgradeMovement = movementData.MoneyPerUpgradesMovement
+
+            var moneyPerUpgradeMovement = movementData.MoneyPerUpgradesMovement
                 .Select(money => money.MoneyPerUpgradeMovement)
                 .ToArray();
 
-            return new Upgrader
-            (
+            return new Upgrader(
                 movementData.CurrentAmountMovement,
                 movementData.AddedAmountMovement,
                 movementData.MaximumLevelMovement,
                 movementData.CurrentLevelMovement,
-                moneyPerUpgradeMovement
-            );
+                moneyPerUpgradeMovement);
         }
 
         private void SaveCharisma(Upgrader charismaUpgrader)
         {
-            PlayerCharismaMoneyPerUpgradeData[] playerCharismaMoneyPerUpgradeDatas =
+            var playerCharismaMoneyPerUpgradeDatas =
                 charismaUpgrader.MoneyPerUpgrades
-                    .Select(money => new PlayerCharismaMoneyPerUpgradeData()
-                        { MoneyPerUpgradeCharisma = money })
+                    .Select(money => new PlayerCharismaMoneyPerUpgradeData { MoneyPerUpgradeCharisma = money })
                     .ToArray();
-            
-            PlayerCharismaUpgradeData playerCharismaUpgradeData = new PlayerCharismaUpgradeData()
+
+            var playerCharismaUpgradeData = new PlayerCharismaUpgradeData
             {
                 CurrentAmountCharisma = charismaUpgrader.CurrentAmountUpgrade,
                 AddedAmountCharisma = charismaUpgrader.AddedAmountUpgrade,
                 MaximumLevelCharisma = charismaUpgrader.MaximumLevel,
                 CurrentLevelCharisma = charismaUpgrader.CurrentLevelUpgrade.GetValue,
-                MoneyPerUpgradesCharisma = playerCharismaMoneyPerUpgradeDatas,
+                MoneyPerUpgradesCharisma = playerCharismaMoneyPerUpgradeDatas
             };
 
             SaveData(playerCharismaUpgradeData, Constant.UpgradeDataKey.CharismaKey);
@@ -110,19 +104,18 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveInventory(Upgrader inventoryUpgrader)
         {
-            PlayerInventoryMoneyPerUpgradeData[] playerInventoryMoneyPerUpgradeDatas =
+            var playerInventoryMoneyPerUpgradeDatas =
                 inventoryUpgrader.MoneyPerUpgrades
-                    .Select(money => new PlayerInventoryMoneyPerUpgradeData() 
-                        { MoneyPerUpgradeInventory = money })
+                    .Select(money => new PlayerInventoryMoneyPerUpgradeData { MoneyPerUpgradeInventory = money })
                     .ToArray();
 
-            PlayerInventoryUpgradeData playerCharismaUpgradeData = new PlayerInventoryUpgradeData()
+            var playerCharismaUpgradeData = new PlayerInventoryUpgradeData
             {
                 CurrentAmountInventory = inventoryUpgrader.CurrentAmountUpgrade,
                 AddedAmountInventory = inventoryUpgrader.AddedAmountUpgrade,
                 MaximumLevelInventory = inventoryUpgrader.MaximumLevel,
                 CurrentLevelInventory = inventoryUpgrader.CurrentLevelUpgrade.GetValue,
-                MoneyPerUpgradesInventory = playerInventoryMoneyPerUpgradeDatas,
+                MoneyPerUpgradesInventory = playerInventoryMoneyPerUpgradeDatas
             };
 
             SaveData(playerCharismaUpgradeData, Constant.UpgradeDataKey.InventoryKey);
@@ -130,19 +123,18 @@ namespace Sources.Infrastructure.Services.LoadServices.Components
 
         private void SaveMovement(Upgrader movementUpgrader)
         {
-            PlayerMovementMoneyPerUpgradeData[] playerMovementMoneyPerUpgradeDatas =
+            var playerMovementMoneyPerUpgradeDatas =
                 movementUpgrader.MoneyPerUpgrades
-                .Select(money => new PlayerMovementMoneyPerUpgradeData() 
-                    { MoneyPerUpgradeMovement = money })
-                .ToArray();
-            
-            PlayerMovementUpgradeData playerMovementUpgradeData = new PlayerMovementUpgradeData()
+                    .Select(money => new PlayerMovementMoneyPerUpgradeData { MoneyPerUpgradeMovement = money })
+                    .ToArray();
+
+            var playerMovementUpgradeData = new PlayerMovementUpgradeData
             {
                 CurrentAmountMovement = movementUpgrader.CurrentAmountUpgrade,
                 AddedAmountMovement = movementUpgrader.AddedAmountUpgrade,
                 MaximumLevelMovement = movementUpgrader.MaximumLevel,
                 CurrentLevelMovement = movementUpgrader.CurrentLevelUpgrade.GetValue,
-                MoneyPerUpgradesMovement = playerMovementMoneyPerUpgradeDatas,
+                MoneyPerUpgradesMovement = playerMovementMoneyPerUpgradeDatas
             };
 
             SaveData(playerMovementUpgradeData, Constant.UpgradeDataKey.MovementKey);

@@ -71,16 +71,16 @@ namespace Sources.Infrastructure.DIContainers
     {
         [SerializeField] private PlayerCameraView _playerCameraView;
         [SerializeField] private RootGamePoints _rootGamePoints;
-        
+
         public override void InstallBindings()
         {
             Container.Bind<GamePlaySceneFactory>().AsSingle();
-            
+
             Container.Bind<RootGamePoints>().FromInstance(_rootGamePoints).AsSingle();
 
             Container.Bind<VisitorPoints>().FromInstance(_rootGamePoints.VisitorPoints);
-            
-            HUD hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
+
+            var hud = Instantiate(Resources.Load<HUD>(Constant.PrefabPaths.HUD));
             Container.Bind<HUD>().FromInstance(hud).AsSingle();
 
             Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle();
@@ -89,7 +89,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<ILeaderboardScoreSetter>().To<YandexLeaderboardScoreSetter>().AsSingle();
 
             Container.Bind<IMobilePlatformService>().To<MobilePlatformService>().AsSingle();
-            
+
             Container.Bind<ContainerView>().FromInstance(hud.ContainerView).AsSingle();
             Container.BindInterfacesAndSelfTo<FormService>().AsSingle();
 
@@ -109,16 +109,16 @@ namespace Sources.Infrastructure.DIContainers
             Container.Bind<SettingFormPresenterFactory>().AsSingle();
 
             Container.Bind<ISaveAfterCertainPeriodService>().To<SaveAfterCertainPeriodService>().AsSingle();
-            
+
             Container.Bind<GameplayFormServiceFactory>().AsSingle();
 
             Container.Bind<AudioSourceUIPresenterFactory>().AsSingle();
             Container.Bind<AudioSourceUIFactory>().AsSingle();
 
             Container.Bind<FoodPickUpPointsViewFactory>().AsSingle();
-            
+
             Container.Bind<PlayerInventorySlotsImages>().FromInstance(hud.PlayerInventorySlotsImages).AsSingle();
-            
+
             Container.Bind<HudTextUIContainer>().FromInstance(hud.TextUIContainer).AsSingle();
 
             Container.Bind<CollectionRepository>().AsSingle();
@@ -138,7 +138,7 @@ namespace Sources.Infrastructure.DIContainers
             Container.BindInterfacesAndSelfTo<ItemProvider<IItem>>().AsSingle();
 
             Container.Bind<ItemsFactory>().AsSingle();
-            
+
             Container.Bind<PlayerUpgradePresenterFactory>().AsSingle();
             Container.Bind<PlayerUpgradeViewFactory>().AsSingle();
 

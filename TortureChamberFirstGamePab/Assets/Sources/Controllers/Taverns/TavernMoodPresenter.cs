@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Domain.Constants;
 using Sources.Domain.Taverns;
 using Sources.DomainInterfaces.Upgrades;
 using Sources.PresentationInterfaces.UI;
@@ -9,33 +8,30 @@ namespace Sources.Controllers.Taverns
 {
     public class TavernMoodPresenter : PresenterBase
     {
+        private readonly IImageUI _imageUI;
         private readonly TavernMood _tavernMood;
         private readonly ITavernMoodView _tavernMoodView;
-        private readonly IImageUI _imageUI;
         private readonly IUpgradeble _upgradeble;
 
-        public TavernMoodPresenter
-        (
+        public TavernMoodPresenter(
             TavernMood tavernMood,
             ITavernMoodView tavernMoodView,
             IImageUI imageUI,
-            IUpgradeble upgradeble
-        )
+            IUpgradeble upgradeble)
         {
             _tavernMood = tavernMood ?? throw new ArgumentNullException(nameof(tavernMood));
             _tavernMoodView = tavernMoodView ?? throw new ArgumentNullException(nameof(tavernMoodView));
             _imageUI = imageUI ?? throw new ArgumentNullException(nameof(imageUI));
             _upgradeble = upgradeble ?? throw new ArgumentNullException(nameof(upgradeble));
-
         }
 
         public override void Enable()
         {
             OnTavernMoodValueChanged();
-            
+
             _tavernMood.TavernMoodValueChanged += OnTavernMoodValueChanged;
             _upgradeble.CurrentLevelUpgrade.Changed += OnAddedAmountUpgradeChanged;
-            
+
             _tavernMood.AddedAmountUpgrade = _upgradeble.CurrentAmountUpgrade;
         }
 
@@ -45,10 +41,14 @@ namespace Sources.Controllers.Taverns
             _upgradeble.CurrentLevelUpgrade.Changed += OnAddedAmountUpgradeChanged;
         }
 
-        private void OnAddedAmountUpgradeChanged() => 
+        private void OnAddedAmountUpgradeChanged()
+        {
             _tavernMood.AddedAmountUpgrade = _upgradeble.CurrentAmountUpgrade;
+        }
 
-        private void OnTavernMoodValueChanged() => 
+        private void OnTavernMoodValueChanged()
+        {
             _imageUI.SetFillAmount(_tavernMood.TavernMoodValue);
+        }
     }
 }

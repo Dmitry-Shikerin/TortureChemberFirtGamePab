@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Sources.Presentation.Views.Cameras
 {
@@ -25,58 +24,28 @@ namespace Sources.Presentation.Views.Cameras
 
         private void UpdatePosition()
         {
-            if (Input.GetKey(KeyCode.Q))
-            {
-                transform.Translate(Upward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.Q)) transform.Translate(Upward, RelativeTo());
 
-            if (Input.GetKey(KeyCode.E))
-            {
-                transform.Translate(Downward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.E)) transform.Translate(Downward, RelativeTo());
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.Translate(Forward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.W)) transform.Translate(Forward, RelativeTo());
 
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(Backward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.S)) transform.Translate(Backward, RelativeTo());
 
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Translate(Leftward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.A)) transform.Translate(Leftward, RelativeTo());
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Translate(Rightward, RelativeTo());
-            }
+            if (Input.GetKey(KeyCode.D)) transform.Translate(Rightward, RelativeTo());
         }
 
         private void UpdateRotation()
         {
-            if (Input.GetKey(KeyCode.Z))
-            {
-                transform.Rotate(0, -0.1f * _rotateSpeed, 0);
-            }
+            if (Input.GetKey(KeyCode.Z)) transform.Rotate(0, -0.1f * _rotateSpeed, 0);
 
-            if (Input.GetKey(KeyCode.X))
-            {
-                transform.Rotate(0, 0.1f * _rotateSpeed, 0);
-            }
+            if (Input.GetKey(KeyCode.X)) transform.Rotate(0, 0.1f * _rotateSpeed, 0);
 
-            if (Input.GetKey(KeyCode.R))
-            {
-                transform.Rotate(-0.1f * _rotateSpeed, 0, 0);
-            }
+            if (Input.GetKey(KeyCode.R)) transform.Rotate(-0.1f * _rotateSpeed, 0, 0);
 
-            if (Input.GetKey(KeyCode.F))
-            {
-                transform.Rotate(0.1f * _rotateSpeed, 0, 0);
-            }
+            if (Input.GetKey(KeyCode.F)) transform.Rotate(0.1f * _rotateSpeed, 0, 0);
         }
 
         private Space RelativeTo()
@@ -87,7 +56,9 @@ namespace Sources.Presentation.Views.Cameras
             return Space.World;
         }
 
-        private void Translate(Vector3 direction) =>
+        private void Translate(Vector3 direction)
+        {
             transform.Translate(direction, Space.Self);
+        }
     }
 }

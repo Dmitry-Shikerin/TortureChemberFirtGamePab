@@ -6,13 +6,19 @@ namespace Sources.Presentation.UI.Buttons
     {
         [SerializeField] private AudioSource _audioSource;
 
-        protected void OnEnable() => 
+        protected void OnEnable()
+        {
             AddClickListener(OnClick);
+        }
 
-        protected void OnDisable() => 
+        protected void OnDisable()
+        {
             RemoveClickListener(OnClick);
+        }
 
-        private void OnClick() => 
+        private void OnClick()
+        {
             _audioSource.Play();
+        }
     }
 }

@@ -1,21 +1,20 @@
 ﻿using System;
 using Sources.Controllers.UI;
-using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.UI;
 
 namespace Sources.Infrastructure.Factories.Controllers.UI
 {
     public class ButtonUIPresenterFactory
     {
-        public ButtonUIPresenter Create(IButtonUI buttonUI ,Action action)
+        public ButtonUIPresenter Create(IButtonUI buttonUI, Action action)
         {
-            if (buttonUI == null) 
+            if (buttonUI == null)
                 throw new ArgumentNullException(nameof(buttonUI));
-            
-            if (action == null) 
+
+            if (action == null)
                 throw new ArgumentNullException(nameof(action));
-            
-            return new ButtonUIPresenter(buttonUI ,action);
+
+            return new ButtonUIPresenter(buttonUI, action);
         }
     }
 }

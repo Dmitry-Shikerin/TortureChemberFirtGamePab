@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.UI;
 using Sources.Infrastructure.Factories.Controllers.UI;
 using Sources.Presentation.UI;
 using Sources.PresentationInterfaces.UI;
@@ -12,7 +11,7 @@ namespace Sources.Infrastructure.Factories.Views.UI
 
         public ButtonUIFactory(ButtonUIPresenterFactory buttonUIPresenterFactory)
         {
-            _buttonUIPresenterFactory = buttonUIPresenterFactory ?? 
+            _buttonUIPresenterFactory = buttonUIPresenterFactory ??
                                         throw new ArgumentNullException(nameof(buttonUIPresenterFactory));
         }
 
@@ -20,11 +19,11 @@ namespace Sources.Infrastructure.Factories.Views.UI
         {
             if (buttonUI == null)
                 throw new ArgumentNullException(nameof(buttonUI));
-            
-            if (action == null) 
+
+            if (action == null)
                 throw new ArgumentNullException(nameof(action));
-            
-            ButtonUIPresenter buttonUIPresenter = _buttonUIPresenterFactory.Create(buttonUI, action);
+
+            var buttonUIPresenter = _buttonUIPresenterFactory.Create(buttonUI, action);
             buttonUI.Construct(buttonUIPresenter);
 
             return buttonUI;

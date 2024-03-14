@@ -13,13 +13,11 @@ namespace Sources.Controllers.UI.AudioSources
         private readonly IPauseService _pauseService;
         private readonly IVolumeService _volumeService;
 
-        public DoubleCallbackAudioSourceUIPresenter
-        (
+        public DoubleCallbackAudioSourceUIPresenter(
             IDoubleAudioSourceActivator audioSourceActivator,
             IAudioSourceUI audioSourceUI,
             IPauseService pauseService,
-            IVolumeService volumeService
-        )
+            IVolumeService volumeService)
         {
             _audioSourceActivator = audioSourceActivator ??
                                     throw new ArgumentNullException(nameof(audioSourceActivator));
@@ -31,9 +29,9 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Enable()
         {
             OnVolumeChanged();
-            
+
             _audioSourceUI.AudioSourceView.SetLoop();
-            
+
             _audioSourceActivator.FirstAudioSourceActivated += OnPlaySound;
             _audioSourceActivator.SecondAudioSourceActivated += OnStopSound;
 
@@ -46,13 +44,13 @@ namespace Sources.Controllers.UI.AudioSources
         public override void Disable()
         {
             _audioSourceUI.AudioSourceView.RemoveLoop();
-            
+
             _audioSourceActivator.FirstAudioSourceActivated -= OnPlaySound;
             _audioSourceActivator.SecondAudioSourceActivated -= OnStopSound;
-            
+
             _pauseService.PauseActivated -= OnPauseSound;
             _pauseService.ContinueActivated -= OnContinueSound;
-            
+
             _volumeService.VolumeChanged -= OnVolumeChanged;
         }
 
@@ -61,25 +59,29 @@ namespace Sources.Controllers.UI.AudioSources
             _audioSourceUI.AudioSourceView.SetVolume(_volumeService.Volume);
         }
 
-        private void OnPlaySound() =>
+        private void OnPlaySound()
+        {
             _audioSourceUI.AudioSourceView.Play();
+        }
 
-        private void OnStopSound() =>
+        private void OnStopSound()
+        {
             _audioSourceUI.AudioSourceView.Stop();
+        }
 
         private void OnPauseSound()
         {
-            if(_audioSourceActivator.IsActive == false)
+            if (_audioSourceActivator.IsActive == false)
                 return;
-            
+
             _audioSourceUI.AudioSourceView.Pause();
         }
 
         private void OnContinueSound()
         {
-            if(_audioSourceActivator.IsActive == false)
+            if (_audioSourceActivator.IsActive == false)
                 return;
-            
+
             _audioSourceUI.AudioSourceView.Continue();
         }
     }

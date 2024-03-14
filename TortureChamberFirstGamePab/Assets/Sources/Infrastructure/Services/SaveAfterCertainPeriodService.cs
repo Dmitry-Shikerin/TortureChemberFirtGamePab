@@ -2,10 +2,8 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Sources.Domain.Constants;
-using Sources.Infrastructure.Services.LoadServices;
 using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.LoadServices;
-using UnityEngine;
 
 namespace Sources.Infrastructure.Services
 {
@@ -13,21 +11,21 @@ namespace Sources.Infrastructure.Services
     {
         private CancellationTokenSource _cancellationTokenSource;
         private TimeSpan _timeSpan;
-        
+
         public async void Enter(object payload = null)
         {
             if (payload == null)
                 throw new NullReferenceException(nameof(payload));
-            
+
             if (payload is not ILoadService loadService)
                 throw new InvalidOperationException(nameof(payload));
 
             _cancellationTokenSource = new CancellationTokenSource();
             _timeSpan = TimeSpan.FromMinutes(Constant.SaveService.SaveDelay);
-            
+
             await SaveAsync(loadService.Save, _cancellationTokenSource.Token);
         }
-        
+
         public void Exit()
         {
             _cancellationTokenSource.Cancel();

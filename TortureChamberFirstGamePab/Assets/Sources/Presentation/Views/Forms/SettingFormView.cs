@@ -12,14 +12,21 @@ namespace Sources.Presentation.Views.Forms
         [field: SerializeField] public Sprite FilledSprite { get; private set; }
         [field: SerializeField] public Sprite VoidSprite { get; private set; }
         [field: SerializeField] public List<ImageView> Images { get; private set; }
-        
-        public void IncreaseVolume() => 
+
+        public void IncreaseVolume()
+        {
             Presenter.IncreaseVolume();
+        }
 
-        public void TurnDownVolume() => 
+        public void TurnDownVolume()
+        {
             Presenter.TurnDownVolume();
+        }
 
-        public void BackToMainMenu<T>() where T : IFormView => 
+        public void BackToMainMenu<T>()
+            where T : IFormView
+        {
             Presenter.BackToMainMenu<T>();
+        }
     }
 }

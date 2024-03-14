@@ -9,18 +9,20 @@ namespace Sources.Infrastructure.Services
 
         public BackgroundMusicService(AudioSourceView audioSourceView)
         {
-            _audioSourceView = audioSourceView ? audioSourceView :
-                throw new ArgumentNullException(nameof(audioSourceView));
+            _audioSourceView =
+                audioSourceView ? audioSourceView : throw new ArgumentNullException(nameof(audioSourceView));
         }
 
-        public void Enter(object payload = null) => 
+        public void Enter(object payload = null)
+        {
             _audioSourceView.Play();
+        }
 
         public void Exit()
         {
-            if(_audioSourceView == null)
+            if (_audioSourceView == null)
                 return;
-            
+
             _audioSourceView.Stop();
         }
     }

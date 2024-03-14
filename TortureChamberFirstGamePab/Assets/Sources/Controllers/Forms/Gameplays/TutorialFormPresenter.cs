@@ -13,21 +13,19 @@ namespace Sources.Controllers.Forms.Gameplays
 {
     public class TutorialFormPresenter : PresenterBase
     {
-        private readonly IDataService<Setting> _settingDataService;
-        private readonly Setting _setting;
-        private readonly ITutorialFormView _tutorialFormView;
         private readonly IFormService _formService;
         private readonly IPauseService _pauseService;
+        private readonly Setting _setting;
+        private readonly IDataService<Setting> _settingDataService;
         private readonly Tutorial _tutorial;
+        private readonly ITutorialFormView _tutorialFormView;
 
-        public TutorialFormPresenter
-        (
+        public TutorialFormPresenter(
             IDataService<Setting> settingDataService,
             Setting setting,
             ITutorialFormView tutorialFormView,
             IFormService formService,
-            IPauseService pauseService
-        )
+            IPauseService pauseService)
         {
             _settingDataService = settingDataService ?? throw new ArgumentNullException(nameof(settingDataService));
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
@@ -40,7 +38,7 @@ namespace Sources.Controllers.Forms.Gameplays
         public override void Enable()
         {
             _pauseService.Pause();
-            
+
             _tutorialFormView.DownScrollButton.AddClickListener(DownScroll);
             _tutorialFormView.UpScrollButton.AddClickListener(UpScroll);
 
@@ -50,18 +48,22 @@ namespace Sources.Controllers.Forms.Gameplays
         public override void Disable()
         {
             _pauseService.Continue();
-            
+
             _tutorialFormView.DownScrollButton.RemoveClickListener(DownScroll);
             _tutorialFormView.UpScrollButton.RemoveClickListener(UpScroll);
-            
+
             HideUpButton();
-            
+
             _tutorialFormView.ScrollRect.ScrollRect.onValueChanged.RemoveListener(OnScrollValueChanged);
-            
+
             _settingDataService.Save(_setting);
         }
 
-        
+        public void ShowPauseMenu()
+        {
+            _formService.Show<PauseMenuFormView>();
+        }
+
         private void OnScrollValueChanged(Vector2 value)
         {
             ShowDownButton();
@@ -70,13 +72,10 @@ namespace Sources.Controllers.Forms.Gameplays
             HideDownButton();
         }
 
-        public void ShowPauseMenu() => 
-            _formService.Show<PauseMenuFormView>();
-
         private void DownScroll()
         {
             _tutorialFormView.ScrollRect.DownScroll(_tutorialFormView.ScrollStep);
-            
+
             HideUpButton();
             ShowUpButton();
             HideDownButton();
@@ -85,7 +84,7 @@ namespace Sources.Controllers.Forms.Gameplays
         private void UpScroll()
         {
             _tutorialFormView.ScrollRect.UpScroll(_tutorialFormView.ScrollStep);
-            
+
             HideDownButton();
             ShowDownButton();
             HideUpButton();
@@ -93,36 +92,36 @@ namespace Sources.Controllers.Forms.Gameplays
 
         private void HideUpButton()
         {
-            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition >= Constant.ScrollRect.MaxValue)
+            if (_tutorialFormView.ScrollRect.VerticalNormalizedPosition >= Constant.ScrollRect.MaxValue)
                 _tutorialFormView.UpScrollButton.Hide();
         }
-        
+
         private void HideDownButton()
         {
             if (_tutorialFormView.ScrollRect.VerticalNormalizedPosition <= Constant.ScrollRect.MinValue)
             {
                 _tutorialFormView.DownScrollButton.Hide();
-                
-                if(_tutorial.HasCompleted)
+
+                if (_tutorial.HasCompleted)
                     return;
-                    
+
                 _tutorial.HasCompleted = true;
-                
+
                 _settingDataService.Save(_setting);
             }
         }
-        
+
         private void ShowUpButton()
         {
-            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition < Constant.ScrollRect.MaxValue && 
-               _tutorialFormView.UpScrollButton.gameObject.activeSelf == false)
+            if (_tutorialFormView.ScrollRect.VerticalNormalizedPosition < Constant.ScrollRect.MaxValue &&
+                _tutorialFormView.UpScrollButton.gameObject.activeSelf == false)
                 _tutorialFormView.UpScrollButton.Show();
         }
-        
+
         private void ShowDownButton()
         {
-            if(_tutorialFormView.ScrollRect.VerticalNormalizedPosition > Constant.ScrollRect.MinValue && 
-               _tutorialFormView.DownScrollButton.gameObject.activeSelf == false)
+            if (_tutorialFormView.ScrollRect.VerticalNormalizedPosition > Constant.ScrollRect.MinValue &&
+                _tutorialFormView.DownScrollButton.gameObject.activeSelf == false)
                 _tutorialFormView.DownScrollButton.Show();
         }
     }

@@ -8,8 +8,8 @@ namespace Sources.Controllers.Visitors.States
 {
     public class VisitorNotSatisfiedWithOrderState : FiniteState
     {
-        private readonly Visitor _visitor;
         private readonly TavernMood _tavernMood;
+        private readonly Visitor _visitor;
 
         public VisitorNotSatisfiedWithOrderState(Visitor visitor, TavernMood tavernMood)
         {

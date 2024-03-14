@@ -1,13 +1,8 @@
 ﻿using System;
-using MyProject.Sources.Presentation.Views;
 using MyProject.Sources.PresentationInterfaces.Views;
-using Sources.Controllers.Player;
 using Sources.Domain.Players.PlayerCameras;
 using Sources.Infrastructure.Factories.Controllers.Players;
-using Sources.InfrastructureInterfaces.Factories;
 using Sources.Presentation.Views.Player;
-using Sources.PresentationInterfaces.Views;
-using Object = UnityEngine.Object;
 
 namespace Sources.Infrastructure.Factories.Views.Players
 {
@@ -17,19 +12,19 @@ namespace Sources.Infrastructure.Factories.Views.Players
 
         public PlayerCameraViewFactory(PlayerCameraPresenterFactory playerCameraPresenterFactory)
         {
-            _playerCameraPresenterFactory = playerCameraPresenterFactory ?? 
+            _playerCameraPresenterFactory = playerCameraPresenterFactory ??
                                             throw new ArgumentNullException(nameof(playerCameraPresenterFactory));
         }
-        
+
         public IPlayerCameraView Create(PlayerCamera playerCamera, PlayerCameraView playerCameraView)
         {
             if (playerCamera == null)
                 throw new ArgumentNullException(nameof(playerCamera));
-            
-            if (playerCameraView == null) 
+
+            if (playerCameraView == null)
                 throw new ArgumentNullException(nameof(playerCameraView));
 
-            PlayerCameraPresenter playerCameraPresenter =
+            var playerCameraPresenter =
                 _playerCameraPresenterFactory.Create(playerCamera, playerCameraView);
             playerCameraView.Construct(playerCameraPresenter);
 

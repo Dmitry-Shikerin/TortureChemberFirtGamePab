@@ -1,6 +1,5 @@
 ﻿using System;
 using Sources.Domain.DataAccess.Containers.Players;
-using Sources.Domain.Datas.Players;
 using Sources.Domain.Datas.Taverns;
 using Sources.Domain.Players;
 using Sources.Domain.Taverns;
@@ -16,27 +15,25 @@ namespace Sources.Infrastructure.Services
 {
     public class GameOverService : IGameOverService
     {
-        private readonly ITavernProvider _tavernProvider;
-        private readonly IPlayerProvider _playerProvider;
         private readonly IFormService _formService;
         private readonly ILeaderboardScoreSetter _leaderboardScoreSetter;
         private readonly IDataService<Player> _playerDataService;
-        private readonly IDataService<Tavern> _tavernDataService;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IDataService<PlayerUpgrade> _playerUpgradeDataService;
+        private readonly IDataService<Tavern> _tavernDataService;
+        private readonly ITavernProvider _tavernProvider;
 
         private PlayerWallet _playerWallet;
         private TavernMood _tavernMood;
 
-        public GameOverService
-        (
+        public GameOverService(
             ITavernProvider tavernProvider,
             IPlayerProvider playerProvider,
             IFormService formService,
             ILeaderboardScoreSetter leaderboardScoreSetter,
             IDataService<Player> playerDataService,
             IDataService<Tavern> tavernDataService,
-            IDataService<PlayerUpgrade> playerUpgradeDataService
-        )
+            IDataService<PlayerUpgrade> playerUpgradeDataService)
         {
             _tavernProvider = tavernProvider ?? throw new ArgumentNullException(nameof(tavernProvider));
             _playerProvider = playerProvider ?? throw new ArgumentNullException(nameof(playerProvider));
@@ -52,11 +49,15 @@ namespace Sources.Infrastructure.Services
         private PlayerWallet PlayerWallet => _playerWallet ??= _playerProvider.PlayerWallet;
         private TavernMood TavernMood => _tavernMood ??= _tavernProvider.TavernMood;
 
-        public void Enter(object payload = null) => 
+        public void Enter(object payload = null)
+        {
             TavernMood.TavernMoodOver += OnGameOver;
+        }
 
-        public void Exit() => 
+        public void Exit()
+        {
             TavernMood.TavernMoodOver -= OnGameOver;
+        }
 
         private void OnGameOver()
         {

@@ -1,5 +1,4 @@
 ﻿using System;
-using Sources.Controllers.UI.AudioSources;
 using Sources.DomainInterfaces.UI.AudioSourcesActivators;
 using Sources.Infrastructure.Factories.Controllers.UI.AudioSources;
 using Sources.Presentation.UI.AudioSources;
@@ -16,13 +15,11 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             _presenterFactory = presenterFactory ?? throw new ArgumentNullException(nameof(presenterFactory));
         }
 
-        public IAudioSourceUI Create
-        (
+        public IAudioSourceUI Create(
             IAudioSourceActivator audioSourceActivator,
-            AudioSourceUI audioSourceUI
-        )
+            AudioSourceUI audioSourceUI)
         {
-            AudioSourceUIPresenter audioSourceUIPresenter =
+            var audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
 
             audioSourceUI.Construct(audioSourceUIPresenter);
@@ -30,11 +27,9 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             return audioSourceUI;
         }
 
-        public IDoubleAudioSourceUI Create
-        (
+        public IDoubleAudioSourceUI Create(
             IDoubleAudioSourceActivator audioSourceActivator,
-            DoubleAudioSourceUI audioSourceUI
-        )
+            DoubleAudioSourceUI audioSourceUI)
         {
             if (audioSourceActivator == null)
                 throw new ArgumentNullException(nameof(audioSourceActivator));
@@ -42,7 +37,7 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             if (audioSourceUI == null)
                 throw new ArgumentNullException(nameof(audioSourceUI));
 
-            DoubleAudioSourceUIPresenter audioSourceUIPresenter =
+            var audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
 
             audioSourceUI.Construct(audioSourceUIPresenter);
@@ -50,13 +45,11 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             return audioSourceUI;
         }
 
-        public ITripleAudioSourceUI Create
-        (
+        public ITripleAudioSourceUI Create(
             ITripleAudioSourceActivator audioSourceActivator,
-            TripleAudioSourceUI audioSourceUI
-        )
+            TripleAudioSourceUI audioSourceUI)
         {
-            TripleAudioSourceUIPresenter audioSourceUIPresenter =
+            var audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
 
             audioSourceUI.Construct(audioSourceUIPresenter);
@@ -64,13 +57,11 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             return audioSourceUI;
         }
 
-        public IFourthAudioSourceUI Create
-        (
+        public IFourthAudioSourceUI Create(
             IFourthAudioSourceActivator audioSourceActivator,
-            FourthAudioSourceUI audioSourceUI
-        )
+            FourthAudioSourceUI audioSourceUI)
         {
-            FourthAudioSourceUIPresenter audioSourceUIPresenter =
+            var audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
 
             audioSourceUI.Construct(audioSourceUIPresenter);
@@ -78,29 +69,25 @@ namespace Sources.Infrastructure.Factories.Views.UI.AudioSources
             return audioSourceUI;
         }
 
-        public IAudioSourceUI Create
-        (
+        public IAudioSourceUI Create(
             IDoubleAudioSourceActivator audioSourceActivator,
-            AudioSourceUI audioSourceUI
-        )
+            AudioSourceUI audioSourceUI)
         {
-            DoubleCallbackAudioSourceUIPresenter audioSourceUIPresenter =
+            var audioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, audioSourceUI);
-            
+
             audioSourceUI.Construct(audioSourceUIPresenter);
 
             return audioSourceUI;
         }
 
-        public ITripleAudioSourceUI Create
-        (
+        public ITripleAudioSourceUI Create(
             IFourthAudioSourceActivator audioSourceActivator,
-            TripleAudioSourceUI tripleAudioSourceUI
-        )
+            TripleAudioSourceUI tripleAudioSourceUI)
         {
-            FourthCallBackAudioSourceUIPresenter fourthCallBackAudioSourceUIPresenter =
+            var fourthCallBackAudioSourceUIPresenter =
                 _presenterFactory.Create(audioSourceActivator, tripleAudioSourceUI);
-            
+
             tripleAudioSourceUI.Construct(fourthCallBackAudioSourceUIPresenter);
 
             return tripleAudioSourceUI;

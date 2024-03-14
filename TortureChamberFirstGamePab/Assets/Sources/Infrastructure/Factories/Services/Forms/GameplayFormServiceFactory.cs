@@ -3,7 +3,6 @@ using Sources.Controllers.Forms;
 using Sources.Controllers.Forms.Gameplays;
 using Sources.Domain.Constants;
 using Sources.Domain.DataAccess.Containers.Players;
-using Sources.Domain.Datas.Players;
 using Sources.Infrastructure.Factories.Controllers.Forms;
 using Sources.Infrastructure.Factories.Controllers.Forms.Gameplays;
 using Sources.Infrastructure.Factories.Views.Players;
@@ -13,43 +12,36 @@ using Sources.Infrastructure.Services.Forms;
 using Sources.Infrastructure.Services.SceneServices;
 using Sources.Infrastructure.Services.YandexSDCServices;
 using Sources.InfrastructureInterfaces.Services.Forms;
-using Sources.InfrastructureInterfaces.Services.PauseServices;
 using Sources.InfrastructureInterfaces.Services.SDCServices;
 using Sources.Presentation.Views.Forms;
 using Sources.Presentation.Views.Forms.Common;
 using Sources.Presentation.Views.Forms.Gameplays;
 using Sources.Presentation.Voids;
-using Sources.PresentationInterfaces.Views.Players;
 
 namespace Sources.Infrastructure.Factories.Services.Forms
 {
     public class GameplayFormServiceFactory
     {
-        private readonly TextUIFactory _textUIFactory;
-        private readonly ImageUIFactory _imageUIFactory;
-        private readonly IVideoAdService _videoAdService;
-        private readonly ILeaderboardScoreSetter _leaderboardScoreSetter;
-        private readonly IPauseService _pauseService;
-        private readonly SceneService _sceneService;
-        private readonly FormService _formService;
-        private readonly HudFormPresenterFactory _hudFormPresenterFactory;
-        private readonly PauseMenuFormPresenterFactory _pauseMenuFormPresenterFactory;
-        private readonly UpgradeFormPresenterFactory _upgradeFormPresenterFactory;
-        private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
-        private readonly ButtonUIFactory _buttonUIFactory;
         private readonly AudioSourceUIFactory _audioSourceUIFactory;
-        private readonly TutorialFormPresenterFactory _tutorialFormPresenterFactory;
-        private readonly LoadFormPresenterFactory _loadFormPresenterFactory;
+        private readonly ButtonUIFactory _buttonUIFactory;
+        private readonly FormService _formService;
         private readonly GameOverFormPresenterFactory _gameOverFormPresenterFactory;
+        private readonly HudFormPresenterFactory _hudFormPresenterFactory;
+        private readonly ILeaderboardScoreSetter _leaderboardScoreSetter;
+        private readonly LoadFormPresenterFactory _loadFormPresenterFactory;
+        private readonly PauseMenuFormPresenterFactory _pauseMenuFormPresenterFactory;
+        private readonly PlayerUpgradeViewFactory _playerUpgradeViewFactory;
+        private readonly SceneService _sceneService;
         private readonly SettingFormPresenterFactory _settingFormPresenterFactory;
+        private readonly TextUIFactory _textUIFactory;
+        private readonly TutorialFormPresenterFactory _tutorialFormPresenterFactory;
+        private readonly UpgradeFormPresenterFactory _upgradeFormPresenterFactory;
+        private readonly IVideoAdService _videoAdService;
 
-        public GameplayFormServiceFactory
-        (
+        public GameplayFormServiceFactory(
             TextUIFactory textUIFactory,
-            ImageUIFactory imageUIFactory,
             IVideoAdService videoAdService,
             ILeaderboardScoreSetter leaderboardScoreSetter,
-            IPauseService pauseService,
             SceneService sceneService,
             FormService formService,
             HudFormPresenterFactory hudFormPresenterFactory,
@@ -61,15 +53,12 @@ namespace Sources.Infrastructure.Factories.Services.Forms
             TutorialFormPresenterFactory tutorialFormPresenterFactory,
             LoadFormPresenterFactory loadFormPresenterFactory,
             GameOverFormPresenterFactory gameOverFormPresenterFactory,
-            SettingFormPresenterFactory settingFormPresenterFactory
-        )
+            SettingFormPresenterFactory settingFormPresenterFactory)
         {
             _textUIFactory = textUIFactory ?? throw new ArgumentNullException(nameof(textUIFactory));
-            _imageUIFactory = imageUIFactory ?? throw new ArgumentNullException(nameof(imageUIFactory));
             _videoAdService = videoAdService ?? throw new ArgumentNullException(nameof(videoAdService));
             _leaderboardScoreSetter = leaderboardScoreSetter ??
                                       throw new ArgumentNullException(nameof(leaderboardScoreSetter));
-            _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
             _sceneService = sceneService ?? throw new ArgumentNullException(nameof(sceneService));
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
             _hudFormPresenterFactory = hudFormPresenterFactory ??
@@ -89,63 +78,76 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                                         throw new ArgumentNullException(nameof(loadFormPresenterFactory));
             _gameOverFormPresenterFactory = gameOverFormPresenterFactory ??
                                             throw new ArgumentNullException(nameof(gameOverFormPresenterFactory));
-            _settingFormPresenterFactory = settingFormPresenterFactory ?? 
+            _settingFormPresenterFactory = settingFormPresenterFactory ??
                                            throw new ArgumentNullException(nameof(settingFormPresenterFactory));
         }
 
-        public IFormService Create(PlayerUpgrade playerUpgrade, Player player,
-            HUD hud, Action saveAction)
+        public IFormService Create(
+            PlayerUpgrade playerUpgrade,
+            Player player,
+            HUD hud,
+            Action saveAction)
         {
             //Forms
-            Form<HudFormView, HudFormPresenter> hudForm = new Form<HudFormView, HudFormPresenter>(
-                _hudFormPresenterFactory.Create, hud.GameplayFormsContainer.HudFormView);
+            var hudForm = new Form<HudFormView, HudFormPresenter>(
+                _hudFormPresenterFactory.Create,
+                hud.GameplayFormsContainer.HudFormView);
 
             _formService.Add(hudForm);
 
-            Form<PauseMenuFormView, PauseMenuFormPresenter> pauseForm =
+            var pauseForm =
                 new Form<PauseMenuFormView, PauseMenuFormPresenter>(
-                    _pauseMenuFormPresenterFactory.Create, hud.GameplayFormsContainer.PauseMenuFormView);
+                    _pauseMenuFormPresenterFactory.Create,
+                    hud.GameplayFormsContainer.PauseMenuFormView);
 
             _formService.Add(pauseForm);
 
-            Form<UpgradeFormView, UpgradeFormPresenter> upgradeForm =
+            var upgradeForm =
                 new Form<UpgradeFormView, UpgradeFormPresenter>(
-                    _upgradeFormPresenterFactory.Create, hud.GameplayFormsContainer.UpgradeFormView);
+                    _upgradeFormPresenterFactory.Create,
+                    hud.GameplayFormsContainer.UpgradeFormView);
 
             _formService.Add(upgradeForm);
 
-            Form<TutorialFormView, TutorialFormPresenter> tutorialForm =
+            var tutorialForm =
                 new Form<TutorialFormView, TutorialFormPresenter>(
-                    _tutorialFormPresenterFactory.Create, hud.GameplayFormsContainer.TutorialFormView);
+                    _tutorialFormPresenterFactory.Create,
+                    hud.GameplayFormsContainer.TutorialFormView);
 
             _formService.Add(tutorialForm);
 
-            Form<LoadFormView, LoadFormPresenter> loadForm = new Form<LoadFormView, LoadFormPresenter>(
-                _loadFormPresenterFactory.Create, hud.GameplayFormsContainer.LoadFormView);
+            var loadForm = new Form<LoadFormView, LoadFormPresenter>(
+                _loadFormPresenterFactory.Create,
+                hud.GameplayFormsContainer.LoadFormView);
 
             _formService.Add(loadForm);
 
-            Form<GameOverFormView, GameOverFormPresenter> gameOverForm =
+            var gameOverForm =
                 new Form<GameOverFormView, GameOverFormPresenter>(
-                    _gameOverFormPresenterFactory.Create, hud.GameplayFormsContainer.GameOverFormView);
+                    _gameOverFormPresenterFactory.Create,
+                    hud.GameplayFormsContainer.GameOverFormView);
 
             _formService.Add(gameOverForm);
 
-            Form<SettingFormView, SettingFormPresenter> settingForm = 
+            var settingForm =
                 new Form<SettingFormView, SettingFormPresenter>(
-                _settingFormPresenterFactory.Create, hud.GameplayFormsContainer.SettingFormView);
-            
+                    _settingFormPresenterFactory.Create,
+                    hud.GameplayFormsContainer.SettingFormView);
+
             _formService.Add(settingForm);
 
             //PlayerUpgradeViews
-            IPlayerUpgradeView playerCharismaUpgradeView =
-                _playerUpgradeViewFactory.Create(playerUpgrade.Charisma, player.Wallet,
+            var playerCharismaUpgradeView =
+                _playerUpgradeViewFactory.Create(playerUpgrade.Charisma,
+                    player.Wallet,
                     hud.PlayerUpgradeViewsContainer.CharismaUpgradeView);
-            IPlayerUpgradeView playerInventoryUpgradeView =
-                _playerUpgradeViewFactory.Create(playerUpgrade.Inventory, player.Wallet,
+            var playerInventoryUpgradeView =
+                _playerUpgradeViewFactory.Create(playerUpgrade.Inventory,
+                    player.Wallet,
                     hud.PlayerUpgradeViewsContainer.InventoryUpgradeView);
-            IPlayerUpgradeView playerMovementUpgradeView =
-                _playerUpgradeViewFactory.Create(playerUpgrade.Movement, player.Wallet,
+            var playerMovementUpgradeView =
+                _playerUpgradeViewFactory.Create(playerUpgrade.Movement,
+                    player.Wallet,
                     hud.PlayerUpgradeViewsContainer.MovementUpgradeView);
 
             //UpgradeAudio
@@ -163,31 +165,34 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 playerInventoryUpgradeView.Upgrade);
             _buttonUIFactory.Create(hud.TavernUpgradePointButtons.MovementButtonUI,
                 playerMovementUpgradeView.Upgrade);
-            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.AdvertisementButtonUI, () =>
-            {
-                hud.TavernUpgradePointButtons.AdvertisementButtonUI.Hide();
-                _videoAdService.ShowVideo(hud.TavernUpgradePointButtons.AdvertisementButtonUI.Show);
-            });
+            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.AdvertisementButtonUI,
+                () =>
+                {
+                    hud.TavernUpgradePointButtons.AdvertisementButtonUI.Hide();
+                    _videoAdService.ShowVideo(hud.TavernUpgradePointButtons.AdvertisementButtonUI.Show);
+                });
 
             //HudButtons
             _buttonUIFactory.Create(hud.PauseMenuButton,
                 hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
 
             //PauseMenuButtons
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton, () =>
-            {
-                hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
-                _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
-            });
-            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
-            {
-                _formService.Show<HudFormView>();
-                
-                saveAction.Invoke();
-                _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.AdvertisementButton,
+                () =>
+                {
+                    hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
+                    _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
+                });
+            _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton,
+                async () =>
+                {
+                    _formService.Show<HudFormView>();
 
-                await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
-            });
+                    saveAction.Invoke();
+                    _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
+
+                    await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
+                });
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.SaveButton, saveAction.Invoke);
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.CloseButton,
                 hud.GameplayFormsContainer.PauseMenuFormView.ShowHudFormView);
@@ -212,7 +217,7 @@ namespace Sources.Infrastructure.Factories.Services.Forms
 
                     await _sceneService.ChangeSceneAsync(Constant.SceneNames.MainMenu);
                 });
-            
+
             //SettingsFormButtons
             _buttonUIFactory.Create(hud.SettingFormButtonContainer.BackToMainMenu,
                 hud.GameplayFormsContainer.SettingFormView.BackToMainMenu<PauseMenuFormView>);
@@ -220,15 +225,16 @@ namespace Sources.Infrastructure.Factories.Services.Forms
                 hud.GameplayFormsContainer.SettingFormView.IncreaseVolume);
             _buttonUIFactory.Create(hud.SettingFormButtonContainer.TornDownVolume,
                 hud.GameplayFormsContainer.SettingFormView.TurnDownVolume);
-            
+
             //UpgradeFormButton
-            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI, () =>
-            {
-                saveAction.Invoke();
-                
-                hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm();
-            });
-            
+            _buttonUIFactory.Create(hud.TavernUpgradePointButtons.CloseButtonUI,
+                () =>
+                {
+                    saveAction.Invoke();
+
+                    hud.GameplayFormsContainer.UpgradeFormView.ShowHudForm();
+                });
+
             //GameOverTexts
             _textUIFactory.Create(hud.GameOverTextContainer.ScoreText, player.Wallet.Score);
 

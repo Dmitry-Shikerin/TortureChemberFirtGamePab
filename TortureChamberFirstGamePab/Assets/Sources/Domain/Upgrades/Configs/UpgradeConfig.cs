@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Sources.Domain.Upgrades.Configs
 {
-    [CreateAssetMenu(fileName = "UpgradeConfig", 
-        menuName = "Characteristics/UpgradeConfig", order = 51)]
+    [CreateAssetMenu(
+        fileName = "UpgradeConfig",
+        menuName = "Characteristics/UpgradeConfig",
+        order = 51)]
     public class UpgradeConfig : ScriptableObject
     {
         [field: SerializeField] public float StartAmountUpgrade { get; private set; }

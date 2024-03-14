@@ -3,7 +3,8 @@ using Sources.ControllersInterfaces;
 
 namespace Sources.Presentation.Views
 {
-    public abstract class PresentableView<T> : View where T : IPresenter
+    public abstract class PresentableView<T> : View
+        where T : IPresenter
     {
         protected T Presenter { get; private set; }
 
@@ -13,21 +14,10 @@ namespace Sources.Presentation.Views
             OnAfterEnable();
         }
 
-        protected void DestroyPresenter() => 
-            Presenter = default;
-
-        protected virtual void OnAfterEnable()
-        {
-        }
-
         public void OnDisable()
         {
             Presenter?.Disable();
             OnAfterDisable();
-        }
-
-        protected virtual void OnAfterDisable()
-        {
         }
 
         public void Construct(T presenter)
@@ -36,6 +26,19 @@ namespace Sources.Presentation.Views
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             Show();
             OnConstructed();
+        }
+
+        protected void DestroyPresenter()
+        {
+            Presenter = default;
+        }
+
+        protected virtual void OnAfterEnable()
+        {
+        }
+
+        protected virtual void OnAfterDisable()
+        {
         }
 
         protected virtual void OnConstructed()

@@ -1,29 +1,25 @@
 ﻿using System;
 using Sources.Controllers.Visitors;
 using Sources.Domain.Visitors;
-using Sources.PresentationInterfaces.Views;
+using Sources.PresentationInterfaces.Views.Visitors;
 
 namespace Sources.Infrastructure.Factories.Controllers.Visitors
 {
     public class VisitorInventoryPresenterFactory
     {
-        public VisitorInventoryPresenter Create
-        (
+        public VisitorInventoryPresenter Create(
             IVisitorInventoryView visitorInventoryView,
-            VisitorInventory visitorInventory
-        )
+            VisitorInventory visitorInventory)
         {
             if (visitorInventoryView == null)
                 throw new ArgumentNullException(nameof(visitorInventoryView));
-            
+
             if (visitorInventory == null)
                 throw new ArgumentNullException(nameof(visitorInventory));
 
-            return new VisitorInventoryPresenter
-            (
+            return new VisitorInventoryPresenter(
                 visitorInventoryView,
-                visitorInventory
-            );
+                visitorInventory);
         }
     }
 }

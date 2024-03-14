@@ -1,5 +1,4 @@
 ﻿using Sources.Infrastructure.StateMachines.FiniteStateMachines.States;
-using UnityEngine;
 
 namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
 {
@@ -12,17 +11,16 @@ namespace Sources.Infrastructure.StateMachines.FiniteStateMachines
             MoveNextState(startState);
         }
 
-        public void Stop() => 
+        public void Stop()
+        {
             _current.Exit();
+        }
 
         public void Update()
         {
             _current.Update();
-            
-            if (_current.TryGetNextState(out FiniteState state) == false)
-            {
-                return;
-            }
+
+            if (_current.TryGetNextState(out var state) == false) return;
 
             MoveNextState(state);
         }

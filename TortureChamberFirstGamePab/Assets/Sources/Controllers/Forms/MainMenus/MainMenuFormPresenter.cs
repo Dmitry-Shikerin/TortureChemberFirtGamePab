@@ -8,8 +8,8 @@ namespace Sources.Controllers.Forms.MainMenus
 {
     public class MainMenuFormPresenter : PresenterBase
     {
-        private readonly IMainMenuFormView _mainMenuFormView;
         private readonly IFormService _formService;
+        private readonly IMainMenuFormView _mainMenuFormView;
 
         public MainMenuFormPresenter(IMainMenuFormView mainMenuFormView, IFormService formService)
         {
@@ -17,10 +17,14 @@ namespace Sources.Controllers.Forms.MainMenus
             _formService = formService ?? throw new ArgumentNullException(nameof(formService));
         }
 
-        public void ShowLeaderBoard() => 
+        public void ShowLeaderBoard()
+        {
             _formService.Show<LeaderboardFormView>();
+        }
 
-        public void ShowSetting() => 
+        public void ShowSetting()
+        {
             _formService.Show<SettingFormView>();
+        }
     }
 }

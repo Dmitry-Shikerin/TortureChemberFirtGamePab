@@ -1,7 +1,6 @@
 ﻿using System;
 using MyProject.Sources.PresentationInterfaces.Views;
 using Sources.Domain.Players.PlayerCameras;
-using Sources.InfrastructureInterfaces.Services;
 using Sources.InfrastructureInterfaces.Services.InputServices;
 using Sources.InfrastructureInterfaces.Services.UpdateServices.Changer;
 
@@ -9,25 +8,23 @@ namespace Sources.Controllers.Player
 {
     public class PlayerCameraPresenter : PresenterBase
     {
+        private readonly IInputService _inputService;
         private readonly PlayerCamera _playerCamera;
         private readonly IPlayerCameraView _playerCameraView;
-        private readonly IInputService _inputService;
         private readonly IUpdateServiceChanger _updateService;
 
-        public PlayerCameraPresenter
-        (
+        public PlayerCameraPresenter(
             PlayerCamera playerCamera,
             IPlayerCameraView playerCameraView,
             IInputService inputService,
-            IUpdateServiceChanger updateService
-        )
+            IUpdateServiceChanger updateService)
         {
-            _playerCamera = playerCamera ?? 
+            _playerCamera = playerCamera ??
                             throw new ArgumentNullException(nameof(playerCamera));
-            _playerCameraView = playerCameraView ?? 
+            _playerCameraView = playerCameraView ??
                                 throw new ArgumentNullException(nameof(playerCameraView));
             _inputService = inputService ??
-                throw new ArgumentNullException(nameof(inputService));
+                            throw new ArgumentNullException(nameof(inputService));
             _updateService = updateService ?? throw new ArgumentNullException(nameof(updateService));
         }
 
@@ -36,7 +33,7 @@ namespace Sources.Controllers.Player
             _inputService.RotationChanged += OnRotationChanged;
             _updateService.ChangedLateUpdate += OnLateUpdate;
         }
-        
+
         public override void Disable()
         {
             _inputService.RotationChanged -= OnRotationChanged;
@@ -48,12 +45,12 @@ namespace Sources.Controllers.Player
             _playerCameraView.Follow();
             _playerCameraView.Rotate(_playerCamera.AngleY);
         }
-        
+
         private void OnRotationChanged(bool isLeftRotation, bool isRightRotation)
         {
-            if(isLeftRotation)
+            if (isLeftRotation)
                 _playerCamera.SetLeftRotation();
-            else if(isRightRotation)
+            else if (isRightRotation)
                 _playerCamera.SetRightRotation();
         }
     }

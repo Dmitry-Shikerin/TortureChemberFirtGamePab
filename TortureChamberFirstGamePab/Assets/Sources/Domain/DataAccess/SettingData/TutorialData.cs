@@ -5,7 +5,6 @@ namespace Sources.Domain.DataAccess.SettingData
 {
     public class TutorialData : IDataModel
     {
-        [JsonProperty("hasCompleted")]
-        public bool HasCompleted { get; set; }
+        [JsonProperty("hasCompleted")] public bool HasCompleted { get; set; }
     }
 }
