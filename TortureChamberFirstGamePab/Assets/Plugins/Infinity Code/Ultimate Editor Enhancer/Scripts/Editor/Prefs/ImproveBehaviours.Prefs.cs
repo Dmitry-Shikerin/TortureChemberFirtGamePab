@@ -2,7 +2,6 @@
 /*     https://infinity-code.com    */
 
 using System.Collections.Generic;
-using InfinityCode.UltimateEditorEnhancer.Interceptors;
 using UnityEditor;
 using UnityEngine;
 

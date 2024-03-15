@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using InfinityCode.UltimateEditorEnhancer.JSON;
-using InfinityCode.UltimateEditorEnhancer.UnityTypes;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;

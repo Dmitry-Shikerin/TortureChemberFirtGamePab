@@ -3,7 +3,6 @@
 
 using System;
 using System.Linq;
-using InfinityCode.UltimateEditorEnhancer.HierarchyTools;
 using InfinityCode.UltimateEditorEnhancer.UnityTypes;
 using UnityEditor;
 using UnityEngine;

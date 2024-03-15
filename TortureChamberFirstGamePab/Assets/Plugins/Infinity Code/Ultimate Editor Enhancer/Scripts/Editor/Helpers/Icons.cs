@@ -1,7 +1,6 @@
 ﻿/*           INFINITY CODE          */
 /*     https://infinity-code.com    */
 
-using System;
 using UnityEngine;
 
 namespace InfinityCode.UltimateEditorEnhancer

@@ -5,7 +5,6 @@ using System;
 using System.Reflection;
 using InfinityCode.UltimateEditorEnhancer.UnityTypes;
 using UnityEditor;
-using UnityEngine;
 
 namespace InfinityCode.UltimateEditorEnhancer.Interceptors
 {

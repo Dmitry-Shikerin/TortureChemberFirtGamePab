@@ -1,7 +1,6 @@
 ﻿/*           INFINITY CODE          */
 /*     https://infinity-code.com    */
 
-using System;
 using InfinityCode.UltimateEditorEnhancer.Interceptors;
 using InfinityCode.UltimateEditorEnhancer.Windows;
 using UnityEditor;

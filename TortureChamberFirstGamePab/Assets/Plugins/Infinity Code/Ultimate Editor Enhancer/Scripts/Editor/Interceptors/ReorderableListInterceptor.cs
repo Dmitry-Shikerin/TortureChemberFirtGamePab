@@ -4,7 +4,6 @@
 using System.Reflection;
 using InfinityCode.UltimateEditorEnhancer.InspectorTools;
 using InfinityCode.UltimateEditorEnhancer.UnityTypes;
-using UnityEngine;
 
 namespace InfinityCode.UltimateEditorEnhancer.Interceptors
 {

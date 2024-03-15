@@ -4,7 +4,6 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using UnityEngine;
 
 namespace InfinityCode.UltimateEditorEnhancer
 {

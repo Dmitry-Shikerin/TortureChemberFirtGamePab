@@ -1,7 +1,6 @@
 ﻿/*           INFINITY CODE          */
 /*     https://infinity-code.com    */
 
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;

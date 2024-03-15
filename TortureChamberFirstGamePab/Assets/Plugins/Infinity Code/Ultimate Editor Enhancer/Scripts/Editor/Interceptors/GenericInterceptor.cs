@@ -1,8 +1,6 @@
 /*           INFINITY CODE          */
 /*     https://infinity-code.com    */
 
-using System;
-
 namespace InfinityCode.UltimateEditorEnhancer.Interceptors
 {
     public abstract class GenericInterceptor<T>: Interceptor where T : GenericInterceptor<T>
