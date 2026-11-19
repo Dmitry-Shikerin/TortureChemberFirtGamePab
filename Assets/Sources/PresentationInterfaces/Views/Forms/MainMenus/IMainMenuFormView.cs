@@ -1,0 +1,8 @@
+﻿namespace PresentationInterfaces.Views.Forms.MainMenus
+{
+    public interface IMainMenuFormView
+    {
+        void ShowLeaderboard();
+        void ShowSetting();
+    }
+}
