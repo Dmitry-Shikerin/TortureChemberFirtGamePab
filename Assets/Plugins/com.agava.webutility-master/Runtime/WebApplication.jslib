@@ -1,4 +1,4 @@
-const library = {
+const agavaWebApplicationLibrary = {
 
     // Class definition.
 
@@ -29,5 +29,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$webApplication');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(agavaWebApplicationLibrary, '$webApplication');
+mergeInto(LibraryManager.library, agavaWebApplicationLibrary);

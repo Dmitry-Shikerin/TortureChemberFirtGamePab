@@ -1,4 +1,4 @@
-const library = {
+const agavaDeviceLibrary = {
     
     // Class definition.
 
@@ -16,5 +16,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$device');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(agavaDeviceLibrary, '$device');
+mergeInto(LibraryManager.library, agavaDeviceLibrary);
