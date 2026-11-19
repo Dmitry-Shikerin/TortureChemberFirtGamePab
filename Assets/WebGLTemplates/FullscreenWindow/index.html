@@ -7,16 +7,25 @@
   <title>{{{ PRODUCT_NAME }}}</title>
 </head>
 
-<body style="margin: 0px; overflow: hidden;" oncontextmenu="return false;">
-  <canvas id="unity-canvas"
-    style="position: fixed; width: 100%; height: 100%; background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}">
+<body style="margin: 0px; overflow: hidden; background-color: black;" oncontextmenu="return false;">
+  <canvas id="unity-canvas" width="1920" height="1080"
+    style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: {{{ BACKGROUND_FILENAME ? 'url(\'Build/' + BACKGROUND_FILENAME.replace(/'/g, '%27') + '\') center / cover' : BACKGROUND_COLOR }}}">
   </canvas>
 
   <div id="progress-bar" style="position: absolute; left: 0%; right: 100%; top: 49%; bottom: 49%; background-color: white;"></div>
 
   <script src="Build/{{{ LOADER_FILENAME }}}"></script>
   <script>
-    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+    const canvas = document.querySelector("#unity-canvas");
+
+    function resizeCanvas() {
+      const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      canvas.style.width = (1920 * scale) + "px";
+      canvas.style.height = (1080 * scale) + "px";
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
 
     const settings = {
       dataUrl: "Build/{{{ DATA_FILENAME }}}",
@@ -34,8 +43,8 @@
       companyName: "{{{ COMPANY_NAME }}}",
       productName: "{{{ PRODUCT_NAME }}}",
       productVersion: "{{{ PRODUCT_VERSION }}}",
-      matchWebGLToCanvasSize: true,
-      devicePixelRatio: !isMobileDevice ? {{{ parseFloat(RENDER_SCALE) ? parseFloat(RENDER_SCALE) : 2.0 }}} : {{{ parseFloat(MOBILE_RENDER_SCALE) ? parseFloat(MOBILE_RENDER_SCALE) : 1.6 }}},
+      matchWebGLToCanvasSize: false,
+      devicePixelRatio: 1,
     };
 
     const progressBar = document.querySelector("#progress-bar");

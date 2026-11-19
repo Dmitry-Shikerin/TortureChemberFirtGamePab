@@ -11,7 +11,8 @@ namespace Infrastructure.Services.LoadServices.Components
 {
     public class PlayerDataService : DataServiceBase, IDataService<Player>
     {
-        public bool CanLoad => PlayerPrefs.HasKey(DataKey.MovementKey);
+        public bool CanLoad =>
+            CanLoadData<MovementData>(DataKey.MovementKey) && CanLoadData<WalletData>(DataKey.WalletKey);
 
         public Player Load() =>
             new (LoadMovement(), new PlayerInventory(), LoadWallet());

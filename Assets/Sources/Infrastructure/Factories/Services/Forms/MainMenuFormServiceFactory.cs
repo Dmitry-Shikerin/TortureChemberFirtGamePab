@@ -138,18 +138,7 @@ namespace Infrastructure.Factories.Services.Forms
                         SceneName.Gameplay, new LoadServicePayload(false));
                 });
 
-            _buttonUIFactory.Create(_mainMenuHUD.ButtonUIContainer.LeaderboardButton, () =>
-                {
-                    if (_playerAccountAuthorizeService.IsAuthorized() == false)
-                    {
-                        _formService.Show<AuthorizationFormView>();
-
-                        return;
-                    }
-
-                    _leaderboardInitializeService.Fill();
-                    _mainMenuHUD.MainMenuFormsContainer.MainMenuFormView.ShowLeaderboard();
-                });
+            _mainMenuHUD.ButtonUIContainer.LeaderboardButton.Hide();
 
             _buttonUIFactory.Create(
                 _mainMenuHUD.ButtonUIContainer.BackToMainMenuButton,

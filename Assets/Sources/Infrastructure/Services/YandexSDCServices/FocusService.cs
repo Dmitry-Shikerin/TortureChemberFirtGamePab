@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Agava.WebUtility;
 using InfrastructureInterfaces.Services.PauseServices;
 using InfrastructureInterfaces.Services.SDCServices;
@@ -10,6 +10,11 @@ namespace Infrastructure.Services.YandexSDCServices
     {
         private readonly IPauseService _pauseService;
 
+        private bool _isAppFocused;
+        private bool _isPageInBackground;
+        private bool _ownsPause;
+        private bool _subscribed;
+
         public FocusService(IPauseService pauseService)
         {
             _pauseService = pauseService ?? throw new ArgumentNullException(nameof(pauseService));
@@ -18,56 +23,79 @@ namespace Infrastructure.Services.YandexSDCServices
         public void Enter(object payload = null)
         {
             if (WebApplication.IsRunningOnWebGL == false)
+            {
                 return;
+            }
 
-            OnInBackgroundChangeWeb(WebApplication.InBackground);
-            OnInBackgroundChangeApp(Application.isFocused);
+            if (_subscribed)
+            {
+                return;
+            }
 
+            _isAppFocused = Application.isFocused;
+            _isPageInBackground = WebApplication.InBackground;
             Application.focusChanged += OnInBackgroundChangeApp;
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChangeWeb;
+            _subscribed = true;
+            UpdatePause();
         }
 
         public void Exit()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            Application.focusChanged -= OnInBackgroundChangeApp;
-            WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
-        }
-
-        private void OnInBackgroundChangeApp(bool inApp)
-        {
-            if (inApp == false)
+            if (_subscribed == false)
             {
-                _pauseService.Pause();
-                _pauseService.PauseSound();
-
                 return;
             }
 
-            if (_pauseService.IsPaused)
-                _pauseService.Continue();
+            Application.focusChanged -= OnInBackgroundChangeApp;
+            WebApplication.InBackgroundChangeEvent -= OnInBackgroundChangeWeb;
+            _subscribed = false;
+            ReleasePause();
+        }
 
-            if (_pauseService.IsSoundPaused)
-                _pauseService.ContinueSound();
+        private void OnInBackgroundChangeApp(bool isFocused)
+        {
+            _isAppFocused = isFocused;
+            UpdatePause();
         }
 
         private void OnInBackgroundChangeWeb(bool isBackground)
         {
-            if (isBackground)
-            {
-                _pauseService.Pause();
-                _pauseService.PauseSound();
+            _isPageInBackground = isBackground;
+            UpdatePause();
+        }
 
+        private void UpdatePause()
+        {
+            bool shouldPause = _isAppFocused == false || _isPageInBackground;
+
+            if (shouldPause == _ownsPause)
+            {
                 return;
             }
 
-            if (_pauseService.IsPaused)
-                _pauseService.Continue();
+            if (shouldPause)
+            {
+                _ownsPause = true;
+                _pauseService.Pause();
+                _pauseService.PauseSound();
+            }
+            else
+            {
+                ReleasePause();
+            }
+        }
 
-            if (_pauseService.IsSoundPaused)
-                _pauseService.ContinueSound();
+        private void ReleasePause()
+        {
+            if (_ownsPause == false)
+            {
+                return;
+            }
+
+            _ownsPause = false;
+            _pauseService.Continue();
+            _pauseService.ContinueSound();
         }
     }
 }

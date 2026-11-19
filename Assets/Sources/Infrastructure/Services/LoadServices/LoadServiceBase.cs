@@ -177,6 +177,7 @@ namespace Infrastructure.Services.LoadServices
             PlayerDataService.Save(_player);
             PlayerUpgradeDataService.Save(_playerUpgrade);
             TavernDataService.Save(_tavern);
+            PlayerPrefs.Save();
         }
 
         protected abstract Player CreatePlayer();
@@ -202,7 +203,7 @@ namespace Infrastructure.Services.LoadServices
             }
         }
 
-        private bool CanLoad() =>
+        public bool CanLoad() =>
             PlayerDataService.CanLoad && TavernDataService.CanLoad && PlayerUpgradeDataService.CanLoad;
     }
 }

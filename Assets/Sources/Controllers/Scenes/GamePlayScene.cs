@@ -78,7 +78,7 @@ namespace Controllers.Scenes
             _pauseMenuService.Enter();
             _gameOverService.Enter();
             _saveAfterCertainPeriodService.Enter(_loadService);
-            _advertisingAfterCertainPeriodService.Enter();
+            // _advertisingAfterCertainPeriodService.Enter();
             _volumeService.Enter();
             _mobilePlatformService.Enter();
 
@@ -94,7 +94,7 @@ namespace Controllers.Scenes
             _pauseMenuService.Exit();
             _gameOverService.Exit();
             _saveAfterCertainPeriodService.Exit();
-            _advertisingAfterCertainPeriodService.Exit();
+            // _advertisingAfterCertainPeriodService.Exit();
             _volumeService.Exit();
 
             _focusService.Exit();

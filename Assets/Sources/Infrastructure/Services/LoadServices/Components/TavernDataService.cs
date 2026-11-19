@@ -10,7 +10,9 @@ namespace Infrastructure.Services.LoadServices.Components
 {
     public class TavernDataService : DataServiceBase, IDataService<Tavern>
     {
-        public bool CanLoad => PlayerPrefs.HasKey(TavernDataKey.TavernMoodKey);
+        public bool CanLoad =>
+            CanLoadData<TavernMoodData>(TavernDataKey.TavernMoodKey) &&
+            CanLoadData<GameplayData>(TavernDataKey.VisitorQuantityKey);
 
         public Tavern Load() =>
             new (LoadTavernMood(), LoadGamePlay());

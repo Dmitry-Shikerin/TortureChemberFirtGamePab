@@ -27,38 +27,40 @@ namespace Infrastructure.Services.YandexSDCServices
 
         public void Fill()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            if (PlayerAccount.IsAuthorized == false)
-                return;
-
-            Leaderboard.GetEntries(LeaderboardName.Leaderboard, result =>
-                {
-                    var count = result.entries.Length < _leaderboardElementViewContainer.LeaderboardElementViews.Count
-                        ? result.entries.Length
-                        : _leaderboardElementViewContainer.LeaderboardElementViews.Count;
-
-                    for (var i = 0; i < count; i++)
-                    {
-                        var rank = result.entries[i].rank;
-                        var score = result.entries[i].score;
-                        var name = result.entries[i].player.publicName;
-
-                        if (string.IsNullOrEmpty(name))
-                            name = YandexGamesSdk.Environment.i18n.lang switch
-                            {
-                                LocalizationConstant.English => Anonymous.English,
-                                LocalizationConstant.Turkish => Anonymous.Turkish,
-                                LocalizationConstant.Russian => Anonymous.Russian,
-                                _ => Anonymous.English
-                            };
-
-                        _leaderboardElementViewFactory.Create(
-                            new LeaderboardPlayer(rank, name, score),
-                            _leaderboardElementViewContainer.LeaderboardElementViews[i]);
-                    }
-                });
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (PlayerAccount.IsAuthorized == false)
+            //     return;
+            //
+            // Leaderboard.GetEntries(LeaderboardName.Leaderboard, result =>
+            //     {
+            //         var count = result.entries.Length < _leaderboardElementViewContainer.LeaderboardElementViews.Count
+            //             ? result.entries.Length
+            //             : _leaderboardElementViewContainer.LeaderboardElementViews.Count;
+            //
+            //         for (var i = 0; i < count; i++)
+            //         {
+            //             var rank = result.entries[i].rank;
+            //             var score = result.entries[i].score;
+            //             var name = result.entries[i].player.publicName;
+            //
+            //             if (string.IsNullOrEmpty(name))
+            //                 name = YandexGamesSdk.Environment.i18n.lang switch
+            //                 {
+            //                     LocalizationConstant.English => Anonymous.English,
+            //                     LocalizationConstant.Turkish => Anonymous.Turkish,
+            //                     LocalizationConstant.Russian => Anonymous.Russian,
+            //                     _ => Anonymous.English
+            //                 };
+            //
+            //             _leaderboardElementViewFactory.Create(
+            //                 new LeaderboardPlayer(rank, name, score),
+            //                 _leaderboardElementViewContainer.LeaderboardElementViews[i]);
+            //         }
+            //     });
+            //
         }
     }
 }

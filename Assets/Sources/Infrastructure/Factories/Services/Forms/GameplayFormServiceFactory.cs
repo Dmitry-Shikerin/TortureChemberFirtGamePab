@@ -151,27 +151,17 @@ namespace Infrastructure.Factories.Services.Forms
                 hud.TavernUpgradePointButtons.InventoryButtonUI, playerInventoryUpgradeView.Upgrade);
             _buttonUIFactory.Create(
                 hud.TavernUpgradePointButtons.MovementButtonUI, playerMovementUpgradeView.Upgrade);
-            _buttonUIFactory.Create(
-                hud.TavernUpgradePointButtons.AdvertisementButtonUI, () =>
-                {
-                    hud.TavernUpgradePointButtons.AdvertisementButtonUI.Hide();
-                    _videoAdService.ShowVideo(hud.TavernUpgradePointButtons.AdvertisementButtonUI.Show);
-                });
+            hud.TavernUpgradePointButtons.AdvertisementButtonUI.Hide();
 
             _buttonUIFactory.Create(hud.PauseMenuButton, hud.GameplayFormsContainer.HudFormView.ShowPauseMenu);
 
-            _buttonUIFactory.Create(
-                hud.PauseMenuButtonContainer.AdvertisementButton, () =>
-                {
-                    hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
-                    _videoAdService.ShowVideo(hud.PauseMenuButtonContainer.AdvertisementButton.Show);
-                });
+            hud.PauseMenuButtonContainer.AdvertisementButton.Hide();
             _buttonUIFactory.Create(hud.PauseMenuButtonContainer.MainMenuButton, async () =>
                 {
                     _formService.Show<HudFormView>();
 
                     saveAction.Invoke();
-                    _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
+                    // _leaderboardScoreSetter.SetPlayerScore(player.Wallet.Score.GetValue);
 
                     await _sceneService.ChangeSceneAsync(SceneName.MainMenu);
                 });

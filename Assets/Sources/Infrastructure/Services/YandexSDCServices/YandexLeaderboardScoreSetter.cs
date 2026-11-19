@@ -9,17 +9,19 @@ namespace Infrastructure.Services.YandexSDCServices
     {
         public void SetPlayerScore(int score)
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            if (PlayerAccount.IsAuthorized == false)
-                return;
-
-            Leaderboard.GetPlayerEntry(LeaderboardName.Leaderboard, result =>
-                {
-                    if (result.score < score)
-                        Leaderboard.SetScore(LeaderboardName.Leaderboard, score);
-                });
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (PlayerAccount.IsAuthorized == false)
+            //     return;
+            //
+            // Leaderboard.GetPlayerEntry(LeaderboardName.Leaderboard, result =>
+            //     {
+            //         if (result.score < score)
+            //             Leaderboard.SetScore(LeaderboardName.Leaderboard, score);
+            //     });
+            //
         }
     }
 }

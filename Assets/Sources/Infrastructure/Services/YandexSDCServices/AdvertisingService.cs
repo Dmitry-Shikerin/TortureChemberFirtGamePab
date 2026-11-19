@@ -28,56 +28,62 @@ namespace Infrastructure.Services.YandexSDCServices
 
         public void ShowInterstitial()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            if (AdBlock.Enabled)
-                return;
-
-            InterstitialAd.Show(
-                () =>
-                {
-                    _pauseService.Pause();
-                    _pauseService.PauseSound();
-                },
-                _ =>
-                {
-                    _pauseService.Continue();
-                    _pauseService.ContinueSound();
-                });
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (AdBlock.Enabled)
+            //     return;
+            //
+            // InterstitialAd.Show(
+            //     () =>
+            //     {
+            //         _pauseService.Pause();
+            //         _pauseService.PauseSound();
+            //     },
+            //     _ =>
+            //     {
+            //         _pauseService.Continue();
+            //         _pauseService.ContinueSound();
+            //     });
+            //
         }
 
         public void ShowVideo(Action onCloseCallback)
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-            {
-                onCloseCallback?.Invoke();
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            // {
+            //     onCloseCallback?.Invoke();
+            //
+            //     return;
+            // }
+            //
+            // if (AdBlock.Enabled)
+            // {
+            //     onCloseCallback?.Invoke();
+            //
+            //     return;
+            // }
+            //
+            // VideoAd.Show(
+            //     () =>
+            //     {
+            //         _pauseService.Pause();
+            //         _pauseService.PauseSound();
+            //     },
+            //     () =>
+            //         PlayerWallet.Add(AdvertisingConstant.CoinsAmount),
+            //     () =>
+            //     {
+            //         _pauseService.Continue();
+            //         _pauseService.ContinueSound();
+            //
+            //         onCloseCallback?.Invoke();
+            //     });
+            //
 
-                return;
-            }
-
-            if (AdBlock.Enabled)
-            {
-                onCloseCallback?.Invoke();
-
-                return;
-            }
-
-            VideoAd.Show(
-                () =>
-                {
-                    _pauseService.Pause();
-                    _pauseService.PauseSound();
-                },
-                () =>
-                    PlayerWallet.Add(AdvertisingConstant.CoinsAmount),
-                () =>
-                {
-                    _pauseService.Continue();
-                    _pauseService.ContinueSound();
-
-                    onCloseCallback?.Invoke();
-                });
+            onCloseCallback?.Invoke();
         }
     }
 }

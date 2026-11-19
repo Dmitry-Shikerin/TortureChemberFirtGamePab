@@ -9,24 +9,30 @@ namespace Infrastructure.Services.YandexSDCServices
     {
         public bool IsAuthorized()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return false;
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return false;
+            //
+            // if (PlayerAccount.IsAuthorized == false)
+            //     return false;
+            //
+            // return true;
+            //
 
-            if (PlayerAccount.IsAuthorized == false)
-                return false;
-
-            return true;
+            return false;
         }
 
         public void Authorize(Action onSuccessCallback)
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            if (PlayerAccount.IsAuthorized)
-                return;
-
-            PlayerAccount.Authorize(onSuccessCallback);
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (PlayerAccount.IsAuthorized)
+            //     return;
+            //
+            // PlayerAccount.Authorize(onSuccessCallback);
+            //
         }
     }
 }

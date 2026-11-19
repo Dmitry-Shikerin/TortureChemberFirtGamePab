@@ -49,10 +49,12 @@ namespace Infrastructure.Factories.Views.Players
             PlayerView playerView = _prefabFactory.Create<PlayerView>(
                 PrefabPath.PlayerView);
 
+            playerView.Movement.SetPosition(player.Movement.HasSavedPosition
+                ? player.Movement.Position
+                : _rootGamePoints.PlayerSpawnPoint.transform.position);
+
             PlayerMovementView playerMovementView = _playerMovementViewFactory.Create(
                 player.Movement, player.Inventory, playerView.Movement, playerView.Animation);
-
-            playerMovementView.SetPosition(_rootGamePoints.PlayerSpawnPoint.transform.position);
 
             _playerWalletViewFactory.Create(player.Wallet, playerView.Wallet);
 

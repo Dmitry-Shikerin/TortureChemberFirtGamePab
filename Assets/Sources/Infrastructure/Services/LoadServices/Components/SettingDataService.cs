@@ -17,23 +17,20 @@ namespace Infrastructure.Services.LoadServices.Components
             _setting = setting ?? throw new ArgumentNullException(nameof(setting));
         }
 
-        private bool CanLoadTutorial => PlayerPrefs.HasKey(SettingDataKey.TutorialKey);
-
-        public bool CanLoad => PlayerPrefs.HasKey(SettingDataKey.VolumeKey);
+        public bool CanLoad =>
+            CanLoadData<VolumeData>(SettingDataKey.VolumeKey);
 
         public Setting Load()
         {
-            if (CanLoad == false)
-                return _setting;
+            if (TryLoadData(SettingDataKey.VolumeKey, out VolumeData volumeData))
+            {
+                _setting.Volume.Step = volumeData.Step;
+            }
 
-            Volume volume = LoadVolume();
-            _setting.Volume.Step = volume.Step;
-
-            if (CanLoadTutorial == false)
-                return _setting;
-
-            Tutorial tutorial = LoadTutorial();
-            _setting.Tutorial.HasCompleted = tutorial.HasCompleted;
+            if (TryLoadData(SettingDataKey.TutorialKey, out TutorialData tutorialData))
+            {
+                _setting.Tutorial.HasCompleted = tutorialData.HasCompleted;
+            }
 
             return _setting;
         }
@@ -42,19 +39,15 @@ namespace Infrastructure.Services.LoadServices.Components
         {
             SaveVolume(@object.Volume);
             SaveTutorial(@object.Tutorial);
+            PlayerPrefs.Save();
         }
 
         public void Clear()
         {
             PlayerPrefs.DeleteKey(SettingDataKey.VolumeKey);
             PlayerPrefs.DeleteKey(SettingDataKey.TutorialKey);
+            PlayerPrefs.Save();
         }
-
-        private Volume LoadVolume() =>
-            new (LoadData<VolumeData>(SettingDataKey.VolumeKey));
-
-        private Tutorial LoadTutorial() =>
-            new (LoadData<TutorialData>(SettingDataKey.TutorialKey));
 
         private void SaveVolume(Volume volume)
         {

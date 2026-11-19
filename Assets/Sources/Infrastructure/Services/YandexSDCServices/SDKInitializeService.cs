@@ -9,32 +9,40 @@ namespace Infrastructure.Services.YandexSDCServices
     {
         public void GameReady()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            YandexGamesSdk.GameReady();
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // YandexGamesSdk.GameReady();
+            //
         }
 
         public void EnableCallbackLogging()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            if (YandexGamesSdk.CallbackLogging)
-                return;
-
-            YandexGamesSdk.CallbackLogging = true;
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (YandexGamesSdk.CallbackLogging)
+            //     return;
+            //
+            // YandexGamesSdk.CallbackLogging = true;
+            //
         }
 
-        public async UniTask Initialize()
+        public UniTask Initialize()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // if (YandexGamesSdk.IsInitialized)
+            //     return;
+            //
+            // await YandexGamesSdk.Initialize();
+            //
 
-            if (YandexGamesSdk.IsInitialized)
-                return;
-
-            await YandexGamesSdk.Initialize();
+            return UniTask.CompletedTask;
         }
     }
 }

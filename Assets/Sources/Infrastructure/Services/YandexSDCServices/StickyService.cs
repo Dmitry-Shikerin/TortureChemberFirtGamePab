@@ -8,10 +8,12 @@ namespace Infrastructure.Services.YandexSDCServices
     {
         public void ShowSticky()
         {
-            if (WebApplication.IsRunningOnWebGL == false)
-                return;
-
-            StickyAd.Show();
+            // Yandex integration is disabled for the itch.io release.
+            // if (WebApplication.IsRunningOnWebGL == false)
+            //     return;
+            //
+            // StickyAd.Show();
+            //
         }
     }
 }

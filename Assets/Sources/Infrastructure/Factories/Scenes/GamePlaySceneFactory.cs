@@ -105,6 +105,11 @@ namespace Infrastructure.Factories.Scenes
             if (canLoad == false)
                 return _createService;
 
+            if (_loadService.CanLoad() == false)
+            {
+                return _createService;
+            }
+
             return _loadService;
         }
     }

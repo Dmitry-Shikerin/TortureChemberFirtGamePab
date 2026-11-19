@@ -10,7 +10,10 @@ namespace Infrastructure.Services.LoadServices.Components
 {
     public class PlayerUpgradeDataService : DataServiceBase, IDataService<PlayerUpgrade>
     {
-        public bool CanLoad => PlayerPrefs.HasKey(UpgradeDataKey.CharismaKey);
+        public bool CanLoad =>
+            CanLoadData<CharismaUpgradeData>(UpgradeDataKey.CharismaKey) &&
+            CanLoadData<InventoryUpgradeData>(UpgradeDataKey.InventoryKey) &&
+            CanLoadData<MovementUpgradeData>(UpgradeDataKey.MovementKey);
 
         public PlayerUpgrade Load() =>
             new (LoadCharismaUpgrader(), LoadInventoryUpgrader(), LoadMovementUpgrader());
